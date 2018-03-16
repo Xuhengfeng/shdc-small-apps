@@ -1,0 +1,52 @@
+@import "../../iconfont.wxss";
+.page{
+  padding: 40rpx;
+}
+.page_hd .flexBox{
+  display: flex;
+  flex-direction: row;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 100rpx;
+}
+.flexBox .line{
+  flex: 1;
+  height: 1px;
+  background: #c7c7c7;
+}
+.flexBox text{
+  flex: 1;
+  font-size: 30rpx;
+  color: #c7c7c7;
+}
+.btn_Login{
+    margin-top: 20px
+}
+.page__bd{
+  margin-top: 40rpx;
+}
+.page__bd input{
+    height: 120rpx;
+    line-height: 120rpx;
+    font-size: 40rpx;
+    border-bottom: 1px solid #ccc;
+}
+.section{
+    overflow: hidden;
+}
+.clear{
+  font-size: 80rpx;
+}
+.sendBtn{
+  float: right;
+  display: block;
+  margin-top: 40rpx;
+  font-size: 40rpx;
+}
+button{
+  margin-top: 40rpx;
+  border-radius: 0;
+  font-size: 40rpx;
+}

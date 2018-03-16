@@ -1,0 +1,75 @@
+<navigator url="../houseDetail/houseDetail?id={{item.menuId}}" style="margin-top:10rpx;">
+  <view class="item">
+      <view class="image"><image src="{{'../../images/banner.png'}}"></image></view>
+      <view>
+        <view style="font-size:30rpx;line-height:1">1121{{item.name}}</view>
+        <view style="font-size:26rpx;color:#666666;padding-top:20rpx;line-height:1">
+          <text style="margin-right:20rpx">宝安</text>
+          <text style="margin-right:20rpx">光明小区</text>
+          <text style="margin-right:20rpx">京基百纳旁</text>
+        </view>
+        <view style="font-size:26rpx;color:#666666;padding-top:10rpx;line-height:1">
+          <text style="margin-right:20rpx">2房2厅</text>
+          <text>86m²</text>
+        </view>
+        <view style="font-size:26rpx;color:#666666;padding-top:10rpx;">
+          <text style="margin-right:20rpx;background:#5ee4a7;padding:5rpx 10rpx;color:#fff;">学区房</text>
+          <text style="margin-right:20rpx;background:#ffcc9a;padding:5rpx 10rpx;color:#fff;">地铁旁</text>
+          <text style="margin-right:20rpx;background:#fface5;padding:5rpx 10rpx;color:#fff;">超市旁</text>
+        </view>
+        <view style="font-size:26rpx;color:#666666;padding-top:20rpx;line-height:1">
+          <text style="font-size:34rpx;color:#ff4343;margin-right:25rpx">375万</text>
+          <text style="font-size:22rpx;color:#666666;">123456<text>元/平米</text></text>
+        </view>
+      </view>
+  </view>
+</navigator>
+
+<view class="section1">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label">姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入您的姓名"/>
+        </view>
+    </view>
+    <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+            <view class="weui-label">电话</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" type="number" maxlength="11" placeholder="请输入您的手机号" />
+        </view>
+    </view>
+  </view>
+</view>
+<view class="section2">
+  <!-- 预定义的 -->
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">预约看房时间</view>
+      </view>
+      <view class="weui-cell__bd">
+         <picker mode="date" value="{{date}}" start="2017-09-01" end="2019-09-01" bindchange="bindDateChange">
+            <view class="weui-input" style="text-align:right;">{{index}}</view>
+        </picker> 
+        <!-- <view class="section">
+          <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+            <view class="picker">
+              {{index}}
+            </view>
+          </picker>
+        </view> -->
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+  </view> 
+</view>
+
+<view class="section3">
+  <button class="weui-btn" type="warn">提交</button>
+</view>
+

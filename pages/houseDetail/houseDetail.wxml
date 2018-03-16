@@ -1,0 +1,227 @@
+<import src="../template/template.wxml"/>
+
+<view class="header">
+  <swiper bindchange="listenSwiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image bindtap="previewIamge" src="{{item}}" data-src="{{item}}" class="slide-image" height="150" style="width:100%!important;background-size:cover" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="indicator">
+    <text>{{currentIndex}}/{{imagelength}}</text>
+  </view>
+</view>
+
+<view class="section1">
+  <!-- 小区找房详情 -->
+  <block wx:if="{{detailType==33}}">
+      <text class="title">光明小区</text>      
+  </block> 
+
+  <!-- 租房详情 -->
+  <block wx:if="{{detailType==22}}">
+      <text class="title">光明小区学房</text>
+      <view class="description1">
+          {{'3453'}}<text style="font-size:26rpx;margin-left:10rpx;">元/月</text>
+      </view>
+  </block>
+  
+  <!-- 二手房(买房)详情 -->
+  <block wx:if="{{detailType==11}}">
+    <text class="title">光明小区学房</text>
+    <view class="description2">
+        <text>60万</text>
+        <text>8250万元/平米</text>
+    </view>
+  </block>
+</view>
+
+  <!-- 小区找房 -->
+  <block wx:if="{{detailType==33}}">
+      <view class="estate">
+            <navigator url="../index/hotHouse?title=小区二手房">
+                <image src="../../images/estate1.png"></image>
+                <view>二手房</view>
+            </navigator>
+            <navigator url="../index/buyRentHouse?title=我要租房">
+                <image src="../../images/estate2.png"></image>
+                <view>租房</view>
+            </navigator>
+      </view>
+  </block>
+
+<view class="section2">
+  <view class="title">
+    <text wx:if="{{detailType!==33}}">房源信息</text>
+    <text wx:if="{{detailType==33}}">小区信息</text>
+  </view>
+  <view class="labelgroup">
+      <view wx:for="{{[1,1,1,1]}}">
+        朝向：<text>朝南</text>
+      </view>
+      <!-- <view>朝向：<text>朝南</text></view>
+      <view>朝向：<text>朝南</text></view>
+      <view>朝向：<text>朝南</text></view>
+      <view>朝向：<text>朝南</text></view>
+      <view>朝向：<text>朝南</text></view>
+      <view>朝向：<text>朝发生大大法师的发生的发生的发生的南</text></view> -->
+  </view>
+</view>
+
+<view class="section3">
+  <view class="title">
+    <text wx:if="{{detailType!==33}}">房源位置</text>
+    <text wx:if="{{detailType==33}}">小区位置</text>
+  </view>
+  <view class="map">
+      <!-- 动态地图 -->
+      <view class="map_container" wx:if="{{hiddenModal}}">
+        <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" show-location="true" markers="{{markers}}" bindmarkertap="makertap" style="width:100%"></map>
+      </view>
+      <!-- 静态地图 -->
+      <image src="{{src}}" style="width:100%;background-size:cover" wx:if="{{!hiddenModal}}"></image> 
+  </view>
+</view>
+
+<view class="section4">
+  <block wx:if="{{detailType!==33}}">
+    <navigator url="houseDetailInfo" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">房屋简介</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <view class="content">
+        哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否打字范德萨哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否
+        哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否打字范德萨哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否
+        哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否打字范德萨哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否
+    </view>
+  </block>
+  <block wx:if="{{detailType==33}}">
+       <!-- 小区找房详情 -->
+      <view class="title">
+          <text>周边设施</text>      
+      </view>
+      <view class="facilityLabel" wx:for="{{[1,1,1,1,1]}}">
+          {{'交通'}}<text>：{{'fasdfasdfasdfasdf'}}</text>
+      </view>  
+  </block>
+</view>
+
+
+<view class="section5" wx:if="{{detailType!==33}}">
+  <view class="title"><text>关联小区</text></view>
+  <block wx:for="{{guanlianList}}">
+    <navigator url="">
+        <view class="item">
+            <view class="image">
+              <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
+            </view>
+            <view>
+              <!-- 二手房(买房)详情 -->
+              <template is="houseContent1" data="{{item}}" wx:if="{{detailType}}"/>
+              <!-- 租房详情 -->
+              <template is="houseContent2" data="{{item}}" wx:if="{{!detailType}}"/>
+            </view>
+        </view>
+    </navigator>
+  </block>
+</view>
+
+<view class="section6" wx:if="{{detailType!==33}}">
+  <view class="title"><text>附近房源</text></view>
+  <block wx:for="{{[1,1,1,1]}}">
+    <navigator url="">
+        <view class="item">
+            <view class="image">
+              <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
+            </view>
+            <view>
+              <!-- 二手房(买房)、租房详情 -->
+              <template is="houseContent2" data="{{item}}"/>
+            </view>
+        </view>
+    </navigator>
+  </block>
+</view>
+
+
+<view class="footer-placeholder" wx:if="{{detailType!==33}}">
+  <!--填充盒补齐底部高度-->
+</view>
+
+<!-- cover-view 写法 -->
+<cover-view class="footer" wx:if="{{detailType!==33}}">
+  <cover-view class="collectionLike" bindtap="toggleSelectLike">
+    <cover-view class="like">
+      <cover-image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
+      <cover-image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
+       <cover-view class="attention">收藏</cover-view> 
+    </cover-view>
+  </cover-view>
+  <cover-view class="type1" wx:if="{{true}}">
+    <cover-view bindtap="jumpLookHouse">预约看房</cover-view>
+    <cover-view bindtap="listenerButton">联系经纪人</cover-view>
+  </cover-view>
+  <cover-view class="type2" wx:if="{{false}}">
+    <cover-view bindtap="listenerButton">联系经纪人</cover-view>
+  </cover-view>
+</cover-view> 
+<template is="shadowLay" data="{{hiddenModal,listenerButton}}"/>
+
+
+<!-- 小区详情 -->
+<view class="section66" wx:if="{{detailType==33}}">
+  <view class="guess-like">
+    <view style="float:left;margin:60rpx 0 40rpx;font-size:40rpx;line-height:1;font-weight:normal;">
+      <text style="color:#f00;margin-right:10rpx;font-weight:normal;">|</text>猜你喜欢
+    </view>
+    <view class="twoselect">
+      <text style="font-weight:normal;font-size:30rpx;margin-right:24rpx" 
+            wx:for="{{guessYouLike}}" 
+            wx:key="key" 
+            data-index="{{index}}" 
+            bindtap="selectYouLike" 
+            class="{{index == num?'red':''}}">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- twohandhouse -->
+  <block wx:for="{{[1,1,1,1]}}" wx:key="key">
+      <navigator url="../houseDetail/houseDetail?id={{item.id}}&houseDetail={{houseDetail}}">
+          <view class="item">
+              <view class="image">
+                <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
+              </view>
+              <view>
+                <view style="font-size:30rpx;line-heihgt:1;">光明小区{{item.name}}</view>
+                <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
+                  <text style="margin-right:20rpx">宝安</text>
+                  <text style="margin-right:20rpx">光明小区</text>
+                  <text style="margin-right:20rpx">京基百纳旁</text>
+                </view>
+                <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
+                  <text style="margin-right:20rpx">2房2厅</text>
+                  <text>86m²</text>
+                </view>
+                <view style="font-size:26rpx;color:#666666;margin-top:10rpx;">
+                  <text style="margin-right:20rpx;background:#5ee4a7;padding:5rpx 10rpx;color:#fff;">学区房</text>
+                  <text style="margin-right:20rpx;background:#ffcc9a;padding:5rpx 10rpx;color:#fff;">地铁旁</text>
+                  <text style="margin-right:20rpx;background:#fface5;padding:5rpx 10rpx;color:#fff;">超市旁</text>
+                </view>
+                <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
+                  <text style="font-size:34rpx;color:#ff4343;margin-right:25rpx">375万</text>
+                  <text style="font-size:22rpx;color:#666666;">123456<text>元/平米</text></text>
+                </view>
+              </view>
+          </view>
+      </navigator>
+  </block>
+  <view class="tips">
+      <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
+      <view wx:elif="{{twohandhouse.length==0}}"><text>没有更多内容</text></view>
+      <navigator wx:elif="{{twohandhouse.length!=0}}" url="../searchList/searchList?houseType={{houseType[num]}}">查看全部房源</navigator> 
+  </view>
+  <loading wx:if="{{showload}}">
+    加载中...
+  </loading>
+</view>

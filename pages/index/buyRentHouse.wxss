@@ -1,0 +1,132 @@
+/* pages/buyHouse.wxss */
+@import "../template/template.wxss";
+::-webkit-scrollbar{
+  display: none;
+}
+.header{
+  position: relative;
+  height: 400rpx;
+}
+.header swiper{
+  height: 100%;
+}
+.header .indicator{
+  position: absolute;
+  left: 50%;
+  bottom: 14rpx;
+  transform: translateX(-50%);
+}
+.header .indicator view{
+  display: inline-block;
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 100%;
+  margin-right: 15rpx;
+}
+.serarch-content{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent;
+  padding: 20rpx 0;
+  z-index: 1000;
+  height: 120rpx;
+  box-sizing: border-box;
+}
+.serarch-content .search-bg{
+  margin-left: 50%; 
+  transform: translateX(-50%);
+  background: rgba(255,255,255,.9);
+  border-radius: 15rpx;
+  width: 660rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  box-shadow: 0 0 10rpx rgba(0,0,0,.1); 
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.serarch-content .search{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  width: 100%;
+}
+.serarch-content .search image{
+  width: 25rpx;
+  height: 25rpx;
+  margin: 10rpx 10rpx 0 30rpx;
+}
+.serarch-content .search input{
+  font-size: 26rpx;
+  flex: 1;
+}
+/*轮播图指示器*/
+.gray{
+  background: rgba(0,0,0,.4);
+}
+.white{
+  background: #ffffff;
+}
+
+.section1{
+  overflow: hidden;
+}
+.section1 .title{
+  margin: 50rpx 0 30rpx 22rpx;
+  font-size: 40rpx;
+  color: #333333;
+}
+.section1 .recommend{
+  height: 240rpx;
+}
+.section1 .recommend .goods-item{
+  width: 380rpx;
+  height: 100%;
+  margin-left: 20rpx;
+  display: inline-block;
+  position: relative;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+.section1 .recommend .goods-item image{
+  width: 100%;
+  height: 100%;
+}
+.section1 .recommend .goods-item .content{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 40rpx;
+}
+/*nav菜单*/
+.labelgroup{
+  margin-top: 50rpx;
+  border-bottom: 1rpx solid #cacaca;
+  position: relative;
+}
+.labelgroup .navbar{
+  background: #f9f9f9;
+}
+.labelgroup .content{
+  position: absolute;
+  left: 0;
+  top: 70rpx;
+  background: #ffffff;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* 滚动固定 */
+.fixed{
+  position: fixed;
+  left: 0;
+  top: 56px;
+  width: 100%;
+  background: #f9f9f9;
+}
+.canfixed{
+  position: relative;
+}

@@ -1,0 +1,80 @@
+<!--component/navBar/navBar.wxml-->
+ <!-- 遮罩层 -->
+<view class="shadowModal"
+      data-statu="close" 
+      wx:if="{{showModalStatus}}"
+      bindtap="cancelModal">
+</view>
+<view class="labelgroup">
+  <view class="navbar" 
+        data-statu="open"
+        catchtap="selectItem">
+        <view class="nav"
+              data-index="{{index}}"
+              wx:for="{{label}}"
+              wx:key="{{index}}">
+              {{item}}<image src="../../images/drop.png"/>
+        </view>
+  </view>
+  <view class="content" animation="{{animationData}}">
+      <view wx:if="{{num == 0}}" class="area">
+        <scroll-view scroll-y class="one">
+            <view>宝安区</view>
+            <view>宝安区</view>
+        </scroll-view>
+        <scroll-view scroll-y class="two">
+            <view>xx片区</view>
+            <view>xx片区</view>
+        </scroll-view>
+      </view>
+      <view wx:if="{{num == 1}}" class="housetype">
+        <view class="housetype-hd">
+            <text wx:for="{{[1,1,1]}}" data-num="{{index}}" bindtap="pricelabel">单间</text>
+        </view>
+        <view class="housetype-ft">
+            <button type="primary" style="background:#f2f2f2;border:0;color:#666666">条件不限</button>
+            <button type="primary" class="globalBtnColor">确定</button>
+        </view>
+      </view>
+      <view wx:if="{{num == 2}}" class="price">
+        <view class="price-hd">
+            <text wx:for="{{[1,1,1]}}" data-num="{{index}}" bindtap="pricelabel">50万元以下</text>
+        </view>
+        <view class="price-bd">
+          <view class="title">自定义区间 (万)</view>
+          <view>
+              <input placeholder="最小金额" type="number" maxlength="888"/>
+              <view class="line"></view>
+              <input placeholder="最大金额" type="number"/>
+          </view>
+        </view>
+        <view class="price-ft">
+            <button type="primary" style="background:#f2f2f2;border:0;color:#666666">条件不限</button>
+            <button type="primary" class="globalBtnColor">确定</button>
+        </view>
+      </view>
+      <view wx:if="{{num == 3}}" class="area2">
+        <view class="area2-hd">
+            <text>0-100m²</text>
+            <text>0-100m²</text>
+            <text>0-100m²</text>
+            <text>0-100m²</text>
+        </view>
+        <view class="area2-ft">
+            <button type="primary" style="background:#f2f2f2;border:0;color:#666666">条件不限</button>
+            <button type="primary" class="globalBtnColor">确定</button>
+        </view>
+      </view>
+      <view wx:if="{{num==4}}" class="type">
+        <view class="type-hd">
+            <text>普通住宅</text>
+            <text>别墅</text>
+            <text>商业类</text>
+        </view>
+        <view class="type-ft">
+            <button type="primary" style="background:#f2f2f2;border:0;color:#666666">条件不限</button>
+            <button type="primary" class="globalBtnColor">确定</button>
+        </view>
+      </view>
+  </view>
+</view>

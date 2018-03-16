@@ -1,0 +1,21 @@
+/* pages/houseDetail/houseDetailInfo.wxss */
+page{
+  padding: 30rpx 0;
+  background: #ffffff;
+}
+.section{
+  padding: 0 30rpx;
+  background: #ffffff;
+}
+.section .title{
+  line-height: 1;
+  color: #666666;
+  font-size: 30rpx;
+  margin-bottom: 30rpx;
+}
+.section .content{
+  margin-bottom: 60rpx;
+  text-align: justify;
+  font-size: 34rpx;
+  color: #333333;
+}

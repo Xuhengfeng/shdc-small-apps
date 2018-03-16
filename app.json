@@ -1,0 +1,60 @@
+{
+  "pages": [
+    
+    "pages/index/buyRentHouse",
+    "pages/index/index",
+    "pages/houseDetail/houseDetailInfo",
+    
+    "pages/houseDetail/houseDetail",
+    "pages/search/search",
+    "pages/index/sellRent",
+    "pages/splash/splash",
+    "pages/searchList/searchList",
+    "pages/index/guideHand",
+    "pages/index/hotHouse",
+    "pages/mine/login",
+    "pages/houseDetail/lookHouse",
+    "pages/location/location",
+    "pages/mine/mine",
+    
+    "pages/mine/collection",
+    
+    "pages/h5Pages/h5Pages"
+    
+    
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#ff4343",
+    "navigationBarTitleText": "世华地产",
+    "navigationBarTextStyle": "#ffffff",
+    "backgroundColor": "#f8f8f8",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#666",
+    "selectedColor": "#ff4343",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/home-off.png",
+        "selectedIconPath": "images/home-on.png",
+        "text": "主页"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "images/my-off.png",
+        "selectedIconPath": "images/my-on.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 2000,
+    "connectSocket": 1000,
+    "uploadFile": 1000,
+    "downloadFile": 1000
+  }
+}

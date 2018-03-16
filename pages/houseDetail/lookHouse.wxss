@@ -1,0 +1,24 @@
+@import "../template/template.wxss";
+page{
+  background: #f8f8f8;
+}
+.item{
+  background: #ffffff;
+}
+.section1{
+  margin-top: 30rpx;
+}
+.section2{
+  margin-top: 20rpx;
+}
+.section3{
+  margin-top: 160rpx;
+}
+.weui-cells:after,
+.weui-cells:before{
+	border: 0;
+}
+.weui-btn{
+  width: 600rpx;
+  background: #ff4343;
+}
