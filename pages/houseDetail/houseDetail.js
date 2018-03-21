@@ -4,18 +4,15 @@ const app = getApp();
 Page({
   data: {
     //轮播图banner
-    imgUrls: ['http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'],
-    imgalist: [],
     indicatorDots: false,
     indicatorColor: null,
     autoplay: false,
     interval: 2000,
     duration: 1000,
     currentIndex: 1,//初始值
-    imagelength: 1,//默认图片长度
+
     
     hiddenModal: true,//二手房(买房)、租房联系经纪人true , 小区联系经纪人false
-    guanlianList: [],//关联小区
     likeFlag: true,//喜欢 收藏
 
     //高德地图定位
@@ -27,114 +24,158 @@ Page({
 
     //小区详情 猜你喜欢
     guessYouLike: ['二手房', '租房'],
+    guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
     num: 0,//默认样式
+
 
     //二手房(买房)详情11，租房详情22, 小区详情33 
     detailType: null,//详情类型
-    houseDetail: null,
+    houseDetailId: {},//房屋本身的id
+    houseDetail: null,//房屋详情 
+    guanlianList: null,//关联小区
+    nearbyHouse: null,//附近房源
+    guessYoulikeHouse: [],//猜你喜欢的
+    IPS: [Api.IP_TWOHANDHOUSEDETAIL, Api.IP_RENTHOUSEDETAIL, Api.IP_BUILDINFO],//二手房(买房) 租房 小区
+    IpsNum: 0,
+    currentCity: null,//城市
+    page: 1,
+    flagPrice: true
   },
   onLoad(options) {
     wx.setNavigationBarTitle({
       title: options.houseDetail,
     })
-    console.log(options)
     if(options.houseDetail == '二手房'||options.houseDetail == '我要买房') {//二手房
       this.setData({
         detailType: 11,
-        houseDetail: options.houseDetail
+        houseDetailId: options.id,
+        IpsNum: 0
       });
     }else if(options.houseDetail == '租房'||options.houseDetail == '我要租房'){//租房
       this.setData({
         detailType: 22,
-        houseDetail: options.houseDetail
+        houseDetailId: options.id,
+        IpsNum: 1
       });
     }else if(options.houseDetail == '小区找房'){//小区
       this.setData({
         detailType: 33,
-        houseDetail: options.houseDetail
+        houseDetailId: options.id,
+        IpsNum: 2
       });
     }
-
-    //TODO: 请求banner 图片length;
-    this.setData({imagelength: 1});
-
-
-    var that = this;
-    var myAmapFun = new amapFile.AMapWX({key: 'beb494604d40692de0a8af2d5137c244' });
-
-    // 动态地图
-    myAmapFun.getPoiAround({
-      iconPathSelected: '选中 marker 图标的相对路径', //如：..­/..­/img/marker_checked.png
-      iconPath: '未选中 marker 图标的相对路径', //如：..­/..­/img/marker.png
-      success: (data)=> {
-        console.log(data)
-        var markersData = data.markers; 
-        that.setData({
-          markers: markersData//这块考虑怎么用真实数据替换掉
-        });
-        that.setData({
-          latitude: markersData[0].latitude
-        });
-        that.setData({
-          longitude: markersData[0].longitude + 0.098
-        });
-        // that.showMarkerInfo(markersData, 0);
-      },
-      fail: (info)=> {
-        wx.showModal({ title: info.errMsg })
-      }
-    })
-
-    // 静态地图
-    wx.getSystemInfo({
-      success: (data)=> {
-        var width = data.windowWidth
-        var size = width + "*" + 200;
-        myAmapFun.getStaticmap({
-          zoom: 8,
-          size: size,
-          scale: 2,
-          markers: "mid,0xFF0000,A:116.37359,39.92437;116.47359,39.92437",
-          success: (data)=> {
-            that.setData({src: data.url})
-          },
-          fail: (info)=> {
-            wx.showModal({ title: info.errMsg })
-          }
+    
+    wx.getStorage({
+      key: 'selectCity',
+      success: (res)=> {
+        this.setData({
+          currentCity:  res.data.value
         })
+          //map 地图定位
+          wx.getLocation({
+            type: 'gcj02',
+            success: () => {
+               //二手房详情 租房详情 小区找房详情
+              this.buyRentRequest(this.data.houseDetailId);              
+            }
+          })
+        }
+    })
+    
+  },
+  //二手房详情 租房详情 小区找房详情
+  buyRentRequest(sdid) {
+    if (this.data.detailType == 11 || this.data.detailType == 22) {
+      //二手房详情 租房详情
+      app.httpRequest(this.data.IPS[this.data.IpsNum] + this.data.currentCity + '/' + sdid, 'GET', (error, data) => {
+        this.setData({
+          latitude: data.data.py,
+          longitude: data.data.px,
+          houseDetail: data.data,
+          markers: [{
+            id: "1",
+            latitude: data.data.py,
+            longitude: data.data.px,
+            width: 50,
+            height: 50,
+            title: data.data.houseTitle
+          }]
+        })
+        //附近房源详情
+        this.nearbyHouseRequest(data.data.px, data.data.py, this.data.currentCity, data.data.buildSdid);
+        //关联小区详情 
+        this.guanlianListRequest(data.data.px, data.data.py, this.data.currentCity, data.data.buildSdid);
+      })
+    }
+    //小区找房详情
+    if (this.data.detailType == 33) {
+      wx.request({
+        url: this.data.IPS[this.data.IpsNum] + this.data.currentCity + '/' + this.data.houseDetailId,
+        data: {},
+        method: "GET",
+        header: { 'Content-Type': 'application/json' },
+        success: (res2) => {
+          console.log(res2.data.data.py)
+          console.log(res2.data.data.px)
+          this.setData({
+            latitude: res2.data.data.py,
+            longitude: res2.data.data.px,
+            houseDetail: res2.data.data,
+            markers: [{
+              id: "1",
+              latitude: res2.data.data.py,
+              longitude: res2.data.data.px,
+              width: 50,
+              height: 50,
+              title: res2.data.data.buildName
+            }]
+          });
+        }
+      })
+    }
+
+    //猜你喜欢(默认二手房 首页第1页数据)
+    var IP = this.data.guessLikeIP[0] + '/' + this.data.currentCity;
+    this.getDataFromServer(IP, { pageNo: 1 });
+  },
+  //附近房源详情
+  nearbyHouseRequest(px, py, currentCity, buildSdid) {
+    wx.request({
+      url: Api.IP_RIMHOUSING,
+      data: {
+        "buildSdid": parseInt(buildSdid),
+        "px": px,
+        "py": py,
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': currentCity
+      },
+      method: "POST",
+      header: { 'Content-Type': 'application/json' },
+      success: (res) => {
+        console.log(res.data)
+        res.data.data.forEach((item) => {
+          item.houseTag = item.houseTag.split(',');
+        })
+        this.setData({
+          nearbyHouse: res.data.data,
+        });
       }
     })
-
   },
-  makertap(e) {//覆盖物点击
-    var id = e.markerId;
-    var that = this;
-    that.showMarkerInfo(markersData, id);
-    that.changeMarkerColor(markersData, id);
-  },
-  showMarkerInfo: function(data, i) {
-    var that = this;
-    that.setData({
-      textData: {
-        name: data[i].name,
-        desc: data[i].address
+  //关联小区详情 
+  guanlianListRequest(px, py, currentCity, buildSdid) {
+    wx.request({
+      url: Api.IP_BUILDINFO + currentCity + '/' + buildSdid,
+      data: {},
+      method: "GET",
+      header: { 'Content-Type': 'application/json' },
+      success: (res) => {
+        this.setData({
+          guanlianList: res.data.data,
+        });
       }
-    });
-  },
-  changeMarkerColor: function (data, i) {
-    var that = this;
-    var markers = [];
-    for (var j = 0; j < data.length; j++) {
-      if (j == i) {
-        data[j].iconPath = "选中 marker 图标的相对路径"; //如：..­/..­/img/marker_checked.png
-      } else {
-        data[j].iconPath = "未选中 marker 图标的相对路径"; //如：..­/..­/img/marker.png
-      }
-      markers.push(data[j]);
-    }
-    that.setData({
-      markers: markers
-    });
+    })
   },
   listenSwiper(e) {
     console.log(e)
@@ -156,6 +197,11 @@ Page({
     this.setData({
       hiddenModal: !this.data.hiddenModal
     })
+  },
+  RefreshHouseDetail(e){//重新请求数据
+    console.log(e)
+    let sdid = e.target.dataset.id;
+    this.buyRentRequest(sdid); 
   },
   jumpLookHouse() {//预约看房
     wx.navigateTo({
@@ -187,7 +233,6 @@ Page({
     console.log(23123)
   },
   onShareAppMessage(options) {
-    console.log(options)
     var that = this;
     // 设置菜单中的转发按钮触发转发事件时的转发内容
     var shareObj = {
@@ -219,67 +264,58 @@ Page({
   //小区详情 猜你喜欢
   selectYouLike(e) {//猜你喜欢 二手房 租房
     this.setData({ num: e.target.dataset.index })
-    var IP = this.data.guessLikeIP[this.data.num];
+    var IP = this.data.guessLikeIP[this.data.num] +'/'+ this.data.currentCity;
     var params = {
-      pageNo: this.data.pageNo
+      pageNo: this.data.page
     }
     this.getDataFromServer(IP, params);
   },
   getDataFromServer(IP, params) {//猜你喜欢
-    let that = this;
-    that.setData({
+    this.setData({
       showload: true,
       hasMore: true
     })
-    if(that.data.hasMore == true) {
+    if(this.data.hasMore == true) {
       wx.request({
         url: IP,
         data: params,
-        method: "POST",
+        method: "GET",
         header: { 'Content-Type': 'application/json' },
-        success: function (res) {
+        success: (res)=> {
           if (res.statusCode == 200) {
-            if (res.data.status == 1) {
-              that.setData({
-                twohandhouse: res.data,
-                hasMore: false,
-                showload: false
-              })
+            res.data.data.forEach((item) => {
+              item.houseTag = item.houseTag.split(',');
+            })
+            this.setData({
+              guessYoulikeHouse: res.data.data,
+              hasMore: false,
+              showload: false
+            })
+            if (this.data.num == 0) {
+              this.setData({ flagPrice: true })
+            } else {
+              this.setData({ flagPrice: false })
             }
           }
           if (res.statusCode == 500) {
-            that.setData({
+            this.setData({
               hasMore: false,
               showload: false
             })
             wx.showModal({
               title: '提示',
               content: '服务器异常',
-              success: function (res) {
-                if (res.confirm) {
-                  console.log('用户点击确定')
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                }
-              }
             })
           }
         },
         fail: function (error) {
-          that.setData({
+          this.setData({
             hasMore: false,
             showload: false
           })
           wx.showModal({
             title: '提示',
             content: '服务器异常',
-            success: function (res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
           })
         }
       })

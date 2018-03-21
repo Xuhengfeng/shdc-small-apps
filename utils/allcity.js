@@ -1,3 +1,4 @@
+//mock 数据
 var city = [
   {
     title: "热门城市",

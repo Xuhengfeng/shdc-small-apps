@@ -1,0 +1,24 @@
+<!--pages/index/shop.wxml-->
+<view class="header">
+  <view class="list-search">
+    <view class='list-search-box'><icon type="search" size="15"/>
+      <input placeholder="请输入你要查询的信息" bindinput='input' />
+    </view>
+     <!-- <button class="search-button" catchtap="searchMt">搜索</button>  -->
+  </view>  
+</view>
+<view style="height:45px;"></view>
+<block wx:for="{{[1,2,2,2]}}">
+  <view class="content">
+    <view class='one'>高新园科技路点</view>
+    <view class='two'>高新园科技路点</view>
+    <view class='three'>
+      <image src="../../images/location2.png" style="width:50rpx;height:50rpx;"></image>
+      0.132km
+    </view>
+    <view class="btnGroup">
+      <view>门店位置</view>
+      <view>电话咨询</view>
+    </view>
+  </view>
+</block>

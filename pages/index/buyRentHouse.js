@@ -11,64 +11,91 @@ Page({
     duration: 1000,
     currentIndex: 0,
 
-    label: [1,2,3,4,5], 
+    //为你推荐
+    recommend: [],
+
+    label: [], 
     scrollTop: 0,
     cityCode: null,
     tone:'rgba(249,249,249,0)',//头部渐变色值
     houseDetail: null,//房源详情
-    windowHeight: '100%',
-    houseList: [1,1,1,1,1],
+    houseList: [],
     flagPrice: true,
     navTop: null,//菜单距离顶部位置
     mysearch: null,//search高度
+    recmd: [Api.IP_HOUSERECMDLIST, Api.IP_RENTRECMDLIST], //推荐
+    IPS: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE],//列表
+    showload: false,
+    num: 0,
+    keyword: null,//获取用户输入值
   },
   onLoad(options) {
-    var that = this;
-    wx.setNavigationBarTitle({
-      title: options.title
-    })
-    wx.showNavigationBarLoading();
+    //初始化
+    wx.setNavigationBarTitle({ title: options.title })
     if(options.title == '我要买房') {
-      that.setData({
+      this.setData({
         label: ["区域", "户型", "价格", "面积", "类型"],
         houseDetail: options.title,
-        flagPrice: false
+        flagPrice: false,
+        num: 0
       });
-    }else if(options.title == '我要租房') {
-      that.setData({
+    }else if (options.title == '我要租房') {
+      this.setData({
         label: ["区域", "户型", "租金", "面积"],
         houseDetail: options.title,
-        flagPrice: true
+        flagPrice: true,
+        num: 1
       });
     }
+
+
     wx.getStorage({
       key: 'selectCity',
-      success: (res)=> {
-        let ret = res.data.value ? res.data.value : res.data;
-        app.httpRequest(Api.IP_INDEXCONSULT + ret + "/HOUSE_USED_BANNER", 'GET',(error, data) => {//获取主页资讯Banner
-          if(data) {
-            that.setData({
-              imgUrls: data.data
-            })
+      success: (res) => {
+        this.setData({cityCode: res.data.value});
+        //我要买房 租房 列表
+        this.getDataFromServer(this.data.IPS[this.data.num], 1, this.data.cityCode);
+
+        // banner图片
+        app.httpRequest(Api.IP_INDEXCONSULT + res.data.value + "/HOUSE_USED_BANNER", 'GET', (error, data) => {//获取主页资讯Banner
+          if (data) {
+            this.setData({ imgUrls: data.data })
           }
-          if(error) {
+          if (error) {
             wx.showModal({
               title: '提示',
-              content: '服务器异常',
+              content: '服务器异常'
             })
           }
         });
-        wx.hideNavigationBarLoading();
+
+        //为你推荐
+        app.httpRequest(this.data.recmd[this.data.num] + res.data.value, 'GET', (error, data) => {//获取主页资讯Banner
+          console.log(data.data)
+          if (data) {
+            this.setData({ recommend: data.data })
+          }
+          if (error) {
+            wx.showModal({
+              title: '提示',
+              content: '服务器异常'
+            })
+          }
+        });
       }
     })
+
+    //计算高度
     this.getRect();
   },
   getRect() {
     wx.createSelectorQuery().select('#mynav').boundingClientRect((rect)=> {
       this.setData({navTop: rect.top})
+      console.log('nav:'+rect.top)
     }).exec()
     wx.createSelectorQuery().select('#mysearch').boundingClientRect((rect)=> {
       this.setData({mysearch: rect.height})
+      console.log('search:'+rect.height)
     }).exec()
   },
   onPageScroll(res) {//页面滚动监听
@@ -88,29 +115,84 @@ Page({
       currentIndex: e.detail.current
     })
   },
-  onShow() {//接口调取成功的回调 生命周期
-    wx.getSystemInfo({
-      success: (res) => {
-        this.setData({
-          windowHeight: res.windowHeight,
-          windowWidth: res.windowWidth
-        })
-      }
-    })
-  },
   onMyEvent(item) {//控制nav菜单
     console.log(item)
-    wx.pageScrollTo({
-      scrollTop: 333,
-      duration: 0
-    })
-    this.setData({
-      tone: '#f9f9f9',
-    })
+    wx.pageScrollTo({scrollTop: 333,
+                     duration: 0})
+    this.setData({tone: '#f9f9f9'})
   },
   cancelModal() {
+    this.setData({ scrollTop: 0 })
+  },
+  userSearch(e) {//用户输入关键字
     this.setData({
-      scrollTop: 0
+      keyword: e.detail.value,
+    })
+  },
+  startsearch() {//点击icon搜索
+    if (!this.data.keyword) {
+      wx.showModal({
+        content: '请输入关键词',
+      })
+      return;
+    } else {
+      if (this.data.history.length <= 5) {
+        if (this.data.history.indexOf(this.data.keyword) == -1) {
+          this.data.history.unshift(this.data.keyword);
+        }
+      } else {
+        this.data.history.unshift(this.data.keyword);
+        this.data.history.pop();
+      }
+      this.searchRequest();
+    }
+  },
+  bindconfirm() {
+    this.searchRequest();
+  },
+  searchRequest() {
+    //请求
+  },
+  onReachBottom() {
+    var page = this.data.page++;
+    this.getDataFromServer(this.data.IPS[this.data.num], page, this.data.cityCode)
+  },
+  getDataFromServer(IP, page, cityCode) {//请求数据
+    this.setData({showload: true})
+    wx.request({
+      url: IP,
+      data: {
+        pageNo: page,
+        pageSize: 10,
+        scity: cityCode
+      },
+      method: "POST",
+      header: {'Content-Type': 'application/json' },
+      success: (res) => {
+        if (res.statusCode == 200) {
+          res.data.data.forEach((item) => {
+            item.houseTag = item.houseTag.split(',');
+          })
+          this.setData({
+            houseList: res.data.data,
+            hasMore: false,
+            showload: false
+          })
+          if(this.data.num == 0) {
+            this.setData({ flagPrice: true })
+          }else{
+            this.setData({ flagPrice: false })
+          }
+        }
+        if(res.statusCode == 500) {
+          this.setData({showload: false})
+          wx.showModal({
+            title: '提示',
+            content: '服务器异常'
+          })
+        }
+      }
     })
   }
 })
+

@@ -9,13 +9,15 @@
   <block wx:for="{{houseList}}">
       <navigator url="../houseDetail/houseDetail?id={{item.id}}&houseDetail={{houseDetail}}">
           <view class="item" style="background:#ffffff;">
-              <view class="image"><image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image></view>
+              <view class="image">
+                <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
+              </view>
               <view>
-                  <view style="font-size:30rpx;line-heihgt:1;">光明小区{{item.name}}</view>
+                  <view style="font-size:30rpx;line-heihgt:1;">{{item.houseTitle}}</view>
                   <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
-                    <text style="margin-right:20rpx">宝安</text>
-                    <text style="margin-right:20rpx">光明小区</text>
-                    <text style="margin-right:20rpx">京基百纳旁</text>
+                    <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.districtName}}</text>
+                    <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.houseDirection}}</text>
+                    <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.houseFeature}}</text>
                   </view>
                   <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
                     2房2厅<text style="margin-left:20rpx">86m²</text>
@@ -162,40 +164,44 @@
   </view>
 </template>
 
-<!-- 关联小区content 类型  -->
+<!-- 关联小区 热门小区 小区二手房 content 类型  -->
 <template name="houseContent1">
-  <view style="font-size:36rpx;color:#333333;line-height:1">{{item}}光明小区</view>
+  <view style="font-size:36rpx;color:#333333;line-height:1">{{guanlianList.buildName}}</view>
   <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1">
-    <text>南山区高新园</text><text style="margin: 0 10rpx;">/</text>
-    <text>2006建成</text><text style="margin: 0 10rpx;">/</text>
-    <text>公寓</text>
+    <text style="margin-right:10rpx">{{guanlianList.areaName}}</text>
+    <text style="margin-right:10rpx">{{guanlianList.districtName}}</text>
+    <text style="margin-right:10rpx">{{guanlianList.buildAge}}建成</text>
+    <text style="margin-right:10rpx;line-height:1.6">{{item.buildType}}</text>
   </view>
   <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1">
-    <text>在售10套</text><text style="margin: 0 10rpx;">/</text><text>在租1套</text>
+    <text>在售{{guanlianList.saleCount}}套</text><text style="margin: 0 10rpx;">/</text><text>在租{{guanlianList.rentCount}}套</text>
   </view>
   <view style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
-      {{'1336'}}<text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/月</text>
+      {{guanlianList.avgSalePrice}}<text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
   </view>
 </template>
 
 
 <template name="houseContent2">
-  <view style="font-size:30rpx;line-height:1">{{item}}光明小区</view>
+  <view style="font-size:30rpx;line-height:1">{{item.buildName}}</view>
   <view style="color:#666666;margin-top:20rpx;line-height:1">
-    <text style="margin-right:20rpx;font-size:26rpx;">宝安</text>
-    <text style="margin-right:20rpx;font-size:26rpx;">光明小区</text>
-    <text style="margin-right:20rpx;font-size:26rpx;">京基百纳旁</text>
+    <text style="margin-right:10rpx">{{item.areaName}}</text>
+    <text style="margin-right:10rpx">{{item.districtName}}</text>
+    <text style="margin-right:10rpx">{{item.buildAge}}建成</text>
+    <text style="margin-right:10rpx;line-height:1.6">{{item.buildType}}</text>
   </view>
   <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1">
-    <text style="margin-right:20rpx">2房2厅</text>
-    <text>86m²</text>
+    <text style="margin-right:20rpx">{{item.roomsNum}}房{{item.livingRoomNum}}厅</text>
+    <text>{{item.builtArea}}m²</text>
   </view>
-  <view style="margin-top:10rpx;line-height:1">
-    <text style="margin-right:20rpx;background:#5ee4a7;padding:5rpx 10rpx;color:#fff;font-size:22rpx;">学区房</text>
-    <text style="margin-right:20rpx;background:#ffcc9a;padding:5rpx 10rpx;color:#fff;font-size:22rpx;">地铁旁</text>
-    <text style="margin-right:20rpx;background:#fface5;padding:5rpx 10rpx;color:#fff;font-size:22rpx;">超市旁</text>
+  <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+    <text wx:for="{{item.houseTag}}" 
+          wx:key="{{index2}}"
+          wx:for-item="item2" 
+          wx:for-index="index2" 
+          style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
   </view>
-  <view  style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
-    {{'1336万'}}<text style="font-size:22rpx;color:#666666;margin-left:25rpx;">{{'13213'}}元/平米</text>
+  <view style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+      {{item.salePrice}}<text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
   </view>
 </template>

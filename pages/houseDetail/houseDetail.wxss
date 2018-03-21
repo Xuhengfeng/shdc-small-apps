@@ -80,11 +80,12 @@ page{
   color: #ff4343;
   font-size: 40rpx;
   margin-right: 20rpx;
+  white-space: nowrap;
 }
 /* 买房详情 */
 .section1 .description2{
-  margin-right: 25rpx;
   text-align: center;
+  width: 300rpx;
 }
 .section1 .description2>text{
   display: block;
@@ -181,11 +182,14 @@ page{
   color: #333333;
 }
 .section4 .facilityLabel{
-  padding-left: 25rpx;
+  padding: 0 25rpx;
   line-height: 1;
-  margin-bottom: 30rpx;
 }
-.section4 .facilityLabel:nth-last-of-type(1){
+.section4 .facilityLabel view{
+  margin-bottom:30rpx;
+  line-height:1.5;
+}
+.section4 .facilityLabel view:nth-last-of-type(1){
    margin-bottom: 0; 
 }
 
@@ -329,4 +333,14 @@ page{
 }
 .red{
   color: #ff4343;
+}
+
+.houseTag text:nth-of-type(1){
+  background: #5ee4a7;
+}
+.houseTag text:nth-of-type(2){
+  background: #ffcc9a;
+}
+.houseTag text:nth-of-type(3){
+  background: #fface5;
 }

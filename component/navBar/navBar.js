@@ -38,7 +38,7 @@ Component({
         isScroll: false,
         showModalStatus: true,
       });
-      this.util();
+      //this.util();//开启动画
       this.triggerEvent('myevent', this.data)
     },
     pricelabel(e) {//价格标签 筛选

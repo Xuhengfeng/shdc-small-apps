@@ -29,4 +29,7 @@
       <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
       <view wx:else><text>没有更多内容了</text></view>
   </view>
+  <loading wx:if="{{showload}}">
+    加载中...
+  </loading>
  </scroll-view> 

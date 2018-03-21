@@ -1,14 +1,13 @@
 {
   "pages": [
-    
-    "pages/index/buyRentHouse",
     "pages/index/index",
+    "pages/index/buyRentHouse",
+    "pages/index/shop",
     "pages/houseDetail/houseDetailInfo",
     
     "pages/houseDetail/houseDetail",
     "pages/search/search",
     "pages/index/sellRent",
-    "pages/splash/splash",
     "pages/searchList/searchList",
     "pages/index/guideHand",
     "pages/index/hotHouse",

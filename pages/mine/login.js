@@ -51,7 +51,7 @@ Page({
       })
     }else{
       wx.login({
-        success: (res)=> {
+        success: res=> {
           if(res.code) {
             wx.getUserInfo({
               withCredentials: true,
@@ -64,7 +64,7 @@ Page({
                     secret: '6084fb0068f085973119f82359dddd4f',
                     grant_type: 'authorization_code'
                   },
-                  success: (response)=> {
+                  success: response=> {
                     wx.setStorageSync('openId', response.data.openid);
                   }
                 })
@@ -81,17 +81,17 @@ Page({
                 wx.showModal({
                   title: '警告通知',
                   content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
-                  success: function (res) {
+                  success: res=> {
                     if(res.confirm) {
                       wx.openSetting({
-                        success: (res) => {
+                        success: res=> {
                           if (res.authSetting["scope.userInfo"]) {//如果用户重新同意了授权登录
                             wx.login({
-                              success: function (res_login) {
+                              success: res_login=> {
                                 if(res_login.code) {
                                   wx.getUserInfo({
                                     withCredentials: true,
-                                    success: function (res_user) {
+                                    success: res_user=> {
                                       wx.request({
                                         url: 'https://api.weixin.qq.com/sns/jscode2session',
                                         data: {
@@ -101,7 +101,7 @@ Page({
                                         },
                                         method: 'GET',
                                         header: {'content-type': 'application/json'},
-                                        success: (res)=> {
+                                        success: res=> {
                                           that.setData({
                                             nickName: res.data.nickName,
                                             avatarUrl: res.data.avatarUrl,

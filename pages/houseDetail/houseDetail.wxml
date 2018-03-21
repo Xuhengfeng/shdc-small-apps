@@ -1,27 +1,35 @@
 <import src="../template/template.wxml"/>
 
 <view class="header">
-  <swiper bindchange="listenSwiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-    <block wx:for="{{imgUrls}}">
+  <swiper bindchange="listenSwiper" 
+          indicator-dots="{{indicatorDots}}" 
+          autoplay="{{autoplay}}" 
+          interval="{{interval}}" 
+          duration="{{duration}}">
+    <block wx:for="{{houseDetail.housePicList}}">
       <swiper-item>
-        <image bindtap="previewIamge" src="{{item}}" data-src="{{item}}" class="slide-image" height="150" style="width:100%!important;background-size:cover" />
+        <image bindtap="previewIamge" 
+               src="{{item}}" 
+               data-src="{{item}}" 
+               class="slide-image" 
+               style="width:100%!important;height:100%!important"/>
       </swiper-item>
     </block>
   </swiper>
   <view class="indicator">
-    <text>{{currentIndex}}/{{imagelength}}</text>
+    <text>{{currentIndex}}/{{houseDetail.housePicList.length}}</text>
   </view>
 </view>
 
 <view class="section1">
   <!-- 小区找房详情 -->
   <block wx:if="{{detailType==33}}">
-      <text class="title">光明小区</text>      
+      <text class="title">{{houseDetail.buildName}}</text>      
   </block> 
 
   <!-- 租房详情 -->
   <block wx:if="{{detailType==22}}">
-      <text class="title">光明小区学房</text>
+      <text class="title" style="line-height:1.2">{{houseDetail.houseTitle}}</text>
       <view class="description1">
           {{'3453'}}<text style="font-size:26rpx;margin-left:10rpx;">元/月</text>
       </view>
@@ -29,10 +37,10 @@
   
   <!-- 二手房(买房)详情 -->
   <block wx:if="{{detailType==11}}">
-    <text class="title">光明小区学房</text>
+    <text class="title" style="line-height:1.2">{{houseDetail.houseTitle}}</text>
     <view class="description2">
-        <text>60万</text>
-        <text>8250万元/平米</text>
+        <text>{{houseDetail.saleTotal}}万</text>
+        <text>{{houseDetail.saleprice}}元/平米</text>
     </view>
   </block>
 </view>
@@ -56,16 +64,21 @@
     <text wx:if="{{detailType!==33}}">房源信息</text>
     <text wx:if="{{detailType==33}}">小区信息</text>
   </view>
-  <view class="labelgroup">
-      <view wx:for="{{[1,1,1,1]}}">
-        朝向：<text>朝南</text>
-      </view>
-      <!-- <view>朝向：<text>朝南</text></view>
-      <view>朝向：<text>朝南</text></view>
-      <view>朝向：<text>朝南</text></view>
-      <view>朝向：<text>朝南</text></view>
-      <view>朝向：<text>朝南</text></view>
-      <view>朝向：<text>朝发生大大法师的发生的发生的发生的南</text></view> -->
+  <view class="labelgroup" wx:if="{{detailType!==33}}">
+      <view>朝向：<text>{{houseDetail.houseDirection}}</text></view>
+      <view>大小：<text>{{houseDetail.builtArea}}m²</text></view>
+      <view>户型：<text>{{houseDetail.houseType}}</text></view>
+      <view>类型：<text>{{houseDetail.houseRight}}</text></view>
+      <view>装修：<text>{{houseDetail.houseDecoration}}</text></view>
+      <view>年代：<text>{{houseDetail.buildAge}}</text></view>
+  </view>
+  <view class="labelgroup" wx:if="{{detailType==33}}">
+      <view>建筑年代: <text>{{houseDetail.buildAge}}</text></view>
+      <view>小区类型：<text>{{houseDetail.buildType}}</text></view>
+      <view>栋数：<text>{{houseDetail.totalBuildNum}}</text></view>
+      <view>小区面积：<text>{{houseDetail.totalCoverArea}}</text></view>
+      <view>车位数：<text>{{houseDetail.carDownNum+houseDetail.carUpNum}}</text></view>
+      <view>绿化率：<text>{{houseDetail.greenRatio}}</text></view>
   </view>
 </view>
 
@@ -75,10 +88,9 @@
     <text wx:if="{{detailType==33}}">小区位置</text>
   </view>
   <view class="map">
-      <!-- 动态地图 -->
-      <view class="map_container" wx:if="{{hiddenModal}}">
-        <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" show-location="true" markers="{{markers}}" bindmarkertap="makertap" style="width:100%"></map>
-      </view>
+        <!-- 腾讯地图 -->
+        <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 100%;"></map>
+
       <!-- 静态地图 -->
       <image src="{{src}}" style="width:100%;background-size:cover" wx:if="{{!hiddenModal}}"></image> 
   </view>
@@ -91,9 +103,7 @@
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </navigator>
     <view class="content">
-        哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否打字范德萨哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否
-        哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否打字范德萨哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否
-        哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否打字范德萨哈佛拉升反倒是看见离婚纠纷的股份散 发多少是否
+        {{houseDetail.buildSynop}}
     </view>
   </block>
   <block wx:if="{{detailType==33}}">
@@ -101,8 +111,12 @@
       <view class="title">
           <text>周边设施</text>      
       </view>
-      <view class="facilityLabel" wx:for="{{[1,1,1,1,1]}}">
-          {{'交通'}}<text>：{{'fasdfasdfasdfasdf'}}</text>
+      <view class="facilityLabel">
+          <view>交通: <text>{{houseDetail.transportInfo}}</text></view>
+          <view>学校: <text>{{houseDetail.schoolInfo}}</text></view>
+          <view>医院: <text>{{houseDetail.hospitalInfo}}</text></view>
+          <view>银行: <text>{{houseDetail.bankInfo}}</text></view>
+          <view>超市: <text>{{houseDetail.supermarketInfo}}</text></view> 
       </view>  
   </block>
 </view>
@@ -110,37 +124,33 @@
 
 <view class="section5" wx:if="{{detailType!==33}}">
   <view class="title"><text>关联小区</text></view>
-  <block wx:for="{{guanlianList}}">
-    <navigator url="">
-        <view class="item">
-            <view class="image">
-              <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
-            </view>
-            <view>
-              <!-- 二手房(买房)详情 -->
-              <template is="houseContent1" data="{{item}}" wx:if="{{detailType}}"/>
-              <!-- 租房详情 -->
-              <template is="houseContent2" data="{{item}}" wx:if="{{!detailType}}"/>
-            </view>
-        </view>
-    </navigator>
-  </block>
+  <navigator url="">
+      <view class="item">
+          <view class="image">
+            <image src="{{guanlianList.housePic?guanlianList.housePic:'../../images/astate.png'}}"></image>
+          </view>
+          <view>
+            <!-- 二手房 小区 -->
+            <template is="houseContent1" data="{{guanlianList}}" wx:if="{{detailType==11||detailType==33}}"/>
+            <!-- 租房 -->
+            <template is="houseContent2" data="{{guanlianList}}" wx:if="{{detailType==22}}"/>
+          </view>
+      </view>
+  </navigator>
 </view>
 
 <view class="section6" wx:if="{{detailType!==33}}">
   <view class="title"><text>附近房源</text></view>
-  <block wx:for="{{[1,1,1,1]}}">
-    <navigator url="">
-        <view class="item">
-            <view class="image">
-              <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
-            </view>
-            <view>
-              <!-- 二手房(买房)、租房详情 -->
-              <template is="houseContent2" data="{{item}}"/>
-            </view>
-        </view>
-    </navigator>
+  <block wx:for="{{nearbyHouse}}">
+      <view class="item" bindtap="RefreshHouseDetail" data-id="{{item.sdid}}">
+          <view class="image">
+            <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
+          </view>
+          <view>
+            <!-- 二手房(买房)、租房详情 -->
+            <template is="houseContent2" data="{{item}}"/>
+          </view>
+      </view>
   </block>
 </view>
 
@@ -166,7 +176,7 @@
     <cover-view bindtap="listenerButton">联系经纪人</cover-view>
   </cover-view>
 </cover-view> 
-<template is="shadowLay" data="{{hiddenModal,listenerButton}}"/>
+ <template is="shadowLay" data="{{hiddenModal,listenerButton}}"/> 
 
 
 <!-- 小区详情 -->
@@ -186,35 +196,37 @@
   </view>
 
   <!-- twohandhouse -->
-  <block wx:for="{{[1,1,1,1]}}" wx:key="key">
-      <navigator url="../houseDetail/houseDetail?id={{item.id}}&houseDetail={{houseDetail}}">
-          <view class="item">
-              <view class="image">
-                <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
+  <block wx:for="{{guessYoulikeHouse}}" wx:key="index" wx:for-item="item">
+      <view class="item">
+            <view class="image">
+              <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
+            <view class="item-content">
+              <view class="item-title">{{item.houseTitle}}</view>
+              <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
+                {{item.areaName}} {{item.districtName}} {{item.houseDirection}}
               </view>
-              <view>
-                <view style="font-size:30rpx;line-heihgt:1;">光明小区{{item.name}}</view>
-                <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
-                  <text style="margin-right:20rpx">宝安</text>
-                  <text style="margin-right:20rpx">光明小区</text>
-                  <text style="margin-right:20rpx">京基百纳旁</text>
-                </view>
-                <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
-                  <text style="margin-right:20rpx">2房2厅</text>
-                  <text>86m²</text>
-                </view>
-                <view style="font-size:26rpx;color:#666666;margin-top:10rpx;">
-                  <text style="margin-right:20rpx;background:#5ee4a7;padding:5rpx 10rpx;color:#fff;">学区房</text>
-                  <text style="margin-right:20rpx;background:#ffcc9a;padding:5rpx 10rpx;color:#fff;">地铁旁</text>
-                  <text style="margin-right:20rpx;background:#fface5;padding:5rpx 10rpx;color:#fff;">超市旁</text>
-                </view>
-                <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
-                  <text style="font-size:34rpx;color:#ff4343;margin-right:25rpx">375万</text>
-                  <text style="font-size:22rpx;color:#666666;">123456<text>元/平米</text></text>
-                </view>
+
+              <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
+                <text style="margin-right:20rpx">{{item.houseType}}</text>
+                <text>{{item.builtArea}}m²</text>
               </view>
+
+              <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+                <text wx:for="{{item.houseTag}}" 
+                      wx:key="{{index2}}"
+                      wx:for-item="item2" 
+                      wx:for-index="index2" 
+                      style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
+              </view>
+
+            <view wx:if="{{flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                {{item.saleTotal}}万<text style="font-size:24rpx;color:#666666;margin-left:25rpx;">{{item.salePrice}}元/平米</text>
+            </view>
+            <view wx:if="{{!flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                {{item.rentPrice}}<text style="font-size:24rpx;color:#666666;margin-left:10rpx">元/月</text>
+            </view>
           </view>
-      </navigator>
+      </view>
   </block>
   <view class="tips">
       <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>

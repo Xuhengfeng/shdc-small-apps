@@ -20,16 +20,28 @@ Page({
     num: 0,//猜你喜欢哪一个
     purchase_guide: null,//二手房购房指南资讯
     houseUsed: null,//成交量统计
-    twohandhouse: [],//二手房
+    houseList: [],//房源数据
+    hotbuilding: [],//获取热门小区
     guessYouLike: ['二手房', '租房'],//猜你喜欢
     guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
     showload: false,
     scrollTop: 0, //距离顶部
     houseType: ['二手房', '租房'],//查看全部房源
     currentCity: 'beihai', //默认城市
+    flagPrice: true //是否有价格  二手房 租房
   },
   onLoad() {
-    app.httpRequest(Api.IP_INDEXCONSULT + this.data.currentCity +"/INDEX_BANNER", 'GET', (error, data)=> {//获取主页banner资讯
+    //城市
+    wx.setStorage({
+      key: 'selectCity',
+      data: {
+        name: this.data.myLocation,
+        value: this.data.currentCity
+      }
+    })
+
+    //获取主页banner资讯
+    app.httpRequest(Api.IP_INDEXCONSULT + this.data.currentCity +"/INDEX_BANNER", 'GET', (error, data)=> {
       if(data) this.setData({ imgUrls: data.data });
       if(error) {
         wx.showModal({
@@ -37,13 +49,11 @@ Page({
           content: '服务器异常',
           success: (res)=>{}
         })
-        this.setData({
-          hasMore: false,
-          showload: false
-        })
       }
     })
-    app.httpRequest(Api.IP_INDEXCONSULT+ this.data.currentCity +"/PURCHASE_GUIDE", 'GET', (error, data)=> {//获取主页二手房指南资讯
+
+    //获取主页二手房指南资讯
+    app.httpRequest(Api.IP_INDEXCONSULT+ this.data.currentCity +"/PURCHASE_GUIDE", 'GET', (error, data)=> {
       if(data) this.setData({purchase_guide: data.data});
       if(error) {
         wx.showModal({
@@ -51,13 +61,11 @@ Page({
           content: '服务器异常',
           success: (res) => { }
         })
-        this.setData({
-          hasMore: false,
-          showload: false
-        })
       }
     })
-    app.httpRequest(Api.IP_HOUSEUSED+ this.data.currentCity, 'GET', (error, data)=> {//获取成交量统计
+
+    //获取成交量统计
+    app.httpRequest(Api.IP_HOUSEUSED+ this.data.currentCity, 'GET', (error, data)=> {
       if (data) this.setData({houseUsed: data.data});
       if(error) {
         wx.showModal({
@@ -65,35 +73,36 @@ Page({
           content: '服务器异常',
           success: (res) => { }
         })
-        this.setData({
-          hasMore: false,
-          showload: false
-        })
       }
     })
-
-    var IP = this.data.guessLikeIP[0] + '/' + this.data.currentCity;//猜你喜欢(默认二手房 首页第1页数据)
-    var params = {pageNo: 1, scity: this.data.currentCity};
-    this.getDataFromServer(IP, params);
-  },
-  selectCityRequest() {
-    var that = this;
-    wx.getStorage({
-      key: 'selectCity',
-      success: function(res) {
-        if(res.data.value) {
-          app.httpRequest(Api.IP_INDEXCONSULT+res.data.value+"/INDEX_BANNER", 'GET', (error, data)=> {//获取主页资讯Banner
-            that.setData({imgUrls: data.data})
-          })
-          app.httpRequest(Api.IP_HOUSEUSED+res.data.value, 'GET', (error, data)=> {//获取成交量统计
-            that.setData({houseUsed: data.data})
-          })
-          app.httpRequest(Api.IP_RENTHOUSELIKE+res.data.value, 'POST', (error, data) => {//获取首页 猜你喜欢二手房
-            that.setData({twohandhouse: data.data })
+   
+   //热门小区
+    wx.request({
+      url: Api.IP_HOTBUILDING + this.data.currentCity,
+      data: {
+        pageNo: 1,
+        pageSize: 10
+      },
+      method: "GET",
+      header: { 'Content-Type': 'application/json' },
+      success: (res) => {
+        if(res.statusCode == 200) {
+          if(res.data.status == 1) {
+            this.setData({ hotbuilding: res.data.data});
+          }
+        }else if(res.statusCode == 500) {
+          wx.showModal({
+            title: '提示',
+            content: '服务器异常',
+            success: (res) => { }
           })
         }
       }
     })
+
+    //猜你喜欢(默认二手房 首页第1页数据)
+    var IP = this.data.guessLikeIP[0] + '/' + this.data.currentCity;
+    this.getDataFromServer(IP, {pageNo: 1});
   },
   onSwiperTap(e) {//轮播图点击跳转
     var postId = e.target.dataset.id;
@@ -105,14 +114,9 @@ Page({
     this.setData({currentIndex: e.detail.current})
   },
   selectYouLike(e) {//猜你喜欢 二手房 租房
-    this.setData({
-      num: e.target.dataset.index,
-    })
+    this.setData({num: e.target.dataset.index})
     var IP = this.data.guessLikeIP[this.data.num]+'/'+this.data.currentCity;
-    var params = {
-      pageNo: this.data.pageNo,
-      scity: this.data.currentCity
-    }
+    var params = {pageNo: this.data.pageNo}
     this.getDataFromServer(IP, params);
   },
   getDataFromServer(IP, params) {//猜你喜欢
@@ -134,10 +138,15 @@ Page({
                 item.houseTag=item.houseTag.split(',');
               })
               that.setData({
-                twohandhouse: res.data.data,
+                houseList: res.data.data,
                 hasMore: false,
                 showload: false
               })
+              if(this.data.num == 0) {
+                this.setData({flagPrice: true})
+              }else{
+                this.setData({flagPrice: false})
+              }
             }
           }
           if(res.statusCode == 500) {
@@ -149,9 +158,9 @@ Page({
               title: '提示',
               content: '服务器异常',
               success: function (res) {
-                if (res.confirm) {
+                if(res.confirm) {
                   console.log('用户点击确定')
-                } else if (res.cancel) {
+                }else if(res.cancel) {
                   console.log('用户点击取消')
                 }
               }

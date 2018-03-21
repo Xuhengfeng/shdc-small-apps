@@ -1,7 +1,7 @@
 <view>
   <view class="header" bindtap="login">
       <view class="headImage">
-          <image src="{{avatarUrl? avatarUrl : '../../images/my-off.png'}}"/> 
+          <image src="{{avatarUrl? avatarUrl : '../../images/mineHeader.png'}}"/> 
          <!-- <image class="iconfont icon-icon-test2"/> -->
       </view>
     <view class="login">{{nickName?nickName:'点击注册/登录'}}</view>
@@ -13,7 +13,7 @@
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
         <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="telphone">
-            <view class="weui-cell__bd">客服电话<text class="phone">13212361223</text></view>
+            <view class="weui-cell__bd">客服电话<text class="phone">132-1236-1223</text></view>
         </navigator>
     </view>
     <view class="weui-cells weui-cells_after-title" wx:if="{{showLogout}}" bindtap="logout">
