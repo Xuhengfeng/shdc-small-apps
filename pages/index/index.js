@@ -120,12 +120,11 @@ Page({
     this.getDataFromServer(IP, params);
   },
   getDataFromServer(IP, params) {//猜你喜欢
-    let that = this;
-    that.setData({
+    this.setData({
       showload: true,
       hasMore: true
     })
-    if(that.data.hasMore == true) {
+    if(this.data.hasMore == true) {
       wx.request({
         url: IP,
         data: params,
@@ -137,7 +136,7 @@ Page({
               res.data.data.forEach((item)=> {
                 item.houseTag=item.houseTag.split(',');
               })
-              that.setData({
+              this.setData({
                 houseList: res.data.data,
                 hasMore: false,
                 showload: false
@@ -150,38 +149,24 @@ Page({
             }
           }
           if(res.statusCode == 500) {
-            that.setData({
+            this.setData({
               hasMore: false,
               showload: false
             })
             wx.showModal({
               title: '提示',
-              content: '服务器异常',
-              success: function (res) {
-                if(res.confirm) {
-                  console.log('用户点击确定')
-                }else if(res.cancel) {
-                  console.log('用户点击取消')
-                }
-              }
+              content: '服务器异常'
             })
           }
         },
-        fail: function(error) {
-          that.setData({
+        fail: (error)=> {
+          this.setData({
             hasMore: false,
             showload: false
           })
           wx.showModal({
             title: '提示',
-            content: '服务器异常',
-            success: function (res) {
-              if(res.confirm) {
-                console.log('用户点击确定')
-              }else if(res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
+            content: '服务器异常'
           })
         }
       })

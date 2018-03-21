@@ -142,13 +142,17 @@
 <view class="section6" wx:if="{{detailType!==33}}">
   <view class="title"><text>附近房源</text></view>
   <block wx:for="{{nearbyHouse}}">
-      <view class="item" bindtap="RefreshHouseDetail" data-id="{{item.sdid}}">
+      <view class="item" style="position:relative;">
           <view class="image">
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
           <view>
             <!-- 二手房(买房)、租房详情 -->
             <template is="houseContent2" data="{{item}}"/>
+          </view>
+          <view bindtap="RefreshHouseDetail" 
+                data-id="{{item.sdid}}"
+                style="position:absolute;top:0;left:0;width:100%;height:100%;background:transparent;">
           </view>
       </view>
   </block>
