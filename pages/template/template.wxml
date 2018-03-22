@@ -119,24 +119,26 @@
   <view class="shadowLay" hidden="{{hiddenModal}}" bindtap="listenerButton">
       <view class="dialog">
           <view class="dialog-header">
-            <view class="avtor">
-                <image  src="{{'../../images/banner.png'}}" />
+            <view class="avator">
+                <image  src="{{houseDetail.broker.photo? houseDetail.broker.photo:'../../images/banner.png'}}" />
             </view>
             <view class="discription">
-              <view class="name">刘小妹</view>
-              <view style="font-size:30rpx;color:#333333;margin-top:15rpx;line-height:1">
-                <view>电话: 13212361223</view>
+              <view class="name" style="font-size:40rpx;color:#000000">{{houseDetail.broker.emplName}}</view>
+              <view style="font-size:30rpx;color:#333333">
+                <view>电话: {{houseDetail.broker.phone}}</view>
               </view>
-              <view style="font-size:30rpx;color:#333333;margin-top:15rpx;white-space:normal;line-height:1.2;">
-                  一句话介绍经纪人 一句话介绍经一句话介绍经
+              <view style="font-size:30rpx;color:#333333;white-space:normal">
+                  {{houseDetail.broker.emplFlag}}
               </view>
             </view>
           </view>
-          <view class="dialog-body">
-            <view class="iconfont icon-dianhua" bindtap="telphone">电话</view>
-            <view class="iconfont icon-duanxin" bindtap="contact">(待定)</view> 
+          <view class="dialog-body" bindtap="telphone" data-phone="{{houseDetail.broker.phone}}">
+            电话
+             
+            <!-- <view class="iconfont icon-duanxin" bindtap="contact">(待定)</view>  -->
           </view>
       </view>
+      <!-- <view class="exit iconfont icon-iconset0127"></view>  -->
   </view>
 </template> 
 

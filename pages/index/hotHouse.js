@@ -55,13 +55,12 @@ Page({
           } else if (res.statusCode == 500) {
             wx.showModal({
               title: '提示',
-              content: '服务器异常',
-              success: (res) => { }
+              content: '服务器异常'
             })
           }
         }
       })
-    }, 2000);
+    }, 1000);
   },
   onReachBottom() {//上拉
     var pageNo = this.data.page++;

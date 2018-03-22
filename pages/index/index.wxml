@@ -73,13 +73,15 @@
     </view>
     <view class="goods-info">
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
-        <navigator url="../houseDetail/houseDetail" wx:for="{{purchase_guide}}" wx:key="key" class="goods-item">
-          <image src="{{item.picUrl?item.picUrl:'../../images/astate.png'}}" />
-          <view>
-            <text>{{item.title}}</text>
-            <text>{{item.summary}}</text>
-          </view>
-        </navigator>
+        <block wx:for="{{purchase_guide}}">
+          <navigator url="../h5Pages/h5Pages?redirect={{item.contentUrl}}" class="goods-item">
+            <image src="{{item.picUrl?item.picUrl:'../../images/astate.png'}}" />
+            <view>
+              <text>{{item.title}}</text>
+              <text>{{item.summary}}</text>
+            </view>
+          </navigator>
+        </block>
       </scroll-view>
     </view>
   </view>
@@ -118,17 +120,19 @@
     </view>
     <view class="house-info">
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
-        <navigator url="../houseDetail/houseDetail" wx:for="{{hotbuilding}}" wx:key="key" class="house-info-item">
-          <view style="background:#f9f9f9;width:100%;height:248rpx;">
-            <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" />
-          </view>
-          <view style="margin-top:20rpx;font-size:36rpx;line-height:1">{{item.buildName}}</view>
-          <view style="margin-top:20rpx;font-size:26rpx;color:#666666;line-height:1">
-            在售{{item.saleCount}}套/在租{{item.rentCount}}套</view>
-          <view style="margin-top:20rpx;font-size:38rpx;color:#ff4343;line-height:1">
-            {{item.avgSalePrice}}<text style="font-size:22rpx;">元/平米</text>
-          </view>
-        </navigator>
+        <block wx:for="{{hotbuilding}}">
+          <navigator url="../houseDetail/houseDetail?houseDetail=热门小区&id={{item.sdid}}"  class="house-info-item">
+            <view style="background:#f9f9f9;width:100%;height:248rpx;">
+              <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" />
+            </view>
+            <view style="margin-top:20rpx;font-size:36rpx;line-height:1">{{item.buildName}}</view>
+            <view style="margin-top:20rpx;font-size:26rpx;color:#666666;line-height:1">
+              在售{{item.saleCount}}套/在租{{item.rentCount}}套</view>
+            <view style="margin-top:20rpx;font-size:38rpx;color:#ff4343;line-height:1">
+              {{item.avgSalePrice}}<text style="font-size:22rpx;">元/平米</text>
+            </view>
+          </navigator>
+        </block>
       </scroll-view>
     </view>
   </view>

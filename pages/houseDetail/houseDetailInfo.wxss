@@ -8,14 +8,14 @@ page{
   background: #ffffff;
 }
 .section .title{
-  line-height: 1;
+  line-height: 1.2;
   color: #666666;
-  font-size: 30rpx;
+  font-size: 40rpx;
   margin-bottom: 30rpx;
 }
 .section .content{
   margin-bottom: 60rpx;
   text-align: justify;
-  font-size: 34rpx;
+  font-size: 30rpx;
   color: #333333;
 }

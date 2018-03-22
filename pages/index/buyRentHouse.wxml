@@ -44,7 +44,7 @@
                      wx:for="{{recommend}}" 
                      wx:key="index">
               <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
-              <view class="content">
+              <view class="content" style="background:rgba(0,0,0,0.5)">
                   <view style="font-size:30rpx;color:#fff;line-height:1">{{item.houseTitle}}</view>
                     <view style="padding-top:10rpx;line-height:1">
                         <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.districtName}}</text>

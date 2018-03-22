@@ -97,15 +97,15 @@
 </view>
 
 <view class="section4">
-  <block wx:if="{{detailType!==33}}">
-    <navigator url="houseDetailInfo" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <navigator url="houseDetailInfo?content={{houseDetail.buildSynop}}&title={{houseDetail.houseTitle}}" wx:if="{{detailType!==33}}">
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">房屋简介</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
+    </view>
     <view class="content">
         {{houseDetail.buildSynop}}
     </view>
-  </block>
+  </navigator>
   <block wx:if="{{detailType==33}}">
        <!-- 小区找房详情 -->
       <view class="title">
@@ -180,7 +180,7 @@
     <cover-view bindtap="listenerButton">联系经纪人</cover-view>
   </cover-view>
 </cover-view> 
- <template is="shadowLay" data="{{hiddenModal,listenerButton}}"/> 
+ <template is="shadowLay" data="{{hiddenModal,listenerButton,houseDetail}}"/> 
 
 
 <!-- 小区详情 -->

@@ -30,7 +30,7 @@ Page({
 
     //二手房(买房)详情11，租房详情22, 小区详情33 
     detailType: null,//详情类型
-    houseDetailId: {},//房屋本身的id
+    houseDetailId: {},//房屋的sdid编码
     houseDetail: null,//房屋详情 
     guanlianList: null,//关联小区
     nearbyHouse: null,//附近房源
@@ -42,6 +42,7 @@ Page({
     flagPrice: true
   },
   onLoad(options) {
+    console.log(options)
     wx.setNavigationBarTitle({
       title: options.houseDetail,
     })
@@ -57,7 +58,8 @@ Page({
         houseDetailId: options.id,
         IpsNum: 1
       });
-    }else if(options.houseDetail == '小区找房'){//小区
+    }else if(options.houseDetail == '小区找房'||options.houseDetail == '热门小区'){//小区
+      
       this.setData({
         detailType: 33,
         houseDetailId: options.id,
@@ -88,6 +90,7 @@ Page({
     if (this.data.detailType == 11 || this.data.detailType == 22) {
       //二手房详情 租房详情
       app.httpRequest(this.data.IPS[this.data.IpsNum] + this.data.currentCity + '/' + sdid, 'GET', (error, data) => {
+        console.log(data)
         this.setData({
           latitude: data.data.py,
           longitude: data.data.px,
@@ -183,9 +186,9 @@ Page({
       currentIndex: e.detail.current+1
     })
   },
-  telphone() {//拨打电话
+  telphone(e) {//拨打电话
     wx.makePhoneCall({
-      phoneNumber: '132 1236 1223',
+      phoneNumber: e.target.dataset.phone,
     })
   },
   contact() {//通讯录

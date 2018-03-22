@@ -207,7 +207,7 @@
   right: 0;
   bottom: 0;
   top: 0;
-  background: rgba(0,0,0,.2);
+  background: rgba(0,0,0,.5);
 } 
 .shadowLay .dialog{
   width: 600rpx;
@@ -222,8 +222,9 @@
 }
 .dialog-header{
   padding: 60rpx 30rpx 0;
+  overflow: hidden;
 }
-.dialog .avtor{
+.dialog .avator{
   float: left;
   width: 160rpx;
   height: 160rpx;
@@ -232,21 +233,20 @@
   border-radius: 15rpx;
   overflow: hidden;
 }
-.dialog .avtor image{
+.dialog .avator image{
+  zoom: 0.4;
   width: 100%;
   height: 100%;
 }
 .dialog .discription{
   overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
 }
-.dialog .discription .name{
-  font-size: 40rpx;
-  color: #000000;
-  line-height: 1;
-}
-.dialog .dialog-body view{
-  width: 50%;
-  display: inline-block;
+
+.dialog .dialog-body{
   text-align: center;
   padding: 40rpx 0;
   letter-spacing: 5rpx;
@@ -259,3 +259,16 @@
 .bgColor{
   background: #ffeeee;
 }
+
+/* 退出 */
+.exit{
+  position: fixed;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  height: 20px;
+  padding: 10rpx;
+  border-radius: 50%;
+  font-weight: bold;
+} 
