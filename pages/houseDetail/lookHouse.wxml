@@ -1,3 +1,4 @@
+<import src="../template/template"/>
 <navigator url="../houseDetail/houseDetail?id={{item.menuId}}" style="margin-top:10rpx;">
   <view class="item">
       <view class="image"><image src="{{'../../images/banner.png'}}"></image></view>
@@ -32,7 +33,7 @@
             <view class="weui-label">姓名</view>
         </view>
         <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入您的姓名"/>
+            <input class="weui-input"  bindinput="bindUserName" placeholder="请输入您的姓名"/>
         </view>
     </view>
     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -40,7 +41,7 @@
             <view class="weui-label">电话</view>
         </view>
         <view class="weui-cell__bd">
-            <input class="weui-input" type="number" maxlength="11" placeholder="请输入您的手机号" />
+            <input class="weui-input" bindinput="bindUserTelphone" type="number" maxlength="11" placeholder="请输入您的手机号" />
         </view>
     </view>
   </view>
@@ -53,9 +54,10 @@
         <view class="weui-label">预约看房时间</view>
       </view>
       <view class="weui-cell__bd">
-         <picker mode="date" value="{{date}}" start="2017-09-01" end="2019-09-01" bindchange="bindDateChange">
+          <view class="weui-input" style="text-align:right;" bindtap="showOwnPicker">{{showTime}}</view>
+         <!-- <picker mode="date" value="{{date}}" start="2017-09-01" end="2019-09-01" bindchange="bindDateChange">
             <view class="weui-input" style="text-align:right;">{{index}}</view>
-        </picker> 
+        </picker>  -->
         <!-- <view class="section">
           <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
             <view class="picker">
@@ -70,6 +72,7 @@
 </view>
 
 <view class="section3">
-  <button class="weui-btn" type="warn">提交</button>
+  <button class="weui-btn" type="warn" bindtap="commit">提交</button>
 </view>
 
+<template is="ownPicker2" data="{{hiddenPicker,dateArr,dateText}}"/>

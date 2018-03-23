@@ -7,24 +7,23 @@ Page({
     inputValue2: "",//验证码
     toast1Hidden: true,
     nickName: null,
-    avatarUrl: null
+    avatarUrl: null,
+    isCancelLogin: true,  //是否登录
+    code: '', //验证码
   }, 
   getPhoneNumber(e) {
     console.log(e)
-    console.log(e.detail);
     if(e.detail.errMsg == 'getPhoneNumber:fail user deny') {
       wx.showModal({
         title: '提示',
         showCancel: false,
         content: '未授权',
-        success: function (res) { }
       })
     }else{
       wx.showModal({
         title: '提示',
         showCancel: false,
         content: '同意授权',
-        success: function (res) { }
       })
     }
   },  
@@ -41,12 +40,6 @@ Page({
             showLogout: true
           })
           wx.navigateBack();
-        },
-        fail: (error)=> { 
-          console.log("获取失败！")
-        },
-        complete: ()=> {
-          console.log("获取用户信息完成！")
         }
       })
     }else{
@@ -55,7 +48,7 @@ Page({
           if(res.code) {
             wx.getUserInfo({
               withCredentials: true,
-              success: function(res_user) {
+              success: (res_user)=> {
                 wx.request({
                   url: 'https://api.weixin.qq.com/sns/jscode2session',
                   data: {
@@ -77,11 +70,16 @@ Page({
                 })
                 wx.navigateBack();
               }, 
-              fail: function () {
+              fail: ()=> {
                 wx.showModal({
                   title: '警告通知',
                   content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
                   success: res=> {
+                    if(res.cancel) {
+                      this.setData({
+                        isCancelLogin: false
+                      })
+                    }
                     if(res.confirm) {
                       wx.openSetting({
                         success: res=> {
@@ -115,10 +113,8 @@ Page({
                               }
                             });
                           }
-                        }, 
-                        fail: (res)=> {}
+                        } 
                       })
-
                     }
                   }
                 })
@@ -132,33 +128,43 @@ Page({
 
   },
   login() {//手机短信验证码登录
-    // wx.request({
-    //   url: Api.IP_SMSCODELOGIN,
-    //   data: {
-    //     mobile: e.detail.value,
-    //     smsCode: '',
-    //     devieceCode: ''
-    //   },
-    //   method: 'POST',
-    //   header: {
-    //     'content-type': 'application/json' // 默认值
-    //   },
-    //   success: function (res) {
-    //     console.log(res.data)
-    //   }
-    // })
-    console.log( "user: " + this.data.inputValue1 + "psd: " + this.data.inputValue2 )
-    if(this.data.inputValue1 == "123" && this.data.inputValue2 == "123" ) {
+    console.log(this.data.inputValue1)
+    console.log(this.data.inputValue2)
+
+    if(this.data.inputValue1 !== "" && this.data.inputValue2 !== "" ) {
+     
+      var mobilePhone = this.data.inputValue1
+
+      wx.request({
+        url: Api.IP_SMSCODELOGIN,
+        data: {
+          deviceCode: "wx",
+          smsCode: '111111',//验证码  暂时默认111111
+          mobile: mobilePhone
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: (res) => {
+          console.log(res)
+          wx.setStorage({
+            key: 'userToken',
+            data: res.data
+          })
+        }
+      })
       wx.showToast({
         title: '登录成功',
-        icon:'success',
+        icon: 'success',
         duration: 1000
       })
-      setTimeout(()=>{
+      setTimeout(() => {
         wx.switchTab({
           url: "../index/index"
         })
-      },1000);
+      }, 1000);
+
     }else{
       wx.showToast({
         title: '登录失败',
@@ -178,46 +184,59 @@ Page({
     })
   },
   sendCode() {//发送验证码
-    let that = this;
     let myreg = /^[1][3,4,5,7,8][0-9]{9}$/;//手机号正则
     if(!myreg.test(this.data.inputValue1)) {
       wx.showModal({
         title: '提示',
         content: '请输入正确的手机号',
-        success: function(res) {
-          if(res.confirm) {
-            console.log('用户点击确定')
-          }else if(res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
       })
       return false;
     }
     let key = this.data.inputValue1 + "29e94f94-8664-48f2-a4ff-7a5807e13b68";
-    if(that.data.inputValue1) {
-      var mobilePhone = that.data.inputValue1
+    
+    if(this.data.inputValue1) {
+      var mobilePhone = this.data.inputValue1
+      //注册 
       wx.request({
         url: Api.IP_GETSMSCODE,
         data: {
           mobile: mobilePhone,
           sign: md5(key.toUpperCase()),
-          operateType: "REGISTER" //注册 
+          operateType: "REGISTER" 
         },
         method: 'POST',
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
+        header: {'content-type': 'application/json'},
         success: (res)=> {
-          console.log(res.data)
-        },
-        fail: (error)=> {
-          console.log(error)
-        }
-      })
-    }
+            //再次请求登录
+            if(res.data.status == 500) {//说明用户已经注册过
+                wx.request({
+                url: Api.IP_GETSMSCODE,
+                data: {
+                  mobile: mobilePhone,
+                  sign: md5(key.toUpperCase()),
+                  operateType: "LOGIN"
+                },
+                method: 'POST',
+                header: {
+                  'content-type': 'application/json' // 默认值
+                },
+                success: (res) => {
+                  console.log(res)
+                }
+              })
+            }
+             
+          }
+        })
+      }
   },
   back() {
+    this.setData({
+      isCancelLogin: true
+    })
     wx.navigateBack();
   }
 })
+
+
+

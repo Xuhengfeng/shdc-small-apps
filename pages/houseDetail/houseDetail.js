@@ -4,12 +4,13 @@ const app = getApp();
 Page({
   data: {
     //轮播图banner
+    imgUrls: ['../../images/banner.png'],//默认图片
     indicatorDots: false,
     indicatorColor: null,
     autoplay: false,
     interval: 2000,
     duration: 1000,
-    currentIndex: 1,//初始值
+    currentIndex: 1,
 
     
     hiddenModal: true,//二手房(买房)、租房联系经纪人true , 小区联系经纪人false
@@ -39,18 +40,20 @@ Page({
     IpsNum: 0,
     currentCity: null,//城市
     page: 1,
-    flagPrice: true
+    flagPrice: true,
+    contentType: 11 //热门小区11， 小区二手房22
   },
   onLoad(options) {
     console.log(options)
     wx.setNavigationBarTitle({
       title: options.houseDetail,
     })
-    if(options.houseDetail == '二手房'||options.houseDetail == '我要买房') {//二手房
+    if(options.houseDetail == '二手房'||options.houseDetail == '我要买房'||options.title == "小区二手房") {//二手房
       this.setData({
         detailType: 11,
         houseDetailId: options.id,
-        IpsNum: 0
+        IpsNum: 0,
+        contentType: 22
       });
     }else if(options.houseDetail == '租房'||options.houseDetail == '我要租房'){//租房
       this.setData({
@@ -59,11 +62,11 @@ Page({
         IpsNum: 1
       });
     }else if(options.houseDetail == '小区找房'||options.houseDetail == '热门小区'){//小区
-      
       this.setData({
         detailType: 33,
         houseDetailId: options.id,
-        IpsNum: 2
+        IpsNum: 2,
+        contentType: 11
       });
     }
     
@@ -79,6 +82,9 @@ Page({
             success: () => {
                //二手房详情 租房详情 小区找房详情
               this.buyRentRequest(this.data.houseDetailId);              
+            },
+            fail: ()=> {
+              this.buyRentRequest(this.data.houseDetailId); 
             }
           })
         }
@@ -181,7 +187,6 @@ Page({
     })
   },
   listenSwiper(e) {
-    console.log(e)
     this.setData({//显示图片当前的
       currentIndex: e.detail.current+1
     })
@@ -208,7 +213,7 @@ Page({
   },
   jumpLookHouse() {//预约看房
     wx.navigateTo({
-      url: "lookHouse"
+      url: "lookHouse?id="+this.data.houseDetailId
     });
   },
   toggleSelectLike() {
@@ -229,7 +234,7 @@ Page({
     var current = e.target.dataset.src;
     wx.previewImage({
       current: current, // 当前显示图片的http链接  
-      urls: this.data.imgUrls //需要预览的图片http链接列表  
+      urls: this.data.houseDetail ? this.data.houseDetail.housePicList : this.data.imgUrls //需要预览的图片http链接列表  
     })
   },
   onPullDownRefresh() {

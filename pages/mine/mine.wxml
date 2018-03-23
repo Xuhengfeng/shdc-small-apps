@@ -1,7 +1,7 @@
 <view>
   <view class="header" bindtap="login">
       <view class="headImage">
-          <image src="{{avatarUrl? avatarUrl : '../../images/mineHeader.png'}}"/> 
+          <image src="{{avatarUrl? avatarUrl : '../../images/my-off.png'}}"/> 
          <!-- <image class="iconfont icon-icon-test2"/> -->
       </view>
     <view class="login">{{nickName?nickName:'点击注册/登录'}}</view>

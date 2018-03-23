@@ -3,7 +3,7 @@ const app = getApp();
 Page({
   data: {
     //轮播图
-    imgUrls: [{picUrl:'../../images/banner.png'}],
+    imgUrls: [{ picUrl: '../../images/banner.png' }],//默认图片
     indicatorDots: false,
     autoplay: true,
     interval: 2000,
@@ -42,6 +42,7 @@ Page({
 
     //获取主页banner资讯
     app.httpRequest(Api.IP_INDEXCONSULT + this.data.currentCity +"/INDEX_BANNER", 'GET', (error, data)=> {
+      console.log(data)
       if(data) this.setData({ imgUrls: data.data });
       if(error) {
         wx.showModal({
@@ -93,8 +94,7 @@ Page({
         }else if(res.statusCode == 500) {
           wx.showModal({
             title: '提示',
-            content: '服务器异常',
-            success: (res) => { }
+            content: '服务器异常'
           })
         }
       }
@@ -105,9 +105,9 @@ Page({
     this.getDataFromServer(IP, {pageNo: 1});
   },
   onSwiperTap(e) {//轮播图点击跳转
-    var postId = e.target.dataset.id;
+    console.log(e.target.dataset.jump)
     wx.navigateTo({
-      url: '../h5Pages/h5Pages?id='+postId,
+      url: '../h5Pages/h5Pages?redirect=' + e.target.dataset.jump,
     })
   },
   listenSwiper(e) {//修改指示器 高亮

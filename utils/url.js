@@ -14,6 +14,8 @@ export const IP_TWOHANDHOUSE = SERVER_IPS + "/house/query";//二手房所有数�
 export const IP_HOUSERECMDLIST = SERVER_IPS + "/house/recmdList/";//二手房(买房) 推荐
 export const IP_TWOHANDHOUSEDETAIL = SERVER_IPS + "/house/getDetailInFo/";//二手房详情
 export const IP_RENTRECMDLIST = SERVER_IPS + "/rentHouse/recmdList/";//租房(租房) 推荐
+export const IP_APPOINTHOUSE = SERVER_IPS + "/appoint/house";//预约看房
+export const IP_CURRENTDATETIME = SERVER_IPS + "/dictionary/currentDateTime";//预约看房时间
 
 
 

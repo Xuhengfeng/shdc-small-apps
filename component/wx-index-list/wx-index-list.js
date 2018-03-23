@@ -80,7 +80,7 @@ Component({
                 }
               });
             },
-            fail: function (info) {//失败回调
+            fail:  (info)=> {//失败回调
               console.log(info)
             }
           })

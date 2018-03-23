@@ -334,6 +334,10 @@ page{
 .red{
   color: #ff4343;
 }
+.section66 .item-content{
+  padding-right: 25px;
+  overflow: hidden;
+}
 
 .houseTag text:nth-of-type(1){
   background: #5ee4a7;

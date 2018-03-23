@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "我要买房",
+  "navigationBarTitleText": "",
   "enablePullDownRefresh": false,
   "usingComponents": {
     "navBar-html": "/component/navBar/navBar"
