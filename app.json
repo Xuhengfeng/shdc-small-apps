@@ -28,8 +28,7 @@
     "navigationBarBackgroundColor": "#ff4343",
     "navigationBarTitleText": "世华地产",
     "navigationBarTextStyle": "#ffffff",
-    "backgroundColor": "#f8f8f8",
-    "enablePullDownRefresh": true
+    "backgroundColor": "#f8f8f8"
   },
   "tabBar": {
     "color": "#666",

@@ -3,7 +3,7 @@
     <swiper bindchange="listenSwiper" catchtap="onSwiperTap" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key="key">
         <swiper-item>
-          <image src="{{item.picUrl}}" class="slide-image" height="150" style="width:100%!important;background-size:cover" data-jump="{{item.contentUrl}}"/>
+          <image src="{{item.picUrl}}" class="slide-image"  style="height:100%!;width:100%;important" data-jump="{{item.contentUrl}}"/>
         </swiper-item>
       </block>
     </swiper>

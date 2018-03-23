@@ -60,23 +60,22 @@
   overflow: hidden;
 }
 .content .one{
-  font-size: 50rpx;
+  font-size: 40rpx;
   color: #666;
-  padding: 0 10px; 
-  line-height: 80rpx;
-  height: 80rpx;
+  padding: 10px 10px 5px; 
 }
 .content .two{
   font-size: 30rpx;
-  color: #666;
-  padding: 0 10px; 
-  line-height: 80rpx;
-  height: 80rpx;
+  color: #666; 
+  padding: 5px 10px 10px; 
 }
 .content .three{
   position: absolute;
   right: 20rpx;
   top: 75rpx;
+}
+.content .three image{
+  vertical-align: bottom;
 }
 .btnGroup{
   border-top: 1px solid #666;

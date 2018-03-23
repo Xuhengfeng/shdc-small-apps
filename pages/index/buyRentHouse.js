@@ -191,6 +191,9 @@ Page({
             content: '服务器异常'
           })
         }
+      },
+      fail: ()=> {
+        this.setData({ showload: false })
       }
     })
   }

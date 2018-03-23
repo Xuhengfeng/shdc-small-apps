@@ -54,7 +54,7 @@ page{
 }
 .serarch-content .search{
   float: left;  
-  border-left:1px solid #666;
+  border-left:1px solid #cacaca;
   height: 40rpx;
   margin-top: 20rpx;
 }
@@ -73,7 +73,7 @@ page{
 }
 .section1{
   background: #fff;
-  box-shadow: 0 0 1rpx rgba(0,0,0,.4);
+  box-shadow: 0 0 10rpx 1rpx rgba(0,0,0,.2);
 }
 .section1 .flex-row{
   display: flex;

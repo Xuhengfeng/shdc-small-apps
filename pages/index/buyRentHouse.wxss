@@ -80,6 +80,7 @@
 }
 .section1 .recommend{
   height: 240rpx;
+  background: #ffffff;
 }
 .section1 .recommend .goods-item{
   width: 380rpx;

@@ -74,7 +74,6 @@
 .labelgroup .content{
   position: absolute;
   left: 0;
-  top: 35px; 
   background: #ffffff;
   width: 100%;
 }

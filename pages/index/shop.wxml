@@ -17,8 +17,8 @@
       0.132km
     </view>
     <view class="btnGroup">
-      <view>门店位置</view>
-      <view>电话咨询</view>
+      <view bindtap="purpose">门店位置</view>
+      <view bindtap="telphone">电话咨询</view>
     </view>
   </view>
 </block>
