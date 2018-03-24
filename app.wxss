@@ -51,3 +51,7 @@ page{
 button[type=warn]{
   background-color: #ff4343!important;
 }
+/** 修改默认的navigator点击态 **/  
+.navigator-hover {  
+    color: none;  
+}  

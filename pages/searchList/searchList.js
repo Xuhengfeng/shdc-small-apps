@@ -5,6 +5,22 @@ Page({
   data: {
     label: ["区域", "户型", "价格", "面积", "类型"],
     houseList: [],//房源列表
+    area: [
+        {name: '宝安区', cityList:[
+            { value: '11片区' },
+            { value: '11片区' },
+            { value: '11片区' }
+        ]},
+        {name: '福田区', cityList: [
+            { value: '22片区' },
+            { value: '22片区' },
+            { value: '22片区' }
+        ]},
+    ],
+    houseType: [],//户型
+    price: [],//价格
+    proportion: [],//面积
+    mode: [],//类型
     num: null,//控制nav菜单
     modalFlag: false,
     page: 1,

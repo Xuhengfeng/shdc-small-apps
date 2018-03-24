@@ -1,21 +1,23 @@
 {
   "pages": [
-    
     "pages/index/index",
+    "pages/searchList/searchList",
+    "pages/houseDetail/lookHouse",
+    
     "pages/index/buyRentHouse",
     "pages/index/shop",
     "pages/houseDetail/houseDetailInfo",
-    "pages/houseDetail/lookHouse",
+    "pages/mine/mine",
     "pages/houseDetail/houseDetail",
     "pages/search/search",
     "pages/index/sellRent",
-    "pages/searchList/searchList",
+    
     "pages/index/guideHand",
     "pages/index/hotHouse",
     "pages/mine/login",
     
     "pages/location/location",
-    "pages/mine/mine",
+    
     
     "pages/mine/collection",
     
@@ -24,11 +26,11 @@
     
   ],
   "window": {
-    "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#ff4343",
+    "backgroundTextStyle": "drak",
+    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "世华地产",
-    "navigationBarTextStyle": "#ffffff",
-    "backgroundColor": "#f8f8f8"
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#fff"
   },
   "tabBar": {
     "color": "#666",

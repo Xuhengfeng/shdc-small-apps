@@ -19,12 +19,13 @@
   <view class="content" animation="{{animationData}}">
       <view wx:if="{{num == 0}}" class="area">
         <scroll-view scroll-y class="one">
-            <view>宝安区</view>
-            <view>宝安区</view>
+            <view wx:for="{{area}}"
+                  data-index="{{index}}" 
+                  class="{{index == areaCategories?'font1Color':'font2Color'}}"
+                  bindtap="changeCategories">{{item.name}}</view>
         </scroll-view>
-        <scroll-view scroll-y class="two">
-            <view>xx片区</view>
-            <view>xx片区</view>
+        <scroll-view scroll-y class="two">     
+            <view wx:for="{{area[areaCategories].cityList}}">{{item.value}}</view>
         </scroll-view>
       </view>
       <view wx:if="{{num == 1}}" class="housetype">

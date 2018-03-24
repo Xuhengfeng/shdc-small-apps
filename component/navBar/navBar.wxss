@@ -315,7 +315,10 @@
 button::after{
   border:0;
 }
-/* 筛选背景高亮 */
-.bgColor{
-  background: #ffeeee;
+/* 字体样式 */
+.font1Color{
+  color: #ff4343;
+}
+.font2Color{
+  color: #000000;
 }

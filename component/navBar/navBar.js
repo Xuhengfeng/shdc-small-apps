@@ -7,6 +7,26 @@ Component({
     label: {
       type: Object,
       value: ''
+    },
+    area: {//区域
+      type: Object,
+      value: ''
+    },
+    houseType: {//户型
+      type: Object,
+      value: ''
+    },
+    price: {//价格
+      type: Object,
+      value: ''
+    },
+    proportion: {//面积
+      type: Object,
+      value: ''
+    },
+    mode: {//类型
+      type: Object,
+      value: ''
     }
 
   },
@@ -22,10 +42,10 @@ Component({
     scrollTop: 0,
     togglelabel: true,
     houseDetail: null,//二手房(买房)、租房、小区
-    navHeight: null
+    navHeight: null,
+    areaCategories: 0,//区域分类
   },
   ready() {
-    // console.log(this.data)
     this.getRect();
   },
   /**
@@ -107,6 +127,11 @@ Component({
         // 给数据对象储存的第一组动画，更替为执行完第二组动画的动画对象  
         this.setData({animationData: animation});
       }.bind(this), 200)
+    },
+    changeCategories(e) {//切换城区分类
+      this.setData({
+        areaCategories: e.target.dataset.index
+      })
     }
   }
 })

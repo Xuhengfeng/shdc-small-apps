@@ -172,6 +172,9 @@ Page({
       })
     }
   },
+  onPullDownRefresh() {
+    wx.stopPullDownRefresh();
+  },
   onShow() {//接口调取成功的回调 生命周期
     wx.getSystemInfo({
       success: (res)=> {

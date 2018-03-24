@@ -7,7 +7,7 @@
      <!-- <button class="search-button" catchtap="searchMt">搜索</button>  -->
   </view>  
   <!-- <template is="navBar" data="{{label,num,scrollTop,showModalStatus,animationData}}"/>  -->
-  <navBar-html label="{{label}}" id="navbar"></navBar-html>
+  <navBar-html label="{{label}}" area="{{area}}" id="navbar"></navBar-html>
 </view>
  <!--这是填充空盒子-->
 <view class="paddingbox"></view>

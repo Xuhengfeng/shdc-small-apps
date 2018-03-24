@@ -1,22 +1,34 @@
 <import src="../template/template.wxml"/>
   <view class="header">
-    <swiper bindchange="listenSwiper" catchtap="onSwiperTap" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <swiper bindchange="listenSwiper" 
+            catchtap="onSwiperTap" 
+            indicator-dots="{{indicatorDots}}" 
+            autoplay="{{autoplay}}" 
+            interval="{{interval}}" 
+            duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key="key">
         <swiper-item>
-          <image src="{{item.picUrl}}" class="slide-image"  style="height:100%!;width:100%;important" data-jump="{{item.contentUrl}}"/>
+          <image src="{{item.picUrl}}" 
+                class="slide-image" 
+                style="height:100%!;width:100%;important" 
+                data-jump="{{item.contentUrl}}"/>
         </swiper-item>
       </block>
     </swiper>
     <!-- 重写指示点 -->
     <view class="indicator">
-        <view wx:for="{{imgUrls}}" wx:key="key" data-index="{{index}}" class="{{index == currentIndex?'white':'gray'}}"></view>
+        <view wx:for="{{imgUrls}}" 
+              wx:key="key" 
+              data-index="{{index}}" 
+              class="{{index == currentIndex?'white':'gray'}}">
+        </view>
     </view> 
     <view class="serarch-content">
-      <navigator url="../location/location">
+      <navigator url="../location/location" hover-class="none">
         <text class="location">{{myLocation}}</text>
         <image src="../../images/drop.png" />
       </navigator>
-      <navigator url="../search/search" style="flex:1">
+      <navigator url="../search/search" hover-class="none" style="flex:1">
         <view style="height:80rpx;">
           <view class="search">
             <image src="../../images/search.png" />
@@ -29,31 +41,31 @@
 
   <view class="section1">
     <view class="flex-row">
-      <navigator url="../index/buyRentHouse?title=我要买房" class="flex-view-item"> 
+      <navigator url="../index/buyRentHouse?title=我要买房" class="flex-view-item" hover-class="none"> 
         <image src="../../images/buyHouse.png" />
         <view style="line-height:1">
           <text>我要买房</text>
         </view>
       </navigator>
-      <navigator url="../index/buyRentHouse?title=我要租房" class="flex-view-item">
+      <navigator url="../index/buyRentHouse?title=我要租房" class="flex-view-item" hover-class="none">
         <image src="../../images/rentHouse.png" />
         <view style="line-height:1">
           <text>我要租房</text>
         </view>
       </navigator>
-      <navigator url="../searchList/searchList?houseType=小区找房" class="flex-view-item">
+      <navigator url="../searchList/searchList?houseType=小区找房" class="flex-view-item" hover-class="none">
         <image src="../../images/fondHouse.png" />
         <view style="line-height:1">
           <text>小区找房</text>
         </view>
       </navigator>
-      <navigator url="sellRent" class="flex-view-item">
+      <navigator url="sellRent" class="flex-view-item" hover-class="none">
         <image src="../../images/saleHouse.png" />
         <view style="line-height:1">
           <text>我要售/租</text>
         </view>
       </navigator>
-      <navigator url="shop" class="flex-view-item">
+      <navigator url="shop" class="flex-view-item" hover-class="none">
         <image src="../../images/store.png" />
         <view style="line-height:1">
           <text>找门店</text>
@@ -67,7 +79,7 @@
       <view style="float:left;line-height:1;font-size:40rpx;margin:60rpx 0 40rpx;font-weight:normal;">
           <text style="color:#ff4343;margin-right:10rpx;font-weight:normal;">|</text>二手房购房指南
       </view>
-      <navigator url="guideHand">
+      <navigator url="guideHand" hover-class="none">
         <text style="color:#2581ff;font-size:28rpx;font-weight:normal;">查看更多</text>
       </navigator>
     </view>
@@ -114,7 +126,7 @@
       <view style="float:left;margin:60rpx 0 40rpx;font-size:40rpx;line-height:1;font-weight:normal;">
         <text style="color:#f00;margin-right:10rpx;font-weight:normal;">|</text>热门小区
       </view>
-      <navigator url="hotHouse?title=热门小区">
+      <navigator url="hotHouse?title=热门小区" hover-class="none">
         <text style="font-weight:normal;float:right;color:#2581ff;font-size:28rpx;">查看更多</text>
       </navigator>
     </view>
@@ -190,7 +202,9 @@
         <view class="tips">
             <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
             <view wx:elif="{{twohandhouse.length==0}}"><text>没有更多内容</text></view>
-            <navigator wx:elif="{{twohandhouse.length!=0}}" url="../searchList/searchList?houseType={{houseType[num]}}">查看全部房源</navigator> 
+            <navigator wx:elif="{{twohandhouse.length!=0}}" 
+                        url="../searchList/searchList?houseType={{houseType[num]}}"
+                        hover-class="none">查看全部房源</navigator> 
         </view>
         <loading wx:if="{{showload}}">
           加载中...
