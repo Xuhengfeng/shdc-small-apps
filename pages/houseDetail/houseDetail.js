@@ -213,7 +213,7 @@ Page({
   },
   jumpLookHouse() {//预约看房
     wx.navigateTo({
-      url: "lookHouse?id="+this.data.houseDetailId
+      url: "lookHouse?houseDetail=" + JSON.stringify(this.data.houseDetail)
     });
   },
   toggleSelectLike() {

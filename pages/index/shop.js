@@ -1,3 +1,6 @@
+var Api = require("../../utils/url");
+const app = getApp();
+
 // pages/index/shop.js
 Page({
 
@@ -5,7 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    keyword: null,//获取用户输入值
+    shops: null,//门店信息
+    showload: false
   },
 
   /**
@@ -32,6 +37,53 @@ Page({
         })
       }
     })
+  },
+  userSearch(e) {//用户输入关键字
+    this.setData({
+      keyword: e.detail.value,
+    })
+  },
+  startsearch() {//开始检索
+    if (!this.data.keyword) {
+      wx.showModal({
+        content: '请输入关键词',
+        success: (res) => {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return;
+    }
+    this.setData({
+      showload: true
+    })
+    // /shop/shops
+    wx.request({
+      url: Api.IP_SHOPS,
+      data: {
+        keyword: this.data.keyword,
+        pageNo: 1,
+        pageSize: 10,
+        px: 0,
+        py: 0,
+        scity: "beihai"
+      },
+      method: 'POST',
+      success: (res)=> {
+        if (res.statusCode == 200) {
+          this.setData({
+            showload: false,
+            shops: res.data
+          })
+        }
+      }
+    })
+  },
+  searchSubmit() {
+    this.startsearch();
   }
  
 })

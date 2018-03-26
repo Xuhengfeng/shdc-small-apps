@@ -5,18 +5,7 @@ Page({
   data: {
     label: ["区域", "户型", "价格", "面积", "类型"],
     houseList: [],//房源列表
-    area: [
-        {name: '宝安区', cityList:[
-            { value: '11片区' },
-            { value: '11片区' },
-            { value: '11片区' }
-        ]},
-        {name: '福田区', cityList: [
-            { value: '22片区' },
-            { value: '22片区' },
-            { value: '22片区' }
-        ]},
-    ],
+    area: [],//区域
     houseType: [],//户型
     price: [],//价格
     proportion: [],//面积
@@ -57,16 +46,84 @@ Page({
        ipNum: 2
     });
    }
-   wx.getStorage({
-     key: 'selectCity',
-     success: (res)=> {
-       this.setData({currentCity: res.data.value});
-       this.getDataFromServer(this.data.IPS[this.data.ipNum], 1, res.data.value);
-     },
-   })
-   
+    //城市
+    wx.getStorage({
+      key: 'selectCity',
+      data: {
+        name: this.data.myLocation,
+        value: this.data.currentCity
+      },
+      success: (res)=>{
+        this.setData({currentCity: res.data.value})
+
+        //区域
+        this.areaRequest(res.data.value);
+
+        //户型 类型
+        this.houseTypeRequest();
+
+        //价格 面积
+        this.priceAreaRequest(res.data.value);
+        
+        //上拉
+        this.getDataFromServer(this.data.IPS[this.data.ipNum], 1, res.data.value);
+      }
+    })
+     
   },
-  getDataFromServer(IP, page, code) {//请求数据
+  //区域
+  areaRequest(currentCity) {
+    app.httpRequest(Api.IP_AREADISTRICTS + currentCity, 'GET', (error, data) => {
+      data.data.unshift({
+        name: '不限',
+        districts: []
+      });
+      var newData = data.data;
+      newData.forEach((item) => {
+        item.districts.unshift({
+            name: '不限',
+            px: '',
+            py: ''
+        })
+      })
+      this.setData({ area: newData });
+    })
+  },
+  //户型 类型
+  houseTypeRequest() {
+    wx.request({
+      url: Api.IP_DICTIONARY,
+      data: ['HOUSE_HUXING', 'HOUSE_USE'],
+      method: 'POST',
+      success: (res)=> {
+        this.setData({
+          houseType: res.data.data.HOUSE_HUXING,
+          mode: res.data.data.HOUSE_USE
+        })
+      }
+    })
+  },
+  //价格 面积
+  priceAreaRequest(currentCity) {
+    wx.request({
+      url: Api.IP_DICTIONARYCONDITION + 'SELL_PRICE/' + currentCity,
+      data: '',
+      method: 'GET',
+      success: (res) => {
+        this.setData({ price: res.data.data });
+      }
+    })
+    wx.request({
+      url: Api.IP_DICTIONARYCONDITION + 'HOUSE_AREA/' + currentCity,
+      data: '',
+      method: 'GET',
+      success: (res) => {
+        this.setData({ proportion: res.data.data });
+      }
+    })
+  },
+  //请求数据
+  getDataFromServer(IP, page, code) {
     let that = this;
     that.setData({ showload: true })
     wx.request({
@@ -120,6 +177,7 @@ Page({
   onReachBottom() {//上拉
     var pageNo = this.data.page++;
     this.getDataFromServer(this.data.IPS[this.data.ipNum], pageNo, this.data.value);
-  }
+  },
+
 })
 

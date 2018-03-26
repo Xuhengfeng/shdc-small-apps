@@ -102,7 +102,7 @@
 .type .type-hd text{
   display: inline-block;
   font-size: 26rpx;
-  color: #666666;
+  color: #333333;
   padding: 20rpx 30rpx;
   background: #f9f9f9;
   border-radius: 10rpx;
@@ -138,6 +138,7 @@
   line-height: 90rpx;
   font-size: 28rpx;
   border-bottom:1rpx solid #cacaca;
+  color: #333333;
 }
 
 
@@ -317,7 +318,7 @@ button::after{
 }
 /* 字体样式 */
 .font1Color{
-  color: #ff4343;
+  color: #ff4343!important;
 }
 .font2Color{
   color: #000000;

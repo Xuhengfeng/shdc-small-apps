@@ -44,6 +44,8 @@ Component({
     houseDetail: null,//二手房(买房)、租房、小区
     navHeight: null,
     areaCategories: 0,//区域分类
+    areaSubCategories: 0,//区域子分类
+    houseTypeCategories: 0,//户型
   },
   ready() {
     this.getRect();
@@ -128,9 +130,22 @@ Component({
         this.setData({animationData: animation});
       }.bind(this), 200)
     },
+    //区域
     changeCategories(e) {//切换城区分类
       this.setData({
-        areaCategories: e.target.dataset.index
+        areaCategories: e.target.dataset.num
+      })
+    },
+    changeSubCategories(e) {//切换城区子分类
+      this.setData({
+        areaSubCategories: e.target.dataset.num
+      })
+    },
+    //户型
+    changeHouseType(e) {
+      console.log(e);
+      this.setData({
+        houseTypeCategories: e.target.dataset.num
       })
     }
   }

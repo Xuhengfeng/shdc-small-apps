@@ -2,8 +2,7 @@
 const SERVERINDEX = 0;
 const SERVER_IPS = ["http://192.168.16.173:7031/custAppApi"];//api接口
 // const SERVER_IPS = ["https://192.168.16.173:8443/custAppApi"];//api接口
-// const SERVER_IPS = ["http://192.168.16.108:7031/custAppApi"];//api接口
-
+// const SERVER_IPS = ["http://192.168.16.173:7051/custService"];//api接口
 
 const SERVER_IP = SERVER_IPS[SERVERINDEX];
 //首页 接口
@@ -16,6 +15,18 @@ export const IP_TWOHANDHOUSEDETAIL = SERVER_IPS + "/house/getDetailInFo/";//二�
 export const IP_RENTRECMDLIST = SERVER_IPS + "/rentHouse/recmdList/";//租房(租房) 推荐
 export const IP_APPOINTHOUSE = SERVER_IPS + "/appoint/house";//预约看房
 export const IP_CURRENTDATETIME = SERVER_IPS + "/dictionary/currentDateTime";//预约看房时间
+export const IP_SHOPS = SERVER_IPS + "/shop/shops";//门店信息列表
+export const IP_COLLECTIONADD = SERVER_IPS + "/buildCollection/add/";//小区收藏
+export const IP_COLLECTIONLIST = SERVER_IPS + "/buildCollection/collectionList";//小区收藏列表
+
+
+
+
+//搜索
+export const IP_AREADISTRICTS = SERVER_IPS + "/area/areaDistricts/";//区域
+export const IP_DICTIONARY = SERVER_IPS + "/dictionary/dictionarys";//户型和类型
+export const IP_DICTIONARYCONDITION = SERVER_IPS + "/dictionary/";//价格 面积 （不同城市价格 面积 不一样）
+
 
 
 

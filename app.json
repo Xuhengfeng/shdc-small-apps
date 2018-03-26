@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
+    
     "pages/searchList/searchList",
     "pages/houseDetail/lookHouse",
-    
+    "pages/index/index",
     "pages/index/buyRentHouse",
     "pages/index/shop",
     "pages/houseDetail/houseDetailInfo",

@@ -13,11 +13,12 @@ Page(filter.loginCheck({
     showTime: '',
     year: '',
     //请求参数
-    houseDetailId: '',//房源id
+    houseDetail: '',//房源
     userName: '',
     userTelphone: '', 
     dataTime: '', //日期
     dayTime: '',//早 上 下 午 晚上
+    nowDate: ''
    },
   showOwnPicker() {//自定义城市控件
     this.setData({
@@ -44,7 +45,7 @@ Page(filter.loginCheck({
             sdid: this.data.houseDetailId,
             appointName: this.data.userName,
             appointMobile: this.data.userTelphone,
-            appointDate: this.data.dataTime,
+            appointDate: this.data.nowDate,
             appointRange: '全天'
           },
           header: {
@@ -110,8 +111,12 @@ Page(filter.loginCheck({
     })
   },
   onLoad(options) {
+    let newObj = JSON.parse(options.houseDetail);
+    let newArr = JSON.parse(options.houseDetail).houseTag.split(',');
+    newObj.houseTag = newArr;
+    
     this.setData({
-      houseDetailId: options.id
+      houseDetail: newObj
     })
     //获取当前的时间
     wx.request({
@@ -132,7 +137,13 @@ Page(filter.loginCheck({
     let curDate = new Date(currentTime)//转时间对象
     let curMonth = curDate.getMonth();//外国月份
     let curWeek = curDate.getDay();//当前的一周的周几
-    let midArr = curDate.toISOString().split('-');//标准化时间
+    let a = curDate.toISOString();//标准化时间
+    let midArr = a.split('-');
+    let nowDate = a.slice(0, 10);
+    this.setData({
+      nowDate: nowDate
+    })
+
     curDate.setMonth(curMonth + 1);//中国月份
     curDate.setDate(0);//当月的最后一天
     // console.log(curDate.getDate())//每月的天数 
@@ -199,7 +210,7 @@ Page(filter.loginCheck({
     var ret = {
       curDate: curDate.getDate(),
       dateArr: cache,
-      year: midArr[0]+'-'
+      year: midArr[0]+'-',
     }
     return ret;
   },

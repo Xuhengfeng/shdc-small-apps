@@ -8,10 +8,7 @@ Page({
     autoplay: true,
     interval: 2000,
     duration: 1000,
-    loading: true,//控制loding显隐;
     hasMore: false,
-    windowHeight: '100%',
-    windowWidth: '100%',
     currentIndex: 0,//轮播图指示器
 
     //猜你喜欢
@@ -47,8 +44,7 @@ Page({
       if(error) {
         wx.showModal({
           title: '提示',
-          content: '服务器异常',
-          success: (res)=>{}
+          content: '服务器异常'
         })
       }
     })
@@ -59,8 +55,7 @@ Page({
       if(error) {
         wx.showModal({
           title: '提示',
-          content: '服务器异常',
-          success: (res) => { }
+          content: '服务器异常'
         })
       }
     })
@@ -71,8 +66,7 @@ Page({
       if(error) {
         wx.showModal({
           title: '提示',
-          content: '服务器异常',
-          success: (res) => { }
+          content: '服务器异常'
         })
       }
     })
@@ -88,9 +82,7 @@ Page({
       header: { 'Content-Type': 'application/json' },
       success: (res) => {
         if(res.statusCode == 200) {
-          if(res.data.status == 1) {
-            this.setData({ hotbuilding: res.data.data});
-          }
+          this.setData({ hotbuilding: res.data.data});
         }else if(res.statusCode == 500) {
           wx.showModal({
             title: '提示',
@@ -105,7 +97,6 @@ Page({
     this.getDataFromServer(IP, {pageNo: 1});
   },
   onSwiperTap(e) {//轮播图点击跳转
-    console.log(e.target.dataset.jump)
     wx.navigateTo({
       url: '../h5Pages/h5Pages?redirect=' + e.target.dataset.jump,
     })
@@ -131,24 +122,22 @@ Page({
         method: "GET",
         header: {'Content-Type': 'application/json' },
         success: (res)=> {
+          console.log(res)
           if(res.statusCode == 200) {
-            if(res.data.status == 1) {
-              res.data.data.forEach((item)=> {
-                item.houseTag=item.houseTag.split(',');
-              })
-              this.setData({
-                houseList: res.data.data,
-                hasMore: false,
-                showload: false
-              })
-              if(this.data.num == 0) {
-                this.setData({flagPrice: true})
-              }else{
-                this.setData({flagPrice: false})
-              }
+            res.data.data.forEach((item)=> {
+              item.houseTag=item.houseTag.split(',');
+            })
+            this.setData({
+              houseList: res.data.data,
+              hasMore: false,
+              showload: false
+            })
+            if(this.data.num == 0) {
+              this.setData({flagPrice: true})
+            }else{
+              this.setData({flagPrice: false})
             }
-          }
-          if(res.statusCode == 500) {
+          }else if(res.statusCode == 500||res.statusCode == 404) {
             this.setData({
               hasMore: false,
               showload: false
@@ -174,16 +163,5 @@ Page({
   },
   onPullDownRefresh() {
     wx.stopPullDownRefresh();
-  },
-  onShow() {//接口调取成功的回调 生命周期
-    wx.getSystemInfo({
-      success: (res)=> {
-        console.log(res)
-        this.setData({
-          windowHeight: res.windowHeight,
-          windowWidth: res.windowWidth
-        })
-      }
-    })
   }
 })
