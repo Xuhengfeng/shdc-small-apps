@@ -93,7 +93,7 @@
 .price .price-hd,
 .area2 .area2-hd,
 .type .type-hd{
-  margin: 30rpx 24rpx 0;
+  margin: 30rpx 0 0 24rpx;
   overflow: hidden;
 }
 .housetype .housetype-hd text,

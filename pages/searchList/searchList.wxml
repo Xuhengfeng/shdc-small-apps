@@ -1,8 +1,10 @@
 <import src="../template/template.wxml"/>
 <view class="header">
   <view class="list-search">
-    <view class='list-search-box'><icon type="search" size="15"/>
-      <input placeholder="输入您要搜索的城市" bindinput='input' />
+    <view class='list-search-box'><icon type="search" bindtap="startsearch" size="15"/>
+      <input placeholder="输入您要搜索的城市" 
+             bindconfirm="searchSubmit"
+             bindinput="userSearch"/>
     </view>
      <!-- <button class="search-button" catchtap="searchMt">搜索</button>  -->
   </view>  
@@ -47,3 +49,6 @@
     <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
     <view wx:else><text>没有更多内容了</text></view>
 </view>
+<loading wx:if="{{showload}}">
+  加载中...
+</loading>

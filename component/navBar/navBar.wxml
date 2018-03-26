@@ -74,7 +74,8 @@
         <view class="area2-hd">
             <text wx:for="{{proportion}}" 
                   data-num="{{index}}" 
-                  bindtap="pricelabel">{{item.name}}</text>
+                  class="{{index == proportionCategories?'font3Color':'font2Color'}}"
+                  bindtap="proportionlabel">{{item.name}}</text>
         </view>
         <view class="area2-ft">
             <button type="primary" style="background:#f2f2f2;border:0;color:#666666">条件不限</button>

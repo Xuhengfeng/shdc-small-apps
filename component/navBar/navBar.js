@@ -48,6 +48,7 @@ Component({
     houseTypeCategories: 0,//户型
     priceCategories: 0,//价格
     modeCategories: 0,//类型
+    proportionCategories: 0,//面积
   },
   ready() {
     this.getRect();
@@ -158,6 +159,11 @@ Component({
       })
     },
     //面积
+    proportionlabel(e) {
+      this.setData({
+        proportionCategories: e.target.dataset.num
+      })
+    },
     //类型
     modelabel(e) {
       this.setData({

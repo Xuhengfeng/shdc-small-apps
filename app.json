@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/searchList/searchList",
+   
     "pages/index/index",
     "pages/index/buyRentHouse",
-    
+    "pages/searchList/searchList",
     "pages/houseDetail/lookHouse",
     
     

@@ -30,7 +30,7 @@ Page({
     houseList: [],//房源列表
     area: [],//区域
     houseType: [],//户型
-    price: [],//价格
+    price: [],//价格或者租金
     proportion: [],//面积
     mode: [],//类型
 
@@ -112,34 +112,37 @@ Page({
   houseTypeRequest() {
     wx.request({
       url: Api.IP_DICTIONARY,
-      data: ['HOUSE_HUXING', 'HOUSE_USE'],
+      data: ['HOUSE_HUXING', 'HOUSE_USE', 'HOUSE_AREA'],
       method: 'POST',
       success: (res) => {
         this.setData({
           houseType: res.data.data.HOUSE_HUXING,
-          mode: res.data.data.HOUSE_USE
+          mode: res.data.data.HOUSE_USE,
+          proportion: res.data.data.HOUSE_AREA
         })
       }
     })
   },
-  //价格 面积
+  //价格 租金
   priceAreaRequest(currentCity) {
-    wx.request({
-      url: Api.IP_DICTIONARYCONDITION + 'SELL_PRICE/' + currentCity,
-      data: '',
-      method: 'GET',
-      success: (res) => {
-        this.setData({ price: res.data.data });
-      }
-    })
-    wx.request({
-      url: Api.IP_DICTIONARYCONDITION + 'HOUSE_AREA/' + currentCity,
-      data: '',
-      method: 'GET',
-      success: (res) => {
-        this.setData({ proportion: res.data.data });
-      }
-    })
+
+    if (this.data.flagPrice) {//租金
+      wx.request({
+        url: Api.IP_DICTIONARYCONDITION + 'HOUSE_RENTAL/' + currentCity,
+        method: 'GET',
+        success: (res) => {
+          this.setData({ price: res.data.data });
+        }
+      })
+    }else{//价格
+      wx.request({
+        url: Api.IP_DICTIONARYCONDITION + 'SELL_PRICE/' + currentCity,
+        method: 'GET',
+        success: (res) => {
+          this.setData({ price: res.data.data });
+        }
+      })
+    }
   },
   //计算高度
   getRect() {
