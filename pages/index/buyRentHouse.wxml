@@ -69,9 +69,14 @@
 
     <!-- navBar组件 -->
     <navBar-html class="{{scrollTop>(navTop-mysearch)?'fixed':'cancelfixed'}}"
-                 id="mynav" 
-                 label="{{label}}" 
-                 bindmyevent="onMyEvent">
+               id="mynav"
+               label="{{label}}"
+               area="{{area}}" 
+               houseType="{{houseType}}"
+               mode="{{mode}}"
+               price="{{price}}"
+               proportion="{{proportion}}"
+               bindmyevent="onMyEvent">
     </navBar-html>
 
     <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">

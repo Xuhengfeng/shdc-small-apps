@@ -103,11 +103,14 @@
   display: inline-block;
   font-size: 26rpx;
   color: #333333;
-  padding: 20rpx 30rpx;
   background: #f9f9f9;
   border-radius: 10rpx;
-  margin: 0 15rpx 20rpx 0;
-  line-height: 1;
+  margin: 0 10rpx 20rpx 0;
+  width: 166rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 /*区域*/
@@ -316,10 +319,14 @@
 button::after{
   border:0;
 }
-/* 字体样式 */
+/* 样式 */
 .font1Color{
   color: #ff4343!important;
 }
 .font2Color{
   color: #000000;
+}
+.font3Color{
+  color: #ff4343!important;
+  background: #ffeeee!important;
 }

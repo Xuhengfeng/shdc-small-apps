@@ -37,8 +37,8 @@
       <view wx:if="{{num == 1}}" class="housetype">
         <view class="housetype-hd">
             <text wx:for="{{houseType}}" 
-                  data-num="{{index}}" 
-                  class="{{index == houseTypeCategories?'font1Color':'font2Color'}}"
+                  data-num="{{index}}"
+                  class="{{index == houseTypeCategories?'font3Color':'font2Color'}}"
                   bindtap="changeHouseType">{{item.name}}</text>
         </view>
         <view class="housetype-ft">
@@ -52,6 +52,7 @@
         <view class="price-hd">
             <text wx:for="{{price}}" 
                   data-num="{{index}}" 
+                  class="{{index == priceCategories?'font3Color':'font2Color'}}"
                   bindtap="pricelabel">{{item.name}}</text>
         </view>
         <view class="price-bd">
@@ -85,8 +86,9 @@
       <view wx:if="{{num==4}}" class="type">
         <view class="type-hd">
             <text wx:for="{{mode}}" 
-                  data-num="{{index}}" 
-                  bindtap="pricelabel">{{item.name}}</text>
+                  data-num="{{index}}"
+                  class="{{index == modeCategories?'font3Color':'font2Color'}}"
+                  bindtap="modelabel">{{item.name}}</text>
         </view>
         <view class="type-ft">
             <button type="primary" style="background:#f2f2f2;border:0;color:#666666">条件不限</button>

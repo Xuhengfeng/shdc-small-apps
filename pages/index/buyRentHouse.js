@@ -26,6 +26,14 @@ Page({
     recmd: [Api.IP_HOUSERECMDLIST, Api.IP_RENTRECMDLIST], //推荐
     IPS: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE],//列表
     showload: false,
+
+    houseList: [],//房源列表
+    area: [],//区域
+    houseType: [],//户型
+    price: [],//价格
+    proportion: [],//面积
+    mode: [],//类型
+
     num: 0,
     keyword: null,//获取用户输入值
   },
@@ -58,36 +66,82 @@ Page({
 
         // banner图片
         app.httpRequest(Api.IP_INDEXCONSULT + res.data.value + "/HOUSE_USED_BANNER", 'GET', (error, data) => {//获取主页资讯Banner
-          if (data) {
             this.setData({ imgUrls: data.data })
-          }
-          if (error) {
-            wx.showModal({
-              title: '提示',
-              content: '服务器异常'
-            })
-          }
         });
 
         //为你推荐
         app.httpRequest(this.data.recmd[this.data.num] + res.data.value, 'GET', (error, data) => {//获取主页资讯Banner
-          console.log(data.data)
-          if (data) {
             this.setData({ recommend: data.data })
-          }
-          if (error) {
-            wx.showModal({
-              title: '提示',
-              content: '服务器异常'
-            })
-          }
         });
+
+        //区域
+        this.areaRequest(res.data.value);
+
+        //户型 类型
+        this.houseTypeRequest();
+
+        //价格 面积
+        this.priceAreaRequest(res.data.value);
       }
     })
-
+    
     //计算高度
     this.getRect();
+
+    
   },
+  //区域
+  areaRequest(currentCity) {
+    app.httpRequest(Api.IP_AREADISTRICTS + currentCity, 'GET', (error, data) => {
+      data.data.unshift({
+        name: '不限',
+        districts: []
+      });
+      var newData = data.data;
+      newData.forEach((item) => {
+        item.districts.unshift({
+          name: '不限',
+          px: '',
+          py: ''
+        })
+      })
+      this.setData({ area: newData });
+    })
+  },
+  //户型 类型
+  houseTypeRequest() {
+    wx.request({
+      url: Api.IP_DICTIONARY,
+      data: ['HOUSE_HUXING', 'HOUSE_USE'],
+      method: 'POST',
+      success: (res) => {
+        this.setData({
+          houseType: res.data.data.HOUSE_HUXING,
+          mode: res.data.data.HOUSE_USE
+        })
+      }
+    })
+  },
+  //价格 面积
+  priceAreaRequest(currentCity) {
+    wx.request({
+      url: Api.IP_DICTIONARYCONDITION + 'SELL_PRICE/' + currentCity,
+      data: '',
+      method: 'GET',
+      success: (res) => {
+        this.setData({ price: res.data.data });
+      }
+    })
+    wx.request({
+      url: Api.IP_DICTIONARYCONDITION + 'HOUSE_AREA/' + currentCity,
+      data: '',
+      method: 'GET',
+      success: (res) => {
+        this.setData({ proportion: res.data.data });
+      }
+    })
+  },
+  //计算高度
   getRect() {
     wx.createSelectorQuery().select('#mynav').boundingClientRect((rect)=> {
       this.setData({navTop: rect.top})
@@ -98,7 +152,8 @@ Page({
       console.log('search:'+rect.height)
     }).exec()
   },
-  onPageScroll(res) {//页面滚动监听
+  //页面滚动监听
+  onPageScroll(res) {
     let percent = res.scrollTop / this.data.navTop;
     if (percent >= 0.7) percent = 1;
     let changeTone = 'rgba(249,249,249,' + percent + ')';

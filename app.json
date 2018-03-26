@@ -1,10 +1,12 @@
 {
   "pages": [
-    
     "pages/searchList/searchList",
-    "pages/houseDetail/lookHouse",
     "pages/index/index",
     "pages/index/buyRentHouse",
+    
+    "pages/houseDetail/lookHouse",
+    
+    
     "pages/index/shop",
     "pages/houseDetail/houseDetailInfo",
     "pages/mine/mine",

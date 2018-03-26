@@ -78,6 +78,12 @@ Page({
             showload: false,
             shops: res.data
           })
+          if(!res.data.length) {
+            wx.showModal({
+              title: '提示',
+              content: '暂时没有找到数据'
+            })
+          }
         }
       }
     })

@@ -96,6 +96,12 @@ Page({
       data: ['HOUSE_HUXING', 'HOUSE_USE'],
       method: 'POST',
       success: (res)=> {
+        res.data.data.HOUSE_HUXING.forEach((item)=> {
+          item.colorFlag = false;
+        })
+        res.data.data.HOUSE_USE.forEach((item)=> {
+          item.colorFlag = false;          
+        })
         this.setData({
           houseType: res.data.data.HOUSE_HUXING,
           mode: res.data.data.HOUSE_USE
@@ -118,6 +124,7 @@ Page({
       data: '',
       method: 'GET',
       success: (res) => {
+        console.log(res)
         this.setData({ proportion: res.data.data });
       }
     })
