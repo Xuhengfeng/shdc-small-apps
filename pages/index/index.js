@@ -39,7 +39,6 @@ Page({
 
     //获取主页banner资讯
     app.httpRequest(Api.IP_INDEXCONSULT + this.data.currentCity +"/INDEX_BANNER", 'GET', (error, data)=> {
-      console.log(data)
       if(data) this.setData({ imgUrls: data.data });
       if(error) {
         wx.showModal({

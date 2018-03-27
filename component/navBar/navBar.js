@@ -1,8 +1,5 @@
 // component/navBar/navBar.js
 Component({
-  /**
-   * 组件的属性列表
-   */
   properties: {//传递数据
     label: {
       type: Object,
@@ -27,18 +24,23 @@ Component({
     mode: {//类型
       type: Object,
       value: ''
+    },
+    num: {//控制nav菜单
+      type: Number,
+      value: ''
+    },
+    showModalStatus: {//遮罩层
+      type: Boolean,
+      value: false
     }
-
-  },
+   },
   /**
    * 组件的初始数据
    */
   data: {
     houseList: [],//房源列表
-    num: null,//控制nav菜单
     page: 1,
     isScroll: true,
-    showModalStatus: false,//遮罩层
     scrollTop: 0,
     togglelabel: true,
     houseDetail: null,//二手房(买房)、租房、小区
@@ -49,9 +51,6 @@ Component({
     priceCategories: 0,//价格
     modeCategories: 0,//类型
     proportionCategories: 0,//面积
-  },
-  ready() {
-    this.getRect();
   },
   /**
    * 组件的方法列表
@@ -64,17 +63,17 @@ Component({
         showModalStatus: true,
       });
       //this.util();//开启动画
-      this.triggerEvent('myevent', this.data)
     },
     pricelabel(e) {//价格标签 筛选
       console.log(e.target.dataset.num)
     },
     cancelModal(e) {//取消
       this.setData({
-        num: null,
+        num: 5,
         isScroll: true,
         showModalStatus: false
       })
+      this.triggerEvent('myevent', this.detail)
     },
     refresh() {
       console.log('下拉刷新..')
@@ -83,13 +82,6 @@ Component({
       this.setData({ page: this.data.page + 1 })
       console.log("上拉加载更多" + this.data.page)
       this.getDataFromServer(this.data.page)
-    },
-    getRect() {
-      wx.createSelectorQuery().select('#mynav').boundingClientRect((rect) => {
-        this.setData({
-          navHeight: rect.height
-        })
-      }).exec()
     },
     getDataFromServer(page) {//请求
       this.setData({

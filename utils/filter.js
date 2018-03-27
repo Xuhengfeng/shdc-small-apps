@@ -1,6 +1,5 @@
 //页面拦截器
 function loginCheck(pageObj) {
-  console.log(pageObj)
   if(pageObj.onLoad) {
     let _onLoad = pageObj.onLoad;
       pageObj.onLoad = function(options) {

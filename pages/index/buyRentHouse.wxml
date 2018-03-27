@@ -1,18 +1,19 @@
 <import src="../template/template.wxml"/>
+  <view style="height:auto;">
     <view class="header">
       <swiper bindchange="listenSwiper" 
               indicator-dots="{{indicatorDots}}" 
               autoplay="{{autoplay}}" 
               interval="{{interval}}" 
               duration="{{duration}}">
-        <block wx:for="{{imgUrls}}"
-               wx:key="{{index}}">
-          <swiper-item>
-              <image src="{{item.picUrl}}" 
-                     class="slide-image" 
-                     style="width:100%!important;height:100%!important"/>
-          </swiper-item>
-        </block>
+              <block wx:for="{{imgUrls}}"
+                    wx:key="{{index}}">
+                    <swiper-item>
+                        <image src="{{item.picUrl}}" 
+                              class="slide-image" 
+                              style="width:100%!important;height:100%!important"/>
+                    </swiper-item>
+              </block>
       </swiper>
       <!-- 重写指示点 -->
       <view class="indicator">
@@ -20,7 +21,7 @@
                 data-index="{{index}}"
                 wx:for="{{imgUrls}}"
                 wx:key="index">
-          </view>
+                </view>
       </view>
       <view id="mysearch" class="serarch-content" style="background:{{tone}}">
         <view class="search-bg">
@@ -30,10 +31,22 @@
           </view>
         </view>
       </view>
+      <!-- navBar组件 -->
+      <navBar-html class="mynav"
+                  label="{{label}}"
+                  area="{{area}}" 
+                  houseType="{{houseType}}"
+                  mode="{{mode}}"
+                  price="{{price}}"
+                  proportion="{{proportion}}"
+                  num="{{navNum}}"
+                  showModalStatus="{{showModalStatus}}"
+                  style="visibility:{{isShow}}">
+      </navBar-html>
     </view>
-    <view class="section1">
+    <view class="recommend">
       <view class="title"><text>为你推荐</text></view>
-      <view class="recommend">
+      <view>
         <scroll-view scroll-x style="white-space:nowrap;display:flex;height:100%">
           <navigator url="../houseDetail/houseDetail" 
                      class="goods-item"
@@ -65,17 +78,17 @@
       </view>
     </view>
 
-    <!-- navBar组件 -->
-    <navBar-html class="{{hNum==1?'fixed':'cancelfixed'}}"
-               id="mynav"
-               label="{{label}}"
-               area="{{area}}" 
-               houseType="{{houseType}}"
-               mode="{{mode}}"
-               price="{{price}}"
-               proportion="{{proportion}}"
-               bindmyevent="onMyEvent">
-    </navBar-html>
+    <view class="labelgroup">
+      <view class="navbar">
+            <view class="nav"
+                  data-index="{{index}}"
+                  wx:for="{{label}}"
+                  bindtap="selectItem">{{item}}
+                  <image src="../../images/drop.png"/>
+            </view>
+      </view>
+    </view>
+    
 
     <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
             <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{houseDetail}}" hover-class="none">
@@ -94,19 +107,22 @@
                             <text>{{item.builtArea}}m²</text>
                         </view>
 
-                        <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
-                            <text wx:for="{{item.houseTag}}" 
+                        <view class="houseTag" 
+                              style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+                              <text wx:for="{{item.houseTag}}" 
                                   wx:key="{{index2}}"
                                   wx:for-item="item2" 
                                   wx:for-index="index2" 
                                   style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
                         </view>
 
-                      <view wx:if="{{flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                      <view wx:if="{{flagPrice}}" 
+                            style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
                             <text>{{item.saleTotal}}万</text>
                             <text style="font-size:24rpx;color:#666666;margin-left:25rpx;">{{item.salePrice}}元/平米</text>
                       </view>
-                      <view wx:if="{{!flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                      <view wx:if="{{!flagPrice}}" 
+                            style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
                             <text>{{item.rentPrice}}</text>
                             <text style="font-size:24rpx;color:#666666;margin-left:10rpx">元/月</text>
                       </view>
@@ -119,10 +135,11 @@
         <view class="tips">
             <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
             <view wx:elif="{{twohandhouse.length==0}}"><text>没有更多内容</text></view>
-            <navigator wx:elif="{{twohandhouse.length!=0}}" url="../searchList/searchList?houseType={{houseType[num]}}">查看全部房源</navigator> 
+            <navigator wx:elif="{{twohandhouse.length!=0}}" 
+                       url="../searchList/searchList?houseType={{houseType[num]}}">查看全部房源
+            </navigator> 
         </view>
         <loading wx:if="{{showload}}">加载中...</loading>
+<view style="height:500px;"></view>
 
-<!-- 数据不够的时候 补齐页面滚动高度 -->
-<view wx:if="{{showload}}" style="padScrollHeight" style="height:{{navTop+80}}px;"></view>
-
+</view>

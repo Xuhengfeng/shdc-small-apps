@@ -14,38 +14,31 @@ Page({
     //为你推荐
     recommend: [],
 
-    label: [], 
+    label: [1,2,3,4,5], 
     scrollTop: 0,
     cityCode: null,
     tone:'rgba(249,249,249,0)',//头部渐变色值
     houseDetail: null,//房源详情
     houseList: [],
     flagPrice: true,
-    navTop: null,//菜单距离顶部位置
-    mysearch: null,//search高度
+
+    isShow: 'hidden',//nav是否显示
+    showModalStatus: false,//遮罩层
+    
+    navNum: null, //菜单
     recmd: [Api.IP_HOUSERECMDLIST, Api.IP_RENTRECMDLIST], //推荐
     IPS: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE],//列表
     showload: false,
-    hNum:0,
     houseList: [],//房源列表
     area: [],//区域
     houseType: [],//户型
     price: [],//价格或者租金
     proportion: [],//面积
     mode: [],//类型
-
-    num: 0,
+    num: 0,//修正ip的
     keyword: null,//获取用户输入值
   },
   onLoad(options) {
-    // setInterval(()=>{
-    //   this.setData({
-    //     scrollTop: this.data.scrollTop,
-    //     navTop: this.data.navTop,
-    //     mysearch: this.data.mysearch,
-    //     hNum:this.data.hNum
-    //   })
-    // },10)
     //初始化
     wx.setNavigationBarTitle({ title: options.title })
     if(options.title == '我要买房') {
@@ -92,11 +85,6 @@ Page({
         this.priceAreaRequest(res.data.value);
       }
     })
-    
-    //计算高度
-    this.getRect();
-
-    
   },
   //区域
   areaRequest(currentCity) {
@@ -152,51 +140,39 @@ Page({
       })
     }
   },
-  //计算高度
-  getRect() {
-    wx.createSelectorQuery().select('#mynav').boundingClientRect((rect)=> {
-      this.setData({navTop: rect.top})
-      console.log('nav:'+rect.top)
-    }).exec()
-    wx.createSelectorQuery().select('#mysearch').boundingClientRect((rect)=> {
-      this.setData({mysearch: rect.height})
-      console.log('search:'+rect.height)
-    }).exec()
-  },
   //页面滚动监听
   onPageScroll(res) {
-    let percent = res.scrollTop / this.data.navTop;
-    if (percent >= 0.7) percent = 1;
+    let percent = res.scrollTop / 300;
     let changeTone = 'rgba(249,249,249,' + percent + ')';
     this.setData({
-      scrollTop: res.scrollTop,
       tone: changeTone//头部渐变色值 
     })
-    if(this.data.scrollTop < (this.data.navTop - this.data.mysearch)){
-      this.selectComponent("#mynav").cancelModal();//父组件调用子组件方法
-      this.setData({
-        hNum: 0
-      })
+    if(res.scrollTop>330) {
+        this.setData({
+          isShow: 'visible'
+        })
     }else{
       this.setData({
-        hNum:1
+        isShow: 'hidden'
       })
-    } 
+    }
+   
   },
   listenSwiper(e) {//修改指示器 高亮
     this.setData({//显示图片当前的
       currentIndex: e.detail.current
     })
   },
-  onMyEvent(item) {//控制nav菜单
+  selectItem(e) {//控制nav菜单
     wx.pageScrollTo({
-      scrollTop: 333,
+      scrollTop: 350,
       duration: 0
     })
-    this.setData({tone: '#f9f9f9'})
-  },
-  cancelModal() {
-    this.setData({ scrollTop: 0 })
+    this.setData({
+      navNum: e.target.dataset.index,
+      showModalStatus: true,
+      tone: "rgba(249, 249, 249, 1)"
+    })
   },
   userSearch(e) {//用户输入关键字
     this.setData({

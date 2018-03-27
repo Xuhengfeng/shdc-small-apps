@@ -66,10 +66,10 @@
   color: #333333;
 }
 .labelgroup .navbar image{
-  width: 25rpx;
-  height: 25rpx;
+  width: 14rpx;
+  height: 9rpx;
   margin-left: 10rpx;
-  zoom: .5;
+  vertical-align: middle;
 }
 .labelgroup .content{
   position: absolute;
