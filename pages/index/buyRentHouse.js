@@ -26,7 +26,7 @@ Page({
     recmd: [Api.IP_HOUSERECMDLIST, Api.IP_RENTRECMDLIST], //推荐
     IPS: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE],//列表
     showload: false,
-
+    hNum:0,
     houseList: [],//房源列表
     area: [],//区域
     houseType: [],//户型
@@ -38,6 +38,14 @@ Page({
     keyword: null,//获取用户输入值
   },
   onLoad(options) {
+    // setInterval(()=>{
+    //   this.setData({
+    //     scrollTop: this.data.scrollTop,
+    //     navTop: this.data.navTop,
+    //     mysearch: this.data.mysearch,
+    //     hNum:this.data.hNum
+    //   })
+    // },10)
     //初始化
     wx.setNavigationBarTitle({ title: options.title })
     if(options.title == '我要买房') {
@@ -166,6 +174,13 @@ Page({
     })
     if(this.data.scrollTop < (this.data.navTop - this.data.mysearch)){
       this.selectComponent("#mynav").cancelModal();//父组件调用子组件方法
+      this.setData({
+        hNum: 0
+      })
+    }else{
+      this.setData({
+        hNum:1
+      })
     } 
   },
   listenSwiper(e) {//修改指示器 高亮
@@ -174,9 +189,10 @@ Page({
     })
   },
   onMyEvent(item) {//控制nav菜单
-    console.log(item)
-    wx.pageScrollTo({scrollTop: 333,
-                     duration: 0})
+    wx.pageScrollTo({
+      scrollTop: 333,
+      duration: 0
+    })
     this.setData({tone: '#f9f9f9'})
   },
   cancelModal() {

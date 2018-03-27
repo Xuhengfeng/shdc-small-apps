@@ -3,6 +3,13 @@
 ::-webkit-scrollbar{
   display: none;
 }
+page{
+  width: 100%;
+  overflow-x: hidden;
+}
+navigator{
+  overflow: hidden;
+}
 .header{
   position: relative;
   height: 400rpx;
@@ -100,6 +107,7 @@
   top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   padding: 40rpx;
 }
 /*nav菜单*/
@@ -118,6 +126,15 @@
   background: #ffffff;
   width: 100%;
   z-index: 1000;
+}
+.item .item-title{
+  font-size:30rpx;
+  line-height: 1.2;
+  text-align: justify;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 /* 滚动固定 */

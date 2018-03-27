@@ -2,6 +2,7 @@
   "pages": [
    
     "pages/index/index",
+    "pages/location/location",
     "pages/index/buyRentHouse",
     "pages/searchList/searchList",
     "pages/houseDetail/lookHouse",
@@ -18,7 +19,7 @@
     "pages/index/hotHouse",
     "pages/mine/login",
     
-    "pages/location/location",
+    
     
     
     "pages/mine/collection",

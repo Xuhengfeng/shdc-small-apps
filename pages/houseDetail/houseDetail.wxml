@@ -31,7 +31,8 @@
   <block wx:if="{{detailType==22}}">
       <text class="title" style="line-height:1.2">{{houseDetail.houseTitle}}</text>
       <view class="description1">
-          {{'3453'}}<text style="font-size:26rpx;margin-left:10rpx;">元/月</text>
+          <text>{{houseDetail.rentPrice}}</text>
+          <text style="font-size:26rpx;margin-left:10rpx;">元/月</text>
       </view>
   </block>
   
@@ -48,11 +49,11 @@
   <!-- 小区找房 -->
   <block wx:if="{{detailType==33}}">
       <view class="estate">
-            <navigator url="../index/hotHouse?title=小区二手房">
+            <navigator url="../index/hotHouse?title=小区二手房" hover-class="none">
                 <image src="../../images/estate1.png"></image>
                 <view>二手房</view>
             </navigator>
-            <navigator url="../index/buyRentHouse?title=我要租房&houseDetail=我要租房">
+            <navigator url="../index/buyRentHouse?title=我要租房&houseDetail=我要租房" hover-class="none">
                 <image src="../../images/estate2.png"></image>
                 <view>租房</view>
             </navigator>
@@ -89,7 +90,7 @@
   </view>
   <view class="map">
         <!-- 腾讯地图 -->
-        <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 100%;"></map>
+        <map id="map" wx:if="{{hiddenModal}}" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 100%;"></map>
 
       <!-- 静态地图 -->
       <!-- <image src="{{src}}" style="width:100%;background-size:cover" wx:if="{{!hiddenModal}}"></image>  -->
@@ -165,8 +166,8 @@
 
 <!-- cover-view 写法 -->
 <cover-view class="footer">
-   <!-- 我要买房(二手房) -->
-    <cover-view wx:if="{{detailType==11}}">
+   <!-- 我要买房(二手房) 租房 -->
+    <cover-view wx:if="{{detailType!==33}}">
       <cover-view class="collectionLike" bindtap="toggleSelectLike">
         <cover-view class="like">
           <cover-image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
@@ -180,8 +181,8 @@
       </cover-view>
     </cover-view>
 
-    <!-- 我要租房 -->
-    <cover-view class="type2" wx:if="{{detailType==22}}">
+    <!-- 小区 -->
+    <cover-view class="type2" wx:if="{{detailType==33}}">
       <cover-view bindtap="listenerButton">联系经纪人</cover-view>
     </cover-view>
 </cover-view> 
@@ -207,7 +208,7 @@
 
   <!-- twohandhouse -->
   <block wx:for="{{guessYoulikeHouse}}" wx:key="index" wx:for-item="item">
-      <view class="item">
+      <view class="item" bindtap="RefreshHouseDetail">
             <view class="image">
               <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
             <view class="item-content">
@@ -230,10 +231,12 @@
               </view>
 
             <view wx:if="{{flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
-                {{item.saleTotal}}万<text style="font-size:24rpx;color:#666666;margin-left:25rpx;">{{item.salePrice}}元/平米</text>
+                <text>{{item.saleTotal}}万</text>
+                <text style="font-size:24rpx;color:#666666;margin-left:25rpx;">{{item.salePrice}}元/平米</text>
             </view>
             <view wx:if="{{!flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
-                {{item.rentPrice}}<text style="font-size:24rpx;color:#666666;margin-left:10rpx">元/月</text>
+                <text>{{item.rentPrice}}</text>
+                <text style="font-size:24rpx;color:#666666;margin-left:10rpx">元/月</text>
             </view>
           </view>
       </view>
@@ -243,7 +246,5 @@
       <view wx:elif="{{twohandhouse.length==0}}"><text>没有更多内容</text></view>
       <navigator wx:elif="{{twohandhouse.length!=0}}" url="../searchList/searchList?houseType={{houseType[num]}}">查看全部房源</navigator> 
   </view>
-  <loading wx:if="{{showload}}">
-    加载中...
-  </loading>
+  <loading wx:if="{{showload}}">加载中...</loading>
 </view>

@@ -36,10 +36,40 @@ button{
     padding-bottom: 0;
 }
 
-/* 重写weui的样式 */
+/* 重写weui的tab样式 */
 .weui-navbar__item.weui-bar__item_on{
   color: #ff4343;
 }
 .weui-navbar__slider{
   background-color: #ff4343;
 }
+
+/*房源列表*/
+.page_list{
+    width: 100%!important;
+    border-top: 1rpx solid #cacaca;
+}
+.item{
+    display: flex;
+    padding: 30rpx 0;
+    border-bottom: 1rpx solid #eee;
+}
+.item .image{
+    float: left;
+    margin-right: 40rpx;
+    margin-left: 25rpx;
+    min-width: 260rpx;
+    width: 260rpx;
+    height: 210rpx;
+    background: #f2f2f2;
+}
+.item .image image{
+  width: 100%;
+  height: 100%;
+}
+
+/* 筛选背景高亮 */
+.bgColor{
+  background: #ffeeee;
+}
+

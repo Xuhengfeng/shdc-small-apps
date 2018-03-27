@@ -11,41 +11,119 @@
       <view class="weui-tab__panel">
           <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
               <view class="weui-panel__bd">
-                  <navigator wx:for="{{[1,1,1,1,1,1,1,1,1,1,1,1]}}" url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-                      <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                          <image class="weui-media-box__thumb" src="../../images/astate.png" />
-                      </view>
-                      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                          <view class="weui-media-box__title">标题一</view>
-                          <view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
-                      </view>
-                  </navigator>
+                 <block wx:for="{{[1,2]}}" wx:key="index" wx:for-item="item">
+                      <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{guessYouLike[num]}}" 
+                                hover-class="none">
+                          <view class="item">
+                                <view class="image">
+                                  <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
+                                <view class="item-content">
+                                  <view class="item-title">{{item.houseTitle}}</view>
+                                  <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
+                                    {{item.areaName}} {{item.districtName}} {{item.houseDirection}}
+                                  </view>
+
+                                  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
+                                    <text style="margin-right:20rpx">{{item.houseType}}</text>
+                                    <text>{{item.builtArea}}m²</text>
+                                  </view>
+
+                                  <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+                                    <text wx:for="{{item.houseTag}}" 
+                                          wx:key="{{index2}}"
+                                          wx:for-item="item2" 
+                                          wx:for-index="index2" 
+                                          style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
+                                  </view>
+
+                                <view wx:if="{{flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                                    {{item.saleTotal}}万<text style="font-size:24rpx;color:#666666;margin-left:25rpx;">{{item.salePrice}}元/平米</text>
+                                </view>
+                                <view wx:if="{{!flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                                    {{item.rentPrice}}<text style="font-size:24rpx;color:#666666;margin-left:10rpx">元/月</text>
+                                </view>
+                              </view>
+                          </view>
+                      </navigator>
+                  </block>
               </view>
           </view>
           <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
               <view class="weui-panel__bd">
-                  <navigator url="" wx:for="{{[1,1,1,1,1,1,1,1,1,1]}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-                      <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                          <image class="weui-media-box__thumb" src="../../images/astate.png" />
-                      </view>
-                      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                          <view class="weui-media-box__title">标题一</view>
-                          <view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
-                      </view>
-                  </navigator>
+                 <block wx:for="{{[1,2]}}" wx:key="index" wx:for-item="item">
+                      <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{guessYouLike[num]}}" 
+                                hover-class="none">
+                          <view class="item">
+                                <view class="image">
+                                  <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
+                                <view class="item-content">
+                                  <view class="item-title">{{item.houseTitle}}</view>
+                                  <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
+                                    {{item.areaName}} {{item.districtName}} {{item.houseDirection}}
+                                  </view>
+
+                                  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
+                                    <text style="margin-right:20rpx">{{item.houseType}}</text>
+                                    <text>{{item.builtArea}}m²</text>
+                                  </view>
+
+                                  <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+                                    <text wx:for="{{item.houseTag}}" 
+                                          wx:key="{{index2}}"
+                                          wx:for-item="item2" 
+                                          wx:for-index="index2" 
+                                          style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
+                                  </view>
+
+                                <view wx:if="{{flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                                    {{item.saleTotal}}万<text style="font-size:24rpx;color:#666666;margin-left:25rpx;">{{item.salePrice}}元/平米</text>
+                                </view>
+                                <view wx:if="{{!flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                                    {{item.rentPrice}}<text style="font-size:24rpx;color:#666666;margin-left:10rpx">元/月</text>
+                                </view>
+                              </view>
+                          </view>
+                      </navigator>
+                  </block>
               </view>
           </view>
           <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
               <view class="weui-panel__bd">
-                  <navigator url="" wx:for="{{[1,1,1,1,1,1,1,1,1]}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-                      <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                          <image class="weui-media-box__thumb" src="../../images/astate.png" />
-                      </view>
-                      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                          <view class="weui-media-box__title">标题一</view>
-                          <view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
-                      </view>
-                  </navigator>
+                 <block wx:for="{{[1,2]}}" wx:key="index" wx:for-item="item">
+                      <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{guessYouLike[num]}}" 
+                                hover-class="none">
+                          <view class="item">
+                                <view class="image">
+                                  <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
+                                <view class="item-content">
+                                  <view class="item-title">{{item.houseTitle}}</view>
+                                  <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
+                                    {{item.areaName}} {{item.districtName}} {{item.houseDirection}}
+                                  </view>
+
+                                  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
+                                    <text style="margin-right:20rpx">{{item.houseType}}</text>
+                                    <text>{{item.builtArea}}m²</text>
+                                  </view>
+
+                                  <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+                                    <text wx:for="{{item.houseTag}}" 
+                                          wx:key="{{index2}}"
+                                          wx:for-item="item2" 
+                                          wx:for-index="index2" 
+                                          style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
+                                  </view>
+
+                                <view wx:if="{{flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                                    {{item.saleTotal}}万<text style="font-size:24rpx;color:#666666;margin-left:25rpx;">{{item.salePrice}}元/平米</text>
+                                </view>
+                                <view wx:if="{{!flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                                    {{item.rentPrice}}<text style="font-size:24rpx;color:#666666;margin-left:10rpx">元/月</text>
+                                </view>
+                              </view>
+                          </view>
+                      </navigator>
+                  </block>
               </view>
           </view>
       </view>

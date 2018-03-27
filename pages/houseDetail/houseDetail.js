@@ -16,6 +16,9 @@ Page({
     hiddenModal: true,//二手房(买房)、租房联系经纪人true , 小区联系经纪人false
     likeFlag: true,//喜欢 收藏
 
+
+    scrollTop: 0,
+
     //高德地图定位
     markers: [],
     latitude: '',
@@ -26,7 +29,7 @@ Page({
     //小区详情 猜你喜欢
     guessYouLike: ['二手房', '租房'],
     guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
-    num: 0,//默认样式
+    num: 0,
 
 
     //二手房(买房)详情11，租房详情22, 小区详情33 
@@ -144,7 +147,7 @@ Page({
     }
 
     //猜你喜欢(默认二手房 首页第1页数据)
-    var IP = this.data.guessLikeIP[0] + '/' + this.data.currentCity;
+    var IP = this.data.guessLikeIP[this.data.num] + '/' + this.data.currentCity;
     this.getDataFromServer(IP, { pageNo: 1 });
   },
   //附近房源详情
@@ -207,7 +210,10 @@ Page({
     })
   },
   RefreshHouseDetail(e){//重新请求数据
-    console.log(e)
+    wx.pageScrollTo({//回到顶部
+      scrollTop: 0,
+      duration: 0
+    })
     let sdid = e.target.dataset.id;
     this.buyRentRequest(sdid); 
   },
@@ -220,6 +226,34 @@ Page({
     this.setData({
       likeFlag: !this.data.likeFlag
     })
+    if (wx.getStorageSync("userToken").data || wx.getStorageSync("openId")) {
+      wx.getStorage({
+        key: 'selectCity',
+        success: (res) => {
+          wx.showLoading({
+            title: '收藏成功',
+            icon: 'loading'
+          })
+          //租房收藏
+          wx.request({
+            url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
+            data: '',
+            method: 'POST',
+            header: {
+              "Content-Type": "application/json",
+              "unique-code": wx.getStorageSync("userToken").data
+            },
+            success: (res) => {
+              wx.hideLoading();
+            }
+          })
+        }
+      })
+    }else{
+      wx.redirectTo({
+        url: "/pages/mine/login"
+      });
+    }
   },
   regionchange(e) {//拖动地图
     console.log(e.type)
@@ -316,14 +350,14 @@ Page({
             })
           }
         },
-        fail: function (error) {
+        fail: (error)=> {
           this.setData({
             hasMore: false,
             showload: false
           })
           wx.showModal({
             title: '提示',
-            content: '服务器异常',
+            content: '服务器异常'
           })
         }
       })
