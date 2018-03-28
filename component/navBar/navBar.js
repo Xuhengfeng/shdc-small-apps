@@ -27,7 +27,7 @@ Component({
     },
     num: {//控制nav菜单
       type: Number,
-      value: ''
+      value: 5
     },
     showModalStatus: {//遮罩层
       type: Boolean,

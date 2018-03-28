@@ -141,7 +141,6 @@ page{
 }
 .section3 .map{
   height: 400rpx;
-  background: #cacaca;
   overflow: hidden;
 }
 .section3 .title text{
@@ -257,9 +256,7 @@ page{
   position: fixed;
   bottom: 0;
   left: 0;
-  background: #ff4343;
   width: 100%;
-  z-index: 1000;
 }
 .footer .type1{
   width: 80%;
@@ -274,7 +271,10 @@ page{
   line-height: 100rpx;
   text-align: center;
 }
-.footer .type1 cover-view:last-child{
+.footer .type1 cover-view:nth-of-type(1){
+  background: #ff4343;
+}
+.footer .type1 cover-view:nth-of-type(2){
   background: #5db1ff;
 }
 .footer .type2{

@@ -10,17 +10,19 @@
   </view>  
 </view>
 <view style="height:45px;"></view>
-<view class="content" wx:for="{{[1,2,2,2]}}" wx:if="{{shopRent.length}}">
-  <view class='one'>高新园科技路点</view>
-  <view class='two'>高新园科技路点</view>
-  <view class='three'>
-    <image src="../../images/location2.png" style="width:50rpx;height:50rpx;"></image>
-    0.132km
-  </view>
-  <view class="btnGroup">
-    <view bindtap="purpose">门店位置</view>
-    <view bindtap="telphone">电话咨询</view>
-  </view>
+<view class="content" 
+      wx:for="{{shops}}" 
+      wx:if="{{!shopRent.length}}">
+      <view class='one'>{{item.deptName}}</view>
+      <view class='two'>{{item.addr}}</view>
+      <view class='three'>
+        <image src="../../images/location2.png" style="width:50rpx;height:50rpx;"></image>
+        <text>0.132km</text>
+      </view>
+      <view class="btnGroup">
+        <view bindtap="purpose" data-item="{{item}}">门店位置</view> 
+        <view bindtap="telphone" data-tel="{{item.telNum}}">电话咨询</view>
+      </view>
 </view>
 <view class="tips">
   <view wx:if="{{!shopRent.length}}"><text>没有更多内容</text></view>
@@ -28,3 +30,4 @@
 <loading wx:if="{{showload}}">
   加载中...
 </loading>
+

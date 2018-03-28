@@ -116,17 +116,15 @@
                                   style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
                         </view>
 
-                      <view wx:if="{{flagPrice}}" 
-                            style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
-                            <text>{{item.saleTotal}}万</text>
-                            <text style="font-size:24rpx;color:#666666;margin-left:25rpx;">{{item.salePrice}}元/平米</text>
+                        <view wx:if="{{flagPrice}}" style="margin-top:20rpx;line-height:1;">
+                            <text style="font-size:34rpx;color:#ff4343;margin-right:25rpx">{{item.saleTotal}}万</text>
+                            <text style="font-size:24rpx;color:#666666">{{item.salePrice}}元/平米</text>
+                        </view>
+                        <view wx:if="{{!flagPrice}}" style="margin-top:20rpx;line-height:1;">
+                            <text style="font-size:34rpx;color:#ff4343;margin-right:10rpx">{{item.rentPrice}}</text>
+                            <text style="font-size:24rpx;color:#666666">元/月</text>
+                        </view>
                       </view>
-                      <view wx:if="{{!flagPrice}}" 
-                            style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
-                            <text>{{item.rentPrice}}</text>
-                            <text style="font-size:24rpx;color:#666666;margin-left:10rpx">元/月</text>
-                      </view>
-                    </view>
                 </view>
             </navigator>
         </block>
@@ -140,6 +138,6 @@
             </navigator> 
         </view>
         <loading wx:if="{{showload}}">加载中...</loading>
-<view style="height:500px;"></view>
+        <view style="height:500px;" wx:if="{{!houseList.length}}"></view>
 
 </view>

@@ -61,6 +61,7 @@ Page({
     wx.getStorage({
       key: 'selectCity',
       success: (res) => {
+        console.log('this:'+this)
         this.setData({cityCode: res.data.value});
         //我要买房 租房 列表
         this.getDataFromServer(this.data.IPS[this.data.num], 1, this.data.cityCode);
