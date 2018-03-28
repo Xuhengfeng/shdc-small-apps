@@ -1,4 +1,5 @@
-var amapFile = require("../../libs/amap-wx.js");//高德地图sdk
+// var amapFile = require("../../libs/amap-wx.js");//高德地图sdk
+
 var Api = require("../../utils/url");
 const app = getApp();
 Page({
@@ -11,20 +12,15 @@ Page({
     interval: 2000,
     duration: 1000,
     currentIndex: 1,
-
     
     hiddenModal: true,//二手房(买房)、租房联系经纪人true , 小区联系经纪人false
     likeFlag: true,//喜欢 收藏
-
-
     scrollTop: 0,
 
-    //高德地图定位
-    markers: [],
-    latitude: '',
-    longitude: '',
-    textData: {},
-    src: null,//静态图和动态图切换
+    //百度地图
+    latitude: 38.76623,
+    longitude: 116.43213,
+
 
     //小区详情 猜你喜欢
     guessYouLike: ['二手房', '租房'],

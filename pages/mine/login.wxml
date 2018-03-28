@@ -6,9 +6,10 @@
       <view class="line"></view> 
     </view>
      <button type="primary" 
-        
-        bindtap="getUseInfo"  
-        class="globalBtnColor iconfont icon-weixin2"> 账号登录</button> 
+             bindtap="getUseInfo"  
+             class="globalBtnColor">
+             <image src="../../images/wechat.png"></image>账号登录
+    </button> 
   </view>
   <!-- open-type="getPhoneNumber" 
         bindgetphonenumber="getPhoneNumber" -->
@@ -16,7 +17,9 @@
   
   <view class="page__bd" wx:if="{{!isCancelLogin}}">
       <view class="section">
-        <view bindtap="back" class="iconfont icon-iconset0127" style="font-size:60rpx;"></view>
+        <view bindtap="back">
+            <image src="../../images/close.png" class="close"></image>
+        </view>
         <text style="margin-top:40rpx;font-size:60rpx;">手机快捷登录</text>
       </view>
       <view class="section">

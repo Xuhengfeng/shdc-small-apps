@@ -1,4 +1,3 @@
-@import "../../iconfont.wxss";
 .page{
   padding: 40rpx;
 }

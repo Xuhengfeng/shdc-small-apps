@@ -47,10 +47,11 @@ page{
   vertical-align: top; 
 }
 .serarch-content .location+image{
-  float: left;
-  margin: 30rpx 25rpx 0;
-  width: 25rpx;
-  height: 25rpx; 
+  display: inline-block;
+  margin: 0 30rpx 0 10rpx; 
+  width: 14rpx;
+  height: 9rpx;
+  vertical-align: middle;
 }
 .serarch-content .search{
   float: left;  

@@ -1,4 +1,3 @@
-@import "../../iconfont.wxss";
 /*房源列表*/
 .page_list{
     width: 100%!important;

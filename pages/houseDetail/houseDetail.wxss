@@ -135,11 +135,12 @@ page{
 .section3{
   background: #ffffff;
 }
-.section3 .title{
+.section3>.title{
   padding: 0 25rpx;
   overflow: hidden;
 }
 .section3 .map{
+  position: relative;
   height: 400rpx;
   overflow: hidden;
 }
@@ -149,6 +150,44 @@ page{
   font-size: 40rpx;
   color: #333333;
   line-height: 1;
+}
+
+.map .circle{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  border: 1px solid rgba(77,139,241,1);
+  background: rgba(77,139,241,.3);
+}
+.map .rect{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 50%;
+  padding: 20rpx;
+  background: #ffffff;
+  box-shadow: 2px 2px 2px rgba(0,0,0,.2);
+}
+.map .rect>text{
+  display: block;
+}
+.map .rect .content{
+  font-size:26rpx;
+  color:#666666;
+}
+.map .rect image{
+  position: absolute;
+  left: 50%;
+  bottom: -30rpx;
+  transform: translateX(-50%);
+  width: 50rpx;
+  height: 50rpx;
+  z-index: 1000;
 }
 
 /* 买房、租房房屋简介 */
@@ -262,7 +301,7 @@ page{
   width: 80%;
   overflow: hidden;
 }
-.footer .type1 cover-view{
+.footer .type1 view{
   float: left;
   font-size: 34rpx;
   color: #ffffff;
@@ -271,10 +310,10 @@ page{
   line-height: 100rpx;
   text-align: center;
 }
-.footer .type1 cover-view:nth-of-type(1){
+.footer .type1 view:nth-of-type(1){
   background: #ff4343;
 }
-.footer .type1 cover-view:nth-of-type(2){
+.footer .type1 view:nth-of-type(2){
   background: #5db1ff;
 }
 .footer .type2{
@@ -284,7 +323,7 @@ page{
   font-size: 34rpx;
   color: #ffffff;
 }
-.footer .type2 cover-view{
+.footer .type2 view{
   background: #5db1ff;
   height: 100%;
   line-height: 100rpx;
@@ -306,14 +345,17 @@ page{
 }
 .collectionLike .like{
   width:40%;
+  height: 100%;
   margin:0 auto;
 }
-.collectionLike .like cover-image{
-  width: 60rpx;
-  height: 60rpx;
+.collectionLike .like image{
+  margin-top: 5px;
+  width: 50rpx;
+  height: 50rpx;
 }
 .collectionLike .attention{
   font-size: 28rpx;
+  line-height: 0.5;
 }
 
 

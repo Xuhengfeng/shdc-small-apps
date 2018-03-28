@@ -3,7 +3,7 @@
 <view class="list-search">
   <view class='list-search-box'>
     <view bindtap="Item">
-      <view class="selectItem">{{item}}</view>
+      <text class="selectItem">{{item}}</text>
       <image src="../../images/drop.png"/>
     </view>
     <view class="options" wx:if="{{flag}}">
@@ -18,7 +18,7 @@
     </view> 
     <view class="search"> 
       <view bindtap="startsearch"><image src="../../images/search.png"/></view>
-      <input confirm-type="搜索"  bindconfirm="searchSubmit" placeholder="请输入你要搜索的内容"  bindinput="userSearch" value="{{inputTxt}}" />
+      <input confirm-type="搜索"  bindconfirm="searchSubmit" placeholder="请输入您要搜索的内容"  bindinput="userSearch" value="{{inputTxt}}" />
      </view> 
   </view>
   <button class="cancelBtn" bindtap="cancelBtn">取消</button>

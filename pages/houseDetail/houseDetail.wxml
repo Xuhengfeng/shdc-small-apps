@@ -7,12 +7,13 @@
           interval="{{interval}}" 
           duration="{{duration}}">
      <block wx:for="{{houseDetail ? houseDetail.housePicList : imgUrls}}"> 
-      <swiper-item>
+      <swiper-item style="background:#e2e2e2">
         <image bindtap="previewIamge" 
                src="{{item}}" 
                data-src="{{item}}" 
                class="slide-image" 
-               style="width:100%!important;height:100%!important"/>
+               mode="aspectFit"
+               style="width:100%;height:100%;"/>
       </swiper-item>
     </block>
   </swiper>
@@ -90,10 +91,19 @@
   </view>
   <view class="map">
         <!-- 腾讯地图 -->
-        <map id="map" wx:if="{{hiddenModal}}" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 100%;"></map>
+        <!-- <map id="map" wx:if="{{hiddenModal}}" longitude="" latitude="" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 100%;"></map> -->
 
-      <!-- 静态地图 -->
-      <!-- <image src="{{src}}" style="width:100%;background-size:cover" wx:if="{{!hiddenModal}}"></image>  -->
+      <!-- 百度 静态图 -->
+       <image style="width:100%"
+             background-size="cover"
+             src="https://api.map.baidu.com/staticimage/v2?ak=CWIQ5HNNV8jAcGZ9SpNzkozq5DXOLdTH&center={{longitude}},{{latitude}}&zoom=15&scale=2">
+      </image> 
+      <view class="circle"></view>
+      <view class="rect">
+        <text class="title">福田区 梅林</text>
+        <text class="content">距离4号线</text>
+        <image src="../../images/down.png"></image>
+      </view>
   </view>
 </view>
 
@@ -127,8 +137,11 @@
   <view class="title"><text>关联小区</text></view>
   <navigator url="../houseDetail/houseDetail?id={{guanlianList.sdid}}&houseDetail=热门小区">
       <view class="item">
-          <view class="image">
-            <image src="{{guanlianList.housePic?guanlianList.housePic:'../../images/astate.png'}}"></image>
+          <view class="image" style="background:#e2e2e2">
+            <image src="{{guanlianList.housePic?guanlianList.housePic:'../../images/astate.png'}}"
+                   mode="aspectFit"
+                   style="width:100%;height:100%;">
+            </image>
           </view>
           <view>
             <!-- 二手房 小区 -->
@@ -164,28 +177,28 @@
   <!--填充盒补齐底部高度-->
 </view>
 
-<!-- cover-view 写法 -->
-<cover-view class="footer">
+<view class="footer">
    <!-- 我要买房(二手房) 租房 -->
-    <cover-view wx:if="{{detailType!==33}}">
-      <cover-view class="collectionLike" bindtap="toggleSelectLike">
-        <cover-view class="like">
-          <cover-image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
-          <cover-image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
-          <cover-view class="attention">收藏</cover-view> 
-        </cover-view>
-      </cover-view>
-      <cover-view class="type1">
-        <cover-view bindtap="jumpLookHouse">预约看房</cover-view>
-        <cover-view bindtap="listenerButton">联系经纪人</cover-view>
-      </cover-view>
-    </cover-view>
+    <view wx:if="{{detailType!==33}}">
+      <view class="collectionLike" bindtap="toggleSelectLike">
+        <view class="like">
+          <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
+          <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
+          <view class="attention">收藏</view> 
+        </view>
+      </view>
+      <view class="type1">
+        <view bindtap="jumpLookHouse">预约看房</view>
+        <view bindtap="listenerButton">联系经纪人</view>
+      </view>
+    </view>
 
     <!-- 小区 -->
-    <cover-view class="type2" wx:if="{{detailType==33}}">
-      <cover-view bindtap="listenerButton">联系经纪人</cover-view>
-    </cover-view>
-</cover-view> 
+    <view class="type2" wx:if="{{detailType==33}}">
+      <view bindtap="listenerButton">联系经纪人</view>
+    </view>
+</view> 
+
 
  <template is="shadowLay" data="{{hiddenModal,listenerButton,houseDetail}}"/> 
 

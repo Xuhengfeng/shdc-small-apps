@@ -7,11 +7,13 @@
             interval="{{interval}}" 
             duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key="key">
-        <swiper-item>
+        <swiper-item style="background:#e2e2e2">
           <image src="{{item.picUrl}}" 
                 class="slide-image" 
-                style="height:100%!;width:100%;important" 
-                data-jump="{{item.contentUrl}}"/>
+                mode="aspectFit"
+                style="width:100%;height:100%;"
+                data-jump="{{item.contentUrl}}">
+          </image>
         </swiper-item>
       </block>
     </swiper>
