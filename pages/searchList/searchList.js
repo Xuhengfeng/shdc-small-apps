@@ -12,15 +12,15 @@ Page({
     mode: [],//类型
     num: null,//控制nav菜单
     modalFlag: false,
-    page: 1,
-    isScroll: true,//控制template的内scroll-view组件滚动开启
+    page: 1,//首页数据
     showModalStatus: false,//遮罩层
     scrollTop: 0,
     togglelabel: true,
-    houseDetail: null,//二手房(买房)、租房、小区
-    IPS: [Api.IP_BUILDLIST, null, null], //小区列表 租房列表  买房列表
-    ipNum: null,
+    houseDetail: '二手房',//二手房(买房)、租房、小区
+    IPS: [Api.IP_TWOHANDHOUSE, Api.IP_BUILDLIST, Api.IP_RENTHOUSE], //二手房列表  租房列表 小区找房列表
+    ipNum: 0,
     showload: false,
+    hasMore: false,
     currentCity: '',
     keyword: '' //关键词
   },
@@ -28,11 +28,12 @@ Page({
    wx.setNavigationBarTitle({
      title: options.houseType,
    })
-   if(options.houseType == '小区找房'||options.houseType == '小区') {//小区找房
-    this.setData({ 
-       label: ['区域', '用途', '类型', '楼龄'],
-       houseDetail: options.houseType,
-       ipNum: 0 
+
+   if(options.houseType == '二手房') {
+    this.setData({
+      label: ["区域", "户型", "价格", "面积", "类型"],
+      houseDetail: options.houseType,
+      ipNum: 0
     });
    }else if(options.houseType == '租房') {
     this.setData({
@@ -40,14 +41,15 @@ Page({
        houseDetail: options.houseType,
        ipNum: 1       
     });
-   }else if(options.houseType == '二手房') {
-    this.setData({
-       label: ["区域", "户型", "价格", "面积", "类型"],
+   }else if(options.houseType == '小区找房' || options.houseType == '小区') {//小区找房
+     this.setData({
+       label: ['区域', '用途', '类型', '楼龄'],
        houseDetail: options.houseType,
        ipNum: 2
-    });
+     });
    }
-    //城市
+
+    //获取筛选条件
     wx.getStorage({
       key: 'selectCity',
       data: {
@@ -55,6 +57,7 @@ Page({
         value: this.data.currentCity
       },
       success: (res)=>{
+        //选着的城市
         this.setData({currentCity: res.data.value})
 
         //区域
@@ -65,9 +68,6 @@ Page({
 
         //价格 面积
         this.priceAreaRequest(res.data.value);
-        
-        //上拉
-        this.getDataFromServer(this.data.IPS[this.data.ipNum], 1, res.data.value);
       }
     })
      
@@ -124,7 +124,10 @@ Page({
   },
   //请求数据
   getDataFromServer(IP, page, code) {
-    that.setData({showload: false })
+    this.setData({
+      showload: true,
+      hasMore: true
+    })
     wx.request({
       url: IP,
       data: {
@@ -135,25 +138,26 @@ Page({
       method: "POST",
       header: { 'Content-Type': 'application/json' },
       success: (res) => {
-        console.log(res)
         if (res.statusCode == 200) {
+          
+          //修正数据
           res.data.data.forEach((item) => {
             if(item.houseTag) {
               item.houseTag = item.houseTag.split(',');
             }
           })
-          that.setData({
-            houseList: res.data.data,
-            showload: false
+          this.setData({
+            houseList: this.data.houseList.concat(res.data.data),
+            showload: false,
+            hasMore: false
           })
-          if (this.data.num == 0) {
-            this.setData({ flagPrice: true })
-          } else {
-            this.setData({ flagPrice: false })
-          }
-        }
-        if (res.statusCode == 500) {
-          that.setData({ showload: false })
+          this.data.num == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
+
+        }else{
+          this.setData({ 
+            showload: false,
+            hasMore: false
+          })
           wx.showModal({
             title: '提示',
             content: '服务器异常'
@@ -162,16 +166,26 @@ Page({
       }
     })
   },
-  userSearch(e) {//用户输入关键字
+  //监听事件 拿到首次 或 点击筛选条件的第一页数据
+  onMyEventHouseList(item) {
+    setTimeout(()=>{
+      this.setData({
+        houseList: item.detail.data.houseList
+      })
+    }, 500)
+  },
+  //用户输入关键字
+  userSearch(e) {
     this.setData({
       keyword: e.detail.value,
     })
   },
-  startsearch() {//开始检索
+  //开始检索
+  startsearch() {
     if (!this.data.keyword) {
       wx.showModal({
         content: '请输入关键词',
-        success: (res) => {
+        success: (res)=> {
           if (res.confirm) {
             console.log('用户点击确定')
           } else if (res.cancel) {
@@ -182,7 +196,8 @@ Page({
       return;
     }
     this.setData({
-      showload: true
+      showload: true,
+      hasMore: true,
     })
     wx.request({
       url: Api.IP_SHOPS,
@@ -199,6 +214,7 @@ Page({
         if (res.statusCode == 200) {
           this.setData({
             showload: false,
+            hasMore: false,            
             shops: res.data
           })
           if (!res.data.length) {
@@ -224,10 +240,11 @@ Page({
       }
     })
   },
-  onReachBottom() {//上拉
+  //上拉加载更多
+  onReachBottom() {
     var pageNo = this.data.page++;
-    this.getDataFromServer(this.data.IPS[this.data.ipNum], pageNo, this.data.value);
-  },
+    this.getDataFromServer(this.data.IPS[this.data.ipNum], pageNo, this.data.currentCity);
+  }
 
 })
 

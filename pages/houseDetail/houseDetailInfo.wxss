@@ -18,4 +18,6 @@ page{
   text-align: justify;
   font-size: 30rpx;
   color: #333333;
+  line-height: 1.5;
+  text-indent: 40rpx;
 }

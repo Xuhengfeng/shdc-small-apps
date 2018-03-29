@@ -41,10 +41,10 @@ page{
   align-items: center;
 }
 .serarch-content .location{
-  float: left;
+  display: inline-block;
   font-size: 30rpx;
   margin-left: 20rpx;
-  vertical-align: top; 
+  vertical-align: middle; 
 }
 .serarch-content .location+image{
   display: inline-block;

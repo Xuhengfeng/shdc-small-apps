@@ -14,12 +14,12 @@
               </view>
               <view>
                   <view style="font-size:30rpx;line-heihgt:1;">{{item.houseTitle}}</view>
-                  <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
+                  <view style="font-size:26rpx;color:#666666;margin-top:20rpx;">
                     <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.districtName}}</text>
                     <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.houseDirection}}</text>
                     <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.houseFeature}}</text>
                   </view>
-                  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
+                  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;">
                     2房2厅<text style="margin-left:20rpx">86m²</text>
                   </view>
                   <view style="margin-top:10rpx;">
@@ -27,7 +27,7 @@
                     <text style="margin-right:20rpx;background:#ffcc9a;padding:5rpx 10rpx;color:#fff;">地铁旁</text>
                     <text style="margin-right:20rpx;background:#fface5;padding:5rpx 10rpx;color:#fff;">超市旁</text>
                   </view>
-                  <view wx:if="{{true}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                  <view wx:if="{{true}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx">
                       {{'1336万'}}<text style="font-size:22rpx;color:#666666;margin-left:25rpx;">{{'13213'}}元/平米</text>
                   </view>
               </view>
@@ -120,24 +120,16 @@
       <view class="dialog">
           <view class="dialog-header">
             <view class="avator">
-                <image  src="{{houseDetail.broker.photo? houseDetail.broker.photo:'../../images/banner.png'}}" />
+                <image  src="{{houseDetail.broker.photo? houseDetail.broker.photo:'../../images/banner.png'}}" background-size="cover"/>
             </view>
             <view class="discription">
               <view class="name" style="font-size:40rpx;color:#000000">{{houseDetail.broker.emplName}}</view>
-              <view style="font-size:30rpx;color:#333333">
-                <view>电话: {{houseDetail.broker.phone}}</view>
-              </view>
-              <view style="font-size:30rpx;color:#333333;white-space:normal">
-                  {{houseDetail.broker.emplFlag}}
-              </view>
+              <view style="font-size:30rpx;color:#333333;margin-top:20rpx">电话: {{houseDetail.broker.phone}}</view>
+              <view style="font-size:30rpx;color:#333333;white-space:normal;margin-top:20rpx">{{houseDetail.broker.emplFlag}}</view>
             </view>
           </view>
-          <view class="dialog-body" bindtap="telphone" data-phone="{{houseDetail.broker.phone}}">
-            电话
-            <!-- <view class="iconfont icon-duanxin" bindtap="contact">(待定)</view>  -->
-          </view>
+          <view class="dialog-body" bindtap="telphone" data-phone="{{houseDetail.broker.phone}}">电话</view>
       </view>
-      <!-- <view class="exit iconfont icon-iconset0127"></view>  -->
   </view>
 </template> 
 
@@ -190,31 +182,32 @@
 
 <!-- 买房的关联小区 -->
 <template name="houseContent1">
-  <view style="font-size:36rpx;color:#333333;line-height:1">{{guanlianList.buildName}}</view>
-  <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1">
+  <view style="font-size:36rpx;color:#333333">{{guanlianList.buildName}}</view>
+  <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
     <text style="margin-right:10rpx">{{guanlianList.areaName}}</text>
     <text style="margin-right:10rpx">{{guanlianList.districtName}}</text>
     <text style="margin-right:10rpx">{{guanlianList.buildAge}}建成</text>
     <text style="margin-right:10rpx;line-height:1.6">{{item.buildType}}</text>
   </view>
-  <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1">
+  <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
     <text>在售{{guanlianList.saleCount}}套</text><text style="margin: 0 10rpx;">/</text><text>在租{{guanlianList.rentCount}}套</text>
   </view>
-  <view style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
-      {{guanlianList.avgSalePrice}}<text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
+  <view style="margin-top:20rpx">
+      <text style="font-size:34rpx;color:#ff4343;">{{guanlianList.avgSalePrice}}</text>
+      <text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
   </view>
 </template>
 
 <!-- 租房的关联小区 -->
 <template name="houseContent2">
-  <view style="font-size:30rpx;line-height:1">{{guanlianList.buildName}}</view>
-  <view style="color:#666666;margin-top:20rpx;line-height:1">
+  <view style="font-size:30rpx;">{{guanlianList.buildName}}</view>
+  <view style="color:#666666;margin-top:20rpx;">
     <text style="margin-right:10rpx">{{guanlianList.areaName}}</text>
     <text style="margin-right:10rpx">{{guanlianList.districtName}}</text>
     <text style="margin-right:10rpx">{{guanlianList.buildAge}}建成</text>
     <text style="margin-right:10rpx;line-height:1.6">{{item.buildType}}</text>
   </view>
-  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1">
+  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;">
     <text style="margin-right:20rpx">{{guanlianList.roomsNum}}房{{guanlianList.livingRoomNum}}厅</text>
     <text>{{guanlianList.builtArea}}m²</text>
   </view>
@@ -225,21 +218,22 @@
           wx:for-index="index2" 
           style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
   </view>
-  <view style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
-      {{guanlianList.salePrice}}<text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
+  <view style="margin-top:20rpx;">
+      <text style="font-size:34rpx;color:#ff4343;">{{guanlianList.salePrice}}</text>
+      <text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
   </view>
 </template>
 
 <!-- 二手房租房的附近房源 -->
 <template name="houseContent3">
-  <view style="font-size:30rpx;line-height:1">{{item.buildName}}</view>
-  <view style="color:#666666;margin-top:20rpx;line-height:1">
+  <view style="font-size:30rpx">{{item.buildName}}</view>
+  <view style="color:#666666;margin-top:20rpx;">
     <text style="margin-right:10rpx">{{item.areaName}}</text>
     <text style="margin-right:10rpx">{{item.districtName}}</text>
     <text style="margin-right:10rpx">{{item.buildAge}}建成</text>
     <text style="margin-right:10rpx;line-height:1.6">{{item.buildType}}</text>
   </view>
-  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1">
+  <view style="font-size:26rpx;color:#666666;margin-top:10rpx">
     <text style="margin-right:20rpx">{{item.roomsNum}}房{{item.livingRoomNum}}厅</text>
     <text>{{item.builtArea}}m²</text>
   </view>
@@ -250,7 +244,8 @@
           wx:for-index="index2" 
           style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
   </view>
-  <view style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
-      {{item.salePrice}}<text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
+  <view style="margin-top:20rpx">
+      <text style="font-size:34rpx;color:#ff4343">{{item.salePrice}}</text>
+      <text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
   </view>
 </template>

@@ -99,7 +99,6 @@ navigator{
 .labelgroup .navbar view{
   flex: 1;
   font-size: 28rpx;
-  height: 100%;
   color: #333333;
 }
 .labelgroup .navbar image{

@@ -8,26 +8,30 @@
 <view class="labelgroup">
   <view class="navbar" 
         data-statu="open"
-        catchtap="selectItem">
+        bindtap="selectItem">
         <view class="nav"
               data-index="{{index}}"
               wx:for="{{label}}"
               wx:key="{{index}}">
-              {{item}}<image src="../../images/drop.png"/>
+              {{item}}
+              <image src="../../images/drop.png"/>
         </view>
   </view>
   <view class="content" animation="{{animationData}}">
-      <!-- 区域 -->
       <view wx:if="{{num == 0}}" class="area">
+        <!-- 区域 -->
         <scroll-view scroll-y class="one">
             <view wx:for="{{area}}"
                   data-num="{{index}}" 
+                  data-id="{{item.id}}"
                   class="{{index == areaCategories?'font1Color':'font2Color'}}"
                   bindtap="changeCategories">{{item.name}}</view>
         </scroll-view>
+        <!-- 片区 -->
         <scroll-view scroll-y class="two" scroll-top="{{scrollTop}}">     
             <view wx:for="{{area[areaCategories].districts}}"
                   data-num="{{index}}"
+                  data-id="{{item.id}}"
                   class="{{index == areaSubCategories?'font1Color':'font2Color'}}"
                   bindtap="changeSubCategories">{{item.name}}</view>
         </scroll-view>
@@ -98,3 +102,7 @@
       </view>
   </view>
 </view>
+
+<loading wx:if="{{loading}}">
+  加载中...
+</loading>

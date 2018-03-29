@@ -12,7 +12,6 @@
                src="{{item}}" 
                data-src="{{item}}" 
                class="slide-image" 
-               mode="aspectFit"
                style="width:100%;height:100%;"/>
       </swiper-item>
     </block>
@@ -89,26 +88,27 @@
     <text wx:if="{{detailType!==33}}">房源位置</text>
     <text wx:if="{{detailType==33}}">小区位置</text>
   </view>
-  <view class="map">
+  <navigator class="map" url="map?longitude={{longitude}}&latitude={{latitude}}">
         <!-- 腾讯地图 -->
         <!-- <map id="map" wx:if="{{hiddenModal}}" longitude="" latitude="" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 100%;"></map> -->
 
       <!-- 百度 静态图 -->
-       <image style="width:100%"
-             background-size="cover"
-             src="https://api.map.baidu.com/staticimage/v2?ak=CWIQ5HNNV8jAcGZ9SpNzkozq5DXOLdTH&center={{longitude}},{{latitude}}&zoom=15&scale=2">
-      </image> 
+
+        <image src="https://api.map.baidu.com/staticimage/v2?ak=CWIQ5HNNV8jAcGZ9SpNzkozq5DXOLdTH&center={{longitude}},{{latitude}}&zoom=18&scale=2">
+        </image> 
+
+      
       <view class="circle"></view>
       <view class="rect">
-        <text class="title">福田区 梅林</text>
-        <text class="content">距离4号线</text>
+        <text class="title">{{houseDetail.houseTitle}}</text>
+        <text class="content">距离4号线 330m</text>
         <image src="../../images/down.png"></image>
       </view>
-  </view>
+  </navigator>
 </view>
 
 <view class="section4">
-  <navigator url="houseDetailInfo?content={{houseDetail.buildSynop}}&title={{houseDetail.houseTitle}}" wx:if="{{detailType!==33}}">
+  <navigator url="houseDetailInfo?content={{houseDetail.buildSynop}}&title={{houseDetail.houseTitle}}" wx:if="{{detailType!==33}}" hover-class="none">
     <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">房屋简介</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
@@ -244,7 +244,7 @@
               </view>
 
             <view wx:if="{{flagPrice}}" style="margin-top:20rpx;line-height:1">
-                <text style="font-size:34rpx;color:#ff4343margin-right:25rpx">{{item.saleTotal}}万</text>
+                <text style="font-size:34rpx;color:#ff4343;margin-right:25rpx">{{item.saleTotal}}万</text>
                 <text style="font-size:24rpx;color:#666666">{{item.salePrice}}元/平米</text>
             </view>
             <view wx:if="{{!flagPrice}}" style="margin-top:20rpx;line-height:1">

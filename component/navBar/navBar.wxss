@@ -59,8 +59,9 @@
 }
 .labelgroup .navbar view{
   flex: 1;
+  height: 70rpx; 
+  line-height: 70rpx;
   font-size: 28rpx;
-  height: 100%;
   color: #333333;
 }
 .labelgroup .navbar image{

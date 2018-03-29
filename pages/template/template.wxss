@@ -1,4 +1,3 @@
-/*房源列表*/
 .page_list{
     width: 100%!important;
     border-top: 1rpx solid #cacaca;
@@ -21,6 +20,10 @@
   width: 100%;
   height: 100%;
 }
+.item .item-title{
+  line-height: 1.2;
+}
+
 .tips{
     font-size: 28rpx;
     text-align: center;
@@ -74,7 +77,6 @@
   overflow: hidden;
 }
 .dialog .avator image{
-  zoom: 0.4;
   width: 100%;
   height: 100%;
 }

@@ -1,7 +1,17 @@
-// component/navBar/navBar.js
+var Api = require("../../utils/url");
+const app = getApp();
+
 Component({
   properties: {//传递数据
-    label: {
+    currentCity: {//当前城市
+      type: String,
+      value: ''
+    },
+    houseListType: {//二手房 租房 小区找房
+      type: String,
+      value: ''
+    },
+    label: {//nav菜单
       type: Object,
       value: ''
     },
@@ -34,27 +44,50 @@ Component({
       value: false
     }
    },
-  /**
-   * 组件的初始数据
-   */
   data: {
-    houseList: [],//房源列表
+    //房源列表
+    houseList: [],
+
     page: 1,
     isScroll: true,
     scrollTop: 0,
     togglelabel: true,
-    houseDetail: null,//二手房(买房)、租房、小区
     navHeight: null,
+    loading: false,//加载圈
+    
+    //内部筛选条件
     areaCategories: 0,//区域分类
+    areaCategoriesId: 0,//区域分类id(给后台的id）
     areaSubCategories: 0,//区域子分类
     houseTypeCategories: 0,//户型
     priceCategories: 0,//价格
     modeCategories: 0,//类型
     proportionCategories: 0,//面积
+
+    //请求地址
+    IPS: [Api.IP_TWOHANDHOUSE, Api.IP_BUILDLIST, Api.IP_RENTHOUSE], //二手房列表  租房列表 小区找房列表
+    IPSNUM: null,
   },
-  /**
-   * 组件的方法列表
-   */
+  
+  attached() {
+    //第一页数据 首次请求
+    wx.getStorage({
+      key: 'selectCity',
+      success: (res)=> {
+        //判断houseListType类型
+        console.log(this.data.houseListType)
+        if (this.data.houseListType == '二手房') {
+          let url = this.data.IPS[0];
+          let params = {
+            pageNo: 1,
+            pageSize: 10,
+            scity: res.data.value,
+          }
+          this.getDataFromServer(url, params);
+        }
+      }
+    })
+  },
   methods: {
     selectItem(e) {//控制nav菜单
       this.setData({
@@ -62,7 +95,6 @@ Component({
         isScroll: false,
         showModalStatus: true,
       });
-      //this.util();//开启动画
     },
     pricelabel(e) {//价格标签 筛选
       console.log(e.target.dataset.num)
@@ -73,71 +105,89 @@ Component({
         isScroll: true,
         showModalStatus: false
       })
-      this.triggerEvent('myevent', this.detail)
+      // this.triggerEvent('myevent', this.detail)
     },
-    refresh() {
-      console.log('下拉刷新..')
-    },
-    loadMore() {
-      this.setData({ page: this.data.page + 1 })
-      console.log("上拉加载更多" + this.data.page)
-      this.getDataFromServer(this.data.page)
-    },
-    getDataFromServer(page) {//请求
+
+    //二手房列表  租房列表
+    getDataFromServer(url, params) {
       this.setData({
-        loading: false,
+        loading: true,
         hasMore: true
       })
-      app.httpClient(API_URL + page, (error, data) => {
-        if (data.retCode == 200) {
+      wx.request({
+        url: url,
+        data: params,
+        method: 'POST',
+        success: (res)=> {
           this.setData({
-            caiItems: data.result.list,
-            loading: true,
+            houseList: res.data.data,
+            loading: false,
             hasMore: false
           })
-          console.log(this.data.caiItems)
-        } else {
-          console.log('服务器异常')
+          this.triggerEvent('myevent', this);
         }
       })
     },
-    util() {
-      var that = this;
-      var animation = wx.createAnimation({
-        duration: 1000,
-        timingFunction: "ease-in",
-        transformOrigin: "0 0 0",
-        delay: 0
-      });
-      this.animation = animation;
-      // 第3步：执行第一组动画  
-      animation.translateY(-35).step();
-      // 第4步：导出动画对象赋给数据对象储存  
-      this.setData({
-        animationData: animation.export()
-      })
-      // 第5步：设置定时器到指定时候后，执行第二组动画  
-      setTimeout(function () {
-        // 执行第二组动画  
-        let num = that.data.navHeight?that.data.navHeight : 35;
-        animation.translateY(num).step();
-        // 给数据对象储存的第一组动画，更替为执行完第二组动画的动画对象  
-        this.setData({animationData: animation});
-      }.bind(this), 200)
-    },
+
+
+
     //区域
-    changeCategories(e) {//切换城区分类
+    //切换城区分类
+    changeCategories(e) {
       this.setData({
         areaCategories: e.target.dataset.num,
+        areaCategoriesId: e.target.dataset.id,
         areaSubCategories: 0,
         scrollTop: 0
       })
+      if(e.target.dataset.num==0) {//第一列 不限
+        this.cancelModal();
+        if (this.data.houseListType == '二手房') {//判断houseListType类型
+          let url = this.data.IPS[0];
+          let params = {
+            pageNo: 1,
+            pageSize: 10,
+            scity: this.data.currentCity,
+            areaId: e.target.dataset.id
+          }
+          this.getDataFromServer(url, params);
+        }
+      }
+      
     },
-    changeSubCategories(e) {//切换城区子分类
+    //区域
+    //切换城区子分类
+    changeSubCategories(e) {
       this.setData({
         areaSubCategories: e.target.dataset.num
       })
+      if(this.data.houseListType == '二手房') {//判断houseListType类型
+        let url = this.data.IPS[0];
+        if (e.target.dataset.num == 0) {//第二列 不限
+            let params = {
+              pageNo: 1,
+              pageSize: 10,
+              scity: this.data.currentCity
+            }
+            this.getDataFromServer(url, params);
+        }else{
+          let params = {
+            pageNo: 1,
+            pageSize: 10,
+            scity: this.data.currentCity,
+            districtId: e.target.dataset.id,
+            areaId: this.data.areaCategoriesId
+          }
+          this.getDataFromServer(url, params);
+        }
+      }else if (this.data.houseListType == '租房') {
+
+      }else if (this.data.houseListType == '小区') {
+
+      }
+      this.cancelModal();
     },
+
     //户型
     changeHouseType(e) {
       this.setData({

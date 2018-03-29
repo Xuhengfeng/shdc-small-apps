@@ -151,7 +151,13 @@ page{
   color: #333333;
   line-height: 1;
 }
-
+.map image{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-size: cover; 
+}
 .map .circle{
   position: absolute;
   top: 50%;
@@ -177,8 +183,9 @@ page{
   display: block;
 }
 .map .rect .content{
-  font-size:26rpx;
-  color:#666666;
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  color: #666666;
 }
 .map .rect image{
   position: absolute;
