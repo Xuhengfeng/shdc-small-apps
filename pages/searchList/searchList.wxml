@@ -8,7 +8,6 @@
     </view>
      <!-- <button class="search-button" catchtap="searchMt">搜索</button>  -->
   </view>  
-  <!-- <template is="navBar" data="{{label,num,scrollTop,showModalStatus,animationData}}"/>  -->
   <navBar-html label="{{label}}"
                area="{{area}}" 
                houseType="{{houseType}}"
@@ -16,9 +15,9 @@
                price="{{price}}"
                proportion="{{proportion}}"
                houseListType="{{houseDetail}}"
-               currentCity="{{currentCity}}"
                bind:myevent="onMyEventHouseList"
-               id="navbar"></navBar-html>
+               id="navbar">
+  </navBar-html>
 </view>
 
 <!--这是填充空盒子-->

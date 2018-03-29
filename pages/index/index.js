@@ -10,25 +10,32 @@ Page({
     duration: 1000,
     hasMore: false,
     currentIndex: 0,//轮播图指示器
-
-    //猜你喜欢
-    pageNo: 1,//默认第1页
-    myLocation: "北海",//默认地址
-    num: 0,//猜你喜欢哪一个
+   
+    
     purchase_guide: null,//二手房购房指南资讯
     houseUsed: null,//成交量统计
     houseList: [],//房源数据
     hotbuilding: [],//获取热门小区
-    guessYouLike: ['二手房', '租房'],//猜你喜欢
-    guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
+    
     showload: false,
     scrollTop: 0, //距离顶部
-    houseType: ['二手房', '租房'],//查看全部房源
     currentCity: 'beihai', //默认城市
-    flagPrice: true //是否有价格  二手房 租房
+    myLocation: "北海",//默认地址
+    
+
+    //猜你喜欢
+    pageNo: 1,//默认第1页
+    flagPrice: true, //是否有价格  二手房 租房
+    guessYouLike: ['二手房', '租房'],
+    houseType: ['二手房', '租房'],//查看全部房源
+    num: 0,//猜你喜欢哪一个
+    guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
+
+    //banner资讯   二手房指南资讯   获取成交量统计 热门小区
+    IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING],  
   },
   onLoad() {
-    //城市
+    //修正 当前城市
     wx.setStorage({
       key: 'selectCity',
       data: {
@@ -38,7 +45,7 @@ Page({
     })
 
     //获取主页banner资讯
-    app.httpRequest(Api.IP_INDEXCONSULT + this.data.currentCity +"/INDEX_BANNER", 'GET', (error, data)=> {
+    app.httpRequest(this.data.IPS[0]+ this.data.currentCity +"/INDEX_BANNER", 'GET', (error, data)=> {
       if(data) this.setData({ imgUrls: data.data });
       if(error) {
         wx.showModal({
@@ -49,7 +56,7 @@ Page({
     })
 
     //获取主页二手房指南资讯
-    app.httpRequest(Api.IP_INDEXCONSULT+ this.data.currentCity +"/PURCHASE_GUIDE", 'GET', (error, data)=> {
+    app.httpRequest(this.data.IPS[1]+ this.data.currentCity +"/PURCHASE_GUIDE", 'GET', (error, data)=> {
       if(data) this.setData({purchase_guide: data.data});
       if(error) {
         wx.showModal({
@@ -60,7 +67,7 @@ Page({
     })
 
     //获取成交量统计
-    app.httpRequest(Api.IP_HOUSEUSED+ this.data.currentCity, 'GET', (error, data)=> {
+    app.httpRequest(this.data.IPS[2]+ this.data.currentCity, 'GET', (error, data)=> {
       if (data) this.setData({houseUsed: data.data});
       if(error) {
         wx.showModal({
@@ -72,7 +79,7 @@ Page({
    
    //热门小区
     wx.request({
-      url: Api.IP_HOTBUILDING + this.data.currentCity,
+      url: this.data.IPS[3] + this.data.currentCity,
       data: {
         pageNo: 1,
         pageSize: 10
@@ -105,8 +112,8 @@ Page({
   },
   selectYouLike(e) {//猜你喜欢 二手房 租房
     this.setData({num: e.target.dataset.index})
-    var IP = this.data.guessLikeIP[this.data.num]+'/'+this.data.currentCity;
-    var params = {pageNo: this.data.pageNo}
+    let IP = this.data.guessLikeIP[this.data.num]+'/'+this.data.currentCity;
+    let params = {pageNo: this.data.pageNo}
     this.getDataFromServer(IP, params);
   },
   getDataFromServer(IP, params) {//猜你喜欢
@@ -123,6 +130,8 @@ Page({
         success: (res)=> {
           console.log(res)
           if(res.statusCode == 200) {
+            
+            //修正数据
             res.data.data.forEach((item)=> {
               item.houseTag=item.houseTag.split(',');
             })
@@ -131,30 +140,30 @@ Page({
               hasMore: false,
               showload: false
             })
-            if(this.data.num == 0) {
-              this.setData({flagPrice: true})
-            }else{
-              this.setData({flagPrice: false})
-            }
+            this.data.num == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
           }else if(res.statusCode == 500||res.statusCode == 404) {
-            this.setData({
-              hasMore: false,
-              showload: false
-            })
             wx.showModal({
               title: '提示',
-              content: '服务器异常'
+              content: '服务器异常',
+              success: (res)=> {
+                this.setData({
+                  hasMore: false,
+                  showload: false
+                })
+              }
             })
           }
         },
         fail: (error)=> {
-          this.setData({
-            hasMore: false,
-            showload: false
-          })
           wx.showModal({
             title: '提示',
-            content: '服务器异常'
+            content: '服务器异常',
+            success: (res)=> {
+              this.setData({
+                hasMore: false,
+                showload: false
+              })
+            }
           })
         }
       })

@@ -12,22 +12,22 @@ Page({
     showload: false,//加载圈
   },
   onLoad(options) {
-    var that = this;
     wx.setNavigationBarTitle({
       title: options.title,
     })
+
     if(options.title == '小区二手房') {
-      that.setData({contentType: 22});
+      this.setData({contentType: 22});
     }else{
-      that.setData({contentType: 11});
+      this.setData({contentType: 11});
     }
 
     //热门小区
     wx.getStorage({
       key: 'selectCity',
       success: (res)=> {
-        that.setData({currentCity: res.data.value})
-        that.getServerData(1, this.data.currentCity);
+        this.setData({currentCity: res.data.value})
+        this.getServerData(1, this.data.currentCity);
       }
     })
   },
@@ -63,8 +63,7 @@ Page({
     }, 1000);
   },
   onReachBottom() {//上拉
-    var pageNo = this.data.page++;
+    let pageNo = this.data.page++;
     this.getServerData(pageNo, this.data.currentCity)
   }
- 
 })

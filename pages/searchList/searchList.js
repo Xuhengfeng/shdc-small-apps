@@ -52,12 +52,8 @@ Page({
     //获取筛选条件
     wx.getStorage({
       key: 'selectCity',
-      data: {
-        name: this.data.myLocation,
-        value: this.data.currentCity
-      },
       success: (res)=>{
-        //选着的城市
+        //修正 当前的城市
         this.setData({currentCity: res.data.value})
 
         //区域
@@ -124,8 +120,6 @@ Page({
   },
   //请求数据
   getDataFromServer(IP, page, code) {
-    console.log(page);
-    
     this.setData({
       showload: true,
       hasMore: true
@@ -195,7 +189,6 @@ Page({
           }
         }
       })
-      return;
     }
     this.setData({
       showload: true,

@@ -2,14 +2,10 @@ var Api = require("../../utils/url");
 const app = getApp();
 
 Component({
-  properties: {//传递数据
-    currentCity: {//当前城市
-      type: String,
-      value: ''
-    },
+  properties: {
     houseListType: {//二手房 租房 小区找房
       type: String,
-      value: ''
+      value: '二手房'
     },
     label: {//nav菜单
       type: Object,
@@ -35,7 +31,7 @@ Component({
       type: Object,
       value: ''
     },
-    num: {//控制nav菜单
+    num: {//控制nav显示对应content
       type: Number,
       value: 5
     },
@@ -47,11 +43,11 @@ Component({
   data: {
     //房源列表
     houseList: [],
+    currentCity: '',
 
     page: 1,
     isScroll: true,
     scrollTop: 0,
-    togglelabel: true,
     navHeight: null,
     loading: false,//加载圈
     
@@ -59,35 +55,49 @@ Component({
     areaCategories: 0,//区域分类
     areaCategoriesId: 0,//区域分类id(给后台的id）
     areaSubCategories: 0,//区域子分类
+    areaSubCategoriesId: 0,//区域子分类id(给后台的id）
+    
     houseTypeCategories: 0,//户型
     priceCategories: 0,//价格
     modeCategories: 0,//类型
     proportionCategories: 0,//面积
 
     //请求地址
-    IPS: [Api.IP_TWOHANDHOUSE, Api.IP_BUILDLIST, Api.IP_RENTHOUSE], //二手房列表  租房列表 小区找房列表
+    //二手房列表 租房列表 小区找房列表
+    IPS: [Api.IP_TWOHANDHOUSE, Api.IP_BUILDLIST, Api.IP_RENTHOUSE],  
     IPSNUM: null,
+    url: null,
   },
   
   attached() {
-    this.setData({
-      num: 5
-    })
+    // 修正显示
+    // 修正url
+    this.setData({num: 5});
+    if (this.data.houseListType == '二手房') {
+      this.setData({
+        url: this.data.IPS[0]
+      })
+    } else if (this.data.houseListType == '租房') {
+      this.setData({
+        url: this.data.IPS[1]
+      })
+    } else if (this.data.houseListType == '小区') {
+      this.setData({
+        url: this.data.IPS[2]
+      })
+    }
     //第一页数据 首次请求
     wx.getStorage({
       key: 'selectCity',
       success: (res)=> {
-        //判断houseListType类型
-        console.log(this.data.houseListType)
-        if (this.data.houseListType == '二手房') {
-          let url = this.data.IPS[0];
-          let params = {
+        let params = {
             pageNo: 1,
             pageSize: 10,
             scity: res.data.value,
-          }
-          this.getDataFromServer(url, params);
         }
+        //修正 当前城市
+        this.setData({currentCity: res.data.value})
+        this.getDataFromServer(this.data.url, params);
       }
     })
   },
@@ -98,9 +108,6 @@ Component({
         isScroll: false,
         showModalStatus: true,
       });
-    },
-    pricelabel(e) {//价格标签 筛选
-      console.log(e.target.dataset.num)
     },
     cancelModal(e) {//取消
       this.setData({
@@ -128,6 +135,20 @@ Component({
             hasMore: false
           })
           this.triggerEvent('myevent', this);
+        },
+        fail: (error)=> {
+          wx.showModal({
+            title: '提示',
+            content: '请求超时',
+            success: ()=> {
+              setTimeout(()=>{
+                this.setData({
+                  loading: false,
+                  hasMore: false
+                })
+              },2000)
+            }
+          })
         }
       })
     },
@@ -143,52 +164,42 @@ Component({
         areaSubCategories: 0,
         scrollTop: 0
       })
-      if(e.target.dataset.num==0) {//第一列 不限
-        this.cancelModal();
-        if (this.data.houseListType == '二手房') {//判断houseListType类型
-          let url = this.data.IPS[0];
-          let params = {
-            pageNo: 1,
-            pageSize: 10,
-            scity: this.data.currentCity,
-            areaId: e.target.dataset.id
-          }
-          this.getDataFromServer(url, params);
+      if (e.target.dataset.num == 0) {//第一列 不限
+        let params = {
+          pageNo: 1,
+          pageSize: 10,
+          scity: this.data.currentCity
         }
+        this.cancelModal();
+        this.getDataFromServer(this.data.url, params);
       }
       
     },
     //区域
-    //切换城区子分类
+    //切换城区子分类 进行请求
     changeSubCategories(e) {
       this.setData({
-        areaSubCategories: e.target.dataset.num
+        areaSubCategories: e.target.dataset.num,
+        areaSubCategoriesId: e.target.dataset.id
       })
-      if(this.data.houseListType == '二手房') {//判断houseListType类型
-        let url = this.data.IPS[0];
-        if (e.target.dataset.num == 0) {//第二列 不限
-            let params = {
-              pageNo: 1,
-              pageSize: 10,
-              scity: this.data.currentCity
-            }
-            this.getDataFromServer(url, params);
-        }else{
-          let params = {
-            pageNo: 1,
-            pageSize: 10,
-            scity: this.data.currentCity,
-            districtId: e.target.dataset.id,
-            areaId: this.data.areaCategoriesId
-          }
-          this.getDataFromServer(url, params);
+      let params;
+      if (e.target.dataset.num == 0) {//第二列 不限
+        params = {
+          pageNo: 1,
+          pageSize: 10,
+          scity: this.data.currentCity
         }
-      }else if (this.data.houseListType == '租房') {
-
-      }else if (this.data.houseListType == '小区') {
-
+      } else {
+        params = {
+          pageNo: 1,
+          pageSize: 10,
+          scity: this.data.currentCity,
+          districtId: this.data.areaSubCategoriesId,
+          areaId: this.data.areaCategoriesId
+        }
       }
       this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
     },
 
     //户型
