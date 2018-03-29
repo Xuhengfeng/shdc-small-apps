@@ -1,0 +1,399 @@
+@import "../../weui.wxss";
+@import "../template/template.wxss";
+page{
+  height: 100%;
+  background: #ffffff;  
+}
+.header{
+  height: 540rpx;
+  position: relative;
+}
+.header swiper,
+.header swiper-item image{
+  height: 100%;
+}
+.header .indicator{
+  background: rgba(0,0,0,.4);
+  position: absolute;
+  bottom: 25rpx;
+  right: 25rpx;
+  border-radius: 14rpx;
+  font-size: 18rpx;
+  color: #ffffff;
+  height: 28rpx;
+  line-height: 28rpx;
+  width: 50rpx;
+  text-align: center;
+}
+
+/* 光明小区 */
+.section1{
+  overflow: hidden;
+  border-bottom: 1rpx solid #cacaca;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff; 
+}
+.section1 .title{
+  margin: 50rpx 0 50rpx 25rpx;
+  font-size: 48rpx;
+  color: #333333;
+  line-height: 1;
+}
+.section1 .weui-cells{
+  margin: 50rpx 0 50rpx 25rpx;
+  font-size: 48rpx;
+  color: #333333;
+}
+/* 小区找房 */
+.estate{
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  text-align: center;
+  border-bottom: 1rpx solid #cacaca;
+  background: #ffffff;
+}
+.estate navigator{
+  width: 50%;
+  flex: 1;
+}
+.estate navigator image{
+  margin-top: 30rpx;
+  width:70rpx;
+  height:70rpx;
+}
+.estate navigator view{
+  line-height: 1;
+  margin-top: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+/* 租房详情 */
+.section1{
+  background: #ffffff;
+}
+.section1 .description1{
+  color: #ff4343;
+  font-size: 40rpx;
+  margin-right: 20rpx;
+  white-space: nowrap;
+}
+/* 买房详情 */
+.section1 .description2{
+  text-align: center;
+  width: 300rpx;
+}
+.section1 .description2>text{
+  display: block;
+}
+.section1 .description2>text:nth-of-type(1){
+  color: #ff4343;
+  font-size: 40rpx;
+  line-height: 1;
+}
+.section1 .description2>text:nth-of-type(2){
+  color: #666666;
+  margin-top: 20rpx;
+  font-size: 22rpx;
+  line-height: 1;
+}
+
+/* 房源信息 */
+.section2{
+  padding: 0 25rpx;
+  background: #ffffff;
+}
+.section2 .title{
+  overflow: hidden;
+}
+.section2 .title text{
+  float: left;
+  margin: 50rpx 0;
+  font-size: 40rpx;
+  color: #333333;
+  line-height: 1;
+}
+.section2 .labelgroup{
+  display: flex;
+  flex-flow: row wrap; 
+  justify-content: flex-start;
+  align-items: center;
+}
+.section2 .labelgroup view{
+  line-height: 1;
+  width: 50%;
+  padding-bottom: 30rpx;
+  font-size: 30rpx;
+  white-space: nowrap;
+}
+
+/* 房源位置 */
+.section3{
+  background: #ffffff;
+}
+.section3>.title{
+  padding: 0 25rpx;
+  overflow: hidden;
+}
+.section3 .map{
+  position: relative;
+  height: 400rpx;
+  overflow: hidden;
+}
+.section3 .title text{
+  float: left;
+  margin: 70rpx 0 30rpx;
+  font-size: 40rpx;
+  color: #333333;
+  line-height: 1;
+}
+.map image{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-size: cover; 
+}
+.map .circle{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  border: 1px solid rgba(77,139,241,1);
+  background: rgba(77,139,241,.3);
+}
+.map .rect{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 50%;
+  padding: 20rpx;
+  background: #ffffff;
+  box-shadow: 2px 2px 2px rgba(0,0,0,.2);
+}
+.map .rect>text{
+  display: block;
+}
+.map .rect .content{
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  color: #666666;
+}
+.map .rect image{
+  position: absolute;
+  left: 50%;
+  bottom: -30rpx;
+  transform: translateX(-50%);
+  width: 50rpx;
+  height: 50rpx;
+  z-index: 1000;
+}
+
+/* 买房、租房房屋简介 */
+.section4{
+  background: #ffffff;
+}
+.section4 .weui-cell{
+  padding: 70rpx 25rpx 30rpx;
+}
+.section4 .weui-cell__bd{
+  font-size: 40rpx;
+}
+/* 小区详情周边设施 */
+.section4 .content{
+  margin: 0 25rpx;
+  display: -webkit-box;
+  font-size:28rpx;
+  color:#000000;
+  line-height: 40rpx;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:3;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+.section4 .title{
+  padding: 70rpx 0 50rpx 25rpx;
+  line-height: 1;
+  font-size: 40rpx;
+  color: #333333;
+}
+.section4 .facilityLabel{
+  padding: 0 25rpx;
+  line-height: 1;
+}
+.section4 .facilityLabel view{
+  margin-bottom:30rpx;
+  line-height:1.5;
+}
+.section4 .facilityLabel view:nth-last-of-type(1){
+   margin-bottom: 0; 
+}
+
+
+/* 关联小区 */
+.section5 .title{
+  overflow: hidden;
+  padding: 0 25rpx;
+  border-bottom: 1rpx solid #cacaca;
+}
+.section5 .title text{
+  float: left;
+  margin: 70rpx 0 30rpx;
+  font-size: 40rpx;
+  color: #333333;
+}
+.section5 .item{
+  padding: 30rpx 0;
+  overflow: hidden;
+  border-bottom: 1rpx solid #cacaca;
+}
+.section5 .image{
+  float: left;
+  margin: auto 40rpx auto 25rpx;
+  width: 240rpx;
+  height: 190rpx;
+  background: #f2f2f2;
+}
+.section5 .image image{
+  width: 100%;
+  height: 100%;
+}
+
+/* 附近房源 */
+.section6 .title{
+  overflow: hidden;
+  padding: 0 25rpx;
+}
+.section6 .title text{
+  float: left;
+  margin: 70rpx 0 30rpx;
+  font-size: 40rpx;
+  color: #333333;
+}
+.section6 .item{
+  padding: 30rpx 0;
+  overflow: hidden;
+  border-bottom: 1rpx solid #cacaca;
+}
+.section6 .image{
+  float: left;
+  margin: auto 40rpx auto 25rpx;
+  width: 240rpx;
+  height: 190rpx;
+  background: #f2f2f2;
+  overflow: hidden;
+}
+.section6 .image image{
+  width: 100%;
+  height: 100%;
+}
+
+/* 脚步 */
+.footer{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.footer .type1{
+  width: 80%;
+  overflow: hidden;
+}
+.footer .type1 view{
+  float: left;
+  font-size: 34rpx;
+  color: #ffffff;
+  width: 50%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+}
+.footer .type1 view:nth-of-type(1){
+  background: #ff4343;
+}
+.footer .type1 view:nth-of-type(2){
+  background: #5db1ff;
+}
+.footer .type2{
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 34rpx;
+  color: #ffffff;
+}
+.footer .type2 view{
+  background: #5db1ff;
+  height: 100%;
+  line-height: 100rpx;
+}
+.footer-placeholder{
+  height: 100rpx;
+}
+
+/*关注*/
+.collectionLike{
+  float: left;
+  width: 20%;
+  background: #ffffff;
+  height: 100rpx;
+  text-align: center;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+.collectionLike .like{
+  width:40%;
+  height: 100%;
+  margin:0 auto;
+}
+.collectionLike .like image{
+  margin-top: 5px;
+  width: 50rpx;
+  height: 50rpx;
+}
+.collectionLike .attention{
+  font-size: 28rpx;
+  line-height: 0.5;
+}
+
+
+/* 小区详情 猜你喜欢 */
+.section66{
+  background: #ffffff;
+}
+.section66 .guess-like{
+  position: relative;
+  padding-left: 24rpx;
+  overflow: hidden;
+}
+.section66 .guess-like .twoselect{
+  position: absolute;
+  right: 0;
+  top: 60rpx;
+}
+.red{
+  color: #ff4343;
+}
+.section66 .item-content{
+  padding-right: 25px;
+  overflow: hidden;
+}
+
+.houseTag text:nth-of-type(1){
+  background: #5ee4a7;
+}
+.houseTag text:nth-of-type(2){
+  background: #ffcc9a;
+}
+.houseTag text:nth-of-type(3){
+  background: #fface5;
+}

@@ -1,0 +1,116 @@
+.page_list{
+    width: 100%!important;
+    border-top: 1rpx solid #cacaca;
+}
+.item{
+    display: flex;
+    padding: 30rpx 0;
+    border-bottom: 1rpx solid #eee;
+}
+.item .image{
+    float: left;
+    margin-right: 40rpx;
+    margin-left: 25rpx;
+    min-width: 260rpx;
+    width: 260rpx;
+    height: 210rpx;
+    background: #f2f2f2;
+}
+.item .image image{
+  width: 100%;
+  height: 100%;
+}
+.item .item-title{
+  line-height: 1.2;
+}
+
+.tips{
+    font-size: 28rpx;
+    text-align: center;
+    padding: 50rpx;
+    color: #ccc;
+}
+.tips image{
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 20rpx;
+}
+.tips image,
+.tips text{
+    vertical-align: middle;
+}
+
+
+
+/*弹出层modal*/
+.shadowLay{
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(0,0,0,.5);
+} 
+.shadowLay .dialog{
+  width: 600rpx;
+  height: auto;
+  background: #ffffff;
+  border-radius: 10rpx;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-sizing: border-box;
+}
+.dialog-header{
+  padding: 60rpx 30rpx 0;
+  overflow: hidden;
+}
+.dialog .avator{
+  float: left;
+  width: 160rpx;
+  height: 160rpx;
+  background: #cacaca;
+  margin-right: 30rpx;
+  border-radius: 15rpx;
+  overflow: hidden;
+}
+.dialog .avator image{
+  width: 100%;
+  height: 100%;
+}
+.dialog .discription{
+  overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dialog .dialog-body{
+  text-align: center;
+  padding: 40rpx 0;
+  letter-spacing: 5rpx;
+  font-size: 36rpx;
+  color: #333333;
+  line-height: 1;
+}
+
+/* 筛选背景高亮 */
+.bgColor{
+  background: #ffeeee;
+}
+
+/* 退出 */
+.exit{
+  position: fixed;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  height: 20px;
+  padding: 10rpx;
+  border-radius: 50%;
+  font-weight: bold;
+} 

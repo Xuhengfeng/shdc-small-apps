@@ -1,0 +1,70 @@
+<import src="../template/template"/>
+<view class="header">
+  <image src="../../images/banner.png"/>
+</view>
+
+<radio-group bindchange="listenerRadioGroup" class="section1">
+    <label style="flex: 1" wx:for="{{select}}">
+        {{item.value}}<radio value="{{true}}" color="#ff4343" checked="{{item.checked}}"/>
+    </label>
+</radio-group>
+
+<view class="section2">
+  <view class="weui-cells weui-cells_after-title">
+
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label">姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入您的姓名"/>
+        </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+            <view class="weui-label">电话</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" type="number" maxlength="11" placeholder="请输入您的手机号" />
+        </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">城市</view>
+      </view>
+      <view class="weui-cell__bd">
+        <!-- <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}" rang="{{region}}">
+          <view class="weui-input" style="text-align:right;">{{region[0]}} <text style="margin:0 20rpx;">{{region[1]}}</text> {{region[2]}}</view>
+        </picker>  -->
+       <view class="weui-input" style="text-align:right;" bindtap="showOwnPicker"></view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label">小区</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请选择你房源所在的小区"/>
+        </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label">具体地址</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入您的房源具体地址"/>
+        </view>
+    </view>
+  </view>
+</view>
+<view class="section3">我们将在最短的时间内与您联系</view>
+<view class="section4">
+  <button class="weui-btn" type="warn">提交</button>
+</view>
+
+<template is="ownPicker" data="{{hiddenPicker,year,month,day}}"/>
+

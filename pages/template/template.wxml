@@ -1,0 +1,251 @@
+<!--房源列表-->
+<template name="houseList">
+<scroll-view class="page_list" 
+             scroll-y="{{isScroll}}" 
+             bindscrolltolower="loadMore"
+             bindscrolltoupper="refresh"
+             style="height: {{windowHeight}}px; width: {{windowWidth}}px;">
+  <!--对于ListView总结就是，navigator外一层布局，然后navigator里边只有一个组件-->
+  <block wx:for="{{houseList}}">
+      <navigator url="../houseDetail/houseDetail?id={{item.id}}&houseDetail={{houseDetail}}">
+          <view class="item" style="background:#ffffff;">
+              <view class="image">
+                <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
+              </view>
+              <view>
+                  <view style="font-size:30rpx;line-heihgt:1;">{{item.houseTitle}}</view>
+                  <view style="font-size:26rpx;color:#666666;margin-top:20rpx;">
+                    <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.districtName}}</text>
+                    <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.houseDirection}}</text>
+                    <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.houseFeature}}</text>
+                  </view>
+                  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;">
+                    2房2厅<text style="margin-left:20rpx">86m²</text>
+                  </view>
+                  <view style="margin-top:10rpx;">
+                    <text style="margin-right:20rpx;background:#5ee4a7;padding:5rpx 10rpx;color:#fff;">学区房</text>
+                    <text style="margin-right:20rpx;background:#ffcc9a;padding:5rpx 10rpx;color:#fff;">地铁旁</text>
+                    <text style="margin-right:20rpx;background:#fface5;padding:5rpx 10rpx;color:#fff;">超市旁</text>
+                  </view>
+                  <view wx:if="{{true}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx">
+                      {{'1336万'}}<text style="font-size:22rpx;color:#666666;margin-left:25rpx;">{{'13213'}}元/平米</text>
+                  </view>
+              </view>
+          </view>
+      </navigator>
+  </block>
+  <view class="tips">
+      <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
+      <view wx:else><text>没有更多内容了</text></view>
+  </view>
+</scroll-view>
+</template>
+
+<!--导航菜单-->
+<template name="navBar">
+  <!-- 遮罩层 -->
+  <view data-statu="close" 
+        wx:if="{{showModalStatus}}"
+        bindtap="cancelModal" 
+        data-statu="close"
+        style="position:fixed;width:100%;height:100%;top:0px;left:0px;z-index:-1;background-color:rgba(0,0,0,0.5);"        ></view>
+  <view class="{{percent < 0.5? 'labelgroup' : 'labelgroup fixed'}}">
+    <view class="navbar" catchtap="selectItem" data-statu="open">
+          <view class="nav" wx:for="{{label}}" data-index="{{index}}">
+          {{item}}<image src="../../images/drop.png"/>
+          </view>
+    </view>
+    <view class="content" animation="{{animationData}}">
+        <view wx:if="{{num == 0}}" class="area">
+          <scroll-view scroll-y class="one">
+              <view>宝安区</view>
+              <view>宝安区</view>
+          </scroll-view>
+          <scroll-view scroll-y class="two">
+              <view>xx片区</view>
+              <view>xx片区</view>
+          </scroll-view>
+        </view>
+        <view wx:if="{{num == 1}}" class="housetype">
+          <text>单间</text>
+          <text>一房</text>
+          <text>两房</text>
+          <text>三房</text>
+          <text>三房以上</text>
+          <view style="width:100%">
+            <button type="primary" class="globalBtnColor">确定</button>
+          </view>
+        </view>
+        <view wx:if="{{num == 2}}" class="price">
+          <view class="price-hd">
+            <text wx:for="{{[1,1,1]}}">50万元以下</text>
+          </view>
+          <view class="price-bd">
+            <view class="title">自定义区间(万)</view>
+            <view>
+              <input placeholder="最小金额" type="number" maxlength="888"/>
+              <view class="line"></view>
+              <input placeholder="最大金额" type="number"/>
+            </view>
+          </view>
+          <view class="price-ft">
+              <button type="primary" class="globalBtnColor">条件不限</button>
+              <button type="primary" class="globalBtnColor">确定</button>
+          </view>
+        </view>
+        <view wx:if="{{num == 3}}" class="area2">
+          <text>0-100m²</text>
+          <text>0-100m²</text>
+          <text>0-100m²</text>
+          <text>0-100m²</text>
+          <view style="width:100%">
+            <button type="primary" class="globalBtnColor">确定</button>
+          </view>
+        </view>
+        <view wx:if="{{num==4}}" class="type">
+          <text>普通住宅</text>
+          <text>别墅</text>
+          <text>商业类</text>
+          <view style="width:100%">
+            <button type="primary" class="globalBtnColor">确定</button>
+          </view>
+        </view>
+    </view>
+  </view>
+</template>
+
+<!--自定义弹出层-->
+<template name="shadowLay" >
+  <view class="shadowLay" hidden="{{hiddenModal}}" bindtap="listenerButton">
+      <view class="dialog">
+          <view class="dialog-header">
+            <view class="avator">
+                <image  src="{{houseDetail.broker.photo? houseDetail.broker.photo:'../../images/banner.png'}}" background-size="cover"/>
+            </view>
+            <view class="discription">
+              <view class="name" style="font-size:40rpx;color:#000000">{{houseDetail.broker.emplName}}</view>
+              <view style="font-size:30rpx;color:#333333;margin-top:20rpx">电话: {{houseDetail.broker.phone}}</view>
+              <view style="font-size:30rpx;color:#333333;white-space:normal;margin-top:20rpx">{{houseDetail.broker.emplFlag}}</view>
+            </view>
+          </view>
+          <view class="dialog-body" bindtap="telphone" data-phone="{{houseDetail.broker.phone}}">电话</view>
+      </view>
+  </view>
+</template> 
+
+
+<!-- 自定义城市picker -->
+<template name="ownPicker">
+  <view style="position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,0.3);z-index:100;" hidden="{{hiddenPicker}}">
+  <view style="position:absolute;bottom:0;left:0;width:100%;max-height:650rpx;background:white;z-index:1000;">
+      <view style="display:flex;flex-flow:row nowrap;background:#ffffff;border-bottom:1rpx solid #cacaca;">
+          <view style="flex:1;text-align:left;padding:25rpx 25rpx;" bindtap="cancelBtn">取消</view>
+          <view style="flex:1;text-align:right;padding:25rpx 25rpx;color:#ff4343;" bindtap="confirmBtn">确认</view>
+      </view>
+      <picker-view indicator-style="height:80rpx;" style="width:100%;height:300px;" value="{{value}}" bindchange="bindChange">
+        <picker-view-column style="text-align:center;">
+          <view wx:for="{{year}}" style="line-height:80rpx;">{{item}}年</view>
+        </picker-view-column>
+        <picker-view-column style="text-align:center;">
+          <view wx:for="{{month}}" style="line-height:80rpx;">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column style="text-align:center;">
+          <view wx:for="{{day}}" style="line-height:80rpx;">{{item}}日</view>
+        </picker-view-column>
+      </picker-view>
+    </view> 
+  </view>
+</template>
+
+<!-- 自定义日期picker -->
+<template name="ownPicker2">
+  <view style="position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,0.3);z-index:100;" hidden="{{hiddenPicker}}">
+    <view style="position:absolute;bottom:0;left:0;width:100%;max-height:650rpx;background:white;z-index:1000;">
+      <view style="background:#ffffff;border-bottom:1rpx solid #cacaca;overflow:hidden;">
+          <view style="float:left;text-align:left;padding:25rpx 25rpx;" bindtap="cancelBtn">取消</view>
+          <view style="float:right;text-align:right;padding:25rpx 25rpx;color:#ff4343;" bindtap="confirmBtn">确认</view>
+      </view>
+      <picker-view indicator-style="height:80rpx;" style="width:100%;height:300px;" value="{{value}}" bindchange="bindChange">
+        <picker-view-column style="text-align:center;">
+          <view wx:for="{{dateArr}}" style="line-height:80rpx;">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column style="text-align:center;">
+          <view wx:for="{{dateText}}" style="line-height:80rpx;">{{item}}</view>
+        </picker-view-column>
+      </picker-view>
+    </view> 
+  </view>
+</template>
+
+
+
+
+<!-- 买房的关联小区 -->
+<template name="houseContent1">
+  <view style="font-size:36rpx;color:#333333">{{guanlianList.buildName}}</view>
+  <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
+    <text style="margin-right:10rpx">{{guanlianList.areaName}}</text>
+    <text style="margin-right:10rpx">{{guanlianList.districtName}}</text>
+    <text style="margin-right:10rpx">{{guanlianList.buildAge}}建成</text>
+    <text style="margin-right:10rpx;line-height:1.6">{{item.buildType}}</text>
+  </view>
+  <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
+    <text>在售{{guanlianList.saleCount}}套</text><text style="margin: 0 10rpx;">/</text><text>在租{{guanlianList.rentCount}}套</text>
+  </view>
+  <view style="margin-top:20rpx">
+      <text style="font-size:34rpx;color:#ff4343;">{{guanlianList.avgSalePrice}}</text>
+      <text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
+  </view>
+</template>
+
+<!-- 租房的关联小区 -->
+<template name="houseContent2">
+  <view style="font-size:30rpx;">{{guanlianList.buildName}}</view>
+  <view style="color:#666666;margin-top:20rpx;">
+    <text style="margin-right:10rpx">{{guanlianList.areaName}}</text>
+    <text style="margin-right:10rpx">{{guanlianList.districtName}}</text>
+    <text style="margin-right:10rpx">{{guanlianList.buildAge}}建成</text>
+    <text style="margin-right:10rpx;line-height:1.6">{{item.buildType}}</text>
+  </view>
+  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;">
+    <text style="margin-right:20rpx">{{guanlianList.roomsNum}}房{{guanlianList.livingRoomNum}}厅</text>
+    <text>{{guanlianList.builtArea}}m²</text>
+  </view>
+  <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+    <text wx:for="{{guanlianList.houseTag}}" 
+          wx:key="{{index2}}"
+          wx:for-item="item2" 
+          wx:for-index="index2" 
+          style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
+  </view>
+  <view style="margin-top:20rpx;">
+      <text style="font-size:34rpx;color:#ff4343;">{{guanlianList.salePrice}}</text>
+      <text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
+  </view>
+</template>
+
+<!-- 二手房租房的附近房源 -->
+<template name="houseContent3">
+  <view style="font-size:30rpx">{{item.buildName}}</view>
+  <view style="color:#666666;margin-top:20rpx;">
+    <text style="margin-right:10rpx">{{item.areaName}}</text>
+    <text style="margin-right:10rpx">{{item.districtName}}</text>
+    <text style="margin-right:10rpx">{{item.buildAge}}建成</text>
+    <text style="margin-right:10rpx;line-height:1.6">{{item.buildType}}</text>
+  </view>
+  <view style="font-size:26rpx;color:#666666;margin-top:10rpx">
+    <text style="margin-right:20rpx">{{item.roomsNum}}房{{item.livingRoomNum}}厅</text>
+    <text>{{item.builtArea}}m²</text>
+  </view>
+  <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+    <text wx:for="{{item.houseTag}}" 
+          wx:key="{{index2}}"
+          wx:for-item="item2" 
+          wx:for-index="index2" 
+          style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
+  </view>
+  <view style="margin-top:20rpx">
+      <text style="font-size:34rpx;color:#ff4343">{{item.salePrice}}</text>
+      <text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
+  </view>
+</template>

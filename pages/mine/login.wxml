@@ -1,0 +1,34 @@
+<view class="page">
+  <view class="page_hd" wx:if="{{isCancelLogin}}">
+    <view class="flexBox">
+      <view class="line"></view> 
+      <text>推荐方式登录</text>
+      <view class="line"></view> 
+    </view>
+     <button type="primary" 
+             bindtap="getUseInfo"  
+             class="globalBtnColor">
+             <image src="../../images/wechat.png"></image>账号登录
+    </button> 
+  </view>
+  <!-- open-type="getPhoneNumber" 
+        bindgetphonenumber="getPhoneNumber" -->
+  
+  
+  <view class="page__bd" wx:if="{{!isCancelLogin}}">
+      <view class="section">
+        <view bindtap="back">
+            <image src="../../images/close.png" class="close"></image>
+        </view>
+        <text style="margin-top:40rpx;font-size:60rpx;">手机快捷登录</text>
+      </view>
+      <view class="section">
+        <input placeholder="请输入手机号" bindinput="bindKeyInput1" style="float:left;width:70%"/>
+        <text class="sendBtn" bindtap="sendCode">获取验证码</text>
+      </view>
+      <view class="section">
+        <input placeholder="请输入验证码"  bindinput="bindKeyInput2"  placeholder="请输入验证码"/>
+      </view>
+      <button bindtap="login" type="primary" class="globalBtnColor">登录</button>   
+  </view>
+</view>

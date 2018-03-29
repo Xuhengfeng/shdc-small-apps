@@ -1,0 +1,143 @@
+<import src="../template/template.wxml"/>
+  <view style="height:auto;">
+    <view class="header">
+      <swiper bindchange="listenSwiper" 
+              indicator-dots="{{indicatorDots}}" 
+              autoplay="{{autoplay}}" 
+              interval="{{interval}}" 
+              duration="{{duration}}">
+              <block wx:for="{{imgUrls}}"
+                    wx:key="{{index}}">
+                    <swiper-item>
+                        <image src="{{item.picUrl}}" 
+                              class="slide-image" 
+                              style="width:100%!important;height:100%!important"/>
+                    </swiper-item>
+              </block>
+      </swiper>
+      <!-- 重写指示点 -->
+      <view class="indicator">
+          <view class="{{index == currentIndex?'white':'gray'}}"
+                data-index="{{index}}"
+                wx:for="{{imgUrls}}"
+                wx:key="index">
+                </view>
+      </view>
+      <view id="mysearch" class="serarch-content" style="background:{{tone}}">
+        <view class="search-bg">
+          <view class="search">
+                <view bindtap="startsearch"><image src="../../images/search.png" /></view>
+                <input placeholder="请输入您要搜索的内容" bindconfirm="searchSubmit" bindinput="userSearch"/>
+          </view>
+        </view>
+      </view>
+      <!-- navBar组件 -->
+      <navBar-html class="mynav"
+                  label="{{label}}"
+                  area="{{area}}" 
+                  houseType="{{houseType}}"
+                  mode="{{mode}}"
+                  price="{{price}}"
+                  proportion="{{proportion}}"
+                  num="{{navNum}}"
+                  showModalStatus="{{showModalStatus}}"
+                  style="visibility:{{isShow}}">
+      </navBar-html>
+    </view>
+    <view class="recommend">
+      <view class="title"><text>为你推荐</text></view>
+      <view>
+        <scroll-view scroll-x style="white-space:nowrap;display:flex;height:100%">
+          <navigator url="../houseDetail/houseDetail" 
+                     class="goods-item"
+                     wx:for="{{recommend}}" 
+                     wx:key="index">
+              <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
+              <view class="content" style="background:rgba(0,0,0,0.5)">
+                  <view style="font-size:30rpx;color:#fff;line-height:1">{{item.houseTitle}}</view>
+                    <view style="padding-top:10rpx;line-height:1">
+                        <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.districtName}}</text>
+                        <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.houseDirection}}</text>
+                        <text style="margin-right:20rpx;font-size:26rpx;color:#fff;">{{item.houseFeature}}</text>
+                    </view>
+                    <view style="font-size:26rpx;color:#fff;padding-top:5rpx;line-height:1">
+                        <text style="margin-right:20rpx">{{item.houseType}}</text>
+                        <text>{{item.builtArea}}m²</text>
+                    </view>
+                    <view wx:if="{{flagPrice}}" style="font-size:34rpx;color:#ffc001;margin-top:20rpx;line-height:1;">
+                        <text>{{item.saleTotal}}万</text>
+                        <text style="font-size:24rpx;color:#ffffff;margin-left:25rpx;">{{item.salePrice}}元/平米</text>
+                    </view>
+                    <view wx:if="{{!flagPrice}}" style="font-size:34rpx;color:#ffc001;margin-top:20rpx;line-height:1;">
+                        <text>{{item.rentPrice}}</text>
+                        <text style="font-size:24rpx;color:#ffffff;margin-left:10rpx">元/月</text>
+                    </view>
+                </view> 
+          </navigator> 
+        </scroll-view>
+      </view>
+    </view>
+
+    <view class="labelgroup">
+      <view class="navbar">
+            <view class="nav"
+                  data-index="{{index}}"
+                  wx:for="{{label}}"
+                  bindtap="selectItem">{{item}}
+                  <image src="../../images/drop.png"/>
+            </view>
+      </view>
+    </view>
+    
+
+    <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
+            <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{houseDetail}}" hover-class="none">
+                <view class="item">
+                      <view class="image">
+                        <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
+                      </view>
+                      <view class="item-content">
+                        <view class="item-title">{{item.houseTitle}}</view>
+                        <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
+                            <text>{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</text>
+                        </view>
+
+                        <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
+                            <text style="margin-right:20rpx">{{item.houseType}}</text>
+                            <text>{{item.builtArea}}m²</text>
+                        </view>
+
+                        <view class="houseTag" 
+                              style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+                              <text wx:for="{{item.houseTag}}" 
+                                  wx:key="{{index2}}"
+                                  wx:for-item="item2" 
+                                  wx:for-index="index2" 
+                                  style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
+                        </view>
+
+                        <view wx:if="{{flagPrice}}" style="margin-top:20rpx;line-height:1;">
+                            <text style="font-size:34rpx;color:#ff4343;margin-right:25rpx">{{item.saleTotal}}万</text>
+                            <text style="font-size:24rpx;color:#666666">{{item.salePrice}}元/平米</text>
+                        </view>
+                        <view wx:if="{{!flagPrice}}" style="margin-top:20rpx;line-height:1;">
+                            <text style="font-size:34rpx;color:#ff4343;margin-right:10rpx">{{item.rentPrice}}</text>
+                            <text style="font-size:24rpx;color:#666666">元/月</text>
+                        </view>
+                      </view>
+                </view>
+            </navigator>
+        </block>
+
+
+        <view class="tips">
+            <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
+            <view wx:elif="{{twohandhouse.length==0}}"><text>没有更多内容</text></view>
+            <navigator wx:elif="{{twohandhouse.length!=0}}" 
+                       url="../searchList/searchList?houseType={{houseType[num]}}">查看全部房源
+            </navigator> 
+        </view>
+        <loading wx:if="{{showload}}">加载中...</loading>
+        <view style="height:500px;" wx:if="{{!houseList.length}}"></view>
+
+</view>
