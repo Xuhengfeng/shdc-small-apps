@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-   "list-html": "/component/wx-index-list/wx-index-list"
-  }
-}

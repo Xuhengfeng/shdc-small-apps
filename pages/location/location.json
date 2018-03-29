@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "位置",
-  "usingComponents": {
-    "list-html": "/component/wx-index-list/wx-index-list"
-  },
-  "enablePullDownRefresh": false
-}
