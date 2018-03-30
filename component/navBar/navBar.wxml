@@ -18,8 +18,8 @@
         </view>
   </view>
   <view class="content" animation="{{animationData}}">
+      <!-- 区域 -->
       <view wx:if="{{num == 0}}" class="area">
-        <!-- 区域 -->
         <scroll-view scroll-y class="one">
             <view wx:for="{{area}}"
                   data-num="{{index}}" 
@@ -37,96 +37,133 @@
         </scroll-view>
       </view>
 
-      <!-- 户型 -->
-      <view wx:if="{{num == 1}}" class="housetype">
-        <view class="housetype-hd">
-            <text wx:for="{{houseType}}" 
-                  data-num="{{index}}"
-                  data-value="{{item.value}}"
-                  class="{{index == houseTypeCategories?'font3Color':'font2Color'}}"
-                  bindtap="changeHouseType">{{item.name}}</text>
-        </view>
-        <view class="housetype-ft">
-            <button type="primary" 
-                    style="background:#f2f2f2;border:0;color:#666666"
-                    bindtap="changeHouseTypeUnlimit">条件不限</button>
-            <button type="primary" 
-                    class="globalBtnColor"
-                    bindtap="changeHouseTypeTrue">确定</button>
-        </view>
-      </view>
 
-      <!-- 价格 -->
-      <view wx:if="{{num == 2}}" class="price">
-        <view class="price-hd">
-            <text wx:for="{{price}}" 
-                  data-num="{{index}}" 
-                  data-minPrice="{{item}}"
-                  data-maxPrice="{{item}}"
-                  class="{{index == priceCategories?'font3Color':'font2Color'}}"
-                  bindtap="pricelabel">{{item.name}}</text>
-        </view>
-        <view class="price-bd">
-          <view class="title">自定义区间 (万)</view>
-          <view>
-              <input placeholder="最小金额" 
-                     type="digit"
-                     maxlength="10" 
-                     bindinput="minPrice"/>
-              <view class="line"></view>
-              <input placeholder="最大金额" 
-                     type="digit"
-                     maxlength="10"
-                     bindinput="maxPrice"/>
+      <!-- 二手房 租房 -->
+      <view wx:if="{{false}}">
+          <!-- 户型 -->
+          <view wx:if="{{num == 1}}" class="housetype">
+            <view class="housetype-hd">
+                <text wx:for="{{houseType}}" 
+                      data-num="{{index}}"
+                      data-value="{{item.value}}"
+                      class="{{index == houseTypeCategories?'font3Color':'font2Color'}}"
+                      bindtap="changeHouseType">{{item.name}}</text>
+            </view>
+            <view class="housetype-ft">
+                <button type="primary" 
+                        style="background:#f2f2f2;border:0;color:#666666"
+                        bindtap="changeHouseTypeUnlimit">条件不限</button>
+                <button type="primary" 
+                        class="globalBtnColor"
+                        bindtap="changeHouseTypeTrue">确定</button>
+            </view>
           </view>
-        </view>
-        <view class="price-ft">
-            <button type="primary" 
-                    style="background:#f2f2f2;border:0;color:#666666"
-                    bindtap="pricelabelUnlimit">条件不限</button>
-            <button type="primary" 
-                    class="globalBtnColor" 
-                    bindtap="pricelabelTrue">确定</button>
-        </view>
+
+          <!-- 价格 -->
+          <view wx:if="{{num == 2}}" class="price">
+            <view class="price-hd">
+                <text wx:for="{{price}}" 
+                      data-num="{{index}}" 
+                      data-minPrice="{{item}}"
+                      data-maxPrice="{{item}}"
+                      class="{{index == priceCategories?'font3Color':'font2Color'}}"
+                      bindtap="pricelabel">{{item.name}}</text>
+            </view>
+            <view class="price-bd">
+              <view class="title">自定义区间 (万)</view>
+              <view>
+                  <input placeholder="最小金额" 
+                        type="digit"
+                        maxlength="10" 
+                        bindinput="minPrice"/>
+                  <view class="line"></view>
+                  <input placeholder="最大金额" 
+                        type="digit"
+                        maxlength="10"
+                        bindinput="maxPrice"/>
+              </view>
+            </view>
+            <view class="price-ft">
+                <button type="primary" 
+                        style="background:#f2f2f2;border:0;color:#666666"
+                        bindtap="pricelabelUnlimit">条件不限</button>
+                <button type="primary" 
+                        class="globalBtnColor" 
+                        bindtap="pricelabelTrue">确定</button>
+            </view>
+          </view>
+
+          <!-- 面积 -->
+          <view wx:if="{{num == 3}}" class="area2">
+            <view class="area2-hd">
+                <text wx:for="{{proportion}}" 
+                      data-num="{{index}}" 
+                      data-minBuildArea="{{item}}"
+                      data-maxBuildArea="{{item}}"
+                      class="{{index == proportionCategories?'font3Color':'font2Color'}}"
+                      bindtap="proportionlabel">{{item.name}}</text>
+            </view>
+            <view class="area2-ft">
+                <button type="primary" 
+                        style="background:#f2f2f2;border:0;color:#666666"
+                        bindtap="proportionlabelUnlimit">条件不限</button>
+                <button type="primary" 
+                        class="globalBtnColor"
+                        bindtap="proportionlabelTrue">确定</button>
+            </view>
+          </view>
+
+          <!-- 类型 -->
+          <view wx:if="{{num == 4}}" class="type">
+            <view class="type-hd">
+                <text wx:for="{{mode}}" 
+                      data-num="{{index}}"
+                      data-value="{{item.value}}"
+                      class="{{index == modeCategories?'font3Color':'font2Color'}}"
+                      bindtap="modelabel">{{item.name}}</text>
+            </view>
+            <view class="type-ft">
+                <button type="primary" 
+                        style="background:#f2f2f2;border:0;color:#666666"
+                        bindtap="modelabeUnlimit">条件不限</button>
+                <button type="primary" 
+                        class="globalBtnColor"
+                        bindtap="modelabelTrue">确定</button>
+            </view>
+          </view>
       </view>
 
-      <!-- 面积 -->
-      <view wx:if="{{num == 3}}" class="area2">
-        <view class="area2-hd">
-            <text wx:for="{{proportion}}" 
-                  data-num="{{index}}" 
-                  data-minBuildArea="{{item}}"
-                  data-maxBuildArea="{{item}}"
-                  class="{{index == proportionCategories?'font3Color':'font2Color'}}"
-                  bindtap="proportionlabel">{{item.name}}</text>
-        </view>
-        <view class="area2-ft">
-            <button type="primary" 
-                    style="background:#f2f2f2;border:0;color:#666666"
-                    bindtap="proportionlabelUnlimit">条件不限</button>
-            <button type="primary" 
-                    class="globalBtnColor"
-                    bindtap="proportionlabelTrue">确定</button>
-        </view>
-      </view>
 
-      <!-- 类型 -->
-      <view wx:if="{{num==4}}" class="type">
-        <view class="type-hd">
-            <text wx:for="{{mode}}" 
-                  data-num="{{index}}"
-                  data-value="{{item.value}}"
-                  class="{{index == modeCategories?'font3Color':'font2Color'}}"
-                  bindtap="modelabel">{{item.name}}</text>
-        </view>
-        <view class="type-ft">
-            <button type="primary" 
-                    style="background:#f2f2f2;border:0;color:#666666"
-                    bindtap="modelabeUnlimit">条件不限</button>
-            <button type="primary" 
-                    class="globalBtnColor"
-                    bindtap="modelabelTrue">确定</button>
-        </view>
+
+      <!-- 小区 -->
+      <view wx:if="{{true}}">
+          <!-- 用途 -->
+          <view wx:if="{{num == 1}}">
+          12132
+          </view>
+          <!-- 类型 -->
+          <view wx:if="{{num == 2}}" class="type">
+            <view class="type-hd">
+                <text wx:for="{{mode}}" 
+                      data-num="{{index}}"
+                      data-value="{{item.value}}"
+                      class="{{index == modeCategories?'font3Color':'font2Color'}}"
+                      bindtap="modelabel">{{item.name}}</text>
+            </view>
+            <view class="type-ft">
+                <button type="primary" 
+                        style="background:#f2f2f2;border:0;color:#666666"
+                        bindtap="modelabeUnlimit">条件不限</button>
+                <button type="primary" 
+                        class="globalBtnColor"
+                        bindtap="modelabelTrue">确定</button>
+            </view>
+          </view>
+          <!-- 楼龄 -->
+          <view wx:if="{{num == 3}}">
+          22555
+          </view>
+          
       </view>
   </view>
 </view>
