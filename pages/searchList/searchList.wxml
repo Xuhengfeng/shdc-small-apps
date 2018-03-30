@@ -4,7 +4,8 @@
     <view class='list-search-box'><icon type="search" bindtap="startsearch" size="15"/>
       <input placeholder="输入您要搜索的城市" 
              bindconfirm="searchSubmit"
-             bindinput="userSearch"/>
+             bindinput="userSearch"
+             value="{{keyword}}"/>
     </view>
      <!-- <button class="search-button" catchtap="searchMt">搜索</button>  -->
   </view>  
@@ -14,8 +15,8 @@
                mode="{{mode}}"
                price="{{price}}"
                proportion="{{proportion}}"
-               houseListType="{{houseDetail}}"
                bind:myevent="onMyEventHouseList"
+               keyword="{{keyword}}"
                id="navbar">
   </navBar-html>
 </view>
@@ -30,7 +31,8 @@
             <view class="image">
               <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
             </view>
-            <view>
+            <!-- 小区 -->
+            <view wx:if="{{!flagTwoHouse}}">
                 <view style="font-size:36rpx;color:#333333;line-height:1">{{item.buildName}}</view>
                 <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1">
                   <text style="margin-right:10rpx">{{item.areaName}}</text>
@@ -43,6 +45,37 @@
                 </view>
                 <view style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
                     {{item.avgSalePrice}}<text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
+                </view>
+            </view>
+
+            <!-- 二手房 租房 -->
+            <view wx:if="{{flagTwoHouse}}">
+                <view class="item-title">{{item.houseTitle}}</view>
+                <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
+                    <text>{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</text>
+                </view>
+
+                <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
+                    <text style="margin-right:20rpx">{{item.houseType}}</text>
+                    <text>{{item.builtArea}}m²</text>
+                </view>
+
+                <view class="houseTag" 
+                      style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+                      <text wx:for="{{item.houseTag}}" 
+                          wx:key="{{index2}}"
+                          wx:for-item="item2" 
+                          wx:for-index="index2" 
+                          style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
+                </view>
+
+                <view wx:if="{{flagPrice}}" style="margin-top:20rpx;line-height:1;">
+                    <text style="font-size:34rpx;color:#ff4343;margin-right:25rpx">{{item.saleTotal}}万</text>
+                    <text style="font-size:24rpx;color:#666666">{{item.salePrice}}元/平米</text>
+                </view>
+                <view wx:if="{{!flagPrice}}" style="margin-top:20rpx;line-height:1;">
+                    <text style="font-size:34rpx;color:#ff4343;margin-right:10rpx">{{item.rentPrice}}</text>
+                    <text style="font-size:24rpx;color:#666666">元/月</text>
                 </view>
             </view>
         </view>

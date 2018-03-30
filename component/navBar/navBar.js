@@ -3,10 +3,6 @@ const app = getApp();
 
 Component({
   properties: {
-    houseListType: {//二手房 租房 小区找房
-      type: String,
-      value: '二手房'
-    },
     label: {//nav菜单
       type: Object,
       value: ''
@@ -35,6 +31,10 @@ Component({
       type: Number,
       value: 5
     },
+    keyword: {//关键词
+      type: String,
+      value: ''
+    },
     showModalStatus: {//遮罩层
       type: Boolean,
       value: false
@@ -56,15 +56,24 @@ Component({
     areaCategoriesId: 0,//区域分类id(给后台的id）
     areaSubCategories: 0,//区域子分类
     areaSubCategoriesId: 0,//区域子分类id(给后台的id）
-    
-    houseTypeCategories: 0,//户型
-    priceCategories: 0,//价格
-    modeCategories: 0,//类型
+
+    //户型
+    houseTypeCategories: 0,
+    roomsNum: null,
+
+    //价格
+    priceCategories: 0,
+    minPrice: null,
+    maxPrice: null,
+
+    //类型
+    modeCategories: 0,
+    modeCategoriesValue: null,
     proportionCategories: 0,//面积
 
     //请求地址
     //二手房列表 租房列表 小区找房列表
-    IPS: [Api.IP_TWOHANDHOUSE, Api.IP_BUILDLIST, Api.IP_RENTHOUSE],  
+    IPS: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE, Api.IP_BUILDLIST],  
     IPSNUM: null,
     url: null,
   },
@@ -73,28 +82,37 @@ Component({
     // 修正显示
     // 修正url
     this.setData({num: 5});
-    if (this.data.houseListType == '二手房') {
-      this.setData({
-        url: this.data.IPS[0]
-      })
-    } else if (this.data.houseListType == '租房') {
-      this.setData({
-        url: this.data.IPS[1]
-      })
-    } else if (this.data.houseListType == '小区') {
-      this.setData({
-        url: this.data.IPS[2]
-      })
-    }
+    wx.getStorage({
+      key: 'houseTypeSelect',
+      success: (res)=> {
+        if (res.data == '二手房') {
+          this.setData({
+            url: this.data.IPS[0]
+          })
+        } else if (res.data == '租房') {
+          this.setData({
+            url: this.data.IPS[1]
+          })
+        } else if (res.data == '小区') {
+          this.setData({
+            url: this.data.IPS[2]
+          })
+        }
+      }
+    })
+    
+
     //第一页数据 首次请求
     wx.getStorage({
       key: 'selectCity',
       success: (res)=> {
         let params = {
-            pageNo: 1,
-            pageSize: 10,
-            scity: res.data.value,
+            'pageNo': 1,
+            'pageSize': 10,
+            'scity': res.data.value,
+            'keyword': this.data.keyword
         }
+        console.log(params)
         //修正 当前城市
         this.setData({currentCity: res.data.value})
         this.getDataFromServer(this.data.url, params);
@@ -129,12 +147,29 @@ Component({
         data: params,
         method: 'POST',
         success: (res)=> {
-          this.setData({
-            houseList: res.data.data,
-            loading: false,
-            hasMore: false
-          })
-          this.triggerEvent('myevent', this);
+          if(res.data.data.length){
+            this.setData({
+              houseList: res.data.data,
+              loading: false,
+              hasMore: false
+            })
+          }else{
+            wx.showModal({
+              title: '提示',
+              content: '没有找任何数据!',
+              success: ()=>{
+                this.setData({
+                  loading: false,
+                  hasMore: false
+                })
+              }
+            })
+          }        
+          let obj = {
+            'params': params,
+            'houseList': res.data.data
+          }
+          this.triggerEvent('myevent', obj);
         },
         fail: (error)=> {
           wx.showModal({
@@ -166,9 +201,9 @@ Component({
       })
       if (e.target.dataset.num == 0) {//第一列 不限
         let params = {
-          pageNo: 1,
-          pageSize: 10,
-          scity: this.data.currentCity
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity
         }
         this.cancelModal();
         this.getDataFromServer(this.data.url, params);
@@ -185,17 +220,18 @@ Component({
       let params;
       if (e.target.dataset.num == 0) {//第二列 不限
         params = {
-          pageNo: 1,
-          pageSize: 10,
-          scity: this.data.currentCity
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity,
+          'areaId': this.data.areaCategoriesId
         }
       } else {
         params = {
-          pageNo: 1,
-          pageSize: 10,
-          scity: this.data.currentCity,
-          districtId: this.data.areaSubCategoriesId,
-          areaId: this.data.areaCategoriesId
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity,
+          'districtId': this.data.areaSubCategoriesId,
+          'areaId': this.data.areaCategoriesId
         }
       }
       this.cancelModal();
@@ -205,26 +241,135 @@ Component({
     //户型
     changeHouseType(e) {
       this.setData({
-        houseTypeCategories: e.target.dataset.num
+        houseTypeCategories: e.target.dataset.num,
+        roomsNum: e.target.dataset.value
       })
     },
+    changeHouseTypeUnlimit() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'roomsNum': ''
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+    changeHouseTypeTrue() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'roomsNum': this.data.roomsNum
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+
     //价格
     pricelabel(e) {
       this.setData({
-        priceCategories: e.target.dataset.num
+        priceCategories: e.target.dataset.num,
+        minPrice: e.target.dataset.minprice.value.split('-')[0],
+        maxPrice: e.target.dataset.maxprice.value.split('-')[1]
       })
     },
+    pricelabelUnlimit() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'minPrice': '',
+        'maxPrice': ''
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+    pricelabelTrue() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'minPrice': this.data.minPrice,
+        'maxPrice': this.data.maxPrice
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+    minPrice(e) {
+      this.setData({
+        minPrice: e.detail.value
+      })
+    },
+    maxPrice(e) {
+      this.setData({
+        maxPrice: e.detail.value
+      })
+    },
+
     //面积
     proportionlabel(e) {
       this.setData({
         proportionCategories: e.target.dataset.num
       })
     },
+    proportionlabelUnlimit() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'minBuildArea': '',
+        'maxBuildArea': ''
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+    proportionlabelTrue() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'minBuildArea': e.target.dataset.minBuildArea.value.split('-')[0],
+        'maxBuildArea': e.target.dataset.maxBuildArea.value.split('-')[1]
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+
     //类型
     modelabel(e) {
       this.setData({
-        modeCategories: e.target.dataset.num
+        modeCategories: e.target.dataset.num,
+        modeCategoriesValue: e.target.dataset.value
       })
+    },
+    modelabeUnlimit() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'houseForm': ''
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+    modelabelTrue() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'houseForm': this.data.modeCategoriesValue
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
     }
   }
 })

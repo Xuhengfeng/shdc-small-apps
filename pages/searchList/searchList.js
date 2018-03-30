@@ -15,36 +15,53 @@ Page({
     page: 1,//首页数据
     showModalStatus: false,//遮罩层
     scrollTop: 0,
+    flagPrice: true,
+    flagTwoHouse: true,
     togglelabel: true,
-    houseDetail: '二手房',//二手房(买房)、租房、小区
-    IPS: [Api.IP_TWOHANDHOUSE, Api.IP_BUILDLIST, Api.IP_RENTHOUSE], //二手房列表  租房列表 小区找房列表
+   
+
+    //区域  (户型 类型 面积)  价格标签
+    IPS: [Api.IP_AREADISTRICTS, Api.IP_DICTIONARY, Api.IP_DICTIONARYCONDITION],
+
+    //二手房列表 租房列表 小区找房列表
+    IPS2: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE, Api.IP_BUILDLIST], 
     ipNum: 0,
+    
     showload: false,
     hasMore: false,
     currentCity: '',
-    keyword: '' //关键词
+    keyword: '', //关键词
+    params: {},
   },
   onLoad(options) {
-   wx.setNavigationBarTitle({
-     title: options.houseType,
-   })
+    // 修正title
+    wx.setNavigationBarTitle({
+      title: options.houseType,
+    })
+     
 
+    // 修改url keyword label 
    if(options.houseType == '二手房') {
     this.setData({
       label: ["区域", "户型", "价格", "面积", "类型"],
-      houseDetail: options.houseType,
+      keyword: options.keywords,
+      flagPrice: true,
+      flagTwoHouse: true,
       ipNum: 0
     });
    }else if(options.houseType == '租房') {
     this.setData({
-       label: ['区域', '用途', '类型', '楼龄'],
-       houseDetail: options.houseType,
+       label: ["区域", "户型", "租金", "面积"],
+       keyword: options.keywords,
+       flagPrice: false, 
+       flagTwoHouse: true,      
        ipNum: 1       
     });
    }else if(options.houseType == '小区找房' || options.houseType == '小区') {//小区找房
      this.setData({
        label: ['区域', '用途', '类型', '楼龄'],
-       houseDetail: options.houseType,
+       keyword: options.keywords,
+       flagTwoHouse: false,     
        ipNum: 2
      });
    }
@@ -59,10 +76,10 @@ Page({
         //区域
         this.areaRequest(res.data.value);
 
-        //户型 类型
+        //户型 类型 面积
         this.houseTypeRequest();
 
-        //价格 面积
+        //价格
         this.priceAreaRequest(res.data.value);
       }
     })
@@ -70,7 +87,7 @@ Page({
   },
   //区域
   areaRequest(currentCity) {
-    app.httpRequest(Api.IP_AREADISTRICTS + currentCity, 'GET', (error, data) => {
+    app.httpRequest(this.data.IPS[0] + currentCity, 'GET', (error, data) => {
       data.data.unshift({
         name: '不限',
         districts: []
@@ -89,16 +106,11 @@ Page({
   //户型 类型 面积
   houseTypeRequest() {
     wx.request({
-      url: Api.IP_DICTIONARY,
+      url: this.data.IPS[1],
       data: ['HOUSE_HUXING', 'HOUSE_USE', 'HOUSE_AREA'],
       method: 'POST',
       success: (res)=> {
-        res.data.data.HOUSE_HUXING.forEach((item)=> {
-          item.colorFlag = false;
-        })
-        res.data.data.HOUSE_USE.forEach((item)=> {
-          item.colorFlag = false;          
-        })
+        console.log(res)
         this.setData({
           houseType: res.data.data.HOUSE_HUXING,
           mode: res.data.data.HOUSE_USE,
@@ -110,7 +122,7 @@ Page({
   //价格
   priceAreaRequest(currentCity) {
     wx.request({
-      url: Api.IP_DICTIONARYCONDITION + 'SELL_PRICE/' + currentCity,
+      url: this.data.IPS[2] + 'SELL_PRICE/' + currentCity,
       data: '',
       method: 'GET',
       success: (res) => {
@@ -118,6 +130,9 @@ Page({
       }
     })
   },
+
+
+
   //请求数据
   getDataFromServer(IP, page, code) {
     this.setData({
@@ -126,11 +141,7 @@ Page({
     })
     wx.request({
       url: IP,
-      data: {
-        pageNo: page,
-        pageSize: 10,
-        scity: code
-      },
+      data: this.data.params,
       method: "POST",
       header: { 'Content-Type': 'application/json' },
       success: (res) => {
@@ -138,6 +149,7 @@ Page({
           
           //修正数据
           res.data.data.forEach((item) => {
+            console.log(item)
             if(item.houseTag) {
               item.houseTag = item.houseTag.split(',');
             }
@@ -147,16 +159,17 @@ Page({
             showload: false,
             hasMore: false
           })
-          this.data.num == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
-
+          this.data.ipNum == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
         }else{
-          this.setData({ 
-            showload: false,
-            hasMore: false
-          })
           wx.showModal({
             title: '提示',
-            content: '服务器异常'
+            content: '服务器异常',
+            success: ()=> {
+              this.setData({
+                showload: false,
+                hasMore: false
+              })
+            }
           })
         }
       }
@@ -164,30 +177,32 @@ Page({
   },
   //监听事件 拿到首次 或 点击筛选条件的第一页数据
   onMyEventHouseList(item) {
-    setTimeout(()=>{
+    setTimeout(() => {
+      //修正数据
+      item.detail.houseList.forEach((item2) => {
+        console.log(item2)
+        if (item2.houseTag) {
+          item2.houseTag = item2.houseTag.split(',');
+        }
+      })
       this.setData({
-        houseList: item.detail.data.houseList
+        houseList: item.detail.houseList,
+        params: item.detail.params
       })
     }, 500)
   },
-  //用户输入关键字
+  //获取用户输入关键字
   userSearch(e) {
     this.setData({
       keyword: e.detail.value,
     })
   },
+
   //开始检索
   startsearch() {
     if (!this.data.keyword) {
       wx.showModal({
-        content: '请输入关键词',
-        success: (res)=> {
-          if (res.confirm) {
-            console.log('用户点击确定')
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
+        content: '请输入关键词'
       })
     }
     this.setData({
@@ -195,29 +210,39 @@ Page({
       hasMore: true,
     })
     wx.request({
-      url: Api.IP_SHOPS,
+      url: this.data.IPS2[this.data.ipNum],
       data: {
-        keyword: this.data.keyword,
-        pageNo: 1,
-        pageSize: 10,
-        px: 0,
-        py: 0,
-        scity: "beihai"
+        'pageNo': 1,
+        'pageSize': 10,
+        'keyword': this.data.keyword,
+        'scity': this.data.currentCity
       },
       method: 'POST',
       success: (res) => {
-        if (res.statusCode == 200) {
-          this.setData({
-            showload: false,
-            hasMore: false,            
-            shops: res.data
+        if (res.data.data.length) {
+          //修正数据
+          res.data.data.forEach((item) => {
+            if (item.houseTag) {
+              item.houseTag = item.houseTag.split(',');
+            }
           })
-          if (!res.data.length) {
-            wx.showModal({
-              title: '提示',
-              content: '暂时没有找到数据'
-            })
-          }
+          this.setData({
+            houseList: res.data.data,
+            showload: false,
+            hasMore: false
+          })
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: '暂时没有找到数据',
+            success: () => {
+              this.setData({
+                houseList: '',
+                showload: false,
+                hasMore: false
+              })
+            }
+          })
         }
       }
     })
@@ -238,7 +263,7 @@ Page({
   //上拉加载更多
   onReachBottom() {
     var pageNo = this.data.page++;
-    this.getDataFromServer(this.data.IPS[this.data.ipNum], pageNo, this.data.currentCity);
+    this.getDataFromServer(this.data.IPS2[this.data.ipNum], pageNo, this.data.currentCity);
   }
 
 })

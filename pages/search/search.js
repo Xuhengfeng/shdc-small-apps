@@ -8,6 +8,12 @@ Page({
     keyword: null,//获取用户输入值
   },
   onLoad() {
+    // 缓存类型
+    wx.setStorage({
+      key: 'houseTypeSelect',
+      data: this.data.selectItem[0]
+    })
+
     wx.getStorage({//取缓存
       key: 'history',
       success: res => {
@@ -25,6 +31,11 @@ Page({
       num: e.target.dataset.index,
       item: e.target.dataset.item,
       flag: false
+    })
+    // 缓存类型
+    wx.setStorage({
+      key: 'houseTypeSelect',
+      data: this.data.item
     })
   },
   startsearch() {//点击icon搜索
@@ -72,9 +83,6 @@ Page({
     })
   },
   historyLabel(e) {//历史纪录点击
-    this.setData({
-      keyword: e.target.dataset.item,
-    });
     wx.showToast({
       title: '加载中',
       icon: 'loading',
@@ -82,7 +90,7 @@ Page({
       mask: true
     })
     wx.navigateTo({
-      url: "../../pages/searchList/searchList?keywords=" + this.data.keyword+"&houseType=" + this.data.selectItem[this.data.num]
+      url: "../../pages/searchList/searchList?keywords=" + e.target.dataset.item+"&houseType=" + this.data.selectItem[this.data.num]
     })
   },
   searchSubmit() {

@@ -42,12 +42,17 @@
         <view class="housetype-hd">
             <text wx:for="{{houseType}}" 
                   data-num="{{index}}"
+                  data-value="{{item.value}}"
                   class="{{index == houseTypeCategories?'font3Color':'font2Color'}}"
                   bindtap="changeHouseType">{{item.name}}</text>
         </view>
         <view class="housetype-ft">
-            <button type="primary" style="background:#f2f2f2;border:0;color:#666666">条件不限</button>
-            <button type="primary" class="globalBtnColor">确定</button>
+            <button type="primary" 
+                    style="background:#f2f2f2;border:0;color:#666666"
+                    bindtap="changeHouseTypeUnlimit">条件不限</button>
+            <button type="primary" 
+                    class="globalBtnColor"
+                    bindtap="changeHouseTypeTrue">确定</button>
         </view>
       </view>
 
@@ -56,20 +61,32 @@
         <view class="price-hd">
             <text wx:for="{{price}}" 
                   data-num="{{index}}" 
+                  data-minPrice="{{item}}"
+                  data-maxPrice="{{item}}"
                   class="{{index == priceCategories?'font3Color':'font2Color'}}"
                   bindtap="pricelabel">{{item.name}}</text>
         </view>
         <view class="price-bd">
           <view class="title">自定义区间 (万)</view>
           <view>
-              <input placeholder="最小金额" type="number" maxlength="888"/>
+              <input placeholder="最小金额" 
+                     type="digit"
+                     maxlength="10" 
+                     bindinput="minPrice"/>
               <view class="line"></view>
-              <input placeholder="最大金额" type="number"/>
+              <input placeholder="最大金额" 
+                     type="digit"
+                     maxlength="10"
+                     bindinput="maxPrice"/>
           </view>
         </view>
         <view class="price-ft">
-            <button type="primary" style="background:#f2f2f2;border:0;color:#666666">条件不限</button>
-            <button type="primary" class="globalBtnColor">确定</button>
+            <button type="primary" 
+                    style="background:#f2f2f2;border:0;color:#666666"
+                    bindtap="pricelabelUnlimit">条件不限</button>
+            <button type="primary" 
+                    class="globalBtnColor" 
+                    bindtap="pricelabelTrue">确定</button>
         </view>
       </view>
 
@@ -78,12 +95,18 @@
         <view class="area2-hd">
             <text wx:for="{{proportion}}" 
                   data-num="{{index}}" 
+                  data-minBuildArea="{{item}}"
+                  data-maxBuildArea="{{item}}"
                   class="{{index == proportionCategories?'font3Color':'font2Color'}}"
                   bindtap="proportionlabel">{{item.name}}</text>
         </view>
         <view class="area2-ft">
-            <button type="primary" style="background:#f2f2f2;border:0;color:#666666">条件不限</button>
-            <button type="primary" class="globalBtnColor">确定</button>
+            <button type="primary" 
+                    style="background:#f2f2f2;border:0;color:#666666"
+                    bindtap="proportionlabelUnlimit">条件不限</button>
+            <button type="primary" 
+                    class="globalBtnColor"
+                    bindtap="proportionlabelTrue">确定</button>
         </view>
       </view>
 
@@ -92,12 +115,17 @@
         <view class="type-hd">
             <text wx:for="{{mode}}" 
                   data-num="{{index}}"
+                  data-value="{{item.value}}"
                   class="{{index == modeCategories?'font3Color':'font2Color'}}"
                   bindtap="modelabel">{{item.name}}</text>
         </view>
         <view class="type-ft">
-            <button type="primary" style="background:#f2f2f2;border:0;color:#666666">条件不限</button>
-            <button type="primary" class="globalBtnColor">确定</button>
+            <button type="primary" 
+                    style="background:#f2f2f2;border:0;color:#666666"
+                    bindtap="modelabeUnlimit">条件不限</button>
+            <button type="primary" 
+                    class="globalBtnColor"
+                    bindtap="modelabelTrue">确定</button>
         </view>
       </view>
   </view>
