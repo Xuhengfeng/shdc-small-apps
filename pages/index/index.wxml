@@ -215,10 +215,10 @@
 
 
 
-<contact-button 
+<!-- <contact-button 
   type="default-light" 
   size="20"
   session-from="weapp"
   style="position:fixed;bottom: 50rpx;right:50rpx;background:red"
 >
-</contact-button>
+</contact-button> -->
