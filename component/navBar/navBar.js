@@ -4,27 +4,35 @@ const app = getApp();
 Component({
   properties: {
     label: {//nav菜单
-      type: Object,
+      type: Array,
       value: ''
     },
     area: {//区域
-      type: Object,
+      type: Array,
       value: ''
     },
     houseType: {//户型
-      type: Object,
+      type: Array,
       value: ''
     },
     price: {//价格
-      type: Object,
+      type: Array,
       value: ''
     },
     proportion: {//面积
-      type: Object,
+      type: Array,
       value: ''
     },
     mode: {//类型
-      type: Object,
+      type: Array,
+      value: ''
+    },
+    use: {//用途
+      type: Array,
+      value: ''
+    },
+    houseAge: {//楼龄
+      type: Array,
       value: ''
     },
     num: {//控制nav显示对应content
@@ -69,13 +77,23 @@ Component({
     //类型
     modeCategories: 0,
     modeCategoriesValue: null,
-    proportionCategories: 0,//面积
+
+    //面积
+    proportionCategories: 0,
+    minBuildArea: null,
+    maxBuildArea: null,
+    
+    
+
 
     //请求地址
     //二手房列表 租房列表 小区找房列表
     IPS: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE, Api.IP_BUILDLIST],  
     IPSNUM: null,
     url: null,
+
+    //显示 小区label 或  二手房 租房
+    twoHouseOrArea: true
   },
   
   attached() {
@@ -87,15 +105,18 @@ Component({
       success: (res)=> {
         if (res.data == '二手房') {
           this.setData({
-            url: this.data.IPS[0]
+            url: this.data.IPS[0],
+            twoHouseOrArea: true
           })
         } else if (res.data == '租房') {
           this.setData({
-            url: this.data.IPS[1]
+            url: this.data.IPS[1],
+            twoHouseOrArea: true            
           })
         } else if (res.data == '小区') {
           this.setData({
-            url: this.data.IPS[2]
+            url: this.data.IPS[2],
+            twoHouseOrArea: false            
           })
         }
       }
@@ -314,7 +335,9 @@ Component({
     //面积
     proportionlabel(e) {
       this.setData({
-        proportionCategories: e.target.dataset.num
+        proportionCategories: e.target.dataset.num,
+        minBuildArea: e.target.dataset.minbuildarea.value.split('-')[0],
+        maxBuildArea: e.target.dataset.maxbuildarea.value.split('-')[1]
       })
     },
     proportionlabelUnlimit() {
@@ -329,14 +352,14 @@ Component({
       this.cancelModal();
       this.getDataFromServer(this.data.url, params);
     },
-    proportionlabelTrue() {
+    proportionlabelTrue(e) {
       let params;
       params = {
         'pageNo': 1,
         'pageSize': 10,
         'scity': this.data.currentCity,
-        'minBuildArea': e.target.dataset.minBuildArea.value.split('-')[0],
-        'maxBuildArea': e.target.dataset.maxBuildArea.value.split('-')[1]
+        'minBuildArea': this.data.minBuildArea,
+        'maxBuildArea': this.data.maxBuildArea
       }
       this.cancelModal();
       this.getDataFromServer(this.data.url, params);
@@ -344,6 +367,7 @@ Component({
 
     //类型
     modelabel(e) {
+      console.log(e.target)
       this.setData({
         modeCategories: e.target.dataset.num,
         modeCategoriesValue: e.target.dataset.value

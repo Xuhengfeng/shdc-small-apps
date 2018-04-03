@@ -42,13 +42,13 @@
 
   <view class="section1">
     <view class="flex-row">
-      <navigator url="../index/buyRentHouse?title=我要买房" class="flex-view-item" hover-class="none"> 
+      <navigator url="../index/buyRentHouse?houseType=二手房" class="flex-view-item" hover-class="none"> 
         <image src="../../images/buyHouse.png" />
         <view style="line-height:1">
           <text>二手房</text>
         </view>
       </navigator>
-      <navigator url="../index/buyRentHouse?title=我要租房" class="flex-view-item" hover-class="none">
+      <navigator url="../index/buyRentHouse?houseType=租房" class="flex-view-item" hover-class="none">
         <image src="../../images/rentHouse.png" />
         <view style="line-height:1">
           <text>租房</text>
@@ -211,3 +211,14 @@
         </view> 
         <loading wx:if="{{showload}}">加载中...</loading>
     </view>
+
+
+
+
+<contact-button 
+  type="default-light" 
+  size="20"
+  session-from="weapp"
+  style="position:fixed;bottom: 50rpx;right:50rpx;background:red"
+>
+</contact-button>

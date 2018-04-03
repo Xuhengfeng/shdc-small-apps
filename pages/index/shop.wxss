@@ -75,7 +75,7 @@ page{
 .content .three{
   position: absolute;
   right: 20rpx;
-  top: 75rpx;
+  top:  40rpx;
 }
 .content .three image{
   vertical-align: bottom;

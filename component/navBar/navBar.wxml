@@ -39,7 +39,7 @@
 
 
       <!-- 二手房 租房 -->
-      <view wx:if="{{false}}">
+      <view wx:if="{{twoHouseOrArea}}">
           <!-- 户型 -->
           <view wx:if="{{num == 1}}" class="housetype">
             <view class="housetype-hd">
@@ -136,10 +136,24 @@
 
 
       <!-- 小区 -->
-      <view wx:if="{{true}}">
+      <view wx:if="{{!twoHouseOrArea}}">
           <!-- 用途 -->
-          <view wx:if="{{num == 1}}">
-          12132
+          <view wx:if="{{num == 1}}" class="type">
+              <view class="type-hd">
+                  <text wx:for="{{use}}" 
+                        data-num="{{index}}"
+                        data-value="{{item.value}}"
+                        class="{{index == modeCategories?'font3Color':'font2Color'}}"
+                        bindtap="modelabel">{{item.name}}</text>
+              </view>
+              <view class="type-ft">
+                  <button type="primary" 
+                          style="background:#f2f2f2;border:0;color:#666666"
+                          bindtap="modelabeUnlimit">条件不限</button>
+                  <button type="primary" 
+                          class="globalBtnColor"
+                          bindtap="modelabelTrue">确定</button>
+              </view>
           </view>
           <!-- 类型 -->
           <view wx:if="{{num == 2}}" class="type">
@@ -160,8 +174,22 @@
             </view>
           </view>
           <!-- 楼龄 -->
-          <view wx:if="{{num == 3}}">
-          22555
+          <view wx:if="{{num == 3}}" class="type">
+         <view class="type-hd">
+                  <text wx:for="{{houseAge}}" 
+                        data-num="{{index}}"
+                        data-value="{{item.value}}"
+                        class="{{index == modeCategories?'font3Color':'font2Color'}}"
+                        bindtap="modelabel">{{item.name}}</text>
+              </view>
+              <view class="type-ft">
+                  <button type="primary" 
+                          style="background:#f2f2f2;border:0;color:#666666"
+                          bindtap="modelabeUnlimit">条件不限</button>
+                  <button type="primary" 
+                          class="globalBtnColor"
+                          bindtap="modelabelTrue">确定</button>
+              </view>
           </view>
           
       </view>

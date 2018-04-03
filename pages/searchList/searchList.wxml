@@ -17,6 +17,8 @@
                proportion="{{proportion}}"
                bind:myevent="onMyEventHouseList"
                keyword="{{keyword}}"
+               use="{{use}}"
+               houseAge="{{houseAge}}"
                id="navbar">
   </navBar-html>
 </view>

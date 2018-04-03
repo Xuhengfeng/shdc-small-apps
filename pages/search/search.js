@@ -42,15 +42,8 @@ Page({
     if (!this.data.keyword) {
       wx.showModal({
         content: '请输入关键词',
-        success: (res)=> {
-          if(res.confirm) {
-            console.log('用户点击确定')
-          }else if(res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
+        success: (res)=> { }
       })
-      return;
     }else{
       if(this.data.history.length <= 5) {
         if(this.data.history.indexOf(this.data.keyword) == -1) {

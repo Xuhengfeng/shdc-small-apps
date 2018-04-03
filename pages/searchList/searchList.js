@@ -3,13 +3,17 @@ const app = getApp();
 
 Page({
   data: {
-    label: ["区域", "户型", "价格", "面积", "类型"],
+    label: [],
     houseList: [],//房源列表
+
     area: [],//区域
     houseType: [],//户型
     price: [],//价格
     proportion: [],//面积
     mode: [],//类型
+    use: [],//用途
+    houseAge: [],//楼龄
+
     num: null,//控制nav菜单
     modalFlag: false,
     page: 1,//首页数据
@@ -40,30 +44,48 @@ Page({
     })
      
 
-    // 修改url keyword label 
+    // 修正url keyword label 
    if(options.houseType == '二手房') {
-    this.setData({
-      label: ["区域", "户型", "价格", "面积", "类型"],
-      keyword: options.keywords,
-      flagPrice: true,
-      flagTwoHouse: true,
-      ipNum: 0
-    });
+     wx.setStorage({
+       key: 'houseTypeSelect',
+       data: '二手房',
+       success: ()=>{
+        this.setData({
+            label: ["区域", "户型", "价格", "面积", "类型"],
+            keyword: options.keywords,
+            flagPrice: true,
+            flagTwoHouse: true,
+            ipNum: 0
+        });
+       }
+     })
    }else if(options.houseType == '租房') {
-    this.setData({
-       label: ["区域", "户型", "租金", "面积"],
-       keyword: options.keywords,
-       flagPrice: false, 
-       flagTwoHouse: true,      
-       ipNum: 1       
-    });
+     wx.setStorage({
+       key: 'houseTypeSelect',
+       data: '租房',
+       success: ()=>{
+         this.setData({
+            label: ["区域", "户型", "租金", "面积"],
+            keyword: options.keywords,
+            flagPrice: false,
+            flagTwoHouse: true,
+            ipNum: 1
+         });
+       }
+     })
    }else if(options.houseType == '小区找房' || options.houseType == '小区') {//小区找房
-     this.setData({
-       label: ['区域', '用途', '类型', '楼龄'],
-       keyword: options.keywords,
-       flagTwoHouse: false,     
-       ipNum: 2
-     });
+      wx.setStorage({
+        key: 'houseTypeSelect',
+        data: '小区',
+        success: ()=>{
+          this.setData({
+              label: ['区域', '用途', '类型', '楼龄'],
+              keyword: options.keywords,
+              flagTwoHouse: false,
+              ipNum: 2
+          });
+        }
+      })
    }
 
     //获取筛选条件
@@ -76,11 +98,15 @@ Page({
         //区域
         this.areaRequest(res.data.value);
 
-        //户型 类型 面积
+        //户型 类型 面积 用途 楼龄
         this.houseTypeRequest();
 
         //价格
         this.priceAreaRequest(res.data.value);
+        
+        //用途
+        //楼龄
+
       }
     })
      
@@ -103,19 +129,22 @@ Page({
       this.setData({ area: newData });
     })
   },
-  //户型 类型 面积
+  //户型 类型 面积 用途 楼龄
   houseTypeRequest() {
     wx.request({
       url: this.data.IPS[1],
-      data: ['HOUSE_HUXING', 'HOUSE_USE', 'HOUSE_AREA'],
+      data: ['HOUSE_HUXING', 'HOUSE_TYPE', 'HOUSE_AREA', 'HOUSE_USE','HOUSE_AGE'],
       method: 'POST',
       success: (res)=> {
-        console.log(res)
+        
         this.setData({
           houseType: res.data.data.HOUSE_HUXING,
-          mode: res.data.data.HOUSE_USE,
-          proportion: res.data.data.HOUSE_AREA
+          mode: res.data.data.HOUSE_TYPE,
+          proportion: res.data.data.HOUSE_AREA,
+          use: res.data.data.HOUSE_USE,
+          houseAge: res.data.data.HOUSE_AGE
         })
+        console.log(this.data.use)
       }
     })
   },
@@ -130,7 +159,14 @@ Page({
       }
     })
   },
+  //用途
+  useRequest( ) {
 
+  },
+  //楼龄
+  houseAge() {
+
+  },
 
 
   //请求数据
