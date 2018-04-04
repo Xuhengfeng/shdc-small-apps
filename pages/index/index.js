@@ -18,7 +18,6 @@ Page({
     hotbuilding: [],//获取热门小区
     
     showload: false,
-    scrollTop: 0, //距离顶部
     currentCity: 'beihai', //默认城市
     myLocation: "北海",//默认地址
     
@@ -46,37 +45,19 @@ Page({
 
     //获取主页banner资讯
     app.httpRequest(this.data.IPS[0]+ this.data.currentCity +"/INDEX_BANNER", 'GET', (error, data)=> {
-      if(data) this.setData({ imgUrls: data.data });
-      if(error) {
-        wx.showModal({
-          title: '提示',
-          content: '服务器异常'
-        })
-      }
+     this.setData({ imgUrls: data.data });
     })
 
     //获取主页二手房指南资讯
     app.httpRequest(this.data.IPS[1]+ this.data.currentCity +"/PURCHASE_GUIDE", 'GET', (error, data)=> {
-      if(data) this.setData({purchase_guide: data.data});
-      if(error) {
-        wx.showModal({
-          title: '提示',
-          content: '服务器异常'
-        })
-      }
+      this.setData({purchase_guide: data.data});
     })
 
     //获取成交量统计
     app.httpRequest(this.data.IPS[2]+ this.data.currentCity, 'GET', (error, data)=> {
-      if (data) this.setData({houseUsed: data.data});
-      if(error) {
-        wx.showModal({
-          title: '提示',
-          content: '服务器异常'
-        })
-      }
+     this.setData({houseUsed: data.data});
     })
-   
+
    //热门小区
     wx.request({
       url: this.data.IPS[3] + this.data.currentCity,
@@ -88,19 +69,20 @@ Page({
       header: { 'Content-Type': 'application/json' },
       success: (res) => {
         if(res.statusCode == 200) {
-          this.setData({ hotbuilding: res.data.data});
+          this.setData({hotbuilding: res.data.data});
         }else if(res.statusCode == 500) {
-          wx.showModal({
-            title: '提示',
-            content: '服务器异常'
-          })
+          this.setData({hotbuilding: ''});
+          wx.showModal({content: '服务器异常'})
         }
+      },
+      fail: (error) => {
+        this.setData({hotbuilding: ''})
       }
     })
 
     //猜你喜欢(默认二手房 首页第1页数据)
     var IP = this.data.guessLikeIP[0] + '/' + this.data.currentCity;
-    this.getDataFromServer(IP, {pageNo: 1});
+    this.getDataFromServer(IP, {pageNo: 1,pageSize: 10});
   },
   onSwiperTap(e) {//轮播图点击跳转
     wx.navigateTo({
@@ -112,8 +94,11 @@ Page({
   },
   selectYouLike(e) {//猜你喜欢 二手房 租房
     this.setData({num: e.target.dataset.index})
-    let IP = this.data.guessLikeIP[this.data.num]+'/'+this.data.currentCity;
-    let params = {pageNo: this.data.pageNo}
+    let IP = this.data.guessLikeIP[this.data.num] + '/' + this.data.currentCity;
+    let params = {
+      pageNo: this.data.pageNo,
+      pageSize: 10
+    }
     this.getDataFromServer(IP, params);
   },
   getDataFromServer(IP, params) {//猜你喜欢
@@ -128,9 +113,7 @@ Page({
         method: "GET",
         header: {'Content-Type': 'application/json' },
         success: (res)=> {
-          console.log(res)
           if(res.statusCode == 200) {
-            
             //修正数据
             res.data.data.forEach((item)=> {
               item.houseTag=item.houseTag.split(',');
@@ -143,10 +126,10 @@ Page({
             this.data.num == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
           }else if(res.statusCode == 500||res.statusCode == 404) {
             wx.showModal({
-              title: '提示',
               content: '服务器异常',
               success: (res)=> {
                 this.setData({
+                  houseList: '',
                   hasMore: false,
                   showload: false
                 })
@@ -155,15 +138,10 @@ Page({
           }
         },
         fail: (error)=> {
-          wx.showModal({
-            title: '提示',
-            content: '服务器异常',
-            success: (res)=> {
-              this.setData({
-                hasMore: false,
-                showload: false
-              })
-            }
+          this.setData({
+            houseList: '',
+            hasMore: false,
+            showload: false
           })
         }
       })

@@ -41,7 +41,7 @@ Component({
       var city = this.data.city;
       this.resetRight(city);
       if(this.data.myCity) this.getCity();
-    },500)
+    },1000)
     
   },
   methods: {
