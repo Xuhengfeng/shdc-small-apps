@@ -15,13 +15,11 @@ Page({
     console.log(e)
     if(e.detail.errMsg == 'getPhoneNumber:fail user deny') {
       wx.showModal({
-        title: '提示',
         showCancel: false,
         content: '未授权',
       })
     }else{
       wx.showModal({
-        title: '提示',
         showCancel: false,
         content: '同意授权',
       })
@@ -186,10 +184,7 @@ Page({
   sendCode() {//发送验证码
     let myreg = /^[1][3,4,5,7,8][0-9]{9}$/;//手机号正则
     if(!myreg.test(this.data.inputValue1)) {
-      wx.showModal({
-        title: '提示',
-        content: '请输入正确的手机号',
-      })
+      wx.showModal({content: '请输入正确的手机号'})
       return false;
     }
     let key = this.data.inputValue1 + "29e94f94-8664-48f2-a4ff-7a5807e13b68";

@@ -340,10 +340,7 @@ Page({
               hasMore: false,
               showload: false
             })
-            wx.showModal({
-              title: '提示',
-              content: '服务器异常',
-            })
+            wx.showModal({content: '服务器异常'})
           }
         },
         fail: (error)=> {
@@ -351,10 +348,7 @@ Page({
             hasMore: false,
             showload: false
           })
-          wx.showModal({
-            title: '提示',
-            content: '服务器异常'
-          })
+          wx.showModal({content: '服务器异常'})
         }
       })
     }

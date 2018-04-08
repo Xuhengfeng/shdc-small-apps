@@ -4,12 +4,7 @@ const app = getApp();
 Page({
   data: {
     //轮播图
-    imgUrls: [{ picUrl: '../../images/banner.png' }],
-    indicatorDots: false,
-    autoplay: false,
-    interval: 2000,
-    duration: 1000,
-    currentIndex: 0,
+    imgUrls: [{ picUrl: '../../images/banner.png' }, { picUrl: '../../images/banner.png' }],
 
     //为你推荐
     recommend: [],
@@ -173,11 +168,6 @@ Page({
     }
    
   },
-  listenSwiper(e) {//修改指示器 高亮
-    this.setData({//显示图片当前的
-      currentIndex: e.detail.current
-    })
-  },
   selectItem(e) {//控制nav菜单
     wx.pageScrollTo({
       scrollTop: 350,
@@ -286,10 +276,7 @@ Page({
         }
         if(res.statusCode == 500) {
           this.setData({showload: false})
-          wx.showModal({
-            title: '提示',
-            content: '服务器异常'
-          })
+          wx.showModal({content: '服务器异常'})
         }
       },
       fail: ()=> {

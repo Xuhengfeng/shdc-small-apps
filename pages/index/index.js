@@ -4,13 +4,7 @@ Page({
   data: {
     //轮播图
     imgUrls: [{picUrl: '../../images/banner.png' }],//默认图片
-    indicatorDots: false,
-    autoplay: true,
-    interval: 2000,
-    duration: 1000,
     hasMore: false,
-    currentIndex: 0,//轮播图指示器
-   
     
     purchase_guide: null,//二手房购房指南资讯
     houseUsed: null,//成交量统计
@@ -88,9 +82,6 @@ Page({
     wx.navigateTo({
       url: '../h5Pages/h5Pages?redirect=' + e.target.dataset.jump,
     })
-  },
-  listenSwiper(e) {//修改指示器 高亮
-    this.setData({currentIndex: e.detail.current})
   },
   selectYouLike(e) {//猜你喜欢 二手房 租房
     this.setData({num: e.target.dataset.index})

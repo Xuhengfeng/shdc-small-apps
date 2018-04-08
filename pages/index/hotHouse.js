@@ -53,10 +53,7 @@ Page({
               });
             }
           } else if (res.statusCode == 500) {
-            wx.showModal({
-              title: '提示',
-              content: '服务器异常'
-            })
+            wx.showModal({content: '服务器异常'})
           }
         }
       })

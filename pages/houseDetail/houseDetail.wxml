@@ -2,10 +2,11 @@
 
 <view class="header">
   <swiper bindchange="listenSwiper" 
-          indicator-dots="{{indicatorDots}}" 
-          autoplay="{{autoplay}}" 
-          interval="{{interval}}" 
-          duration="{{duration}}">
+          indicator-dots="{{false}}" 
+          autoplay="true" 
+          interval="5000" 
+          duration="1000"
+          circular="true">
      <block wx:for="{{houseDetail ? houseDetail.housePicList : imgUrls}}"> 
       <swiper-item style="background:#e2e2e2">
         <image bindtap="previewIamge" 

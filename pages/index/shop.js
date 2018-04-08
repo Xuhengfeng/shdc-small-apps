@@ -91,10 +91,7 @@ Page({
           })
           console.log(this)
           if (!res.data.data.length) {
-            wx.showModal({
-              title: '提示',
-              content: '暂时没有找到数据'
-            })
+            wx.showModal({content: '暂时没有找到数据'})
           }
         }
       }

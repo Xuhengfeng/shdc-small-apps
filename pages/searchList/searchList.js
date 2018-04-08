@@ -198,7 +198,6 @@ Page({
           this.data.ipNum == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
         }else{
           wx.showModal({
-            title: '提示',
             content: '服务器异常',
             success: ()=> {
               this.setData({
@@ -269,7 +268,6 @@ Page({
           })
         }else{
           wx.showModal({
-            title: '提示',
             content: '暂时没有找到数据',
             success: () => {
               this.setData({

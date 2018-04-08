@@ -1,11 +1,12 @@
 <import src="../template/template.wxml"/>
   <view class="header">
-    <swiper bindchange="listenSwiper" 
+    <swiper indicator-dots="true" 
+            autoplay="true" 
+            interval="3000"
+            indicator-active-color="white" 
+            circular="true"
             catchtap="onSwiperTap" 
-            indicator-dots="{{indicatorDots}}" 
-            autoplay="{{autoplay}}" 
-            interval="{{interval}}" 
-            duration="{{duration}}">
+            duration="1000">
       <block wx:for="{{imgUrls}}" wx:key="key">
         <swiper-item style="background:#e2e2e2">
           <image src="{{item.picUrl}}" 
@@ -16,14 +17,7 @@
         </swiper-item>
       </block>
     </swiper>
-    <!-- 重写指示点 -->
-    <view class="indicator">
-        <view wx:for="{{imgUrls}}" 
-              wx:key="key" 
-              data-index="{{index}}" 
-              class="{{index == currentIndex?'white':'gray'}}">
-        </view>
-    </view> 
+ 
     <view class="serarch-content">
       <navigator url="../location/location" hover-class="none">
         <text class="location">{{myLocation}}</text>

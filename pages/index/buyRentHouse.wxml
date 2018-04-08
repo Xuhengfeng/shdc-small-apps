@@ -1,11 +1,12 @@
 <import src="../template/template.wxml"/>
   <view style="height:auto;">
     <view class="header">
-      <swiper bindchange="listenSwiper" 
-              indicator-dots="{{indicatorDots}}" 
-              autoplay="{{autoplay}}" 
-              interval="{{interval}}" 
-              duration="{{duration}}">
+      <swiper autoplay="true" 
+            interval="5000"
+            indicator-active-color="white" 
+            circular="true"
+            duration="1000
+            indicator-dots="true">
               <block wx:for="{{imgUrls}}"
                     wx:key="{{index}}">
                     <swiper-item>
@@ -15,14 +16,6 @@
                     </swiper-item>
               </block>
       </swiper>
-      <!-- 重写指示点 -->
-      <view class="indicator">
-          <view class="{{index == currentIndex?'white':'gray'}}"
-                data-index="{{index}}"
-                wx:for="{{imgUrls}}"
-                wx:key="index">
-                </view>
-      </view>
       <view id="mysearch" class="serarch-content" style="background:{{tone}}">
         <view class="search-bg">
           <view class="search">
