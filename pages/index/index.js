@@ -3,7 +3,7 @@ const app = getApp();
 Page({
   data: {
     //轮播图
-    imgUrls: [{picUrl: '../../images/banner.png' }],//默认图片
+    imgUrls: [],//默认图片
     hasMore: false,
     
     purchase_guide: null,//二手房购房指南资讯

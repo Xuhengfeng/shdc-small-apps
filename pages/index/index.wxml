@@ -8,7 +8,7 @@
             catchtap="onSwiperTap" 
             duration="1000">
       <block wx:for="{{imgUrls}}" wx:key="key">
-        <swiper-item style="background:#e2e2e2">
+        <swiper-item>
           <image src="{{item.picUrl}}" 
                 class="slide-image" 
                 style="width:100%;height:100%;"
@@ -34,82 +34,102 @@
     </view>
   </view>
 
-  <view class="section1">
+  <view class="section menu">
     <view class="flex-row">
       <navigator url="../index/buyRentHouse?houseType=二手房" class="flex-view-item" hover-class="none"> 
         <image src="../../images/buyHouse.png" />
-        <view style="line-height:1">
-          <text>二手房</text>
-        </view>
+        <text>二手房</text>
       </navigator>
       <navigator url="../index/buyRentHouse?houseType=租房" class="flex-view-item" hover-class="none">
         <image src="../../images/rentHouse.png" />
-        <view style="line-height:1">
-          <text>租房</text>
-        </view>
+        <text>租房</text>
       </navigator>
       <navigator url="../searchList/searchList?houseType=小区找房" class="flex-view-item" hover-class="none">
         <image src="../../images/fondHouse.png" />
-        <view style="line-height:1">
-          <text>小区找房</text>
-        </view>
+        <text>小区找房</text>
       </navigator>
       <navigator url="sellRent" class="flex-view-item" hover-class="none">
         <image src="../../images/saleHouse.png" />
-        <view style="line-height:1">
-          <text>我要售/租</text>
-        </view>
+         <text>我要售/租</text>
       </navigator>
       <navigator url="shop" class="flex-view-item" hover-class="none">
         <image src="../../images/store.png" />
-        <view style="line-height:1">
-          <text>找门店</text>
+         <text>找门店</text>
+      </navigator>
+    </view>
+    <image src="../../images/shadow.png" style="width:100%;height:20rpx;"></image>
+  </view>
+  
+
+  <!-- fourPic start -->
+  <view class="section fourPic">
+    <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
+        <view class="image"><image src="../../images/fondHouse.png" /></view>
+        <view class="content">
+          <text>独家好房</text>
+          <text>价格优惠</text>
         </view>
-      </navigator>
+    </navigator>
+    <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
+        <view class="image"><image src="../../images/fondHouse.png" /></view>
+        <view class="content">
+            <text>新上好房</text>
+            <text>一周内新上房</text>
+        </view>
+    </navigator>
+    <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
+        <view class="image"><image src="../../images/fondHouse.png" /></view>
+        <view style="line-height:1">
+          <view class="content">
+            <text>品质租房</text>
+            <text>拎包入住</text>
+          </view>
+        </view>
+    </navigator>
+    <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
+        <view class="image"><image src="../../images/fondHouse.png" /></view>
+        <view style="line-height:1">
+          <view class="content">
+            <text>热门好房</text>
+            <text>热关注度房源</text>
+         </view>
+        </view>
+    </navigator>
+  </view>
+  <!-- fourPic end -->
+
+  <view class="section hot">
+    <view class="title">热门推荐</view>
+    <view class="house-info">
+            <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
+              <block wx:for="{{hotbuilding}}">
+                <navigator url="../houseDetail/houseDetail?houseDetail=热门小区&id={{item.sdid}}"  
+                      class="house-info-item" hover-class="none">
+                  <view style="background:#f9f9f9;width:100%;height:248rpx;">
+                     <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" /> 
+                  </view>
+                  <view style="margin-top:20rpx;font-size:32rpx;line-height:1;font-weight:normal">世华易居买房大放送</view>
+                  <view style="margin-top:20rpx;">
+                    <text style="font-size:26rpx;color:#666666;line-height:1">即日起世华买房送大礼</text>
+                  </view>
+                </navigator>
+              </block>
+            </scroll-view>
     </view>
   </view>
 
-  <view class="section2">
-    <view class="buyer-guide">
-      <view style="float:left;line-height:1;font-size:40rpx;margin:60rpx 0 40rpx;font-weight:normal;">
-          <text style="color:#ff4343;margin-right:10rpx;font-weight:normal;">|</text>二手房购房指南
-      </view>
-      <navigator url="guideHand" hover-class="none">
-        <text style="color:#2581ff;font-size:28rpx;font-weight:normal;">查看更多</text>
-      </navigator>
-    </view>
-    <view class="goods-info">
-      <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
-        <block wx:for="{{purchase_guide}}">
-          <navigator url="../h5Pages/h5Pages?redirect={{item.contentUrl}}" class="goods-item">
-            <image src="{{item.picUrl?item.picUrl:'../../images/astate.png'}}" />
-            <view>
-              <text>{{item.title}}</text>
-              <text>{{item.summary}}</text>
-            </view>
-          </navigator>
-        </block>
-      </scroll-view>
-    </view>
-  </view>
-
-  <view class="section3">
-    <view class="trading-volume">
-      <view style="float:left;line-height:1;font-size:40rpx;margin:60rpx 0 40rpx;font-weight:normal;">
-        <text style="color:#ff4343;margin-right:10rpx;font-weight:normal">|</text>平台二手房成交量统计
-      </view>
-    </view>
+  <view class="section section3">
+    <view class="title">平台二手房成交量统计</view>
     <view class="section3-content">
       <image src="../../images/shihua.png" style="width:100%;height:240rpx;" />
       <view class="section3-content-one">
-        <view style="color:#fff6d9;">全市{{houseUsed.month}}月均价</view>
-        <view style="color:#ffc001;margin-top:40rpx;">{{houseUsed.avgPrice}}
-          <text>元/平米</text>
+        <view style="color:#cacaca;">全市{{houseUsed.month}}月均价</view>
+        <view style="color:#ffffff;margin-top:40rpx;">{{houseUsed.avgPrice}}<text style="font-size:24rpx">元/平米</text>
         </view>
       </view>
       <view class="section3-content-two">
-        <view style="color:#fff6d9;">{{houseUsed.month}}月世华成交量</view>
-        <view style="color:#ffc001;margin-top:40rpx;">{{houseUsed.suiteCount}}
+        <view style="color:#cacaca;">{{houseUsed.month}}月世华成交量</view>
+        <view style="color:#ffffff;margin-top:40rpx;">{{houseUsed.suiteCount}}
           <text>套</text>
         </view>
       </view>
@@ -117,13 +137,8 @@
   </view>
 
   <view class="section4">
-    <view class="hot-estate">
-      <view style="float:left;margin:60rpx 0 40rpx;font-size:40rpx;line-height:1;font-weight:normal;">
-        <text style="color:#f00;margin-right:10rpx;font-weight:normal;">|</text>热门小区
-      </view>
-      <navigator url="hotHouse?title=热门小区" hover-class="none">
-        <text style="font-weight:normal;float:right;color:#2581ff;font-size:28rpx;">查看更多</text>
-      </navigator>
+    <view class="title">热门小区
+        <navigator url="hotHouse?title=热门小区" hover-class="none" class="lookmore">查看更多</navigator>
     </view>
     <view class="house-info">
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
@@ -146,20 +161,38 @@
     </view>
   </view>
 
-  <view class="section5">
-    <view class="guess-like">
-      <view style="float:left;margin:60rpx 0 40rpx;font-size:40rpx;line-height:1;font-weight:normal;">
-        <text style="color:#f00;margin-right:10rpx;font-weight:normal;">|</text>猜你喜欢
-      </view>
-      <view class="twoselect">
-        <text style="font-weight:normal;font-size:30rpx;margin-right:24rpx" 
-              wx:for="{{guessYouLike}}" 
-              wx:key="key" 
-              data-index="{{index}}" 
-              bindtap="selectYouLike" 
-              class="{{index == num?'red':''}}">{{item}}</text>
-      </view>
+  <view>
+     <view class="title">新盘推荐
+        <navigator url="hotHouse?title=热门小区" hover-class="none" class="lookmore">查看更多</navigator>
     </view>
+    <view class="house-info">
+      <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
+        <block wx:for="{{hotbuilding}}">
+          <navigator url="../houseDetail/houseDetail?houseDetail=热门小区&id={{item.sdid}}"  class="house-info-item" hover-class="none">
+            <view style="background:#f9f9f9;width:100%;height:248rpx;">
+              <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" />
+            </view>
+            <view style="margin-top:20rpx;font-size:36rpx;line-height:1">{{item.buildName}}</view>
+            <view style="margin-top:20rpx;font-size:26rpx;color:#666666;line-height:1">
+              <text>在售{{item.saleCount}}套/在租{{item.rentCount}}套</text>
+            </view>
+          </navigator>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+
+  <view class="section section5">
+      <view class="title">猜你喜欢
+        <view class="lookmore">
+            <text style="font-weight:normal;font-size:30rpx;" 
+                  wx:for="{{guessYouLike}}" 
+                  wx:key="key" 
+                  data-index="{{index}}" 
+                  bindtap="selectYouLike" 
+                  class="{{index == num?'red':'gray'}}">{{item}}</text>
+        </view>
+     </view>
         <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
             <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{guessYouLike[num]}}" 
                        hover-class="none">

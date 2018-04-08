@@ -1,11 +1,12 @@
 @import "../template/template.wxss";
 page{
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   height: 100%;
 }
 .header{
   position: relative;
   height: 400rpx;
+  background: #f9f9f9;
 }
 .header swiper{
   height: 100%;
@@ -72,41 +73,114 @@ page{
   line-height: 42rpx;
   color: #999999; 
 }
-.section1{
+.section{
   background: #fff;
-  box-shadow: 0 0 10rpx 1rpx rgba(0,0,0,.2);
 }
-.section1 .flex-row{
+
+/* menu start */
+.flex-row{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   text-align: center;
 }
-.section1 .flex-view-item{
+.flex-view-item{
   padding: 40rpx 0;
   flex: 1;
 }
-.section1 .flex-view-item image{
+.flex-view-item image{
   width: 80rpx;
   height: 80rpx;
 }
-.section1 .flex-view-item text{
+.flex-view-item text{
   font-size: 28rpx;
+  margin-top: 20rpx;
+  display: block;
 }
-.section2{
-  margin-top: 10rpx; 
+/* menu end */
+
+
+/* fourPic start */
+.fourPic {
+ overflow: hidden;
+ padding: 30rpx 24rpx 0;
 }
-.section2 .buyer-guide{
+.fourPic navigator{
+  width: 344rpx;
+  height: 140rpx;
+  background:  #f9f9f9;
+  float: left;
+  position: relative;
+}
+.fourPic navigator:nth-of-type(2n+1) {
+  margin-right: 14rpx;
+}
+.fourPic navigator:nth-of-type(1),
+.fourPic navigator:nth-of-type(2){
+  margin-bottom: 14rpx; 
+}
+.fourPic .content{
+  position: absolute;
+  top:  50%; 
+  left: 30rpx;
+  transform: translateY(-50%);
+}
+.fourPic .content text{
+  display: block;
+}
+.fourPic .content text:nth-of-type(1){
+  font-size: 32rpx;
+  color: #222222;
+}
+.fourPic .content text:nth-of-type(2){
+  font-size: 26rpx;
+  margin-top: 14rpx;
+  color: #666666;
+}
+.fourPic .image{
+  position: absolute;
+  width: 117rpx;
+  height: 91rpx;
+  top: 50%;
+  right: 14rpx;
+  transform: translateY(-50%);
+}
+.fourPic .image image{
+  width: 100%;
+  height: 100%;
+}
+/* fourPic end */
+
+.buyer-guide{
   position: relative;
   overflow: hidden;
   padding: 0 24rpx;
   background: #fff;
 }
-.section2 .buyer-guide navigator{
+.buyer-guide navigator{
   position: absolute;
   right: 24rpx;
   top: 58rpx;
+}
+
+/* 标题 */
+.title{
+  line-height:1;
+  font-size:40rpx;
+  padding:80rpx 0 40rpx;
+  margin: 0 24rpx;
+  font-weight:normal;
+  overflow:hidden;
+  position: relative;
+}
+/* 查看更多 */
+.lookmore{
+  position: absolute;
+  top:86rpx;
+  right:0;
+  color:#0064eb;
+  font-size:28rpx;
 }
 
 .goods-info{
@@ -182,49 +256,33 @@ page{
   overflow: hidden;
   background: #fff;
 }
-.section4 .hot-estate{
+.hot-estate{
   position: relative;
   overflow: hidden;
   padding: 0 24rpx;
   background:#fff;
 }
-.section4 .hot-estate navigator{
-  position: absolute;
-  top: 60rpx;
-  right: 25rpx;
-}
-.section4 .house-info-item{
+
+.house-info-item{
   width: 320rpx;
   margin-left: 20rpx;
   display: inline-block;
 }
-.section4 .house-info-item image{
+.house-info-item image{
   width: 100%;
   height: 100%;
 }
-.section5{
-  background: #ffffff;
+
+.section .title .lookmore text:first-child{
+  margin-right:24rpx;
 }
-.section5 .guess-like{
-  position: relative;
-  padding-left: 24rpx;
-  overflow: hidden;
-}
-.section5 .guess-like .twoselect{
-  position: absolute;
-  right: 0;
-  top: 60rpx;
-}
-/*轮播图指示器*/
 .gray{
-  background: rgba(0,0,0,.4);
-}
-.white{
-  background: #ffffff;
+  color: #999999;
 }
 .red{
   color: #ff4343;
 }
+
 .section5 .item-content{
   padding-right: 25px;
   overflow: hidden;
