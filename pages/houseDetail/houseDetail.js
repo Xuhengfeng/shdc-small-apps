@@ -62,12 +62,19 @@ Page({
               houseDetailId: options.id,
               IpsNum: 1
             });
-          } else if (res.data == '小区找房' || res.data == '热门小区') {//小区
+          } else if (res.data == '小区找房' || res.data == '热门小区'||res.data=="小区") {//小区
             this.setData({
               detailType: 33,
               houseDetailId: options.id,
               IpsNum: 2,
               contentType: 11
+            });
+          } else if (options.houseDetail == "二手房") {
+            this.setData({
+              detailType: 11,
+              houseDetailId: options.id,
+              IpsNum: 0,
+              contentType: 22
             });
           }
       }

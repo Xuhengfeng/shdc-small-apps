@@ -188,7 +188,7 @@
         </view>
        </view>
         <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-            <navigator url="../houseDetail/houseDetail?id={{item.sdid}}" 
+            <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=二手房" 
                        hover-class="none">
                 <view class="item">
                       <view class="image">

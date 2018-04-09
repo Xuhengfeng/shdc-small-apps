@@ -35,12 +35,6 @@ page{
   align-items: center;
   background: #ffffff; 
 }
-.section1 .title{
-  margin: 50rpx 0 50rpx 25rpx;
-  font-size: 48rpx;
-  color: #333333;
-  line-height: 1;
-}
 .section1 .weui-cells{
   margin: 50rpx 0 50rpx 25rpx;
   font-size: 48rpx;
@@ -72,9 +66,6 @@ page{
 }
 
 /* 租房详情 */
-.section1{
-  background: #ffffff;
-}
 .section1 .description1{
   color: #ff4343;
   font-size: 40rpx;
@@ -102,21 +93,8 @@ page{
 }
 
 /* 房源信息 */
-.section2{
-  padding: 0 25rpx;
-  background: #ffffff;
-}
-.section2 .title{
-  overflow: hidden;
-}
-.section2 .title text{
-  float: left;
-  margin: 50rpx 0;
-  font-size: 40rpx;
-  color: #333333;
-  line-height: 1;
-}
 .section2 .labelgroup{
+  padding: 0 25rpx;
   display: flex;
   flex-flow: row wrap; 
   justify-content: flex-start;
@@ -131,24 +109,10 @@ page{
 }
 
 /* 房源位置 */
-.section3{
-  background: #ffffff;
-}
-.section3>.title{
-  padding: 0 25rpx;
-  overflow: hidden;
-}
 .section3 .map{
   position: relative;
   height: 400rpx;
   overflow: hidden;
-}
-.section3 .title text{
-  float: left;
-  margin: 70rpx 0 30rpx;
-  font-size: 40rpx;
-  color: #333333;
-  line-height: 1;
 }
 .map image{
   position: absolute;
@@ -180,6 +144,10 @@ page{
 }
 .map .rect>text{
   display: block;
+}
+.map .rect .name{
+  line-height: 1.2;
+  font-size:  30rpx;
 }
 .map .rect .content{
   margin-top: 10rpx;
@@ -219,12 +187,6 @@ page{
   overflow: hidden;
   text-overflow:ellipsis;
 }
-.section4 .title{
-  padding: 70rpx 0 50rpx 25rpx;
-  line-height: 1;
-  font-size: 40rpx;
-  color: #333333;
-}
 .section4 .facilityLabel{
   padding: 0 25rpx;
   line-height: 1;
@@ -239,45 +201,14 @@ page{
 
 
 /* 关联小区 */
-.section5 .title{
-  overflow: hidden;
-  padding: 0 25rpx;
-  border-bottom: 1rpx solid #cacaca;
-}
+
 .section5 .title text{
   float: left;
   margin: 70rpx 0 30rpx;
   font-size: 40rpx;
   color: #333333;
 }
-.section5 .item{
-  padding: 30rpx 0;
-  overflow: hidden;
-  border-bottom: 1rpx solid #cacaca;
-}
-.section5 .image{
-  float: left;
-  margin: auto 40rpx auto 25rpx;
-  width: 240rpx;
-  height: 190rpx;
-  background: #f2f2f2;
-}
-.section5 .image image{
-  width: 100%;
-  height: 100%;
-}
-
 /* 附近房源 */
-.section6 .title{
-  overflow: hidden;
-  padding: 0 25rpx;
-}
-.section6 .title text{
-  float: left;
-  margin: 70rpx 0 30rpx;
-  font-size: 40rpx;
-  color: #333333;
-}
 
 /* 脚步 */
 .footer{

@@ -22,7 +22,7 @@
   </view>
 </view>
 
-<view class="section1">
+<view class="section section1">
   <!-- 小区找房详情 -->
   <block wx:if="{{detailType==33}}">
       <text class="title">{{houseDetail.buildName}}</text>      
@@ -61,7 +61,7 @@
       </view>
   </block>
 
-<view class="section2">
+<view class="section section2">
   <view class="title">
     <text wx:if="{{detailType!==33}}">房源信息</text>
     <text wx:if="{{detailType==33}}">小区信息</text>
@@ -84,7 +84,7 @@
   </view>
 </view>
 
-<view class="section3">
+<view class="section section3">
   <view class="title">
     <text wx:if="{{detailType!==33}}">房源位置</text>
     <text wx:if="{{detailType==33}}">小区位置</text>
@@ -94,17 +94,16 @@
         <image src="https://api.map.baidu.com/staticimage/v2?ak=CWIQ5HNNV8jAcGZ9SpNzkozq5DXOLdTH&center={{longitude}},{{latitude}}&zoom=18&scale=2">
         </image> 
 
-      
       <view class="circle"></view>
       <view class="rect">
-        <text class="title">{{houseDetail.houseTitle}}</text>
+        <text class="name">{{houseDetail.houseTitle}}</text>
         <text class="content">距离4号线 330m</text>
         <image src="../../images/down.png"></image>
       </view>
   </navigator>
 </view>
 
-<view class="section4">
+<view class="sectoin section4">
   <navigator url="houseDetailInfo?content={{houseDetail.buildSynop}}&title={{houseDetail.houseTitle}}" wx:if="{{detailType!==33}}" hover-class="none">
     <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">房屋简介</view>
@@ -130,14 +129,13 @@
 </view>
 
 
-<view class="section5" wx:if="{{detailType!==33}}">
-  <view class="title"><text>关联小区</text></view>
+<view class="section section5" wx:if="{{detailType!==33}}">
+  <view class="title">关联小区</view>
   <navigator url="../houseDetail/houseDetail?id={{guanlianList.sdid}}&houseDetail=热门小区">
       <view class="item">
-          <view class="image" style="background:#e2e2e2">
+          <view class="image">
             <image src="{{guanlianList.housePic?guanlianList.housePic:'../../images/astate.png'}}"
-                   mode="aspectFit"
-                   style="width:100%;height:100%;">
+                   mode="aspectFit">
             </image>
           </view>
           <view>
@@ -151,7 +149,7 @@
 </view>
 
 <view class="section section6" wx:if="{{detailType!==33}}">
-  <view class="title"><text>附近房源</text></view>
+  <view class="title">附近房源</view>
   <block wx:for="{{nearbyHouse}}">
       <view class="item" style="position:relative;">
           <view class="image">
@@ -201,20 +199,17 @@
 
 
 <!-- 小区详情 -->
-<view class="section" wx:if="{{detailType==33}}">
-  <view class="guess-like">
-    <view style="float:left;margin:60rpx 0 40rpx;font-size:40rpx;line-height:1;font-weight:normal">
-      <text style="color:#f00;margin-right:10rpx;font-weight:normal">|</text>猜你喜欢
-    </view>
-    <view class="twoselect">
-      <text style="font-weight:normal;font-size:30rpx;margin-right:24rpx" 
-            wx:for="{{guessYouLike}}" 
-            wx:key="key" 
-            data-index="{{index}}" 
-            bindtap="selectYouLike" 
-            class="{{index == num?'red':''}}">{{item}}</text>
-    </view>
-  </view>
+<view class="section goodList" wx:if="{{detailType==33}}">
+  <view class="title">猜你喜欢
+        <view class="lookmore">
+            <text style="font-weight:normal;font-size:30rpx;" 
+                  wx:for="{{guessYouLike}}" 
+                  wx:key="key" 
+                  data-index="{{index}}" 
+                  bindtap="selectYouLike" 
+                  class="{{index == num?'red':'gray'}}">{{item}}</text>
+        </view>
+       </view>
 
 
 

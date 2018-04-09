@@ -22,6 +22,26 @@
   height: 100%;
 }
 
+/* 标题 */
+.title{
+  line-height:1;
+  font-size:40rpx;
+  padding:80rpx 0 40rpx;
+  margin: 0 24rpx;
+  font-weight:normal;
+  overflow:hidden;
+  position: relative;
+}
+
+/* 查看更多 */
+.lookmore{
+  position: absolute;
+  top:86rpx;
+  right:0;
+  color:#0064eb;
+  font-size:28rpx;
+}
+
 /* goods 列表项 */
 .section{
   background: #ffffff;

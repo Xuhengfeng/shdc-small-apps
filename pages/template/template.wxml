@@ -178,16 +178,11 @@
 </template>
 
 
-
-
 <!-- 买房的关联小区 -->
 <template name="houseContent1">
-  <view style="font-size:36rpx;color:#333333">{{guanlianList.buildName}}</view>
-  <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
-    <text style="margin-right:10rpx">{{guanlianList.areaName}}</text>
-    <text style="margin-right:10rpx">{{guanlianList.districtName}}</text>
-    <text style="margin-right:10rpx">{{guanlianList.buildAge}}建成</text>
-    <text style="margin-right:10rpx;line-height:1.6">{{item.buildType}}</text>
+  <view class="item-title">{{guanlianList.buildName}}</view>
+  <view class="description">
+        {{guanlianList.areaName}} {{guanlianList.districtName}} {{guanlianList.buildAge}}建成  {{guanlianList.buildType}}
   </view>
   <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
     <text>在售{{guanlianList.saleCount}}套</text><text style="margin: 0 10rpx;">/</text><text>在租{{guanlianList.rentCount}}套</text>
@@ -200,12 +195,9 @@
 
 <!-- 租房的关联小区 -->
 <template name="houseContent2">
-  <view style="font-size:30rpx;">{{guanlianList.buildName}}</view>
-  <view style="color:#666666;margin-top:20rpx;">
-    <text style="margin-right:10rpx">{{guanlianList.areaName}}</text>
-    <text style="margin-right:10rpx">{{guanlianList.districtName}}</text>
-    <text style="margin-right:10rpx">{{guanlianList.buildAge}}建成</text>
-    <text style="margin-right:10rpx;line-height:1.6">{{item.buildType}}</text>
+  <view class="item-title">{{guanlianList.buildName}}</view>
+  <view class="description">
+        {{guanlianList.areaName}} {{guanlianList.districtName}} {{guanlianList.buildAge}}建成  {{guanlianList.buildType}}
   </view>
   <view style="font-size:26rpx;color:#666666;margin-top:10rpx;">
     <text style="margin-right:20rpx">{{guanlianList.roomsNum}}房{{guanlianList.livingRoomNum}}厅</text>
