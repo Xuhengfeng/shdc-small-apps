@@ -1,5 +1,4 @@
-<import src="../template/template.wxml"/>
-  <view class="header">
+  <view class="section header">
     <swiper indicator-dots="true" 
             autoplay="true" 
             interval="3000"
@@ -98,14 +97,14 @@
   </view>
   <!-- fourPic end -->
 
-  <view class="section hot">
+  <view class="section hotRecommend">
     <view class="title">热门推荐</view>
     <view class="house-info">
             <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
               <block wx:for="{{hotbuilding}}">
                 <navigator url="../houseDetail/houseDetail?houseDetail=热门小区&id={{item.sdid}}"  
                       class="house-info-item" hover-class="none">
-                  <view style="background:#f9f9f9;width:100%;height:248rpx;">
+                  <view class="imageContainer">
                      <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" /> 
                   </view>
                   <view style="margin-top:20rpx;font-size:32rpx;line-height:1;font-weight:normal">世华易居买房大放送</view>
@@ -136,7 +135,7 @@
     </view>
   </view>
 
-  <view class="section4">
+  <view class="section hotArea">
     <view class="title">热门小区
         <navigator url="hotHouse?title=热门小区" hover-class="none" class="lookmore">查看更多</navigator>
     </view>
@@ -144,7 +143,7 @@
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
         <block wx:for="{{hotbuilding}}">
           <navigator url="../houseDetail/houseDetail?houseDetail=热门小区&id={{item.sdid}}"  class="house-info-item" hover-class="none">
-            <view style="background:#f9f9f9;width:100%;height:248rpx;">
+            <view class="imageContainer">
               <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" />
             </view>
             <view style="margin-top:20rpx;font-size:36rpx;line-height:1">{{item.buildName}}</view>
@@ -161,7 +160,7 @@
     </view>
   </view>
 
-  <view>
+  <view class="section newEstate">
      <view class="title">新盘推荐
         <navigator url="hotHouse?title=热门小区" hover-class="none" class="lookmore">查看更多</navigator>
     </view>
@@ -169,7 +168,7 @@
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
         <block wx:for="{{hotbuilding}}">
           <navigator url="../houseDetail/houseDetail?houseDetail=热门小区&id={{item.sdid}}"  class="house-info-item" hover-class="none">
-            <view style="background:#f9f9f9;width:100%;height:248rpx;">
+            <view class="imageContainer">
               <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" />
             </view>
             <view style="margin-top:20rpx;font-size:36rpx;line-height:1">{{item.buildName}}</view>
@@ -182,7 +181,7 @@
     </view>
   </view>
 
-  <view class="section section5">
+  <view class="section goodList">
       <view class="title">猜你喜欢
         <view class="lookmore">
             <text style="font-weight:normal;font-size:30rpx;" 
@@ -192,7 +191,7 @@
                   bindtap="selectYouLike" 
                   class="{{index == num?'red':'gray'}}">{{item}}</text>
         </view>
-     </view>
+       </view>
         <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
             <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{guessYouLike[num]}}" 
                        hover-class="none">
@@ -201,27 +200,23 @@
                         <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
                       <view class="item-content">
                         <view class="item-title">{{item.houseTitle}}</view>
-                        <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1;">
-                          <text>{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</text>
-                        </view>
-                        <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
-                          <text style="margin-right:20rpx">{{item.houseType}}</text>
-                          <text>{{item.builtArea}}m²</text>
+                        <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
+                        <view  class="houseTypeInfo">
+                          <text style="margin-right:20rpx">{{item.houseType}}</text>{{item.builtArea}}m²
                         </view>
 
-                        <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+                        <view class="houseLabel">
                           <text wx:for="{{item.houseTag}}" 
                                 wx:key="{{index2}}"
                                 wx:for-item="item2" 
-                                wx:for-index="index2" 
-                                style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
+                                wx:for-index="index2">{{item2}}</text>
                         </view>
 
-                      <view wx:if="{{flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">{{item.saleTotal}}万
-                          <text style="font-size:24rpx;color:#666666;margin-left:25rpx;">{{item.salePrice}}元/平米</text>
+                      <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
+                          <text>{{item.salePrice}}元/平米</text>
                       </view>
-                      <view wx:if="{{!flagPrice}}" style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">{{item.rentPrice}}
-                          <text style="font-size:24rpx;color:#666666;margin-left:10rpx">元/月</text>
+                      <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
+                          <text>元/月</text>
                       </view>
                     </view>
                 </view>
@@ -239,13 +234,3 @@
         <loading wx:if="{{showload}}">加载中...</loading>
     </view>
 
-
-
-
-<!-- <contact-button 
-  type="default-light" 
-  size="20"
-  session-from="weapp"
-  style="position:fixed;bottom: 50rpx;right:50rpx;background:red"
->
-</contact-button> -->

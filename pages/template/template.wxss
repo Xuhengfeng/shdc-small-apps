@@ -1,3 +1,4 @@
+/* 公共的样式 */
 .page_list{
     width: 100%!important;
     border-top: 1rpx solid #cacaca;
@@ -5,25 +6,83 @@
 .item{
     display: flex;
     padding: 30rpx 0;
+    margin: 0 24rpx;
     border-bottom: 1rpx solid #eee;
 }
 .item .image{
     float: left;
     margin-right: 40rpx;
-    margin-left: 25rpx;
-    min-width: 260rpx;
-    width: 260rpx;
-    height: 210rpx;
+    min-width:240rpx;
+    width: 240rpx;
+    height: 200rpx;
     background: #f2f2f2;
 }
 .item .image image{
   width: 100%;
   height: 100%;
 }
-.item .item-title{
-  line-height: 1.2;
-}
 
+/* goods 列表项 */
+.item-content{
+  padding-right: 12rpx;
+  overflow: hidden;
+}
+.item-title{
+  font-size:32rpx;
+  color: #222222;
+  line-height: 1.2;
+  text-align: justify;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.description{
+  font-size:24rpx;
+  color:#666666;
+  margin-top:20rpx;
+  line-height:1;
+}
+.houseTypeInfo{
+  font-size:24rpx;
+  color:#666666;
+  margin-top:18rpx;
+  line-height:1;
+}
+.houseLabel{
+  font-size:20rpx;
+  color:#666666;
+  margin-top:18rpx;
+  white-space:nowrap;
+}
+.houseLabel text{
+    margin-right:10rpx;
+    padding:5rpx 10rpx
+}
+.houseLabel text:nth-of-type(1){
+  background: #edf9ff;
+  color: #00a8ff;
+}
+.houseLabel text:nth-of-type(2){
+  background: #fff2ed;
+  color: #ff7f50;  
+}
+.houseLabel text:nth-of-type(3){
+  background: #ebfff3;
+  color:#00b969;
+}
+.housePrice{
+  font-size:32rpx;
+  color:#ff4343;
+  margin-top:20rpx;
+  line-height:1;
+}
+.housePrice text{
+  font-size:22rpx;
+  color:#666666;
+  margin-left:25rpx;
+}
+/* 提示 */
 .tips{
     font-size: 28rpx;
     text-align: center;
@@ -100,6 +159,12 @@
 /* 筛选背景高亮 */
 .bgColor{
   background: #ffeeee;
+}
+.gray{
+  color: #999999;
+}
+.red{
+  color: #ff4343;
 }
 
 /* 退出 */
