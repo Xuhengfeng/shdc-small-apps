@@ -226,26 +226,19 @@
 
 <!-- 二手房租房的附近房源 -->
 <template name="houseContent3">
-  <view style="font-size:30rpx">{{item.buildName}}</view>
-  <view style="color:#666666;margin-top:20rpx;">
-    <text style="margin-right:10rpx">{{item.areaName}}</text>
-    <text style="margin-right:10rpx">{{item.districtName}}</text>
-    <text style="margin-right:10rpx">{{item.buildAge}}建成</text>
-    <text style="margin-right:10rpx;line-height:1.6">{{item.buildType}}</text>
+  <view class="item-title">{{item.buildName}}</view>
+  <view class="description">
+        {{item.areaName}} {{item.districtName}} {{item.buildAge}}建成  {{item.buildType}}
   </view>
-  <view style="font-size:26rpx;color:#666666;margin-top:10rpx">
-    <text style="margin-right:20rpx">{{item.roomsNum}}房{{item.livingRoomNum}}厅</text>
-    <text>{{item.builtArea}}m²</text>
+  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1">{{item.roomsNum}}房{{item.livingRoomNum}}厅<text style="margin-left:20rpx">{{item.builtArea}}m²</text>
   </view>
-  <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
-    <text wx:for="{{item.houseTag}}" 
-          wx:key="{{index2}}"
-          wx:for-item="item2" 
-          wx:for-index="index2" 
-          style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
-  </view>
-  <view style="margin-top:20rpx">
-      <text style="font-size:34rpx;color:#ff4343">{{item.salePrice}}</text>
-      <text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
+  <view class="houseLabel">
+      <text wx:for="{{item.houseTag}}" 
+            wx:key="{{index2}}"
+            wx:for-item="item2" 
+            wx:for-index="index2">{{item2}}</text>
+    </view>
+  <view  class="housePrice">{{item.saleTotal}}万
+      <text>{{item.salePrice}}元/平米</text>
   </view>
 </template>

@@ -164,7 +164,7 @@
     <view class="house-info">
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
         <block wx:for="{{hotbuilding}}">
-          <navigator url="../houseDetail/houseDetail?houseDetail=热门小区&id={{item.sdid}}"  class="house-info-item" hover-class="none">
+          <navigator url="../houseDetail/houseDetail?id={{item.sdid}}"  class="house-info-item" hover-class="none">
             <view class="imageContainer">
               <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" />
             </view>
@@ -188,7 +188,7 @@
         </view>
        </view>
         <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-            <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{guessYouLike[num]}}" 
+            <navigator url="../houseDetail/houseDetail?id={{item.sdid}}" 
                        hover-class="none">
                 <view class="item">
                       <view class="image">
@@ -220,7 +220,10 @@
 
 
         <view class="tips">
-            <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
+            <view wx:if="{{hasMore}}">
+                <image src="../../images/loading.gif" mode="aspectFill"/>
+                <text>玩了命的加载中...</text>
+            </view>
             <view wx:elif="{{twohandhouse.length==0}}"><text>没有更多内容</text></view>
             <navigator wx:elif="{{twohandhouse.length!=0}}" 
                         url="../searchList/searchList?houseType={{houseType[num]}}"

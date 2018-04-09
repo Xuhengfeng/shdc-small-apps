@@ -1,7 +1,6 @@
 @import "../../weui.wxss";
 @import "../template/template.wxss";
 page{
-  height: 100%;
   background: #ffffff;  
 }
 .header{
@@ -278,23 +277,6 @@ page{
   margin: 70rpx 0 30rpx;
   font-size: 40rpx;
   color: #333333;
-}
-.section6 .item{
-  padding: 30rpx 0;
-  overflow: hidden;
-  border-bottom: 1rpx solid #cacaca;
-}
-.section6 .image{
-  float: left;
-  margin: auto 40rpx auto 25rpx;
-  width: 240rpx;
-  height: 190rpx;
-  background: #f2f2f2;
-  overflow: hidden;
-}
-.section6 .image image{
-  width: 100%;
-  height: 100%;
 }
 
 /* 脚步 */

@@ -1,5 +1,5 @@
 // component/wx-index-list/wx-index-list.js
-var amapFile = require("../../libs/amap-wx.js");//高德地图sdk
+var bmap  = require("../../libs/bmap-wx.min.js");//百度地图sdk
 const pinyin = require("../../libs/browser.js"); //汉字转拼音
 
 Component({
@@ -60,12 +60,17 @@ Component({
       wx.getLocation({
         type: 'gcj02',
         success: function(res) {
-          var myAmapFun = new amapFile.AMapWX({key:'b68ace99ae397e6fb7902b43f1e60d05'});
-          myAmapFun.getRegeo({
-            success: function(data) {
-              console.log(data)
-              var currentCity = data[0].regeocodeData.addressComponent.city.slice(0,2);
-              var currentCitycode = data[0].regeocodeData.addressComponent.citycode
+          console.log(res)
+          // // 百度地图地址解析
+          var BMap = new bmap.BMapWX({
+            ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
+          }); 
+          // 发起regeocoding检索请求 
+          BMap.regeocoding({
+            location: res.latitude +','+ res.longitude,//这是根据之前定位出的经纬度
+            success: (data)=>{
+              var currentCity = data.originalData.result.addressComponent.city.slice(0, 2);
+              var currentCitycode = data.originalData.result.cityCode;
               wx.setStorage({//成功回调
                 key: 'currentCity',
                 data: {
@@ -79,11 +84,8 @@ Component({
                   })
                 }
               });
-            },
-            fail:  (info)=> {//失败回调
-              console.log(info)
             }
-          })
+          }); 
         }
       })
     },   

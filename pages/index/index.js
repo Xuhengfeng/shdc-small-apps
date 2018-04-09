@@ -85,6 +85,7 @@ Page({
   },
   selectYouLike(e) {//猜你喜欢 二手房 租房
     this.setData({num: e.target.dataset.index})
+    this.cacheHouseType(this.data.guessYouLike[this.data.num]);
     let IP = this.data.guessLikeIP[this.data.num] + '/' + this.data.currentCity;
     let params = {
       pageNo: this.data.pageNo,
@@ -140,5 +141,11 @@ Page({
   },
   onPullDownRefresh() {
     wx.stopPullDownRefresh();
+  },
+  cacheHouseType(value){//缓存房源类型
+      wx.setStorage({
+        key: 'houseTypeSelect',
+        data: value
+      })
   }
 })

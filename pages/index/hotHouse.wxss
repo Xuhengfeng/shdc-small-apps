@@ -1,9 +1,1 @@
 @import "../template/template";
-.item{
-  background: #ffffff;
-}
-.item .image{
-  width: 240rpx;
-  height: 190rpx;
-  background: #cacaca;
-}

@@ -90,11 +90,7 @@
     <text wx:if="{{detailType==33}}">小区位置</text>
   </view>
   <navigator class="map" url="map?longitude={{longitude}}&latitude={{latitude}}">
-        <!-- 腾讯地图 -->
-        <!-- <map id="map" wx:if="{{hiddenModal}}" longitude="" latitude="" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 100%;"></map> -->
-
       <!-- 百度 静态图 -->
-
         <image src="https://api.map.baidu.com/staticimage/v2?ak=CWIQ5HNNV8jAcGZ9SpNzkozq5DXOLdTH&center={{longitude}},{{latitude}}&zoom=18&scale=2">
         </image> 
 
@@ -154,14 +150,14 @@
   </navigator>
 </view>
 
-<view class="section6" wx:if="{{detailType!==33}}">
+<view class="section section6" wx:if="{{detailType!==33}}">
   <view class="title"><text>附近房源</text></view>
   <block wx:for="{{nearbyHouse}}">
       <view class="item" style="position:relative;">
           <view class="image">
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
-          <view>
+          <view class="item-content">
             <!-- 二手房(买房)、租房详情 -->
             <template is="houseContent3" data="{{item}}"/>
           </view>
@@ -205,7 +201,7 @@
 
 
 <!-- 小区详情 -->
-<view class="section66" wx:if="{{detailType==33}}">
+<view class="section" wx:if="{{detailType==33}}">
   <view class="guess-like">
     <view style="float:left;margin:60rpx 0 40rpx;font-size:40rpx;line-height:1;font-weight:normal">
       <text style="color:#f00;margin-right:10rpx;font-weight:normal">|</text>猜你喜欢
@@ -219,6 +215,8 @@
             class="{{index == num?'red':''}}">{{item}}</text>
     </view>
   </view>
+
+
 
   <!-- twohandhouse -->
   <block wx:for="{{guessYoulikeHouse}}" wx:key="index" wx:for-item="item">
@@ -236,29 +234,26 @@
                 <text>{{item.builtArea}}m²</text>
               </view>
 
-              <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
+              <view class="houseLabel">
                 <text wx:for="{{item.houseTag}}" 
                       wx:key="{{index2}}"
                       wx:for-item="item2" 
-                      wx:for-index="index2" 
-                      style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff">{{item2}}</text>
+                      wx:for-index="index2">{{item2}}</text>
               </view>
 
-            <view wx:if="{{flagPrice}}" style="margin-top:20rpx;line-height:1">
-                <text style="font-size:34rpx;color:#ff4343;margin-right:25rpx">{{item.saleTotal}}万</text>
-                <text style="font-size:24rpx;color:#666666">{{item.salePrice}}元/平米</text>
+            <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
+                <text>{{item.salePrice}}元/平米</text>
             </view>
-            <view wx:if="{{!flagPrice}}" style="margin-top:20rpx;line-height:1">
-                <text style="font-size:34rpx;color:#ff4343;margin-right:10rpx">{{item.rentPrice}}</text>
-                <text style="font-size:24rpx;color:#666666">元/月</text>
+            <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
+                <text>元/月</text>
             </view>
           </view>
       </view>
   </block>
   <view class="tips">
       <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
-      <view wx:elif="{{twohandhouse.length==0}}"><text>没有更多内容</text></view>
-      <navigator wx:elif="{{twohandhouse.length!=0}}" url="../searchList/searchList?houseType={{houseType[num]}}">查看全部房源</navigator> 
+      <view wx:elif="{{twohandhouse.length}}"><text>上拉加载更多</text></view>
+      <navigator wx:elif="{{!twohandhouse.length}}">没有更多内容</navigator> 
   </view>
   <loading wx:if="{{showload}}">加载中...</loading>
 </view>

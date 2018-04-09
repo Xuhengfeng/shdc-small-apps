@@ -29,8 +29,8 @@ Page({
 
 
     //二手房(买房)详情11，租房详情22, 小区详情33 
-    detailType: null,//详情类型
-    houseDetailId: {},//房屋的sdid编码
+    detailType: '',//详情类型
+    houseDetailId: '',//房屋的sdid编码
     houseDetail: null,//房屋详情 
     guanlianList: null,//关联小区
     nearbyHouse: null,//附近房源
@@ -43,39 +43,42 @@ Page({
     contentType: 11 //热门小区11， 小区二手房22
   },
   onLoad(options) {
-    console.log(options)
     wx.setNavigationBarTitle({
-      title: options.houseDetail,
+      title: "房源详情",
     })
-    if(options.houseDetail == '二手房'||options.houseDetail == '我要买房'||options.title == "小区二手房") {//二手房
-      this.setData({
-        detailType: 11,
-        houseDetailId: options.id,
-        IpsNum: 0,
-        contentType: 22
-      });
-    }else if(options.houseDetail == '租房'||options.houseDetail == '我要租房'){//租房
-      this.setData({
-        detailType: 22,
-        houseDetailId: options.id,
-        IpsNum: 1
-      });
-    }else if(options.houseDetail == '小区找房'||options.houseDetail == '热门小区'){//小区
-      this.setData({
-        detailType: 33,
-        houseDetailId: options.id,
-        IpsNum: 2,
-        contentType: 11
-      });
-    }
-    
+    wx.getStorage({
+      key: 'houseTypeSelect',
+      success: (res) => {
+          if (res.data == '二手房' || res.data == '我要买房' || res.data == "小区二手房") {//二手房
+            this.setData({
+              detailType: 11,
+              houseDetailId: options.id,
+              IpsNum: 0,
+              contentType: 22
+            });
+          } else if (res.data == '租房' || res.data == '我要租房') {//租房
+            this.setData({
+              detailType: 22,
+              houseDetailId: options.id,
+              IpsNum: 1
+            });
+          } else if (res.data == '小区找房' || res.data == '热门小区') {//小区
+            this.setData({
+              detailType: 33,
+              houseDetailId: options.id,
+              IpsNum: 2,
+              contentType: 11
+            });
+          }
+      }
+    })
     wx.getStorage({
       key: 'selectCity',
       success: (res)=> {
         this.setData({
           currentCity:  res.data.value
         })
-          //map 地图定位
+       //map 地图定位
           wx.getLocation({
             type: 'gcj02',
             success: () => {
@@ -83,6 +86,7 @@ Page({
               this.buyRentRequest(this.data.houseDetailId);              
             },
             fail: ()=> {
+               //二手房详情 租房详情 小区找房详情
               this.buyRentRequest(this.data.houseDetailId); 
             }
           })
@@ -92,6 +96,8 @@ Page({
   },
   //二手房详情 租房详情 小区找房详情
   buyRentRequest(sdid) {
+
+
     if (this.data.detailType == 11 || this.data.detailType == 22) {
       //二手房详情 租房详情
       app.httpRequest(this.data.IPS[this.data.IpsNum] + this.data.currentCity + '/' + sdid, 'GET', (error, data) => {
