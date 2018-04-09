@@ -7,7 +7,7 @@
     display: flex;
     padding: 30rpx 0;
     margin: 0 24rpx;
-    border-bottom: 1rpx solid #eee;
+    border-bottom: 1rpx solid #e6e6e6;
 }
 .item .image{
     float: left;
@@ -23,6 +23,9 @@
 }
 
 /* goods 列表项 */
+.section{
+  background: #ffffff;
+}
 .item-content{
   padding-right: 12rpx;
   overflow: hidden;
@@ -48,6 +51,9 @@
   color:#666666;
   margin-top:18rpx;
   line-height:1;
+}
+.houseTypeInfo text{
+  margin-right: 20rpx;
 }
 .houseLabel{
   font-size:20rpx;

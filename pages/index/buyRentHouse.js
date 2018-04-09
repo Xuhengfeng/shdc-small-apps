@@ -4,7 +4,7 @@ const app = getApp();
 Page({
   data: {
     //轮播图
-    imgUrls: [{ picUrl: '../../images/banner.png' }, { picUrl: '../../images/banner.png' }],
+    imgUrls: [],
 
     //为你推荐
     recommend: [],
@@ -218,7 +218,7 @@ Page({
   },
   searchSubmit() {
     wx.pageScrollTo({
-      scrollTop: 320,
+      scrollTop: 360,
       duration: 0
     })
     if (!this.data.keyword) {
