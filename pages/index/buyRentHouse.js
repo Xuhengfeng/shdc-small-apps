@@ -9,7 +9,7 @@ Page({
     //为你推荐
     recommend: [],
 
-    label: [1,2,3,4,5], 
+    label: [], 
     scrollTop: 0,
     cityCode: null,
     tone:'rgba(249,249,249,0)',//头部渐变色值
@@ -36,28 +36,21 @@ Page({
   },
   onLoad(options) {
     //初始化
-    wx.setNavigationBarTitle({ title: options.houseType })
-    if(options.houseType == '二手房') {
-      wx.setStorage({
-        key: 'houseTypeSelect',
-        data: '二手房'
-      })
+    let name = wx.getStorageSync('houseTypeSelect');
+    wx.setNavigationBarTitle({ title: name});
+    if(name == '二手房') {
       this.setData({
-        label: ["区域", "户型", "价格", "面积", "类型"],
-        houseDetail: options.houseType,
+        houseDetail: name,
         flagPrice: false,
-        num: 0
+        num: 0,
+        label: ["区域", "户型", "价格", "面积", "类型"]
       });
-    } else if (options.houseType == '租房') {
-      wx.setStorage({
-        key: 'houseTypeSelect',
-        data: '租房'
-      })
+    } else if (name == '租房') {
       this.setData({
-        label: ["区域", "户型", "租金", "面积"],
-        houseDetail: options.houseType,
+        houseDetail: name,
         flagPrice: true,
-        num: 1
+        num: 1,
+        label: ["区域", "户型", "租金", "面积"]
       });
     }
 

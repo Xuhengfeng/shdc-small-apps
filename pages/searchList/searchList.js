@@ -39,57 +39,34 @@ Page({
   },
   onLoad(options) {
     // 修正title
-    wx.setNavigationBarTitle({
-      title: options.houseType,
-    })
+    let name = wx.getStorageSync('houseTypeSelect');
+    wx.setNavigationBarTitle({title: name});
      
-
-    // 修正url keyword label 
-   if(options.houseType == '二手房') {
-     wx.setStorage({
-       key: 'houseTypeSelect',
-       data: '二手房',
-       success: ()=>{
-        this.setData({
-            ipNum: 0,
-            houseList: '',
-            label: ["区域", "户型", "价格", "面积", "类型"],
-            keyword: options.keywords,
-            flagPrice: true,
-            flagTwoHouse: true
-        });
-       }
-     })
-   }else if(options.houseType == '租房') {
-     wx.setStorage({
-       key: 'houseTypeSelect',
-       data: '租房',
-       success: ()=>{
-         this.setData({
-            ipNum: 1,
-            houseList: '',           
-            label: ["区域", "户型", "租金", "面积"],
-            keyword: options.keywords,
-            flagPrice: false,
-            flagTwoHouse: true
-         });
-       }
-     })
-   }else if(options.houseType == '小区找房' || options.houseType == '小区') {//小区找房
-     wx.setStorage({
-        key: 'houseTypeSelect',
-        data: '小区',
-        success: ()=>{
-          this.setData({
-              ipNum: 2,
-              houseList: '',            
-              label: ['区域', '用途', '类型', '楼龄'],
-              keyword: options.keywords,
-              flagTwoHouse: false
-          });
-        }
-      })
-   }
+    //修正url keyword label 
+    if(name == '二手房') {
+      this.setData({
+        ipNum: 0,
+        houseList: '',
+        keyword: options.keywords,
+        flagPrice: true,
+        flagTwoHouse: true
+      });
+    } else if (name == '租房') {
+      this.setData({
+        ipNum: 1,
+        houseList: '',           
+        keyword: options.keywords,
+        flagPrice: false,
+        flagTwoHouse: true
+      });
+    } else if (name == '小区'|| name == '小区找房') {
+      this.setData({
+        ipNum: 2,
+        houseList: '',            
+        keyword: options.keywords,
+        flagTwoHouse: false
+      });
+    }
 
     //获取筛选条件
     wx.getStorage({

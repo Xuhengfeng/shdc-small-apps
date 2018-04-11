@@ -5,16 +5,16 @@ Page({
     //轮播图
     imgUrls: [],//默认图片
     hasMore: false,
-    
+
     purchase_guide: null,//二手房购房指南资讯
     houseUsed: null,//成交量统计
     houseList: [],//房源数据
     hotbuilding: [],//获取热门小区
-    
+
     showload: false,
-    currentCity: 'beihai', //默认城市
-    myLocation: "北海",//默认地址
-    
+    currentCity: null, //默认城市
+    myLocation: "",//默认地址
+
 
     //猜你喜欢
     pageNo: 1,//默认第1页
@@ -25,36 +25,41 @@ Page({
     guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
 
     //banner资讯   二手房指南资讯   获取成交量统计 热门小区
-    IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING],  
+    IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING],
   },
   onLoad() {
-    //修正 当前城市
-    wx.setStorage({
-      key: 'selectCity',
-      data: {
-        name: this.data.myLocation,
-        value: this.data.currentCity
-      }
-    })
-
+    setTimeout(()=>{
+      wx.getStorage({
+        key: 'selectCity',
+        success: (res) => {
+          this.setData({
+            myLocation: res.data.name,
+            currentCity: res.data.value
+          })
+          this.oneBigRequest(res.data.value);
+        }
+      })
+    }, 1000)
+  },
+  oneBigRequest(city) {
     //获取主页banner资讯
-    app.httpRequest(this.data.IPS[0]+ this.data.currentCity +"/INDEX_BANNER", 'GET', (error, data)=> {
-     this.setData({ imgUrls: data.data });
+    app.httpRequest(this.data.IPS[0] + city + "/INDEX_BANNER", 'GET', (error, data) => {
+      this.setData({ imgUrls: data.data });
     })
 
     //获取主页二手房指南资讯
-    app.httpRequest(this.data.IPS[1]+ this.data.currentCity +"/PURCHASE_GUIDE", 'GET', (error, data)=> {
-      this.setData({purchase_guide: data.data});
+    app.httpRequest(this.data.IPS[1] + city + "/PURCHASE_GUIDE", 'GET', (error, data) => {
+      this.setData({ purchase_guide: data.data });
     })
 
     //获取成交量统计
-    app.httpRequest(this.data.IPS[2]+ this.data.currentCity, 'GET', (error, data)=> {
-     this.setData({houseUsed: data.data});
+    app.httpRequest(this.data.IPS[2] + city, 'GET', (error, data) => {
+      this.setData({ houseUsed: data.data });
     })
 
-   //热门小区
+    //热门小区
     wx.request({
-      url: this.data.IPS[3] + this.data.currentCity,
+      url: this.data.IPS[3] + city,
       data: {
         pageNo: 1,
         pageSize: 10
@@ -62,21 +67,21 @@ Page({
       method: "GET",
       header: { 'Content-Type': 'application/json' },
       success: (res) => {
-        if(res.statusCode == 200) {
-          this.setData({hotbuilding: res.data.data});
-        }else if(res.statusCode == 500) {
-          this.setData({hotbuilding: ''});
-          wx.showModal({content: '服务器异常'})
+        if (res.statusCode == 200) {
+          this.setData({ hotbuilding: res.data.data });
+        } else if (res.statusCode == 500) {
+          this.setData({ hotbuilding: '' });
+          wx.showModal({ content: '服务器异常' })
         }
       },
       fail: (error) => {
-        this.setData({hotbuilding: ''})
+        this.setData({ hotbuilding: '' })
       }
     })
 
     //猜你喜欢(默认二手房 首页第1页数据)
-    var IP = this.data.guessLikeIP[0] + '/' + this.data.currentCity;
-    this.getDataFromServer(IP, {pageNo: 1,pageSize: 10});
+    var IP = this.data.guessLikeIP[0] + '/' + city;
+    this.getDataFromServer(IP, { pageNo: 1, pageSize: 10 });
   },
   onSwiperTap(e) {//轮播图点击跳转
     wx.navigateTo({
@@ -84,7 +89,7 @@ Page({
     })
   },
   selectYouLike(e) {//猜你喜欢 二手房 租房
-    this.setData({num: e.target.dataset.index})
+    this.setData({ num: e.target.dataset.index })
     this.cacheHouseType(this.data.guessYouLike[this.data.num]);
     let IP = this.data.guessLikeIP[this.data.num] + '/' + this.data.currentCity;
     let params = {
@@ -98,17 +103,17 @@ Page({
       showload: true,
       hasMore: true
     })
-    if(this.data.hasMore == true) {
+    if (this.data.hasMore == true) {
       wx.request({
         url: IP,
         data: params,
         method: "GET",
-        header: {'Content-Type': 'application/json' },
-        success: (res)=> {
-          if(res.statusCode == 200) {
+        header: { 'Content-Type': 'application/json' },
+        success: (res) => {
+          if (res.statusCode == 200) {
             //修正数据
-            res.data.data.forEach((item)=> {
-              item.houseTag=item.houseTag.split(',');
+            res.data.data.forEach((item) => {
+              item.houseTag = item.houseTag.split(',');
             })
             this.setData({
               houseList: res.data.data,
@@ -116,10 +121,10 @@ Page({
               showload: false
             })
             this.data.num == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
-          }else if(res.statusCode == 500||res.statusCode == 404) {
+          } else if (res.statusCode == 500 || res.statusCode == 404) {
             wx.showModal({
               content: '服务器异常',
-              success: (res)=> {
+              success: (res) => {
                 this.setData({
                   houseList: '',
                   hasMore: false,
@@ -129,7 +134,7 @@ Page({
             })
           }
         },
-        fail: (error)=> {
+        fail: (error) => {
           this.setData({
             houseList: '',
             hasMore: false,
@@ -142,10 +147,69 @@ Page({
   onPullDownRefresh() {
     wx.stopPullDownRefresh();
   },
-  cacheHouseType(value){//缓存房源类型
-      wx.setStorage({
-        key: 'houseTypeSelect',
-        data: value
+  //活动版块 跳转
+  activity(e) {
+    let num = e.currentTarget.dataset.num;
+    if (num == 1) {
+      this.cacheHouseType('二手房');
+      wx.navigateTo({
+        url: "../index/buyRentHouse"
       })
+    } else if (num == 2) {
+      this.cacheHouseType('租房');
+      wx.navigateTo({
+        url: "../index/buyRentHouse"
+      })
+    } else if (num == 3) {
+      this.cacheHouseType('小区');
+      wx.navigateTo({
+        url: "../searchList/searchList"
+      })
+    } else if (num == 4) {
+      wx.navigateTo({
+        url: "sellRent"
+      })
+    } else if (num == 5) {
+      wx.navigateTo({
+        url: "shop"
+      })
+    }
+  },
+  // 独家好房 跳转
+  goodsHouse(e) {
+    console.log(e)
+    let num = e.currentTarget.dataset.num;
+    if (num == 1) {
+      wx.navigateTo({
+        url: "../searchList/searchList"
+      })
+    } else if (num == 2) {
+      wx.navigateTo({
+        url: "../index/buyRentHouse"
+      })
+    } else if (num == 3) {
+      wx.navigateTo({
+        url: "../searchList/searchList"
+      })
+    } else if (num == 4) {
+      wx.navigateTo({
+        url: "../searchList/searchList"
+      })
+    }
+  },
+  //缓存房源类型
+  cacheHouseType(value) {
+    wx.setStorageSync('houseTypeSelect', value)
+  },
+  onShow() {
+    wx.getStorage({
+      key: 'selectCity',
+      success: (res) => {
+        this.setData({
+          myLocation: res.data.name
+        })
+      }
+    })
   }
+
 })

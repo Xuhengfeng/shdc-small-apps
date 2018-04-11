@@ -1,6 +1,7 @@
 // component/wx-index-list/wx-index-list.js
-var bmap  = require("../../libs/bmap-wx.min.js");//百度地图sdk
+const bmap  = require("../../libs/bmap-wx.min.js");//百度地图sdk
 const pinyin = require("../../libs/browser.js"); //汉字转拼音
+const app = getApp();
 
 Component({
   /**
@@ -13,7 +14,7 @@ Component({
     },
     myCity: {
       type: String,
-      value: "加载中...",
+      value: "获取...",
     },
     cityCode: {
       type: String,
@@ -56,38 +57,16 @@ Component({
       })
     },
     getCity() {//定位
-      var that = this;
-      wx.getLocation({
-        type: 'gcj02',
-        success: function(res) {
-          console.log(res)
-          // // 百度地图地址解析
-          var BMap = new bmap.BMapWX({
-            ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
-          }); 
-          // 发起regeocoding检索请求 
-          BMap.regeocoding({
-            location: res.latitude +','+ res.longitude,//这是根据之前定位出的经纬度
-            success: (data)=>{
-              var currentCity = data.originalData.result.addressComponent.city.slice(0, 2);
-              var currentCitycode = data.originalData.result.cityCode;
-              wx.setStorage({//成功回调
-                key: 'currentCity',
-                data: {
-                  currentCity,
-                  currentCitycode
-                },
-                success: ()=>{
-                  that.setData({
-                    myCity: currentCity,
-                    cityCode: currentCitycode
-                  })
-                }
-              });
-            }
-          }); 
+      app.location();
+      wx.getStorage({
+        key:'selectCity',
+        success: (res)=>{
+          this.setData({
+            myCity: res.data.name
+          })
         }
       })
+      
     },   
     jumpMt(e) {//右侧字母点击事件
       let jumpNum = e.currentTarget.dataset.id;

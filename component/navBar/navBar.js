@@ -3,10 +3,6 @@ const app = getApp();
 
 Component({
   properties: {
-    label: {//nav菜单
-      type: Array,
-      value: ''
-    },
     area: {//区域
       type: Array,
       value: ''
@@ -93,35 +89,31 @@ Component({
     url: null,
 
     //显示 小区label 或  二手房 租房
-    twoHouseOrArea: true
+    label: [], 
   },
   
   attached() {
     // 修正显示
     // 修正url
     this.setData({num: 5});
-    wx.getStorage({
-      key: 'houseTypeSelect',
-      success: (res)=> {
-        if (res.data == '二手房') {
-          this.setData({
-            url: this.data.IPS[0],
-            twoHouseOrArea: true
-          })
-        } else if (res.data == '租房') {
-          this.setData({
-            url: this.data.IPS[1],
-            twoHouseOrArea: true            
-          })
-        } else if (res.data == '小区') {
-          this.setData({
-            url: this.data.IPS[2],
-            twoHouseOrArea: false            
-          })
-        }
-      }
-    })
-    
+    let name = wx.getStorageSync('houseTypeSelect');
+    if(name == '二手房') {
+      this.setData({
+        url: this.data.IPS[0],
+        label: ["区域", "户型", "价格", "面积", "类型"],
+      });
+    } else if (name == '租房') {
+      this.setData({
+        url: this.data.IPS[1],
+        label: ["区域", "户型", "租金", "面积"],       
+      })
+    }else if(name == '小区') {
+      this.setData({
+        url: this.data.IPS[2],
+        label: ['区域', '用途', '类型', '楼龄'],
+        twoHouseOrArea: false            
+      })
+    }    
 
     //第一页数据 首次请求
     wx.getStorage({
@@ -133,7 +125,6 @@ Component({
             'scity': res.data.value,
             'keyword': this.data.keyword
         }
-        console.log(params)
         //修正 当前城市
         this.setData({currentCity: res.data.value})
         this.getDataFromServer(this.data.url, params);
@@ -154,7 +145,6 @@ Component({
         isScroll: true,
         showModalStatus: false
       })
-      // this.triggerEvent('myevent', this.detail)
     },
 
     //二手房列表  租房列表

@@ -35,26 +35,21 @@
 
   <view class="section menu">
     <view class="flex-row">
-      <navigator url="../index/buyRentHouse?houseType=二手房" class="flex-view-item" hover-class="none"> 
-        <image src="../../images/buyHouse.png" />
-        <text>二手房</text>
-      </navigator>
-      <navigator url="../index/buyRentHouse?houseType=租房" class="flex-view-item" hover-class="none">
-        <image src="../../images/rentHouse.png" />
-        <text>租房</text>
-      </navigator>
-      <navigator url="../searchList/searchList?houseType=小区找房" class="flex-view-item" hover-class="none">
-        <image src="../../images/fondHouse.png" />
-        <text>小区找房</text>
-      </navigator>
-      <navigator url="sellRent" class="flex-view-item" hover-class="none">
-        <image src="../../images/saleHouse.png" />
-         <text>我要售/租</text>
-      </navigator>
-      <navigator url="shop" class="flex-view-item" hover-class="none">
-        <image src="../../images/store.png" />
-         <text>找门店</text>
-      </navigator>
+      <view bindtap="activity" data-num="1" class="flex-view-item"> 
+        <image src="../../images/buyHouse.png" /><text>二手房</text>
+      </view>
+      <view bindtap="activity" data-num="2" class="flex-view-item">
+        <image src="../../images/rentHouse.png" /><text>租房</text>
+      </view>
+      <view bindtap="activity" data-num="3" class="flex-view-item">
+        <image src="../../images/fondHouse.png" /><text>小区找房</text>
+      </view>
+      <view bindtap="activity" data-num="4" class="flex-view-item">
+        <image src="../../images/saleHouse.png" /><text>我要售/租</text>
+      </view>
+      <view bindtap="activity" data-num="5" class="flex-view-item">
+        <image src="../../images/store.png" /><text>找门店</text>
+      </view>
     </view>
     <image src="../../images/shadow.png" style="width:100%;height:20rpx;"></image>
   </view>
@@ -62,21 +57,21 @@
 
   <!-- fourPic start -->
   <view class="section fourPic">
-    <navigator url="../searchList/searchList?houseType=小区"  hover-class="none">
+    <view bindtap="goodsHouse" data-num="1">
         <view class="image"><image src="../../images/11.png" /></view>
         <view class="content">
           <text>独家好房</text>
           <text>价格优惠</text>
         </view>
-    </navigator>
-    <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
+    </view>
+    <view bindtap="goodsHouse" data-num="2">
         <view class="image"><image src="../../images/22.png" /></view>
         <view class="content">
             <text>新上好房</text>
             <text>一周内新上房</text>
         </view>
-    </navigator>
-    <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
+    </view>
+    <view bindtap="goodsHouse" data-num="3">
         <view class="image"><image src="../../images/33.png" /></view>
         <view style="line-height:1">
           <view class="content">
@@ -84,8 +79,8 @@
             <text>拎包入住</text>
           </view>
         </view>
-    </navigator>
-    <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
+    </view>
+    <view bindtap="goodsHouse" data-num="4">
         <view class="image"><image src="../../images/44.png" /></view>
         <view style="line-height:1">
           <view class="content">
@@ -93,7 +88,7 @@
             <text>热关注度房源</text>
          </view>
         </view>
-    </navigator>
+    </view>
   </view>
   <!-- fourPic end -->
 

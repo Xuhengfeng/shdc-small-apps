@@ -1,5 +1,3 @@
-//let City = require('../../utils/allcity.js');模拟数据
-
 var app = getApp();
 let api = require('../../utils/url.js');
 

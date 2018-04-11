@@ -110,18 +110,18 @@
  overflow: hidden;
  padding: 30rpx 24rpx 0;
 }
-.fourPic navigator{
+.fourPic>view{
   width: 344rpx;
   height: 140rpx;
   background:  #f9f9f9;
   float: left;
   position: relative;
 }
-.fourPic navigator:nth-of-type(2n+1) {
+.fourPic>view:nth-of-type(2n+1) {
   margin-right: 14rpx;
 }
-.fourPic navigator:nth-of-type(1),
-.fourPic navigator:nth-of-type(2){
+.fourPic>view:nth-of-type(1),
+.fourPic>view:nth-of-type(2){
   margin-bottom: 14rpx; 
 }
 .fourPic .content{

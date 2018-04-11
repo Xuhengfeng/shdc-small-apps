@@ -9,8 +9,7 @@
     </view>
      <!-- <button class="search-button" catchtap="searchMt">搜索</button>  -->
   </view>  
-  <navBar-html label="{{label}}"
-               area="{{area}}" 
+  <navBar-html area="{{area}}" 
                houseType="{{houseType}}"
                mode="{{mode}}"
                price="{{price}}"
