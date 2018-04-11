@@ -5,7 +5,7 @@ const app = getApp();
 Page({
   data: {
     houseList: [],
-    //热门小区  小区二手房
+    //热门小区  小区二手房 同小区房源
     contentType: null,
     page: 1,
     currentCity: null,
@@ -16,10 +16,12 @@ Page({
       title: options.title,
     })
 
-    if(options.title == '小区二手房') {
-      this.setData({contentType: 22});
-    }else{
+    if(options.title == '热门小区'){
       this.setData({contentType: 11});
+    }else if (options.title == '小区二手房') {
+      this.setData({ contentType: 22 });
+    }else if(options.title == '同小区房源') {
+      this.setData({contentType: 33});
     }
 
     //热门小区

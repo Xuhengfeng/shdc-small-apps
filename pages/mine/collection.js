@@ -9,76 +9,47 @@ Page(filter.loginCheck({
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
+    houseList: [1,3],
     twoHouseColletion: '',//二手房
     rentHouseColletion: '',//租房
-    nearbyColletion: ''//小区
+    nearbyColletion: '',//小区
+    IPS: [Api.IP_HOUSECOLLECTIONLIST, Api.IP_RENTCOLLECTIONLIST, Api.IP_COLLECTIONLIST]
   },
   onLoad() {
-    // 二手房
-    wx.request({
-      url: Api.IP_HOUSECOLLECTIONLIST,
-      data: {
-        pageNo: 1,
-        pageSize: 10
-      },
-      method: 'GET',
-      header: {
-        "Content-Type": "application/json",
-        "unique-code": wx.getStorageSync("userToken").data
-      },
-      success: (res) => {
-        console.log(res)
-        wx.hideLoading();
-      }
-    })
-
-    // 租房
-    wx.request({
-      url: Api.IP_RENTCOLLECTIONLIST,
-      data: {
-        pageNo: 1,
-        pageSize: 10
-      },
-      method: 'GET',
-      header: {
-        "Content-Type": "application/json",
-        "unique-code": wx.getStorageSync("userToken").data
-      },
-      success: (res) => {
-        wx.hideLoading();
-      }
-    })
-
-    // 小区
-    wx.request({
-      url: Api.IP_COLLECTIONLIST,
-      data: {
-        pageNo: 1,
-        pageSize: 10
-      },
-      method: 'GET',
-      header: {
-        "Content-Type": "application/json",
-        "unique-code": wx.getStorageSync("userToken").data
-      },
-      success: (res) => {
-        wx.hideLoading();
-      }
-    })
-
     wx.getSystemInfo({
-      success: (res)=> {
+      success: (res) => {
         this.setData({
           sliderLeft: (res.windowWidth / this.data.tabs.length - sliderWidth) / 2,
           sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
         });
       }
     });
+    this.getDataFromServer(0);    
   },
   tabClick(e) {
+    console.log(e.currentTarget.dataset.index)
+    let num = e.currentTarget.dataset.index;
+    this.getDataFromServer(num);
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
+  },
+  getDataFromServer(num) {
+    wx.request({
+      url: this.data.IPS[num],
+      data: {
+        pageNo: 1,
+        pageSize: 10
+      },
+      method: 'GET',
+      header: {
+        "Content-Type": "application/json",
+        "unique-code": wx.getStorageSync("userToken").data
+      },
+      success: (res) => {
+        wx.hideLoading();
+      }
+    })
   }
 }));

@@ -63,21 +63,21 @@
   <!-- fourPic start -->
   <view class="section fourPic">
     <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
-        <view class="image"><image src="../../images/fondHouse.png" /></view>
+        <view class="image"><image src="../../images/11.png" /></view>
         <view class="content">
           <text>独家好房</text>
           <text>价格优惠</text>
         </view>
     </navigator>
     <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
-        <view class="image"><image src="../../images/fondHouse.png" /></view>
+        <view class="image"><image src="../../images/22.png" /></view>
         <view class="content">
             <text>新上好房</text>
             <text>一周内新上房</text>
         </view>
     </navigator>
     <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
-        <view class="image"><image src="../../images/fondHouse.png" /></view>
+        <view class="image"><image src="../../images/33.png" /></view>
         <view style="line-height:1">
           <view class="content">
             <text>品质租房</text>
@@ -86,7 +86,7 @@
         </view>
     </navigator>
     <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
-        <view class="image"><image src="../../images/fondHouse.png" /></view>
+        <view class="image"><image src="../../images/44.png" /></view>
         <view style="line-height:1">
           <view class="content">
             <text>热门好房</text>

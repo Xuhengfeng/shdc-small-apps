@@ -1,4 +1,3 @@
-/* pages/buyHouse.wxss */
 @import "../template/template.wxss";
 ::-webkit-scrollbar{
   display: none;
@@ -114,15 +113,6 @@ navigator{
 }
 .white{
   background: #ffffff;
-}
-
-.recommend{
-  overflow: hidden;
-}
-.recommend .title{
-  margin: 50rpx 0 30rpx 22rpx;
-  font-size: 40rpx;
-  color: #333333;
 }
 .recommend>view:nth-of-type(2){
   height: 240rpx;

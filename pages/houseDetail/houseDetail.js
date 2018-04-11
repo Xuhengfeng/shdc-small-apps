@@ -1,5 +1,3 @@
-// var amapFile = require("../../libs/amap-wx.js");//高德地图sdk
-
 var Api = require("../../utils/url");
 const app = getApp();
 Page({
@@ -106,7 +104,7 @@ Page({
 
 
     if (this.data.detailType == 11 || this.data.detailType == 22) {
-      //二手房详情 租房详情
+      //二手房  租房详情
       app.httpRequest(this.data.IPS[this.data.IpsNum] + this.data.currentCity + '/' + sdid, 'GET', (error, data) => {
         console.log(data)
         this.setData({
@@ -136,8 +134,6 @@ Page({
         method: "GET",
         header: { 'Content-Type': 'application/json' },
         success: (res2) => {
-          console.log(res2.data.data.py)
-          console.log(res2.data.data.px)
           this.setData({
             latitude: res2.data.data.py,
             longitude: res2.data.data.px,
@@ -263,15 +259,6 @@ Page({
         url: "/pages/mine/login"
       });
     }
-  },
-  regionchange(e) {//拖动地图
-    console.log(e.type)
-  },
-  markertap(e) {//覆盖物点击
-    console.log(e.markerId)
-  },
-  controltap(e) {
-    console.log(e.controlId)
   },
   previewIamge(e) {
     var current = e.target.dataset.src;

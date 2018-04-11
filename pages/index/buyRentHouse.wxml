@@ -40,8 +40,8 @@
                   style="visibility:{{isShow}}">
       </navBar-html>
     </view>
-    <view class="recommend">
-      <view class="title"><text>为你推荐</text></view>
+    <view class="section recommend">
+      <view class="title" style="padding:100rpx 0 40rpx">为你推荐</view>
       <view>
         <scroll-view scroll-x style="white-space:nowrap;display:flex;height:100%">
           <navigator url="../houseDetail/houseDetail" 

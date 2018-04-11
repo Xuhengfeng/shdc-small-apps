@@ -1,4 +1,4 @@
-<!-- 热门小区 和  小区二手房页面 -->
+<!-- 热门小区  小区二手房  同小区房源 -->
 
 <view class="section">
  <scroll-view class="page_list" scroll-y="{{isScroll}}" bindscrolltolower="loadMore"
@@ -14,9 +14,29 @@
               </view>
               <view class="item-content">
 
+                  <!-- 热门小区 -->
+                  <block wx:if="{{contentType==11}}">
+                      <view class="item-title">{{item.buildName}}</view>
+                      <view class="description">
+                            {{item.areaName}} {{item.districtName}} {{item.buildAge}}建成  {{item.buildType}}
+                      </view>
+                      <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1">
+                        <text style="margin-right:20rpx">{{item.roomsNum}}房{{item.livingRoomNum}}厅</text>
+                        <text>{{item.builtArea}}m²</text>
+                      </view>
+                      <view class="houseLabel">
+                          <text wx:for="{{item.houseTag}}" 
+                                wx:key="{{index2}}"
+                                wx:for-item="item2" 
+                                wx:for-index="index2">{{item2}}</text>
+                        </view>
+                      <view  class="housePrice">{{item.saleTotal}}万
+                          <text>{{item.salePrice}}元/平米</text>
+                      </view>
+                  </block>
+
                   <!-- 小区二手房 -->
                   <block wx:if="{{contentType==22}}">
-                      <!-- 小区 -->
                      <view class="item-title">{{item.buildName}}</view>
                       <view class="description">
                             {{item.areaName}} {{item.districtName}} {{item.buildAge}}建成  {{item.buildType}}
@@ -29,8 +49,8 @@
                           </view>
                   </block>
 
-                  <!-- 热门小区 -->
-                  <block wx:if="{{contentType==11}}">
+                  <!-- 同小区房源 -->
+                  <block wx:if="{{contentType==33}}">
                       <view class="item-title">{{item.buildName}}</view>
                       <view class="description">
                             {{item.areaName}} {{item.districtName}} {{item.buildAge}}建成  {{item.buildType}}

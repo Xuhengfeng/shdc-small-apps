@@ -160,6 +160,7 @@ Component({
     //二手房列表  租房列表
     getDataFromServer(url, params) {
       this.setData({
+        houseList: [],
         loading: true,
         hasMore: true
       })
@@ -176,7 +177,6 @@ Component({
             })
           }else{
             wx.showModal({
-              title: '提示',
               content: '没有找任何数据!',
               success: ()=>{
                 this.setData({
@@ -194,7 +194,6 @@ Component({
         },
         fail: (error)=> {
           wx.showModal({
-            title: '提示',
             content: '请求超时',
             success: ()=> {
               setTimeout(()=>{

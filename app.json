@@ -4,35 +4,21 @@
     "pages/index/index",
     "pages/searchList/searchList",
     "pages/search/search",
-    
     "pages/houseDetail/houseDetail",
     "pages/houseDetail/map",
-    
     "pages/location/location",
     "pages/index/buyRentHouse",
-    
     "pages/houseDetail/lookHouse",
-    "pages/index/shop",
-    
-    
+    "pages/index/shop",    
     "pages/houseDetail/houseDetailInfo",
     "pages/mine/mine",
-    
-    
     "pages/index/sellRent",
-    
     "pages/index/guideHand",
     "pages/index/hotHouse",
     "pages/mine/login",
     
-    
-    
-    
     "pages/mine/collection",
-    
     "pages/h5Pages/h5Pages"
-    
-    
   ],
   "window": {
     "backgroundTextStyle": "drak",

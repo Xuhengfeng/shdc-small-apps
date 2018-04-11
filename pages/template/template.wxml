@@ -178,14 +178,14 @@
 </template>
 
 
-<!-- 买房的关联小区 -->
+<!-- 二手房的关联小区 -->
 <template name="houseContent1">
   <view class="item-title">{{guanlianList.buildName}}</view>
   <view class="description">
         {{guanlianList.areaName}} {{guanlianList.districtName}} {{guanlianList.buildAge}}建成  {{guanlianList.buildType}}
   </view>
   <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
-    <text>在售{{guanlianList.saleCount}}套</text><text style="margin: 0 10rpx;">/</text><text>在租{{guanlianList.rentCount}}套</text>
+        在售{{guanlianList.saleCount}}套<text style="margin: 0 10rpx;">/</text>在租{{guanlianList.rentCount}}套
   </view>
   <view style="margin-top:20rpx">
       <text style="font-size:34rpx;color:#ff4343;">{{guanlianList.avgSalePrice}}</text>
@@ -203,16 +203,14 @@
     <text style="margin-right:20rpx">{{guanlianList.roomsNum}}房{{guanlianList.livingRoomNum}}厅</text>
     <text>{{guanlianList.builtArea}}m²</text>
   </view>
-  <view class="houseTag" style="font-size:26rpx;color:#666666;margin-top:10rpx;white-space:nowrap">
-    <text wx:for="{{guanlianList.houseTag}}" 
-          wx:key="{{index2}}"
-          wx:for-item="item2" 
-          wx:for-index="index2" 
-          style="margin-right:20rpx;padding:5rpx 10rpx;color:#fff;">{{item2}}</text>
-  </view>
-  <view style="margin-top:20rpx;">
-      <text style="font-size:34rpx;color:#ff4343;">{{guanlianList.salePrice}}</text>
-      <text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
+  <view class="houseLabel">
+      <text wx:for="{{guanlianList.houseTag}}" 
+            wx:key="{{index2}}"
+            wx:for-item="item2" 
+            wx:for-index="index2">{{item2}}</text>
+    </view>
+  <view  class="housePrice">
+      <text>{{guanlianList.salePrice}}元/平米</text>
   </view>
 </template>
 

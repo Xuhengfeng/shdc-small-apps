@@ -3,6 +3,22 @@
 page{
   background: #ffffff;  
 }
+.title{
+  padding: 70rpx 0 50rpx;
+}
+.title navigator{
+  float: right;
+  font-size: 26rpx;
+  color: #999999;
+  line-height: 1;
+  vertical-align: top;
+}
+.title navigator image{
+  width: 16rpx;
+  height: 28rpx;
+  margin-left: 20rpx; 
+  vertical-align: top;
+}
 .header{
   height: 540rpx;
   position: relative;
@@ -26,14 +42,8 @@ page{
 }
 
 /* 光明小区 */
-.section1{
-  overflow: hidden;
-  border-bottom: 1rpx solid #cacaca;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  background: #ffffff; 
+.section1 .title{
+  padding: 60rpx 0;
 }
 .section1 .weui-cells{
   margin: 50rpx 0 50rpx 25rpx;
@@ -65,32 +75,37 @@ page{
   margin-bottom: 30rpx;
 }
 
-/* 租房详情 */
-.section1 .description1{
-  color: #ff4343;
-  font-size: 40rpx;
-  margin-right: 20rpx;
+/* 二手房 租房详情 */
+.descriptions{
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  height: 180rpx;
+  border-top: 1rpx solid #e6e6e6;
+  border-bottom: 1rpx solid #e6e6e6;  
+  margin: 0 24rpx;
   white-space: nowrap;
 }
-/* 买房详情 */
-.section1 .description2{
-  text-align: center;
-  width: 300rpx;
+.descriptions>view{
+  padding-left: 40rpx;
 }
-.section1 .description2>text{
-  display: block;
+.descriptions>view:first-child{
+  padding-left: 20rpx;
 }
-.section1 .description2>text:nth-of-type(1){
-  color: #ff4343;
-  font-size: 40rpx;
-  line-height: 1;
+.descriptions>view{
+  flex: 1;
+  border-right: 1rpx solid #e6e6e6;
 }
-.section1 .description2>text:nth-of-type(2){
-  color: #666666;
+.descriptions>view:last-child{
+  border:0;
+}
+.descriptions>view>view:last-child{
   margin-top: 20rpx;
-  font-size: 22rpx;
-  line-height: 1;
+  color: #ff4343;
+  font-size: 34rpx;
 }
+
 
 /* 房源信息 */
 .section2 .labelgroup{
@@ -169,10 +184,17 @@ page{
   background: #ffffff;
 }
 .section4 .weui-cell{
-  padding: 70rpx 25rpx 30rpx;
+  padding: 70rpx 25rpx 50rpx;
 }
 .section4 .weui-cell__bd{
   font-size: 40rpx;
+}
+.descriptions.noborder,
+.descriptions.noborder>view{
+  border:0;
+  letter-spacing: 2rpx;
+  font-size: 26rpx;
+  background: #f9f9f9;
 }
 /* 小区详情周边设施 */
 .section4 .content{
@@ -216,26 +238,27 @@ page{
   bottom: 0;
   left: 0;
   width: 100%;
+  background: #ffffff;
+  box-shadow: 0 0 1px rgba(0,0,0,.4);
 }
 .footer .type1{
   width: 80%;
-  overflow: hidden;
+  float: left;
 }
 .footer .type1 view{
   float: left;
   font-size: 34rpx;
   color: #ffffff;
-  width: 50%;
   height: 100rpx;
+  width: 96%;
+  margin: 10rpx;
   line-height: 100rpx;
   text-align: center;
-}
-.footer .type1 view:nth-of-type(1){
+  border-radius: 5rpx;
   background: #ff4343;
+  box-sizing: border-box;
 }
-.footer .type1 view:nth-of-type(2){
-  background: #5db1ff;
-}
+
 .footer .type2{
   height: 100rpx;
   line-height: 100rpx;
@@ -256,17 +279,7 @@ page{
 .collectionLike{
   float: left;
   width: 20%;
-  background: #ffffff;
-  height: 100rpx;
   text-align: center;
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-}
-.collectionLike .like{
-  width:40%;
-  height: 100%;
-  margin:0 auto;
 }
 .collectionLike .like image{
   margin-top: 5px;
@@ -275,7 +288,7 @@ page{
 }
 .collectionLike .attention{
   font-size: 28rpx;
-  line-height: 0.5;
+  margin-top: 10rpx;
 }
 
 

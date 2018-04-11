@@ -1,5 +1,9 @@
-.page{
-  padding: 40rpx;
+@import "../template/template.wxss";
+::-webkit-scrollbar{
+  display: none;
+}
+navigator{
+  overflow: hidden;
 }
 .page_hd .flexBox{
   display: flex;
@@ -41,34 +45,5 @@ button{
 }
 .weui-navbar__slider{
   background-color: #ff4343;
-}
-
-/*房源列表*/
-.page_list{
-    width: 100%!important;
-    border-top: 1rpx solid #cacaca;
-}
-.item{
-    display: flex;
-    padding: 30rpx 0;
-    border-bottom: 1rpx solid #eee;
-}
-.item .image{
-    float: left;
-    margin-right: 40rpx;
-    margin-left: 25rpx;
-    min-width: 260rpx;
-    width: 260rpx;
-    height: 210rpx;
-    background: #f2f2f2;
-}
-.item .image image{
-  width: 100%;
-  height: 100%;
-}
-
-/* 筛选背景高亮 */
-.bgColor{
-  background: #ffeeee;
 }
 

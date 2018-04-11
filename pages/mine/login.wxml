@@ -17,10 +17,8 @@
   
   <view class="page__bd" wx:if="{{!isCancelLogin}}">
       <view class="section">
-        <view bindtap="back">
-            <image src="../../images/close.png" class="close"></image>
-        </view>
-        <text style="margin-top:40rpx;font-size:60rpx;">手机快捷登录</text>
+        <view bindtap="back"><image src="../../images/close.png" class="close"></image></view>
+        <view style="margin-top:40rpx;font-size:60rpx;">手机快捷登录</view>
       </view>
       <view class="section">
         <input placeholder="请输入手机号" bindinput="bindKeyInput1" style="float:left;width:70%"/>

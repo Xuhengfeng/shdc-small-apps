@@ -11,8 +11,7 @@ Page({
     isCancelLogin: true,  //是否登录
     code: '', //验证码
   }, 
-  getPhoneNumber(e) {
-    console.log(e)
+  getPhoneNumber(e) {//这个方法后面 如果是企业号 就可以获取用户手机号
     if(e.detail.errMsg == 'getPhoneNumber:fail user deny') {
       wx.showModal({
         showCancel: false,
@@ -30,27 +29,20 @@ Page({
     if(wx.getStorageSync('openId')) {
       wx.getUserInfo({
         success: (res)=> {
-          var pages = getCurrentPages();//当前页面路由栈的信息
-          var prevPage = pages[pages.length - 2];//上一个页面
-          prevPage.setData({
-            nickName: res.userInfo.nickName,
-            avatarUrl: res.userInfo.avatarUrl,
-            showLogout: true
-          })
-          wx.navigateBack();
+          this.goBackSet(res);
         }
       })
     }else{
       wx.login({
-        success: res=> {
-          if(res.code) {
+        success: res1=> {
+          if(res1.code) {
             wx.getUserInfo({
               withCredentials: true,
-              success: (res_user)=> {
+              success: (res)=> {
                 wx.request({
                   url: 'https://api.weixin.qq.com/sns/jscode2session',
                   data: {
-                    js_code: res.code,
+                    js_code: res1.code,
                     appid: 'wx436c6a6576047a5f',
                     secret: '6084fb0068f085973119f82359dddd4f',
                     grant_type: 'authorization_code'
@@ -59,14 +51,7 @@ Page({
                     wx.setStorageSync('openId', response.data.openid);
                   }
                 })
-                var pages = getCurrentPages();//当前页面路由栈的信息
-                var prevPage = pages[pages.length - 2];//上一个页面
-                prevPage.setData({
-                  nickName: res_user.userInfo.nickName,
-                  avatarUrl: res_user.userInfo.avatarUrl,
-                  showLogout: true
-                })
-                wx.navigateBack();
+                this.goBackSet(res);
               }, 
               fail: ()=> {
                 wx.showModal({
@@ -126,13 +111,8 @@ Page({
 
   },
   login() {//手机短信验证码登录
-    console.log(this.data.inputValue1)
-    console.log(this.data.inputValue2)
-
     if(this.data.inputValue1 !== "" && this.data.inputValue2 !== "" ) {
-     
       var mobilePhone = this.data.inputValue1
-
       wx.request({
         url: Api.IP_SMSCODELOGIN,
         data: {
@@ -145,24 +125,18 @@ Page({
           'content-type': 'application/json' // 默认值
         },
         success: (res) => {
-          console.log(res)
           wx.setStorage({
             key: 'userToken',
             data: res.data
           })
+          wx.showToast({
+            title: '登录成功',
+            icon: 'success',
+            duration: 1000
+          })
+          this.goBackSet(res);
         }
       })
-      wx.showToast({
-        title: '登录成功',
-        icon: 'success',
-        duration: 1000
-      })
-      setTimeout(() => {
-        wx.switchTab({
-          url: "../index/index"
-        })
-      }, 1000);
-
     }else{
       wx.showToast({
         title: '登录失败',
@@ -171,12 +145,33 @@ Page({
       })
     }
   },
-  bindKeyInput1(e) {//输入手机号
+  //返回刷新设置
+  goBackSet(res) {
+    let avatarUrl;
+    try{
+      avatarUrl = res.userInfo.avatarUrl;
+    }catch(e){
+      avatarUrl = '';
+    }
+    let pages = getCurrentPages();//当前页面路由栈的信息
+    let prevPage = pages[pages.length - 2];//上一个页面
+          prevPage.setData({
+            nickName: this.data.inputValue1,
+            avatarUrl: avatarUrl,
+            showLogout: true
+          })
+          setTimeout(() => {
+            wx.navigateBack();
+          }, 1000);
+  },
+  //输入手机号
+  bindKeyInput1(e) {
     this.setData( {
       inputValue1: e.detail.value
     })
   },
-  bindKeyInput2(e) {//输入验证码
+  //输入验证码
+  bindKeyInput2(e) {
     this.setData( {
       inputValue2: e.detail.value
     })
