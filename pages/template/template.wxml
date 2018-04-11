@@ -187,10 +187,7 @@
   <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
         在售{{guanlianList.saleCount}}套<text style="margin: 0 10rpx;">/</text>在租{{guanlianList.rentCount}}套
   </view>
-  <view style="margin-top:20rpx">
-      <text style="font-size:34rpx;color:#ff4343;">{{guanlianList.avgSalePrice}}</text>
-      <text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
-  </view>
+  <view  class="housePrice">{{guanlianList.avgSalePrice}}<text>元/平米</text></view>
 </template>
 
 <!-- 租房的关联小区 -->

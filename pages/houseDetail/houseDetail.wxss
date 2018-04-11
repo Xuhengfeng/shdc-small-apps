@@ -129,7 +129,7 @@ page{
   height: 400rpx;
   overflow: hidden;
 }
-.map image{
+.map>image{
   position: absolute;
   bottom: 0;
   left: 0;

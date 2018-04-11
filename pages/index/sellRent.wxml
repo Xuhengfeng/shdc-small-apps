@@ -4,8 +4,8 @@
 </view>
 
 <radio-group bindchange="listenerRadioGroup" class="section1">
-    <label style="flex: 1" wx:for="{{select}}">
-        {{item.value}}<radio value="{{true}}" color="#ff4343" checked="{{item.checked}}"/>
+    <label style="flex: 1" wx:for="{{select}}"   data-index="{{index}}"  bindtap="selectItem">{{item.value}}
+        <radio  value="{{true}}"  color="#ff4343" checked="{{item.checked}}"/>
     </label>
 </radio-group>
 

@@ -51,11 +51,12 @@ Page({
        data: '二手房',
        success: ()=>{
         this.setData({
+            ipNum: 0,
+            houseList: '',
             label: ["区域", "户型", "价格", "面积", "类型"],
             keyword: options.keywords,
             flagPrice: true,
-            flagTwoHouse: true,
-            ipNum: 0
+            flagTwoHouse: true
         });
        }
      })
@@ -65,24 +66,26 @@ Page({
        data: '租房',
        success: ()=>{
          this.setData({
+            ipNum: 1,
+            houseList: '',           
             label: ["区域", "户型", "租金", "面积"],
             keyword: options.keywords,
             flagPrice: false,
-            flagTwoHouse: true,
-            ipNum: 1
+            flagTwoHouse: true
          });
        }
      })
    }else if(options.houseType == '小区找房' || options.houseType == '小区') {//小区找房
-      wx.setStorage({
+     wx.setStorage({
         key: 'houseTypeSelect',
         data: '小区',
         success: ()=>{
           this.setData({
+              ipNum: 2,
+              houseList: '',            
               label: ['区域', '用途', '类型', '楼龄'],
               keyword: options.keywords,
-              flagTwoHouse: false,
-              ipNum: 2
+              flagTwoHouse: false
           });
         }
       })
@@ -92,21 +95,17 @@ Page({
     wx.getStorage({
       key: 'selectCity',
       success: (res)=>{
-        //修正 当前的城市
-        this.setData({currentCity: res.data.value})
+            //修正 当前的城市
+            this.setData({currentCity: res.data.value})
 
-        //区域
-        this.areaRequest(res.data.value);
+            //区域
+            this.areaRequest(res.data.value);
 
-        //户型 类型 面积 用途 楼龄
-        this.houseTypeRequest();
+            //户型 类型 面积 用途 楼龄
+            this.houseTypeRequest();
 
-        //价格
-        this.priceAreaRequest(res.data.value);
-        
-        //用途
-        //楼龄
-
+            //价格
+            this.priceAreaRequest(res.data.value);
       }
     })
      
@@ -144,7 +143,6 @@ Page({
           use: res.data.data.HOUSE_USE,
           houseAge: res.data.data.HOUSE_AGE
         })
-        console.log(this.data.use)
       }
     })
   },
@@ -167,8 +165,6 @@ Page({
   houseAge() {
 
   },
-
-
   //请求数据
   getDataFromServer(IP, page, code) {
     this.setData({
@@ -236,9 +232,7 @@ Page({
   //开始检索
   startsearch() {
     if (!this.data.keyword) {
-      wx.showModal({
-        content: '请输入关键词'
-      })
+      wx.showModal({content: '请输入关键词'})
     }
     this.setData({
       showload: true,
@@ -283,16 +277,6 @@ Page({
   },
   searchSubmit() {
     this.startsearch();
-  },
-  onShow() {
-    wx.getSystemInfo({
-      success: (res) => {
-        this.setData({
-          windowHeight: res.windowHeight,
-          windowWidth: res.windowWidth
-        })
-      }
-    })
   },
   //上拉加载更多
   onReachBottom() {

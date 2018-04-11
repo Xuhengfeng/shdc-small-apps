@@ -62,7 +62,7 @@
 
   <!-- fourPic start -->
   <view class="section fourPic">
-    <navigator url="../searchList/searchList?houseType=小区找房"  hover-class="none">
+    <navigator url="../searchList/searchList?houseType=小区"  hover-class="none">
         <view class="image"><image src="../../images/11.png" /></view>
         <view class="content">
           <text>独家好房</text>

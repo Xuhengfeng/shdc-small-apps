@@ -12,7 +12,6 @@ page{
   left: 0;
   width: 100%;
   z-index: 1000; 
-  height: 160rpx;
 }
 .list-search {
   position: relative;
@@ -81,7 +80,7 @@ page{
   vertical-align: bottom;
 }
 .btnGroup{
-  border-top: 1px solid #666;
+  border-top: 1px solid #e6e6e6;
   background: #FFF;
 }
 .btnGroup view{
@@ -94,5 +93,5 @@ page{
   background: #FFF;
 }
 .btnGroup view:first-child{
-  border-right: 1px solid #666;
+  border-right: 1px solid #e6e6e6;
 }

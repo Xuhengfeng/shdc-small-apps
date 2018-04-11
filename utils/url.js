@@ -16,7 +16,13 @@ export const IP_RENTRECMDLIST = SERVER_IPS + "/rentHouse/recmdList/";//租房(�
 export const IP_APPOINTHOUSE = SERVER_IPS + "/appoint/house";//预约看房
 export const IP_CURRENTDATETIME = SERVER_IPS + "/dictionary/currentDateTime";//预约看房时间
 export const IP_SHOPS = SERVER_IPS + "/shop/shops";//门店信息列表
+// 猜你喜欢
+export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你喜欢 二手房列表
+export const IP_RENTHOUSERENTLIKE = SERVER_IPS + "/rentHouse/queryLike";//首页猜你喜欢 租房列表
 
+//租售
+export const IP_HOUSEENTRUSTAPPLY = SERVER_IPS + "/houseEntrustApply/houseEntrustApply";//租售申请
+export const IP_HOUSEENTRUSTAPPLYLIST = SERVER_IPS + "/houseEntrustApply/houseEntrustApplyList";//租售房源列表
 
 
 // 详情页 收藏
@@ -29,15 +35,10 @@ export const IP_HOUSECOLLECTIONLIST = SERVER_IPS + "/houseCollection/collectionL
 export const IP_RENTCOLLECTIONLIST = SERVER_IPS + "/rentHCollection/collectionList";//租房收藏列表
 
 
-
-
 //搜索
 export const IP_AREADISTRICTS = SERVER_IPS + "/area/areaDistricts/";//区域
 export const IP_DICTIONARY = SERVER_IPS + "/dictionary/dictionarys";//户型和类型
 export const IP_DICTIONARYCONDITION = SERVER_IPS + "/dictionary/";//价格 面积 （不同城市价格 面积 不一样）
-
-
-
 
 export const IP_RENTHOUSE = SERVER_IPS + "/rentHouse/query";//租房所有数据
 export const IP_RENTHOUSEDETAIL = SERVER_IPS + "/rentHouse/getDetailInFo/";//租房详情
@@ -45,13 +46,6 @@ export const IP_HOTBUILDING = SERVER_IPS + "/build/hotBuilding/";//热门小区
 export const IP_BUILDLIST = SERVER_IPS + "/build/buildList/";//查询小区列表(小区找房) 
 export const IP_BUILDINFO = SERVER_IPS + "/build/buildInfo/";//获取小区详情(包括关联小区)
 export const IP_RIMHOUSING = SERVER_IPS + "/house/rimHousing";//获取房屋详情 二手房附近房源
-
-
-
-export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你喜欢 二手房列表
-export const IP_RENTHOUSERENTLIKE = SERVER_IPS + "/rentHouse/queryLike";//首页猜你喜欢 租房列表
-
-
 
 //我的 接口
 export const IP_SMSCODELOGIN = SERVER_IPS + "/member/smsCodelogin";//手机验证码登录
