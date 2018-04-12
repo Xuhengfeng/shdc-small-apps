@@ -20,12 +20,12 @@ page{
 /* 样式控制  */
 
 .list-title {
+  height: 100rpx;
+  line-height: 100rpx;
   background: #f9f9f9;
   color: #666;
   font-size: 36rpx;
-  padding: 10rpx;
   padding-left: 30rpx;
-  padding-top: 15rpx;
   font-weight: bold;
 }
 

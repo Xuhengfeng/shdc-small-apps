@@ -6,15 +6,20 @@
     <view class="login">{{nickName?nickName:'点击注册/登录'}}</view>
   </view>
   <view class="body">
-    <view class="section">
-        <view>
-            <image></image>
-            <view>我的卖房</view>
-        </view>
-        <view>
-            <image></image>
-            <view>我的租房</view>
-        </view>
+   <view class="weui-cells weui-cells_after-title">
+        <navigator url="collection" class="weui-cell weui-cell_access" hover-class="none">
+            <view class="weui-cell__bd">我的委托</view>
+        </navigator>
+        <navigator url="collection" class="section weui-cell weui-cell_access" hover-class="none">
+           <view>
+                <image></image>
+                <view>我的卖房</view>
+            </view>
+            <view>
+                <image></image>
+                <view>我的租房</view>
+            </view>
+        </navigator>
     </view>
     <view class="weui-cells weui-cells_after-title">
         <navigator url="collection" class="weui-cell weui-cell_access" hover-class="none">

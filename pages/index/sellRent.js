@@ -23,9 +23,9 @@ Page({
       region: e.detail.value
     })
   },
-  showOwnPicker() {//自定义城市控件
-    this.setData({
-      hiddenPicker: !this.data.hiddenPicker
+  jumpCityList() {
+    wx.navigateTo({
+      url: '../location/location',
     })
   },
   cancelBtn() {

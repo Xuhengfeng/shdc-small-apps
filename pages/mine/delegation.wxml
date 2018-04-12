@@ -1,0 +1,46 @@
+<!-- 委托 -->
+<view class="main">
+        <view>
+              <image></image>
+              <view>申请中</view>
+        </view>
+        <view>
+                <image></image>
+        </view>
+        <view>
+              <image></image>
+              <view>核实中</view>
+        </view>
+        <view>
+                <image></image>
+        </view>
+        <view>
+              <image></image>
+              <view>已发布</view>
+        </view>
+</view>
+<view class="section">
+      <view class="title">申请记录 <view>2018-03-01</view></view>
+      <view class="description">
+            <view>温馨兰苑小区房源委托申请</view>
+            <view>查看详情 <image></image></view>
+      </view>
+</view>
+<view class="userInfo">
+    <view>跟进人</view>
+    <view>
+          <image></image>
+          <view class="content">
+                  <view>
+                      <view class="name">刘小妹<text>高级经纪人</text></view>
+                      <view class="score">5.0 <text>活跃度</text></view>    
+                  </view>
+                  <view class="location">所在门店</view>
+                  <view class="tag">
+                        <text>销售达人</text>
+                        <text>销售达人</text>
+                        <text>销售达人</text>
+                  </view>
+          </view>
+    </view>
+</view>

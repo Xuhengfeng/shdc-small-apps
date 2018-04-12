@@ -1,0 +1,25 @@
+/* pages/mine/suggest.wxss */
+.usersuggest{
+  padding: 20rpx;
+  margin-top: 20rpx;
+  background: #ffffff;
+  width: 100%;
+}
+.placeholder{
+  color: #cacaca;
+  font-size: 30rpx;
+  vertical-align: bottom;
+}
+.text{
+  font-size: 30rpx;
+  color: #666666;
+  padding: 20rpx;
+}
+button {
+  width: 600rpx;
+  height: 90rpx;
+  background: #ff4343;
+  color: #ffffff;
+  font-size: 36rpx;
+  margin-top: 180rpx;
+}

@@ -21,7 +21,7 @@ Page({
         wx.navigateBack();//返回上一个页面
       }
     });
-  },
+  }, 
   onLoad() {
     let hot_city = "热门";
     let hot_city_len = 2;

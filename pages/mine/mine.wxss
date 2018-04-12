@@ -35,14 +35,13 @@ page{
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin: 30rpx 0;
+  margin-bottom: 30rpx;
   padding: 20rpx 0;
   background: #ffffff;
 }
 .section view{
   flex: 1;
   font-size: 26rpx;
-  margin-top: 20rpx;
 }
 .section image{
   width: 80rpx;
