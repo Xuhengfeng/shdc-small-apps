@@ -6,13 +6,43 @@
     <view class="login">{{nickName?nickName:'点击注册/登录'}}</view>
   </view>
   <view class="body">
+    <view class="section">
+        <view>
+            <image></image>
+            <view>我的卖房</view>
+        </view>
+        <view>
+            <image></image>
+            <view>我的租房</view>
+        </view>
+    </view>
     <view class="weui-cells weui-cells_after-title">
         <navigator url="collection" class="weui-cell weui-cell_access" hover-class="none">
-            <view class="weui-cell__bd">我关注的</view>
+            <view class="weui-cell__bd">我的收藏</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
         <navigator url="" class="weui-cell weui-cell_access" hover-class="none" bindtap="telphone">
             <view class="weui-cell__bd">客服电话<text class="phone">132-1236-1223</text></view>
+        </navigator>
+        <navigator url="" class="weui-cell weui-cell_access" hover-class="none">
+            <view class="weui-cell__bd">我的经纪人</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+        <navigator url="" class="weui-cell weui-cell_access" hover-class="none">
+            <view class="weui-cell__bd">我的评论</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+        <navigator url="" class="weui-cell weui-cell_access" hover-class="none">
+            <view class="weui-cell__bd">我的咨询</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+        <navigator url="" class="weui-cell weui-cell_access" hover-class="none">
+            <view class="weui-cell__bd">意见反馈</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+        <navigator url="" class="weui-cell weui-cell_access" hover-class="none">
+            <view class="weui-cell__bd">关于我们</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
     </view>
     <view class="weui-cells weui-cells_after-title" wx:if="{{showLogout}}" bindtap="logout">

@@ -51,6 +51,23 @@
         <image src="../../images/store.png" /><text>找门店</text>
       </view>
     </view>
+    <view class="flex-row">
+      <view bindtap="activity" data-num="1" class="flex-view-item"> 
+        <image src="../../images/newhouse.png" /><text>新房</text>
+      </view>
+      <view bindtap="activity" data-num="2" class="flex-view-item">
+        <image src="../../images/global.png" /><text>海外置业</text>
+      </view>
+      <view bindtap="activity" data-num="3" class="flex-view-item">
+        <image src="../../images/estate.png" /><text>旅游投资</text>
+      </view>
+      <view bindtap="activity" data-num="4" class="flex-view-item">
+        <image src="../../images/infomation.png" /><text>咨询</text>
+      </view>
+      <view bindtap="activity" data-num="5" class="flex-view-item">
+        <image src="../../images/helphand.png" /><text>购房指南</text>
+      </view>
+    </view>
     <image src="../../images/shadow.png" style="width:100%;height:20rpx;"></image>
   </view>
   

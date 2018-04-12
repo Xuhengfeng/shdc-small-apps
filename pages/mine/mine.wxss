@@ -5,14 +5,13 @@ page{
   overflow: hidden;
   position: relative;
   background: #ffffff;
-  margin-bottom: 20rpx;
+  margin-bottom: 40rpx;
 }
 .headImage{
   width: 120rpx;
   height: 120rpx;
-  border: 1rpx solid #f1f1f1;
   float: left;
-  margin: 80rpx 40rpx 80rpx 40rpx;
+  margin: 50rpx 40rpx 50rpx 40rpx;
   border-radius: 50%;
   text-align: center;
   position: relative;
@@ -29,14 +28,36 @@ page{
   transform: translate(-50%,-50%);
   font-size: 40rpx;
 }
-.body{
+
+.section{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 30rpx 0;
+  padding: 20rpx 0;
+  background: #ffffff;
+}
+.section view{
+  flex: 1;
+  font-size: 26rpx;
   margin-top: 20rpx;
+}
+.section image{
+  width: 80rpx;
+  height: 80rpx;
+  background: red;
+}
+.weui-cell__bd{
+  font-size: 30rpx;
 }
 .body .more{
   float: right;
 }
 .body .phone{
   float: right;
+  color: #666666;
 }
 .weui-cells:after,
 .weui-cells:before{

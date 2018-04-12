@@ -35,10 +35,7 @@
         <view class="weui-label">城市</view>
       </view>
       <view class="weui-cell__bd">
-        <!-- <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}" rang="{{region}}">
-          <view class="weui-input" style="text-align:right;">{{region[0]}} <text style="margin:0 20rpx;">{{region[1]}}</text> {{region[2]}}</view>
-        </picker>  -->
-       <view class="weui-input" style="text-align:right;" bindtap="showOwnPicker"></view>
+            <view class="weui-input" style="text-align:right;" bindtap="showOwnPicker"></view>
       </view>
       <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </view>
