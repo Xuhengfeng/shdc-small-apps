@@ -1,4 +1,9 @@
 /* pages/mine/mybuyhouse.wxss */
+page{
+  width: 100%;
+  overflow: hidden;
+  box-sizing:border-box
+}
 .item{
   display: flex;
   flex-flow: row nowrap;
@@ -6,6 +11,9 @@
   background:  #fff;
   margin-top: 20rpx;
   align-items: center;
+  position: relative;
+  transform: translate3d(0,0,0);
+  transition: all .3s ease;
 }
 .item>view:nth-of-type(2){
   width: 155rpx;
@@ -23,4 +31,22 @@
   font-size: 34rpx;
   color: #333333;
   line-height: 1.2;
+}
+.item .cancel{
+  position: absolute;
+  top: 0;
+  width: 20%;
+  text-align: center;
+  height: 100%;
+  line-height: 4.5;
+  background: red;
+  color: #ffffff;
+  right: -100%;
+  transition: all .3s ease;
+}
+.move1{
+  right: -20%!important;
+}
+.move2{
+  transform: translate3d(-20%,0,0);  
 }

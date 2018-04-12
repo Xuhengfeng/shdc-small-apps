@@ -37,7 +37,7 @@ Page({
   onLoad(options) {
     //初始化
     let name = wx.getStorageSync('houseTypeSelect');
-    wx.setNavigationBarTitle({ title: name});
+    wx.setNavigationBarTitle({title: name});
     if(name == '二手房') {
       this.setData({
         houseDetail: name,
@@ -57,10 +57,17 @@ Page({
     wx.getStorage({
       key: 'selectCity',
       success: (res) => {
-        console.log(res)
-
         this.setData({cityCode: res.data.value});
-   
+        //二手房(买房) 租房 列表
+        let IP = this.data.IPS[this.data.num];
+        let Params = {
+          pageNo: 1,
+          pageSize: 10,
+          keyword: this.data.keyword,
+          scity: this.data.cityCode
+        }
+        this.getDataFromServer(IP, Params);
+
         // banner图片
         app.httpRequest(Api.IP_INDEXCONSULT + res.data.value + "/HOUSE_USED_BANNER", 'GET', (error, data) => {//获取主页资讯Banner
             this.setData({ imgUrls: data.data })
@@ -117,7 +124,6 @@ Page({
   },
   //价格 租金
   priceAreaRequest(currentCity) {
-
     if (this.data.flagPrice) {//租金
       wx.request({
         url: Api.IP_DICTIONARYCONDITION + 'HOUSE_RENTAL/' + currentCity,
@@ -135,21 +141,6 @@ Page({
         }
       })
     }
-  },
-  //监听事件 拿到首次 或 点击筛选条件的第一页数据 
-  onMyEventHouseList(item) {
-    setTimeout(() => {
-      //修正数据
-      item.detail.houseList.forEach((item2) => {
-        console.log(item2)
-        if (item2.houseTag) {
-          item2.houseTag = item2.houseTag.split(',');
-        }
-      })
-      this.setData({
-        houseList: item.detail.houseList,
-      })
-    }, 500)
   },
   //页面滚动监听
   onPageScroll(res) {
@@ -251,20 +242,12 @@ Page({
           }
         }
         if(res.statusCode == 500) {
-          this.setData({
-            showload: false,
-            hasMore:false,
-            houseList: ''
-          })
+          this.setData({showload: false})
           wx.showModal({content: '服务器异常'})
         }
       },
       fail: ()=> {
-        this.setData({
-          showload: false,
-          hasMore: false,
-          houseList: ''
-        })
+        this.setData({ showload: false })
       }
     })
   }

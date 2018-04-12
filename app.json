@@ -1,9 +1,12 @@
 {
   "pages": [
+    "pages/index/index",
+    "pages/mine/mybuyhouse",
+    "pages/mine/mine",
     "pages/mine/delegation",
     "pages/mine/suggest",
-    "pages/mine/mybuyhouse",
-    "pages/index/index",
+    
+    
     "pages/searchList/searchList",
     "pages/search/search",
     "pages/houseDetail/houseDetail",
@@ -13,7 +16,7 @@
     "pages/houseDetail/lookHouse",
     "pages/index/shop",    
     "pages/houseDetail/houseDetailInfo",
-    "pages/mine/mine",
+    
     "pages/index/sellRent",
     "pages/index/guideHand",
     "pages/index/hotHouse",
