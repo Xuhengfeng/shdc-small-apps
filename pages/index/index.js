@@ -47,21 +47,14 @@ Page({
             var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
             var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
             var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
+            this.setData({
+              myLocation: currentCityName
+            })
             wx.setStorage({
               key: 'selectCity',
               data: {
                 name: currentCityName,
                 value: currentCity
-              },
-              success:()=>{
-                this.setData({
-                  myLocation: currentCityName
-                })
-              },
-              fail: ()=>{
-                this.setData({
-                  myLocation: currentCityName
-                })
               }
             });
             this.oneBigRequest(currentCity);
@@ -93,21 +86,14 @@ Page({
                             var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
                             var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
                             var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
+                            this.setData({
+                              myLocation: currentCityName
+                            })
                             wx.setStorage({
                               key: 'selectCity',
                               data: {
                                 name: currentCityName,
                                 value: currentCity
-                              },
-                              success:()=>{
-                                this.setData({
-                                  myLocation: currentCityName
-                                })
-                              },
-                              fail: ()=>{
-                                this.setData({
-                                  myLocation: currentCityName
-                                })
                               }
                             });
                             this.oneBigRequest(currentCity);
@@ -150,6 +136,7 @@ Page({
       method: "GET",
       header: { 'Content-Type': 'application/json' },
       success: (res) => {
+        console.log(res)
         if (res.statusCode == 200) {
           this.setData({ hotbuilding: res.data.data });
         } else if (res.statusCode == 500) {
@@ -158,7 +145,7 @@ Page({
             hasMore: false,
             showload: false
           });
-          wx.showModal({ content: '服务器异常' })
+          wx.showModal({ content: '服务器错误' })
         }
       },
       fail: (error) => {
@@ -214,7 +201,7 @@ Page({
             this.data.num == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
           } else if (res.statusCode == 500 || res.statusCode == 404) {
             wx.showModal({
-              content: '服务器异常',
+              content: '服务器错误',
               success: (res) => {
                 this.setData({
                   houseList: '',
@@ -291,16 +278,5 @@ Page({
   //缓存房源类型
   cacheHouseType(value) {
     wx.setStorageSync('houseTypeSelect', value)
-  },
-  onShow() {
-    // wx.getStorage({
-    //   key: 'selectCity',
-    //   success: (res) => {
-    //     this.setData({
-    //       myLocation: res.data.name
-    //     })
-    //   }
-    // })
   }
-
 })

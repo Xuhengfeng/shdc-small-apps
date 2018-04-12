@@ -12,6 +12,7 @@
         <view class="nav"
               data-index="{{index}}"
               wx:for="{{label}}"
+              class="{{index==num&&highSelectItem?'font1Color':'font2Color'}}"
               wx:key="{{index}}">
               {{item}}
               <image src="../../images/drop.png"/>

@@ -105,6 +105,7 @@ Component({
       let prevPage = pages[pages.length - 2];//上一页面
       prevPage.setData({//直接给上移页面赋值
         myLocation: detail.name,
+        name: 0,
         currentCity: detail.value
       });
       let myEventOption = {
@@ -153,6 +154,7 @@ Component({
         success: ()=> {
           prevPage.setData({//直接给上移页面赋值
             myLocation: e.target.dataset.detail,
+            num: 0,
             currentCity: pinyin.convertToPinyin(e.target.dataset.detail, '', true)
           });
           prevPage.oneBigRequest();//上一页重新加载数据

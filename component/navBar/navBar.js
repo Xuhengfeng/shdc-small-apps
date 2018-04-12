@@ -52,7 +52,7 @@ Component({
     page: 1,
     isScroll: true,
     scrollTop: 0,
-    navHeight: null,
+    highSelectItem: false,//打开高亮
     loading: false,//加载圈
     
     //内部筛选条件
@@ -226,9 +226,14 @@ Component({
     //区域
     //切换城区子分类 进行请求
     changeSubCategories(e) {
+      let id = e.target.dataset.num;
+      let label = 'label['+0+']';
       this.setData({
         areaSubCategories: e.target.dataset.num,
-        areaSubCategoriesId: e.target.dataset.id
+        areaSubCategoriesId: e.target.dataset.id,
+        highSelectItem: true,
+        num: 0,
+        [label]: this.data.area[this.data.areaCategories].districts[id].name
       })
       let params;
       if (e.target.dataset.num == 0) {//第二列 不限
@@ -253,9 +258,11 @@ Component({
 
     //户型
     changeHouseType(e) {
+      let label = 'label[' +1 + ']';
       this.setData({
         houseTypeCategories: e.target.dataset.num,
-        roomsNum: e.target.dataset.value
+        roomsNum: e.target.dataset.value,
+        [label]: this.data.houseType[e.target.dataset.num].name
       })
     },
     changeHouseTypeUnlimit() {
@@ -283,10 +290,12 @@ Component({
 
     //价格
     pricelabel(e) {
+      let label = 'label[' + 2 + ']';
       this.setData({
         priceCategories: e.target.dataset.num,
         minPrice: e.target.dataset.minprice.value.split('-')[0],
-        maxPrice: e.target.dataset.maxprice.value.split('-')[1]
+        maxPrice: e.target.dataset.maxprice.value.split('-')[1],
+        [label]: this.data.price[e.target.dataset.num].name
       })
     },
     pricelabelUnlimit() {
@@ -326,10 +335,12 @@ Component({
 
     //面积
     proportionlabel(e) {
+      let label = 'label[' + 3 + ']';
       this.setData({
         proportionCategories: e.target.dataset.num,
         minBuildArea: e.target.dataset.minbuildarea.value.split('-')[0],
-        maxBuildArea: e.target.dataset.maxbuildarea.value.split('-')[1]
+        maxBuildArea: e.target.dataset.maxbuildarea.value.split('-')[1],
+        [label]: this.data.proportion[e.target.dataset.num].name
       })
     },
     proportionlabelUnlimit() {
@@ -359,10 +370,11 @@ Component({
 
     //类型
     modelabel(e) {
-      console.log(e.target)
+      let label = 'label[' + 4 + ']';
       this.setData({
         modeCategories: e.target.dataset.num,
-        modeCategoriesValue: e.target.dataset.value
+        modeCategoriesValue: e.target.dataset.value,
+        [label]: this.data.mode[e.target.dataset.num].name
       })
     },
     modelabeUnlimit() {

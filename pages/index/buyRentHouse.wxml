@@ -37,6 +37,7 @@
                   proportion="{{proportion}}"
                   num="{{navNum}}"
                   showModalStatus="{{showModalStatus}}"
+                  bind:myevent="onMyEventHouseList"
                   style="visibility:{{isShow}}">
       </navBar-html>
     </view>
