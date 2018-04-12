@@ -57,6 +57,8 @@ Page({
     wx.getStorage({
       key: 'selectCity',
       success: (res) => {
+        console.log(res)
+
         this.setData({cityCode: res.data.value});
         //二手房(买房) 租房 列表
         let IP = this.data.IPS[this.data.num];
@@ -114,6 +116,7 @@ Page({
       data: ['HOUSE_HUXING', 'HOUSE_USE', 'HOUSE_AREA'],
       method: 'POST',
       success: (res) => {
+        console.log(res)
         this.setData({
           houseType: res.data.data.HOUSE_HUXING,
           mode: res.data.data.HOUSE_USE,

@@ -1,4 +1,6 @@
 var Api = require("../../utils/url");
+const bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
+const pinyin = require("../../libs/browser.js"); //汉字转拼音
 const app = getApp();
 Page({
   data: {
@@ -27,19 +29,100 @@ Page({
     //banner资讯   二手房指南资讯   获取成交量统计 热门小区
     IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING],
   },
-  onLoad() {
-    setTimeout(()=>{
-      wx.getStorage({
-        key: 'selectCity',
-        success: (res) => {
-          this.setData({
-            myLocation: res.data.name,
-            currentCity: res.data.value
-          })
-          this.oneBigRequest(res.data.value);
-        }
-      })
-    }, 1000)
+  onLoad(){
+    
+    let that = this;
+    wx.getLocation({
+      type: 'gcj02',
+      success: (res) => {
+        console.log(res)
+        // // 百度地图地址解析
+        var BMap = new bmap.BMapWX({
+          ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
+        });
+        // 发起regeocoding检索请求 
+        BMap.regeocoding({
+          location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
+          success: (data) => {
+            var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
+            var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
+            var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
+            wx.setStorage({
+              key: 'selectCity',
+              data: {
+                name: currentCityName,
+                value: currentCity
+              },
+              success:()=>{
+                this.setData({
+                  myLocation: currentCityName
+                })
+              },
+              fail: ()=>{
+                this.setData({
+                  myLocation: currentCityName
+                })
+              }
+            });
+            this.oneBigRequest(currentCity);
+          }
+        });
+      },
+      fail: (error) => {
+        wx.showModal({
+          title: '警告通知',
+          content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
+          success: res => {
+            if (res.confirm) {
+              wx.openSetting({
+                success: res => {
+                  console.log(res)
+                  if (res.authSetting["scope.userLocation"]) {//如果用户重新同意了授权登录
+                    wx.getLocation({
+                      type: 'gcj02',
+                      success: (res) => {
+                        console.log(res)
+                        // // 百度地图地址解析
+                        var BMap = new bmap.BMapWX({
+                          ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
+                        });
+                        // 发起regeocoding检索请求 
+                        BMap.regeocoding({
+                          location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
+                          success: (data) => {
+                            var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
+                            var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
+                            var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
+                            wx.setStorage({
+                              key: 'selectCity',
+                              data: {
+                                name: currentCityName,
+                                value: currentCity
+                              },
+                              success:()=>{
+                                this.setData({
+                                  myLocation: currentCityName
+                                })
+                              },
+                              fail: ()=>{
+                                this.setData({
+                                  myLocation: currentCityName
+                                })
+                              }
+                            });
+                            this.oneBigRequest(currentCity);
+                          }
+                        });
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          }
+        })
+      }
+    })
   },
   oneBigRequest(city) {
     //获取主页banner资讯
@@ -70,12 +153,20 @@ Page({
         if (res.statusCode == 200) {
           this.setData({ hotbuilding: res.data.data });
         } else if (res.statusCode == 500) {
-          this.setData({ hotbuilding: '' });
+          this.setData({
+            hotbuilding: '',
+            hasMore: false,
+            showload: false
+          });
           wx.showModal({ content: '服务器异常' })
         }
       },
       fail: (error) => {
-        this.setData({ hotbuilding: '' })
+        this.setData({
+          hotbuilding: '',
+          hasMore: false,
+          showload: false
+        });
       }
     })
 
@@ -202,14 +293,14 @@ Page({
     wx.setStorageSync('houseTypeSelect', value)
   },
   onShow() {
-    wx.getStorage({
-      key: 'selectCity',
-      success: (res) => {
-        this.setData({
-          myLocation: res.data.name
-        })
-      }
-    })
+    // wx.getStorage({
+    //   key: 'selectCity',
+    //   success: (res) => {
+    //     this.setData({
+    //       myLocation: res.data.name
+    //     })
+    //   }
+    // })
   }
 
 })

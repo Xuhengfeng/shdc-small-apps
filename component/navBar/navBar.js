@@ -90,6 +90,7 @@ Component({
 
     //显示 小区label 或  二手房 租房
     label: [], 
+    twoHouseOrArea: true,
   },
   
   attached() {
@@ -101,11 +102,13 @@ Component({
       this.setData({
         url: this.data.IPS[0],
         label: ["区域", "户型", "价格", "面积", "类型"],
+        twoHouseOrArea: true,        
       });
     } else if (name == '租房') {
       this.setData({
         url: this.data.IPS[1],
         label: ["区域", "户型", "租金", "面积"],       
+        twoHouseOrArea: true,        
       })
     }else if(name == '小区') {
       this.setData({

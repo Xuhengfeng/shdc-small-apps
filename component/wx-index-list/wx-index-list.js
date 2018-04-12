@@ -1,5 +1,5 @@
 // component/wx-index-list/wx-index-list.js
-const bmap  = require("../../libs/bmap-wx.min.js");//百度地图sdk
+const bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
 const pinyin = require("../../libs/browser.js"); //汉字转拼音
 const app = getApp();
 
@@ -21,10 +21,10 @@ Component({
       value: null
     },
     // 用于外部组件搜索使用
-    search:{
-      type:String,
-      value:"",
-      observer: function (newVal, oldVal) { 
+    search: {
+      type: String,
+      value: "",
+      observer: function (newVal, oldVal) {
         console.log(newVal)
         this.value = newVal;
         this.searchMt();
@@ -38,17 +38,17 @@ Component({
     myCityName: '请选择', // 默认我的城市,
   },
   ready() {
-    setTimeout(()=>{
+    setTimeout(() => {
       var city = this.data.city;
       this.resetRight(city);
-      if(this.data.myCity) this.getCity();
-    },1000)
-    
+      if (this.data.myCity) this.getCity();
+    }, 1000)
+
   },
   methods: {
     resetRight(data) {// 数据重新渲染
       let rightArr = []
-      for(let i in data) {
+      for (let i in data) {
         rightArr.push(data[i].title.substr(0, 1));
       }
       this.setData({//这里赋值渲染
@@ -57,17 +57,44 @@ Component({
       })
     },
     getCity() {//定位
-      app.location();
-      wx.getStorage({
-        key:'selectCity',
-        success: (res)=>{
-          this.setData({
-            myCity: res.data.name
-          })
+      wx.getLocation({
+        type: 'gcj02',
+        success: (res) => {
+          console.log(res)
+          // // 百度地图地址解析
+          var BMap = new bmap.BMapWX({
+            ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
+          });
+          // 发起regeocoding检索请求 
+          BMap.regeocoding({
+            location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
+            success: (data) => {
+              var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
+              var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
+              var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
+              wx.setStorage({
+                key: 'currentCity',
+                data: {
+                  name: currentCityName,
+                  value: currentCity
+                },
+                success:()=>{
+                  this.setData({
+                    myCity: currentCityName
+                  })
+                },
+                fail: ()=>{
+                  this.setData({
+                    myCity: currentCityName
+                  })
+                }
+              });
+              
+            }
+          });
         }
       })
-      
-    },   
+    },
     jumpMt(e) {//右侧字母点击事件
       let jumpNum = e.currentTarget.dataset.id;
       this.setData({ jumpNum });
@@ -84,7 +111,7 @@ Component({
         bubbles: false,//事件是否冒泡
         composed: false,//事件是否可以穿越组件边界
         capturePhase: false //事件是否拥有捕获阶段
-      } 
+      }
       // 触发事件的选项
       this.triggerEvent('detail', detail, myEventOption)
     },
@@ -94,22 +121,22 @@ Component({
     searchMt() {// 基础搜索功能
       this._search();
     },
-    _search(){
+    _search() {
       console.log("搜索")
       let data = this.data.city;
       let newData = [];
-      for(let i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         let itemArr = [];
-        for(let j = 0; j < data[i].item.length; j++) {
-          if(data[i].item[j].name.indexOf(this.value) > -1) {
+        for (let j = 0; j < data[i].item.length; j++) {
+          if (data[i].item[j].name.indexOf(this.value) > -1) {
             let itemJson = {};
-            for(let k in data[i].item[j]) {
+            for (let k in data[i].item[j]) {
               itemJson[k] = data[i].item[j][k];
             }
             itemArr.push(itemJson);
           }
         }
-        if(itemArr.length === 0) {continue};
+        if (itemArr.length === 0) { continue };
         newData.push({
           title: data[i].title,
           type: data[i].type ? data[i].type : "",
@@ -121,19 +148,14 @@ Component({
     locationMt(e) {// 城市点击选择
       let pages = getCurrentPages();//当前页面
       let prevPage = pages[pages.length - 2];//上一页面
-      console.log(e)
-      wx.setStorage({
+      wx.getStorage({
         key: 'selectCity',
-        data: {
-          name: e.target.dataset.detail,
-          value: pinyin.convertToPinyin(e.target.dataset.detail, '', true)
-        },
         success: ()=> {
           prevPage.setData({//直接给上移页面赋值
             myLocation: e.target.dataset.detail,
             currentCity: pinyin.convertToPinyin(e.target.dataset.detail, '', true)
           });
-          prevPage.onLoad();//上一页重新加载数据
+          prevPage.oneBigRequest();//上一页重新加载数据
           wx.navigateBack();//返回上一个页面
         }
       })  

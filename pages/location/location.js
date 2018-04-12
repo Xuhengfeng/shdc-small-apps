@@ -17,7 +17,7 @@ Page({
           myLocation: e.detail.name,
           scity: e.detail.value
         })
-        prevPage.onLoad();//上一页重新加载数据
+        // prevPage.onLoad();//上一页重新加载数据
         wx.navigateBack();//返回上一个页面
       }
     });

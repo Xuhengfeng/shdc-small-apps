@@ -16,85 +16,11 @@ App({
       }
     })
   },
-  location() {
-    let that = this;
-    wx.getLocation({
-      type: 'gcj02',
-      success: (res) => {
-        console.log(res)
-        // // 百度地图地址解析
-        var BMap = new bmap.BMapWX({
-          ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
-        });
-        // 发起regeocoding检索请求 
-        BMap.regeocoding({
-          location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
-          success: (data) => {
-            var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
-            var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
-            var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
-            wx.setStorage({
-              key: 'selectCity',
-              data: {
-                name: currentCityName,
-                value: currentCity
-              }
-            });
-          }
-        });
-      },
-      fail: (error) => {
-        wx.showModal({
-          title: '警告通知',
-          content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
-          success: res => {
-            if (res.confirm) {
-              wx.openSetting({
-                success: res => {
-                  console.log(res)
-                  if (res.authSetting["scope.userLocation"]) {//如果用户重新同意了授权登录
-                    wx.getLocation({
-                      type: 'gcj02',
-                      success: (res) => {
-                        console.log(res)
-                        // // 百度地图地址解析
-                        var BMap = new bmap.BMapWX({
-                          ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
-                        });
-                        // 发起regeocoding检索请求 
-                        BMap.regeocoding({
-                          location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
-                          success: (data) => {
-                            var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
-                            var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
-                            var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
-                            wx.setStorage({
-                              key: 'selectCity',
-                              data: {
-                                name: currentCityName,
-                                value: currentCity
-                              }
-                            });
-                          }
-                        });
-                      }
-                    })
-                  }
-                }
-              })
-            }
-          }
-        })
-      }
-    })
-  },
   onLaunch() {
-    this.location();
     //展示本地存储能力
     // var logs = wx.getStorageSync('logs') || []
     // logs.unshift(Date.now())
     // wx.setStorageSync('logs', logs)
-
 
     // //获取用户信息
     // wx.getSetting({
