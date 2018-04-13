@@ -40,14 +40,14 @@ Page({
     if(name == '二手房') {
       this.setData({
         houseDetail: name,
-        flagPrice: false,
+        flagPrice: true,
         num: 0,
         label: ["区域", "户型", "价格", "面积", "类型"]
       });
     } else if (name == '租房') {
       this.setData({
         houseDetail: name,
-        flagPrice: true,
+        flagPrice: false,
         num: 1,
         label: ["区域", "户型", "租金", "面积"]
       });

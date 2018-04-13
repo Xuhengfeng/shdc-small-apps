@@ -158,7 +158,7 @@
           </view>
       </view>
       <view class="title seehouse">带看记录 
-        <navigator url="../houseDetail/seehouseList?id={{houseDetail.id}}" hover-class="none">
+        <navigator url="../houseDetail/seehouseList?id={{houseDetail.id}}&totalSeeNum={{houseDetail.totalSeeNum}}&day7Num={{houseDetail.day7Num}}" hover-class="none">
             最近带看{{houseDetail.recentlySee}}<image src="../../images/rightMore.png"/>
         </navigator>
   </view>
@@ -208,8 +208,8 @@
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
           <view class="item-content">
-            <!-- 二手房(买房)、租房详情 -->
-            <template is="houseContent3" data="{{item}}"/>
+              <!-- 二手房详情 租房详情 -->
+              <template is="houseContent3" data="{{item, flagPrice}}"/>
           </view>
       </view>
   </block>
@@ -223,8 +223,8 @@
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
           <view class="item-content">
-            <!-- 二手房(买房)、租房详情 -->
-            <template is="houseContent3" data="{{item}}"/>
+              <!-- 二手房详情 租房详情 -->
+              <template is="houseContent3" data="{{item, flagPrice}}"/>
           </view>
       </view>
   </block>

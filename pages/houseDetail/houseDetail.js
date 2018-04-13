@@ -36,7 +36,7 @@ Page({
     IpsNum: 0,
     currentCity: null,//城市
     page: 1,
-    flagPrice: true,
+    flagPrice: '',
     contentType: 11 //热门小区11， 小区二手房22
   },
   onLoad(options) {
@@ -51,13 +51,15 @@ Page({
               detailType: 11,
               houseDetailId: options.id,
               IpsNum: 0,
-              contentType: 22
+              contentType: 22,
+              flagPrice: true
             });
           } else if (res.data == '租房') {//租房
             this.setData({
               detailType: 22,
               houseDetailId: options.id,
-              IpsNum: 1
+              IpsNum: 1,
+              flagPrice: false              
             });
           } else if (res.data == '小区找房' || options.houseDetail == '热门小区'||res.data=="小区") {//小区
             this.setData({
@@ -330,7 +332,7 @@ Page({
               hasMore: false,
               showload: false
             })
-            wx.showModal({content: '服务器异常'})
+            wx.showModal({content: '服务器错误'})
           }
         },
         fail: (error)=> {
@@ -338,7 +340,7 @@ Page({
             hasMore: false,
             showload: false
           })
-          wx.showModal({content: '服务器异常'})
+          wx.showModal({content: '服务器错误'})
         }
       })
     }
