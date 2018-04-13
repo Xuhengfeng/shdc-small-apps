@@ -19,19 +19,18 @@ Page({
     latitude: 38.76623,
     longitude: 116.43213,
 
-
-    //小区详情 猜你喜欢
-    guessYouLike: ['二手房', '租房'],
-    guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
-    num: 0,
-
-
     //二手房(买房)详情11，租房详情22, 小区详情33 
     detailType: '',//详情类型
     houseDetailId: '',//房屋的sdid编码
     houseDetail: null,//房屋详情 
     guanlianList: null,//关联小区
+    community: null,//同小区房源
     nearbyHouse: null,//附近房源
+
+    //小区详情 猜你喜欢
+    guessYouLike: ['二手房', '租房'],
+    guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
+    num: 0,
     guessYoulikeHouse: [],//猜你喜欢的
     IPS: [Api.IP_TWOHANDHOUSEDETAIL, Api.IP_RENTHOUSEDETAIL, Api.IP_BUILDINFO],//二手房(买房) 租房 小区
     IpsNum: 0,
@@ -47,32 +46,25 @@ Page({
     wx.getStorage({
       key: 'houseTypeSelect',
       success: (res) => {
-          if (res.data == '二手房' || res.data == '我要买房' || res.data == "小区二手房") {//二手房
+          if (res.data == '二手房' || res.data == "小区二手房" || options.houseDetail == "二手房") {//二手房
             this.setData({
               detailType: 11,
               houseDetailId: options.id,
               IpsNum: 0,
               contentType: 22
             });
-          } else if (res.data == '租房' || res.data == '我要租房') {//租房
+          } else if (res.data == '租房') {//租房
             this.setData({
               detailType: 22,
               houseDetailId: options.id,
               IpsNum: 1
             });
-          } else if (res.data == '小区找房' || res.data == '热门小区'||res.data=="小区") {//小区
+          } else if (res.data == '小区找房' || options.houseDetail == '热门小区'||res.data=="小区") {//小区
             this.setData({
               detailType: 33,
               houseDetailId: options.id,
               IpsNum: 2,
               contentType: 11
-            });
-          } else if (options.houseDetail == "二手房") {
-            this.setData({
-              detailType: 11,
-              houseDetailId: options.id,
-              IpsNum: 0,
-              contentType: 22
             });
           }
       }
@@ -80,32 +72,19 @@ Page({
     wx.getStorage({
       key: 'selectCity',
       success: (res)=> {
-        this.setData({
-          currentCity:  res.data.value
-        })
-       //map 地图定位
-          wx.getLocation({
-            type: 'gcj02',
-            success: () => {
-               //二手房详情 租房详情 小区找房详情
-              this.buyRentRequest(this.data.houseDetailId);              
-            },
-            fail: ()=> {
-               //二手房详情 租房详情 小区找房详情
-              this.buyRentRequest(this.data.houseDetailId); 
-            }
-          })
-        }
+        this.setData({currentCity:  res.data.value})
+        //二手房详情 租房详情 小区找房详情
+        this.buyRentRequest(res.data.value, this.data.houseDetailId); 
+      }    
     })
     
   },
   //二手房详情 租房详情 小区找房详情
-  buyRentRequest(sdid) {
-
-
+  buyRentRequest(city, sdid) {
     if (this.data.detailType == 11 || this.data.detailType == 22) {
+
       //二手房  租房详情
-      app.httpRequest(this.data.IPS[this.data.IpsNum] + this.data.currentCity + '/' + sdid, 'GET', (error, data) => {
+      app.httpRequest(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, 'GET', (error, data) => {
         console.log(data)
         this.setData({
           latitude: data.data.py,
@@ -120,16 +99,18 @@ Page({
             title: data.data.houseTitle
           }]
         })
+        //同小区房源
+        this.communityRequest(city, data.data.buildSdid);
         //附近房源详情
-        this.nearbyHouseRequest(data.data.px, data.data.py, this.data.currentCity, data.data.buildSdid);
+        this.nearbyHouseRequest(data.data.px, data.data.py, city, data.data.buildSdid);
         //关联小区详情 
-        this.guanlianListRequest(data.data.px, data.data.py, this.data.currentCity, data.data.buildSdid);
+        this.guanlianListRequest(data.data.px, data.data.py, city, data.data.buildSdid);
       })
     }
     //小区找房详情
     if (this.data.detailType == 33) {
       wx.request({
-        url: this.data.IPS[this.data.IpsNum] + this.data.currentCity + '/' + this.data.houseDetailId,
+        url: this.data.IPS[this.data.IpsNum] + city + '/' + this.data.houseDetailId,
         data: {},
         method: "GET",
         header: { 'Content-Type': 'application/json' },
@@ -149,14 +130,23 @@ Page({
           });
         }
       })
-    }
-
-    //猜你喜欢(默认二手房 首页第1页数据)
-    var IP = this.data.guessLikeIP[this.data.num] + '/' + this.data.currentCity;
-    this.getDataFromServer(IP, { pageNo: 1 });
+      //猜你喜欢(默认二手房 首页第1页数据)
+      var IP = this.data.guessLikeIP[this.data.num] + '/' + city;
+      this.getDataFromServer(IP, { pageNo: 1 });
+    }    
+  },
+  //同小区房源
+  communityRequest(city, buildSdid) {
+    app.httpRequest(Api.IP_SAMEUSED+city+'/'+buildSdid+'?pageNo='+1, 'GET', (error, data) => {
+        console.log('同小区:'+data.data)
+        data.data.forEach((item) => {
+          item.houseTag = item.houseTag.split(',');
+        })
+        this.setData({community: data.data});
+    })
   },
   //附近房源详情
-  nearbyHouseRequest(px, py, currentCity, buildSdid) {
+  nearbyHouseRequest(px, py, city, buildSdid) {
     wx.request({
       url: Api.IP_RIMHOUSING,
       data: {
@@ -165,7 +155,7 @@ Page({
         "py": py,
         'pageNo': 1,
         'pageSize': 10,
-        'scity': currentCity
+        'scity': city
       },
       method: "POST",
       header: { 'Content-Type': 'application/json' },
@@ -219,8 +209,8 @@ Page({
       scrollTop: 0,
       duration: 0
     })
-    let sdid = e.target.dataset.id;
-    this.buyRentRequest(sdid); 
+    let sdid = e.currentTarget.dataset.id;
+    this.buyRentRequest(this.data.currentCity, sdid); 
   },
   jumpLookHouse() {//预约看房
     wx.navigateTo({
@@ -275,7 +265,7 @@ Page({
     // 设置菜单中的转发按钮触发转发事件时的转发内容
     var shareObj = {
       title: "世华地产",        // 默认是小程序的名称(可以写slogan等)
-      desc: '世华地产全球遥遥领先',
+      // desc: '世华地产全球遥遥领先',
       path: '/pages/houseDetail/houseDetail',    //默认是当前页面，必须是以‘/’开头的完整路径
       imgUrl: '',     //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
       success: (res)=> {
@@ -293,8 +283,9 @@ Page({
     }
     if(options.from == 'button') {
       var eData = options.target.dataset;
+      console.log(eData)
       // 此处可以修改 shareObj 中的内容
-      shareObj.path = '/pages/btnname/btnname?btn_name=' + eData.name;
+      // shareObj.path = '/pages/btnname/btnname?btn_name=' + eData.name;
     }
     return shareObj
   },

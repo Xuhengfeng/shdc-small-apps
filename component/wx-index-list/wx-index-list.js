@@ -150,14 +150,14 @@ Component({
       let pages = getCurrentPages();//当前页面
       let prevPage = pages[pages.length - 2];//上一页面
       wx.getStorage({
-        key: 'selectCity',
-        success: ()=> {
+        key: 'currentCity',
+        success: (res)=> {
           prevPage.setData({//直接给上移页面赋值
             myLocation: e.target.dataset.detail,
             num: 0,
             currentCity: pinyin.convertToPinyin(e.target.dataset.detail, '', true)
           });
-          prevPage.oneBigRequest();//上一页重新加载数据
+          prevPage.oneBigRequest(res.data.value);//上一页重新加载数据
           wx.navigateBack();//返回上一个页面
         }
       })  

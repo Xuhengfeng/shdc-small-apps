@@ -9,15 +9,20 @@ Page({
     var pages = getCurrentPages();//当前页面路由栈的信息
     var currPage = pages[pages.length - 1];//当前页面
     var prevPage = pages[pages.length - 2];//上一个页面
+    console.log(e)
+    // detail
     wx.setStorage({
       key: 'selectCity',
-      data: e.detail,
-      success:function() {
+      data: {
+        name: e.detail.name,
+        value: e.detail.value
+      },
+      success: ()=> {
         prevPage.setData({
           myLocation: e.detail.name,
           scity: e.detail.value
         })
-        // prevPage.onLoad();//上一页重新加载数据
+        prevPage.oneBigRequest(e.detail.value);//上一页重新加载数据
         wx.navigateBack();//返回上一个页面
       }
     });

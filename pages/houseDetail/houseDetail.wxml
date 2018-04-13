@@ -57,11 +57,11 @@
           </view>
           <view>
                 <view>房型</view>
-                <view>xxxxx</view>
+                <view>{{houseDetail.houseType}}</view>
           </view>
           <view>
                 <view>建筑面积</view>
-                <view>xxxxm²</view>
+                <view>{{houseDetail.builtArea}}m²</view>
           </view>
     </view>
   </block>
@@ -157,6 +157,11 @@
                 <view>{{houseDetail.collectNum}}</view>
           </view>
       </view>
+      <view class="title seehouse">带看记录 
+        <navigator url="../houseDetail/seehouseList" hover-class="none">
+            最近带看{{houseDetail.recentlySee}}<image src="../../images/rightMore.png"/>
+        </navigator>
+  </view>
   </block>
   <block wx:if="{{detailType==33}}">
        <!-- 小区找房详情 -->
@@ -197,18 +202,14 @@
             更多小区房源<image src="../../images/rightMore.png"/>
         </navigator>
   </view>
-  <block wx:for="{{nearbyHouse}}">
-      <view class="item" style="position:relative;">
+  <block wx:for="{{community}}">
+      <view class="item" data-id="{{item.sdid}}" bindtap="RefreshHouseDetail">
           <view class="image">
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
           <view class="item-content">
             <!-- 二手房(买房)、租房详情 -->
             <template is="houseContent3" data="{{item}}"/>
-          </view>
-          <view bindtap="RefreshHouseDetail" 
-                data-id="{{item.sdid}}"
-                style="position:absolute;top:0;left:0;width:100%;height:100%;background:transparent">
           </view>
       </view>
   </block>
@@ -217,17 +218,13 @@
 <view class="section section6" wx:if="{{detailType!==33}}">
   <view class="title">周边房源</view>
   <block wx:for="{{nearbyHouse}}">
-      <view class="item" style="position:relative;">
+      <view class="item" data-id="{{item.sdid}}" bindtap="RefreshHouseDetail">
           <view class="image">
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
           <view class="item-content">
             <!-- 二手房(买房)、租房详情 -->
             <template is="houseContent3" data="{{item}}"/>
-          </view>
-          <view bindtap="RefreshHouseDetail" 
-                data-id="{{item.sdid}}"
-                style="position:absolute;top:0;left:0;width:100%;height:100%;background:transparent">
           </view>
       </view>
   </block>

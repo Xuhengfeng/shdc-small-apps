@@ -220,7 +220,17 @@ page{
 .section4 .facilityLabel view:nth-last-of-type(1){
    margin-bottom: 0; 
 }
-
+.section4 .seehouse{
+  height: 90rpx;
+  line-height: 90rpx;
+  padding: 0;
+  font-size: 30rpx;
+  color: #222222;
+  border-bottom: 1px solid #e6e6e6;
+}
+.section4 navigator{
+  margin-top: 30rpx;
+}
 
 /* 关联小区 */
 

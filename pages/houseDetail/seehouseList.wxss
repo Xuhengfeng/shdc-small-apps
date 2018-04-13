@@ -1,0 +1,57 @@
+/* pages/houseDetail/seehouseList.wxss */
+.seeCount{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 200rpx;
+  background: #ffffff;
+}
+.seeCount>view{
+  flex: 1;
+}
+.seeCount>view:first-child{
+  border-right: 1px solid #e6e6e6;
+}
+.number{
+  font-size: 36rpx;
+  color: #222222;
+}
+.decription{
+  margin-top: 30rpx;
+  font-size: 26rpx;
+  color: #666666;
+}
+.threeTitle{
+  padding: 0 40rpx;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  height: 80rpx;
+  align-items: center;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.seehouselist{
+  padding: 0 20rpx;
+  margin: 0 20rpx;
+  border-bottom: 1px solid #e6e6e6;
+  height: 90rpx;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content:  flex-start;
+  align-items: center;
+}
+.seehouselist image{
+  float: right;
+  width: 33rpx;
+  height: 34rpx;
+}
+.seehouselist>view{
+  flex: 1;
+}
+.seehouselist>view:nth-of-type(2) text{
+  margin-left: 55rpx;
+}

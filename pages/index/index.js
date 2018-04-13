@@ -111,6 +111,7 @@ Page({
     })
   },
   oneBigRequest(city) {
+    console.log(111111111111111111)
     //获取主页banner资讯
     app.httpRequest(this.data.IPS[0] + city + "/INDEX_BANNER", 'GET', (error, data) => {
       this.setData({ imgUrls: data.data });

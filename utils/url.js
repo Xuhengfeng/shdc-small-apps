@@ -25,11 +25,11 @@ export const IP_HOUSEENTRUSTAPPLY = SERVER_IPS + "/houseEntrustApply/houseEntrus
 export const IP_HOUSEENTRUSTAPPLYLIST = SERVER_IPS + "/houseEntrustApply/houseEntrustApplyList";//租售房源列表
 
 
-// 详情页 收藏
+//详情页和收藏
+export const IP_SAMEUSED = SERVER_IPS + "/build/same-used/";//同小区二手房
 export const IP_COLLECTIONADD = SERVER_IPS + "/buildCollection/add/";//小区收藏
 export const IP_HOUSECOLLECTION = SERVER_IPS + "/houseCollection/add/";//二手房收藏
 export const IP_RENTCOLLECTION = SERVER_IPS + "/rentHCollection/add/";//租房收藏
-
 export const IP_COLLECTIONLIST = SERVER_IPS + "/buildCollection/collectionList";//小区收藏列表
 export const IP_HOUSECOLLECTIONLIST = SERVER_IPS + "/houseCollection/collectionList";//二手房收藏列表
 export const IP_RENTCOLLECTIONLIST = SERVER_IPS + "/rentHCollection/collectionList";//租房收藏列表
