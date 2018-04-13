@@ -5,6 +5,9 @@
 navigator{
   overflow: hidden;
 }
+.headerTab{
+  padding-top: 40px!important;
+}
 .page_hd .flexBox{
   display: flex;
   flex-direction: row;
