@@ -112,12 +112,14 @@ Page({
   },
   login() {//手机短信验证码登录
     if(this.data.inputValue1 !== "" && this.data.inputValue2 !== "" ) {
-      var mobilePhone = this.data.inputValue1
+      let mobilePhone = this.data.inputValue1
+      let smsCode = this.data.inputValue2
+    
       wx.request({
         url: Api.IP_SMSCODELOGIN,
         data: {
           deviceCode: "wx",
-          smsCode: '111111',//验证码  暂时默认111111
+          smsCode: smsCode,//验证码  暂时默认111111
           mobile: mobilePhone
         },
         method: 'POST',
@@ -125,16 +127,20 @@ Page({
           'content-type': 'application/json' // 默认值
         },
         success: (res) => {
-          wx.setStorage({
-            key: 'userToken',
-            data: res.data
-          })
-          wx.showToast({
-            title: '登录成功',
-            icon: 'success',
-            duration: 1000
-          })
-          this.goBackSet(res);
+          if(res.data.status == 500) {
+            wx.showModal({content: '手机或验证码不对!'})
+          }else if(res.data.status == 200) {
+            wx.setStorage({
+              key: 'userToken',
+              data: res.data
+            })
+            wx.showToast({
+              title: '登录成功',
+              icon: 'success',
+              duration: 1000
+            })
+            this.goBackSet(res);
+          }
         }
       })
     }else{
@@ -197,7 +203,8 @@ Page({
         method: 'POST',
         header: {'content-type': 'application/json'},
         success: (res)=> {
-            //再次请求登录
+          console.log(res)
+            //再次请求登录 获取验证码
             if(res.data.status == 500) {//说明用户已经注册过
                 wx.request({
                 url: Api.IP_GETSMSCODE,
@@ -210,9 +217,7 @@ Page({
                 header: {
                   'content-type': 'application/json' // 默认值
                 },
-                success: (res) => {
-                  console.log(res)
-                }
+                success: (res) => {}
               })
             }
              
