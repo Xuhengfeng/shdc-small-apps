@@ -5,11 +5,14 @@ const app = getApp();
 Page({
   data: {
     houseList: [],
+    page: 1,
+    currentCity: null,//当前城市
+    showload: false,//加载圈
     //热门小区  小区二手房 同小区房源
     contentType: null,
-    page: 1,
-    currentCity: null,
-    showload: false,//加载圈
+    IPS: [Api.IP_HOTBUILDING, Api.IP_HOTBUILDING, Api.IP_SAMEUSED],
+    num: '',
+    bool: false//是否开启上拉加载
   },
   onLoad(options) {
     wx.setNavigationBarTitle({
@@ -17,52 +20,75 @@ Page({
     })
 
     if(options.title == '热门小区'){
-      this.setData({contentType: 11});
+      this.setData({
+        contentType: 11,
+        num: 0
+      });
     }else if (options.title == '小区二手房') {
-      this.setData({ contentType: 22 });
+      this.setData({ 
+        contentType: 22,
+        num: 1
+       });
     }else if(options.title == '同小区房源') {
-      this.setData({contentType: 33});
+      this.setData({
+        contentType: 33,
+        num: 2
+      });
     }
 
-    //热门小区
+    //热门小区  小区二手房
     wx.getStorage({
       key: 'selectCity',
       success: (res)=> {
-        this.setData({currentCity: res.data.value})
-        this.getServerData(1, this.data.currentCity);
+        this.setData({currentCity: res.data.value});
+
+        //同小区房源
+        if (this.data.contentType == 33) {
+          let params = {
+            'pageNo': 1
+          }
+          let IP = this.data.IPS[this.data.num] + res.data.value+'/'+options.id
+          let bool = false;
+          this.getServerData(IP, params, bool);
+        }
       }
     })
   },
-  getServerData(pageNo, currentCity) {
+  getServerData(IP, params, bool) {
     this.setData({
       showload: true
     })
-    setTimeout(()=>{
-      wx.request({
-        url: Api.IP_HOTBUILDING + currentCity,
-        data: {
-          pageNo: pageNo,
-          pageSize: 10
-        },
-        method: "GET",
-        header: { 'Content-Type': 'application/json' },
-        success: (res) => {
-          if (res.statusCode == 200) {
-            if (res.data.status == 1) {
-              this.setData({
-                houseList: this.data.houseList.concat(res.data.data),
-                showload: false
-              });
-            }
-          } else if (res.statusCode == 500) {
-            wx.showModal({content: '服务器异常'})
+    wx.request({
+      url: IP,
+      data: params,
+      method: "GET",
+      header: { 'Content-Type': 'application/json' },
+      success: (res) => {
+        console.log(res)
+        if (res.statusCode == 200) {
+          if (res.data.status == 1) {
+            this.setData({
+              houseList: this.data.houseList.concat(res.data.data),
+              showload: false
+            });
           }
+        } else if (res.statusCode == 500) {
+          this.setData({
+            houseList: '',
+            showload: false
+          });
+          wx.showModal({content: '服务器异常'})
         }
-      })
-    }, 1000);
+      }
+    })
   },
   onReachBottom() {//上拉
-    let pageNo = this.data.page++;
-    this.getServerData(pageNo, this.data.currentCity)
+    let bool = true;
+    let page = this.data.page++;
+    let params = {
+      'scity': res.data.value,
+      'pageNo': 1
+    }
+    this.getServerData(this.data.IPS[this.data.num], params, bool);
   }
 })

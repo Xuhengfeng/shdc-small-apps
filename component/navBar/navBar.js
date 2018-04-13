@@ -233,7 +233,7 @@ Component({
         areaSubCategoriesId: e.target.dataset.id,
         highSelectItem: true,
         num: 0,
-        [label]: this.data.area[this.data.areaCategories].districts[id].name
+        // [label]: this.data.area[this.data.areaCategories].districts[id].name
       })
       let params;
       if (e.target.dataset.num == 0) {//第二列 不限
@@ -262,7 +262,7 @@ Component({
       this.setData({
         houseTypeCategories: e.target.dataset.num,
         roomsNum: e.target.dataset.value,
-        [label]: this.data.houseType[e.target.dataset.num].name
+        // [label]: this.data.houseType[e.target.dataset.num].name
       })
     },
     changeHouseTypeUnlimit() {
@@ -295,7 +295,7 @@ Component({
         priceCategories: e.target.dataset.num,
         minPrice: e.target.dataset.minprice.value.split('-')[0],
         maxPrice: e.target.dataset.maxprice.value.split('-')[1],
-        [label]: this.data.price[e.target.dataset.num].name
+        // [label]: this.data.price[e.target.dataset.num].name
       })
     },
     pricelabelUnlimit() {
@@ -340,7 +340,7 @@ Component({
         proportionCategories: e.target.dataset.num,
         minBuildArea: e.target.dataset.minbuildarea.value.split('-')[0],
         maxBuildArea: e.target.dataset.maxbuildarea.value.split('-')[1],
-        [label]: this.data.proportion[e.target.dataset.num].name
+        // [label]: this.data.proportion[e.target.dataset.num].name
       })
     },
     proportionlabelUnlimit() {
@@ -374,7 +374,7 @@ Component({
       this.setData({
         modeCategories: e.target.dataset.num,
         modeCategoriesValue: e.target.dataset.value,
-        [label]: this.data.mode[e.target.dataset.num].name
+        // [label]: this.data.mode[e.target.dataset.num].name
       })
     },
     modelabeUnlimit() {

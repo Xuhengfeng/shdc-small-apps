@@ -14,7 +14,6 @@ Page({
     cityCode: null,
     tone:'rgba(249,249,249,0)',//头部渐变色值
     houseDetail: null,//房源详情
-    houseList: [],
     flagPrice: true,
     page: 1,
 
@@ -58,16 +57,7 @@ Page({
       key: 'selectCity',
       success: (res) => {
         this.setData({cityCode: res.data.value});
-        //二手房(买房) 租房 列表
-        let IP = this.data.IPS[this.data.num];
-        let Params = {
-          pageNo: 1,
-          pageSize: 10,
-          keyword: this.data.keyword,
-          scity: this.data.cityCode
-        }
-        this.getDataFromServer(IP, Params);
-
+        
         // banner图片
         app.httpRequest(Api.IP_INDEXCONSULT + res.data.value + "/HOUSE_USED_BANNER", 'GET', (error, data) => {//获取主页资讯Banner
             this.setData({ imgUrls: data.data })
@@ -204,6 +194,22 @@ Page({
       })
     }
   },
+  //监听事件 拿到首次 或 点击筛选条件的第一页数据
+  onMyEventHouseList(item) {
+    setTimeout(() => {
+      //修正数据
+      item.detail.houseList.forEach((item2) => {
+        console.log(item2)
+        if (item2.houseTag) {
+          item2.houseTag = item2.houseTag.split(',');
+        }
+      })
+      this.setData({
+        houseList: item.detail.houseList,
+        params: item.detail.params
+      })
+    }, 500)
+  },
   onReachBottom() {
     var page = this.data.page++;
     let IP = this.data.IPS[this.data.num];
@@ -242,12 +248,20 @@ Page({
           }
         }
         if(res.statusCode == 500) {
-          this.setData({showload: false})
+          this.setData({
+            houseList: '',
+            hasMore: false,
+            showload: false
+          })
           wx.showModal({content: '服务器异常'})
         }
       },
       fail: ()=> {
-        this.setData({ showload: false })
+        this.setData({
+          houseList: '',
+          hasMore: false,
+          showload: false
+        })
       }
     })
   }

@@ -27,6 +27,7 @@ export const IP_HOUSEENTRUSTAPPLYLIST = SERVER_IPS + "/houseEntrustApply/houseEn
 
 //详情页和收藏
 export const IP_SAMEUSED = SERVER_IPS + "/build/same-used/";//同小区二手房
+export const IP_HOUSESEE = SERVER_IPS + "/house/houseSee/";//小区带看房源记录列表
 export const IP_COLLECTIONADD = SERVER_IPS + "/buildCollection/add/";//小区收藏
 export const IP_HOUSECOLLECTION = SERVER_IPS + "/houseCollection/add/";//二手房收藏
 export const IP_RENTCOLLECTION = SERVER_IPS + "/rentHCollection/add/";//租房收藏

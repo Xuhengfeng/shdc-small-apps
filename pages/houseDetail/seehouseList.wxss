@@ -55,3 +55,9 @@
 .seehouselist>view:nth-of-type(2) text{
   margin-left: 55rpx;
 }
+
+.nothing{
+  text-align: center;
+  font-size: 32rpx;
+  color: #666666;
+}

@@ -138,7 +138,6 @@ Page({
   //同小区房源
   communityRequest(city, buildSdid) {
     app.httpRequest(Api.IP_SAMEUSED+city+'/'+buildSdid+'?pageNo='+1, 'GET', (error, data) => {
-        console.log('同小区:'+data.data)
         data.data.forEach((item) => {
           item.houseTag = item.houseTag.split(',');
         })

@@ -158,7 +158,7 @@
           </view>
       </view>
       <view class="title seehouse">带看记录 
-        <navigator url="../houseDetail/seehouseList" hover-class="none">
+        <navigator url="../houseDetail/seehouseList?id={{houseDetail.id}}" hover-class="none">
             最近带看{{houseDetail.recentlySee}}<image src="../../images/rightMore.png"/>
         </navigator>
   </view>
@@ -198,7 +198,7 @@
 
 <view class="section" wx:if="{{detailType!==33}}">
   <view class="title">同小区房源 
-        <navigator url="../index/hotHouse?title=同小区房源" hover-class="none">
+        <navigator url="../index/hotHouse?title=同小区房源&id={{houseDetail.sdid}}" hover-class="none">
             更多小区房源<image src="../../images/rightMore.png"/>
         </navigator>
   </view>

@@ -1,6 +1,6 @@
-var Api = require("../../utils/url");
+const Api = require("../../utils/url");
 const app = getApp();
-var filter = require("../../utils/filter.js");//页面拦截
+const filter = require("../../utils/filter.js");//页面拦截
 
 Page(filter.loginCheck({
   data: {

@@ -1,12 +1,12 @@
 <!-- 带看记录 -->
 <view class="seeCount">
       <view>
-            <view class="number">33</view>
+            <view class="number">{{day7Num}}</view>
             <view class="decription">近7天带看(次)</view>
       </view> 
       <view>
-            <view class="number">33</view>
-            <view class="decription">总带看(次)         </view>
+            <view class="number">{{totalSeeNum}}</view>
+            <view class="decription">总带看(次)</view>
       </view> 
 </view>
 
@@ -15,10 +15,11 @@
     <text>带看人</text>
     <text>联系经纪人</text>
 </view>
-<block wx:for="{{[1,3]}}">
+<block wx:for="{{seelist}}">
     <view class="seehouselist">
-        <view>2018.03.26</view> 
-        <view><text>张三</text></view>
-        <view bindtap="call"><image src="../../images/phone.png"></image></view>  
+        <view>{{item.seeDate}}</view> 
+        <view><text>{{item.emplName}}</text></view>
+        <view bindtap="call" data-phone="{{item.phone}}"><image src="../../images/phone.png"></image></view>  
     </view>
 </block>
+ <view wx:if="{{!seehouselist.length}}" class="nothing"><text>没有记录！</text></view>

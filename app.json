@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/houseDetail/houseDetail", 
     "pages/houseDetail/seehouseList",
+    "pages/houseDetail/houseDetail", 
     "pages/mine/mybuyhouse",
     "pages/mine/mine",
     "pages/mine/delegation",
