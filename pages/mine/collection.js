@@ -1,7 +1,7 @@
-var Api = require("../../utils/url");
+const Api = require("../../utils/url");
 const app = getApp();
-var filter = require("../../utils/filter.js");
-var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+const filter = require("../../utils/filter.js");
+const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
 Page(filter.loginCheck({
   data: {
@@ -9,10 +9,9 @@ Page(filter.loginCheck({
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-    houseList: [1,3],
-    twoHouseColletion: '',//二手房
-    rentHouseColletion: '',//租房
-    nearbyColletion: '',//小区
+    houseList: [],
+    hasMore: false,
+    showload: false,
     IPS: [Api.IP_HOUSECOLLECTIONLIST, Api.IP_RENTCOLLECTIONLIST, Api.IP_COLLECTIONLIST]
   },
   onLoad() {
@@ -36,6 +35,10 @@ Page(filter.loginCheck({
     });
   },
   getDataFromServer(num) {
+    this.setData({
+      hasMore: true,
+      showload: true
+    })
     wx.request({
       url: this.data.IPS[num],
       data: {
@@ -48,6 +51,15 @@ Page(filter.loginCheck({
         "unique-code": wx.getStorageSync("userToken").data
       },
       success: (res) => {
+        //修正数据
+        res.data.data.forEach((item) => {
+          item.houseTag = item.houseTag.split(',');
+        })
+        this.setData({
+          hasMore: false,
+          showload: false,
+          houseList: res.data.data
+        })
         wx.hideLoading();
       }
     })
