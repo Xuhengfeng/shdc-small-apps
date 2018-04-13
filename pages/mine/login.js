@@ -127,9 +127,9 @@ Page({
           'content-type': 'application/json' // 默认值
         },
         success: (res) => {
-          if(res.data.status == 500) {
+          if (res.statusCode == 500) {
             wx.showModal({content: '手机或验证码不对!'})
-          }else if(res.data.status == 200) {
+          }else if(res.statusCode == 200) {
             wx.setStorage({
               key: 'userToken',
               data: res.data
