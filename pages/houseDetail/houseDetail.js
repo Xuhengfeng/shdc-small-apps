@@ -219,36 +219,96 @@ Page({
     });
   },
   toggleSelectLike() {
-    this.setData({
-      likeFlag: !this.data.likeFlag
-    })
     if (wx.getStorageSync("userToken").data || wx.getStorageSync("openId")) {
-      wx.getStorage({
-        key: 'selectCity',
-        success: (res) => {
+      this.setData({likeFlag: !this.data.likeFlag});
+      if(likeFlag) {
+          // 添加收藏
           wx.showLoading({
             title: '收藏成功',
             icon: 'loading'
           })
-          //租房收藏
-          wx.request({
-            url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
-            data: '',
-            method: 'POST',
-            header: {
-              "Content-Type": "application/json",
-              "unique-code": wx.getStorageSync("userToken").data
-            },
-            success: (res) => {
-              wx.hideLoading();
-            }
+          if(this.data.detailType == 11) {
+              //二手房收藏
+              wx.request({
+                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
+                data: '',
+                method: 'POST',
+                header: {
+                  "Content-Type": "application/json",
+                  "unique-code": wx.getStorageSync("userToken").data
+                },
+                success: (res) => {wx.hideLoading()}
+              })
+          }else if(this.data.detailType == 22) {
+              //租房收藏
+              wx.request({
+                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
+                data: '',
+                method: 'POST',
+                header: {
+                  "Content-Type": "application/json",
+                  "unique-code": wx.getStorageSync("userToken").data
+                },
+                success: (res) => {wx.hideLoading()}
+              })
+          }else if(this.data.detailType == 33) {
+              //小区收藏
+              wx.request({
+                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
+                data: '',
+                method: 'POST',
+                header: {
+                  "Content-Type": "application/json",
+                  "unique-code": wx.getStorageSync("userToken").data
+                },
+                success: (res) => {wx.hideLoading()}
+              })
+          }
+      }else{
+          //取消收藏
+          wx.showLoading({
+            title: '取消',
+            icon: 'loading'
           })
-        }
-      })
+          if(this.data.detailType == 11) {
+              //二手房取消收藏
+              wx.request({
+                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
+                data: '',
+                method: 'POST',
+                header: {
+                  "Content-Type": "application/json",
+                  "unique-code": wx.getStorageSync("userToken").data
+                },
+                success: (res) => {wx.hideLoading()}
+              })
+          }else if(this.data.detailType == 22) {
+              //租房取消收藏
+              wx.request({
+                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
+                data: '',
+                method: 'POST',
+                header: {
+                  "Content-Type": "application/json",
+                  "unique-code": wx.getStorageSync("userToken").data
+                },
+                success: (res) => {wx.hideLoading()}
+              })
+          }else if(this.data.detailType == 33) {
+              //小区取消收藏
+              wx.request({
+                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
+                data: '',
+                method: 'POST',
+                header: {
+                  "Content-Type": "application/json",
+                  "unique-code": wx.getStorageSync("userToken").data
+                },
+                success: (res) => {wx.hideLoading()}
+              })
+            }
     }else{
-      wx.redirectTo({
-        url: "/pages/mine/login"
-      });
+      wx.redirectTo({url: "/pages/mine/login"})
     }
   },
   previewIamge(e) {
