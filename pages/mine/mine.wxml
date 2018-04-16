@@ -10,16 +10,16 @@
         <navigator url="collection" class="weui-cell weui-cell_access" hover-class="none">
             <view class="weui-cell__bd">我的委托</view>
         </navigator>
-        <navigator url="collection" class="section weui-cell weui-cell_access" hover-class="none">
-           <view>
+        <view  class="section weui-cell weui-cell_access">
+           <navigator url="mybuyhouse" hover-class="none">
                 <image></image>
                 <view>我的卖房</view>
-            </view>
-            <view>
+            </navigator>
+            <navigator url="mybuyhouse" hover-class="none">
                 <image></image>
                 <view>我的租房</view>
-            </view>
-        </navigator>
+            </navigator>
+        </view>
     </view>
     <view class="weui-cells weui-cells_after-title">
         <navigator url="collection" class="weui-cell weui-cell_access" hover-class="none">
@@ -41,7 +41,7 @@
             <view class="weui-cell__bd">我的咨询</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="none">
+        <navigator url="suggest" class="weui-cell weui-cell_access" hover-class="none">
             <view class="weui-cell__bd">意见反馈</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>

@@ -60,8 +60,7 @@ Component({
       wx.getLocation({
         type: 'gcj02',
         success: (res) => {
-          console.log(res)
-          // // 百度地图地址解析
+          // 百度地图地址解析
           var BMap = new bmap.BMapWX({
             ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
           });
@@ -102,19 +101,34 @@ Component({
     detailMt(e) {//列表点击事件
       let detail = e.currentTarget.dataset.detail;
       let pages = getCurrentPages();//当前页面
-      let prevPage = pages[pages.length - 2];//上一页面
-      prevPage.setData({//直接给上移页面赋值
-        myLocation: detail.name,
-        name: 0,
-        currentCity: detail.value
-      });
-      let myEventOption = {
-        bubbles: false,//事件是否冒泡
-        composed: false,//事件是否可以穿越组件边界
-        capturePhase: false //事件是否拥有捕获阶段
-      }
-      // 触发事件的选项
-      this.triggerEvent('detail', detail, myEventOption)
+      let currPage = pages[pages.length - 1];//当前页面
+      let prevPage = pages[pages.length - 2];//上一个页面
+            prevPage.setData({
+              myLocation: e.target.dataset.detail.name,
+              scity: e.target.dataset.detail.value,
+              currentCity: e.target.dataset.detail.value
+            })
+            prevPage.oneBigRequest(e.target.dataset.detail.value);//上一页重新加载数据
+            wx.setStorage({
+              key: 'houseTypeSelect',
+              data: '二手房'
+            })
+            wx.setStorage({
+              key: 'selectCity',
+              data: {
+                name: e.target.dataset.detail.name,
+                value: e.target.dataset.detail.value
+              },
+              success: ()=> { wx.navigateBack()}
+            });
+
+            // let myEventOption = {
+            //   bubbles: false,//事件是否冒泡
+            //   composed: false,//事件是否可以穿越组件边界
+            //   capturePhase: false //事件是否拥有捕获阶段
+            // }
+            // // 触发事件的选项
+            // this.triggerEvent('detail', detail, myEventOption)
     },
     input(e) {// 获取搜索输入内容
       this.value = e.detail.value;
@@ -146,21 +160,25 @@ Component({
       }
       this.resetRight(newData);
     },
-    locationMt(e) {// 城市点击选择
+    locationMt(e) {// 定位城市点击选择
       let pages = getCurrentPages();//当前页面
       let prevPage = pages[pages.length - 2];//上一页面
-      wx.getStorage({
-        key: 'currentCity',
-        success: (res)=> {
-          prevPage.setData({//直接给上移页面赋值
-            myLocation: e.target.dataset.detail,
-            num: 0,
-            currentCity: pinyin.convertToPinyin(e.target.dataset.detail, '', true)
-          });
-          prevPage.oneBigRequest(res.data.value);//上一页重新加载数据
-          wx.navigateBack();//返回上一个页面
-        }
-      })  
+           prevPage.setData({//直接给上移页面赋值
+              myLocation: e.target.dataset.detail,
+              num: 0,
+              currentCity: pinyin.convertToPinyin(e.target.dataset.detail, '', true)
+           });
+          wx.setStorage({
+            key: 'houseTypeSelect',
+            data: '二手房'
+          })
+          wx.getStorage({
+            key: 'currentCity',
+            success: (res)=> {
+              prevPage.oneBigRequest(res.data.value);//上一页重新加载数据
+              wx.navigateBack();//返回上一个页面
+            }
+          })  
     }
   }
 })

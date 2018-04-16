@@ -39,7 +39,7 @@ page{
   padding: 20rpx 0;
   background: #ffffff;
 }
-.section view{
+.section navigator{
   flex: 1;
   font-size: 26rpx;
 }

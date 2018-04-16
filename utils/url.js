@@ -16,7 +16,7 @@ export const IP_RENTRECMDLIST = SERVER_IPS + "/rentHouse/recmdList/";//租房(�
 export const IP_APPOINTHOUSE = SERVER_IPS + "/appoint/house";//预约看房
 export const IP_CURRENTDATETIME = SERVER_IPS + "/dictionary/currentDateTime";//预约看房时间
 export const IP_SHOPS = SERVER_IPS + "/shop/shops";//门店信息列表
-// 猜你喜欢
+//首页猜你喜欢
 export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你喜欢 二手房列表
 export const IP_RENTHOUSERENTLIKE = SERVER_IPS + "/rentHouse/queryLike";//首页猜你喜欢 租房列表
 
@@ -26,14 +26,22 @@ export const IP_HOUSEENTRUSTAPPLYLIST = SERVER_IPS + "/houseEntrustApply/houseEn
 
 
 //详情页和收藏
-export const IP_SAMEUSED = SERVER_IPS + "/build/same-used/";//同小区二手房
 export const IP_HOUSESEE = SERVER_IPS + "/house/houseSee/";//小区带看房源记录列表
-export const IP_COLLECTIONADD = SERVER_IPS + "/buildCollection/add/";//小区收藏
+export const IP_SAMEUSED = SERVER_IPS + "/build/same-used/";//同小区二手房
+
 export const IP_HOUSECOLLECTION = SERVER_IPS + "/houseCollection/add/";//二手房收藏
 export const IP_RENTCOLLECTION = SERVER_IPS + "/rentHCollection/add/";//租房收藏
-export const IP_COLLECTIONLIST = SERVER_IPS + "/buildCollection/collectionList";//小区收藏列表
+export const IP_COLLECTIONADD = SERVER_IPS + "/buildCollection/add/";//小区收藏
+
+export const IP_HOUSECOLLECTIONCANCEL = SERVER_IPS + "/houseCollection/cancel/";//二手房取消收藏
+export const IP_RENTCOLLECTIONCANCEL = SERVER_IPS + "/rentHCollection/cancel/";//租房取消收藏
+export const IP_COLLECTIONCANCEL = SERVER_IPS + "/buildCollection/cancel/";//小区取消收藏
+
 export const IP_HOUSECOLLECTIONLIST = SERVER_IPS + "/houseCollection/collectionList";//二手房收藏列表
 export const IP_RENTCOLLECTIONLIST = SERVER_IPS + "/rentHCollection/collectionList";//租房收藏列表
+export const IP_COLLECTIONLIST = SERVER_IPS + "/buildCollection/collectionList";//小区收藏列表
+
+
 
 
 //搜索

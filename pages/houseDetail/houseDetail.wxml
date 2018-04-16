@@ -47,7 +47,7 @@
       </view>
   </block>
   
-  <!-- 二手房(买房)详情 -->
+  <!-- 二手房详情 -->
   <block wx:if="{{detailType==11}}">
     <view class="title" style="line-height:1.2">{{houseDetail.houseTitle}}</view>
     <view class="descriptions">
@@ -236,7 +236,7 @@
 </view>
 
 <view class="footer">
-   <!-- 我要买房(二手房) 租房 -->
+   <!-- 二手房 租房 -->
     <view wx:if="{{detailType!==33}}">
       <view class="collectionLike" bindtap="toggleSelectLike">
         <view class="like">

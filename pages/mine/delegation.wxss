@@ -1,27 +1,3 @@
-/* pages/mine/delegation.wxss */
-.main{
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  height: 235rpx;
-}
-.main view{
-  flex: 1;
-}
-.main image{
-  width: 54rpx;
-  height: 56rpx;
-  background: red;
-}
-.main image+view{
-  font-size: 30rpx;
-  color: #ff4343;
-  margin-top: 30rpx;
-}
-
 .section{
   background: #ffffff;
 }
@@ -48,7 +24,7 @@
   line-height: 100rpx;
   border-bottom: 1rpx solid #999999; 
 }
-.section .description>view:last-child{
+.section .description .seemore{
   margin: 20rpx;
   color: #999999;
   font-size: 26rpx;
@@ -56,10 +32,25 @@
   line-height: 100rpx;
   text-align: center;
 }
+.section .more>view{
+  overflow: hidden;
+  margin: 0 25rpx;
+  border-bottom: 1rpx solid #999999; 
+}
+.section .more>view>view{
+  float: left;
+  width:  150rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+.section .more>view>input{
+  height: 100rpx;
+  line-height: 100rpx;
+  color: #666666;
+}
 .section .description>view image{
   width: 26rpx;
   height: 14rpx;
-  background: red;
 }
 
 .userInfo{
@@ -75,14 +66,14 @@
   line-height: 118rpx;
   border-bottom: 1rpx solid #999999; 
 }
-.userInfo>view:last-child image{
+.userInfo>view:nth-of-type(2) image{
   float: left;
   width: 150rpx;
   height: 150rpx;
   background: red;
   margin: 20rpx 40rpx 20rpx 20rpx;
 }
-.userInfo>view:last-child .content{
+.userInfo>view:nth-of-type(2) .content{
   overflow: hidden;
 }
 .content{

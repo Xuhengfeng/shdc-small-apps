@@ -4,11 +4,6 @@ Page({
   data: {
     //轮播图banner
     imgUrls: ['../../images/banner.png'],//默认图片
-    indicatorDots: false,
-    indicatorColor: null,
-    autoplay: false,
-    interval: 2000,
-    duration: 1000,
     currentIndex: 1,
     
     hiddenModal: true,//二手房(买房)、租房联系经纪人true , 小区联系经纪人false
@@ -29,10 +24,12 @@ Page({
 
     //小区详情 猜你喜欢
     guessYouLike: ['二手房', '租房'],
+    guessYoulikeHouse: [],//猜你喜欢的
     guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
     num: 0,
-    guessYoulikeHouse: [],//猜你喜欢的
-    IPS: [Api.IP_TWOHANDHOUSEDETAIL, Api.IP_RENTHOUSEDETAIL, Api.IP_BUILDINFO],//二手房(买房) 租房 小区
+    IPS: [Api.IP_TWOHANDHOUSEDETAIL, Api.IP_RENTHOUSEDETAIL, Api.IP_BUILDINFO],//二手房 租房 小区详情等
+    IPS2: [Api.IP_HOUSECOLLECTION, Api.IP_RENTCOLLECTION, Api.IP_COLLECTIONADD],//二手房 租房 小区添加收藏 
+    IPS3: [Api.IP_HOUSECOLLECTIONCANCEL, Api.IP_RENTCOLLECTIONCANCEL, Api.IP_COLLECTIONCANCEL],//二手房 租房 小区取消收藏 
     IpsNum: 0,
     currentCity: null,//城市
     page: 1,
@@ -218,99 +215,65 @@ Page({
       url: "lookHouse?houseDetail=" + JSON.stringify(this.data.houseDetail)
     });
   },
-  toggleSelectLike() {
-    if (wx.getStorageSync("userToken").data || wx.getStorageSync("openId")) {
-      this.setData({likeFlag: !this.data.likeFlag});
-      if(likeFlag) {
-          // 添加收藏
-          wx.showLoading({
-            title: '收藏成功',
-            icon: 'loading'
-          })
-          if(this.data.detailType == 11) {
-              //二手房收藏
-              wx.request({
-                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
-                data: '',
-                method: 'POST',
-                header: {
-                  "Content-Type": "application/json",
-                  "unique-code": wx.getStorageSync("userToken").data
-                },
-                success: (res) => {wx.hideLoading()}
-              })
-          }else if(this.data.detailType == 22) {
-              //租房收藏
-              wx.request({
-                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
-                data: '',
-                method: 'POST',
-                header: {
-                  "Content-Type": "application/json",
-                  "unique-code": wx.getStorageSync("userToken").data
-                },
-                success: (res) => {wx.hideLoading()}
-              })
-          }else if(this.data.detailType == 33) {
-              //小区收藏
-              wx.request({
-                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
-                data: '',
-                method: 'POST',
-                header: {
-                  "Content-Type": "application/json",
-                  "unique-code": wx.getStorageSync("userToken").data
-                },
-                success: (res) => {wx.hideLoading()}
-              })
-          }
-      }else{
-          //取消收藏
-          wx.showLoading({
-            title: '取消',
-            icon: 'loading'
-          })
-          if(this.data.detailType == 11) {
-              //二手房取消收藏
-              wx.request({
-                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
-                data: '',
-                method: 'POST',
-                header: {
-                  "Content-Type": "application/json",
-                  "unique-code": wx.getStorageSync("userToken").data
-                },
-                success: (res) => {wx.hideLoading()}
-              })
-          }else if(this.data.detailType == 22) {
-              //租房取消收藏
-              wx.request({
-                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
-                data: '',
-                method: 'POST',
-                header: {
-                  "Content-Type": "application/json",
-                  "unique-code": wx.getStorageSync("userToken").data
-                },
-                success: (res) => {wx.hideLoading()}
-              })
-          }else if(this.data.detailType == 33) {
-              //小区取消收藏
-              wx.request({
-                url: Api.IP_RENTCOLLECTION + res.data.value + '/' + this.data.houseDetailId,
-                data: '',
-                method: 'POST',
-                header: {
-                  "Content-Type": "application/json",
-                  "unique-code": wx.getStorageSync("userToken").data
-                },
-                success: (res) => {wx.hideLoading()}
-              })
-            }
+  colletionRequest(bool, num) {//收藏
+    if(bool) {
+      wx.showLoading({title: '收藏'})
+      wx.request({
+        url: this.data.IPS2[num] + this.data.currentCity + '/' + this.data.houseDetailId,
+        data: '',
+        method: 'POST',
+        header: {
+          "Content-Type": "application/json",
+          "unique-code": wx.getStorageSync("userToken").data
+        },
+        success: (res) => {wx.hideLoading()}
+      })
     }else{
-      wx.redirectTo({url: "/pages/mine/login"})
+      wx.showLoading({title: '取消'})
+      wx.request({
+        url: this.data.IPS3[num] + this.data.currentCity + '/' + this.data.houseDetailId,
+        data: '',
+        method: 'POST',
+        header: {
+          "Content-Type": "application/json",
+          "unique-code": wx.getStorageSync("userToken").data
+        },
+        success: (res) => {wx.hideLoading()}
+      })
     }
   },
+  toggleSelectLike() {
+    if (!wx.getStorageSync("userToken").data && !wx.getStorageSync("openId")){
+      wx.redirectTo({url: "/pages/mine/login"})
+    };
+
+    this.setData({likeFlag: !this.data.likeFlag});
+    if(!this.data.likeFlag) {
+        if(this.data.detailType == 11) {
+            //二手房收藏
+            this.colletionRequest(true, 0);
+        }else if(this.data.detailType == 22) {
+            //租房收藏
+            this.colletionRequest(true, 1);
+        }else if(this.data.detailType == 33) {
+            //小区收藏
+            this.colletionRequest(true, 2);
+        }
+    }else{
+        if(this.data.detailType == 11) {
+            //二手房取消收藏
+            this.colletionRequest(false, 0);
+        }else if(this.data.detailType == 22) {
+            //租房取消收藏
+            this.colletionRequest(false, 1);
+        }else if(this.data.detailType == 33) {
+            //小区取消收藏
+            this.colletionRequest(false, 2);
+        }
+    }
+  
+  },
+
   previewIamge(e) {
     var current = e.target.dataset.src;
     wx.previewImage({

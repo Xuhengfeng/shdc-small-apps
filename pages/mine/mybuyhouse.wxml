@@ -2,16 +2,17 @@
 <scroll-view scroll-x="{{false}}">
 
 <block wx:for="{{[1,2]}}">
-  <view class="item {{num==index?'move2':''}}" bindtouchend="testClick" data-num="{{index}}">
-        <view>发生fasdfasdfasdfasdfasdf fasdf的发生的</view>
-        <view>
-                <view>2018-03-02</view>
-                <view>申请中</view>
-        </view>
-        <view class="cancel {{num==index?'move1':''}}">
-          删除
-        </view>
-  </view>
+  <navigator url="delegation">
+      <view class="item"  data-num="{{index}}">
+          <view>发生fasdfasdfasdfasdfasdf fasdf的发生的</view>
+          <view>
+                  <view>2018-03-02</view>
+          </view>
+          <!-- <view class="cancel {{num==index?'move1':''}}">
+            删除
+          </view> -->
+    </view>
+  </navigator>
 </block>
 
 </scroll-view>

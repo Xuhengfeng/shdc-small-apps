@@ -35,8 +35,7 @@ Page({
     wx.getLocation({
       type: 'gcj02',
       success: (res) => {
-        console.log(res)
-        // // 百度地图地址解析
+        // 百度地图地址解析
         var BMap = new bmap.BMapWX({
           ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
         });
@@ -111,7 +110,6 @@ Page({
     })
   },
   oneBigRequest(city) {
-    console.log(111111111111111111)
     //获取主页banner资讯
     app.httpRequest(this.data.IPS[0] + city + "/INDEX_BANNER", 'GET', (error, data) => {
       this.setData({ imgUrls: data.data });
@@ -168,6 +166,7 @@ Page({
     })
   },
   selectYouLike(e) {//猜你喜欢 二手房 租房
+    console.log(this.data.currentCity)
     this.setData({ num: e.target.dataset.index })
     this.cacheHouseType(this.data.guessYouLike[this.data.num]);
     let IP = this.data.guessLikeIP[this.data.num] + '/' + this.data.currentCity;

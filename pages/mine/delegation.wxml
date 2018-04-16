@@ -1,29 +1,34 @@
-<!-- 委托 -->
-<view class="main">
-        <view>
-              <image></image>
-              <view>申请中</view>
-        </view>
-        <view>
-                <image></image>
-        </view>
-        <view>
-              <image></image>
-              <view>核实中</view>
-        </view>
-        <view>
-                <image></image>
-        </view>
-        <view>
-              <image></image>
-              <view>已发布</view>
-        </view>
-</view>
 <view class="section">
       <view class="title">申请记录 <view>2018-03-01</view></view>
       <view class="description">
             <view>温馨兰苑小区房源委托申请</view>
-            <view>查看详情 <image></image></view>
+            
+            <view class="more" wx:if="{{showflag}}">
+                      <view>
+                                <view>姓名</view>
+                                <input placeholder="请输入您的姓名"/>
+                      </view>
+                      <view>
+                                <view>电话</view>
+                                <input placeholder="请输入您的电话"/>
+                      </view>
+                      <view>
+                                <view>城市</view>
+                                <input/>
+                      </view>
+                      <view>
+                                <view>小区</view>
+                                <input/>
+                      </view>
+                      <view>
+                                <view>具体地址</view>
+                                <input/>
+                      </view>
+            </view>
+            <view class="seemore" bindtap="moreopitons">{{lookmore}} 
+                  <image src="../../images/up.png" style="transform:{{drop}}"></image>
+            </view>
+            
       </view>
 </view>
 <view class="userInfo">
@@ -43,4 +48,5 @@
                   </view>
           </view>
     </view>
+    <view style="height:200rpx;background:#f9f9f9;"></view>
 </view>

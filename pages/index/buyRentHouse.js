@@ -135,11 +135,12 @@ Page({
   //页面滚动监听
   onPageScroll(res) {
     let percent = res.scrollTop / 300;
+    var scrot = wx.getSystemInfoSync().windowWidth / 375 * 330
     let changeTone = 'rgba(249,249,249,' + percent + ')';
     this.setData({
       tone: changeTone//头部渐变色值 
     })
-    if(res.scrollTop>330) {
+    if(res.scrollTop>scrot) {
         this.setData({
           isShow: 'visible'
         })
@@ -148,11 +149,11 @@ Page({
         isShow: 'hidden'
       })
     }
-   
   },
   selectItem(e) {//控制nav菜单
+    var scrot = wx.getSystemInfoSync().windowWidth / 375 * 350
     wx.pageScrollTo({
-      scrollTop: 350,
+      scrollTop: scrot,
       duration: 0
     })
     this.setData({

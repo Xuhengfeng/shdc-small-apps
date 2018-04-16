@@ -1,13 +1,14 @@
 {
   "pages": [
+    
     "pages/index/index",
     "pages/houseDetail/seehouseList",
     "pages/houseDetail/houseDetail", 
     "pages/mine/mybuyhouse",
     "pages/mine/mine",
-    "pages/mine/delegation",
-    "pages/mine/suggest",
     
+    "pages/mine/suggest",
+    "pages/mine/delegation",
     
     "pages/searchList/searchList",
     "pages/search/search",
