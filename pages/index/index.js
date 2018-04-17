@@ -1,7 +1,8 @@
-var Api = require("../../utils/url");
-const bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
-const pinyin = require("../../libs/browser.js"); //汉字转拼音
-const app = getApp();
+let Api = require("../../utils/url");
+let bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
+let pinyin = require("../../libs/browser.js"); //汉字转拼音
+let app = getApp();
+
 Page({
   data: {
     //轮播图
@@ -111,49 +112,26 @@ Page({
   },
   oneBigRequest(city) {
     //获取主页banner资讯
-    app.httpRequest(this.data.IPS[0] + city + "/INDEX_BANNER", 'GET', (error, data) => {
+    app.httpRequest(this.data.IPS[0] + city + "/INDEX_BANNER", { }, (error, data) => {
       this.setData({ imgUrls: data.data });
     })
 
     //获取主页二手房指南资讯
-    app.httpRequest(this.data.IPS[1] + city + "/PURCHASE_GUIDE", 'GET', (error, data) => {
+    app.httpRequest(this.data.IPS[1] + city + "/PURCHASE_GUIDE", {}, (error, data) => {
       this.setData({ purchase_guide: data.data });
     })
 
     //获取成交量统计
-    app.httpRequest(this.data.IPS[2] + city, 'GET', (error, data) => {
+    app.httpRequest(this.data.IPS[2] + city, {}, (error, data) => {
       this.setData({ houseUsed: data.data });
     })
 
     //热门小区
-    wx.request({
-      url: this.data.IPS[3] + city,
-      data: {
-        pageNo: 1,
-        pageSize: 10
-      },
-      method: "GET",
-      header: { 'Content-Type': 'application/json' },
-      success: (res) => {
-        console.log(res)
-        if (res.statusCode == 200) {
-          this.setData({ hotbuilding: res.data.data });
-        } else if (res.statusCode == 500) {
-          this.setData({
-            hotbuilding: '',
-            hasMore: false,
-            showload: false
-          });
-          wx.showModal({ content: '服务器错误' })
-        }
-      },
-      fail: (error) => {
-        this.setData({
-          hotbuilding: '',
-          hasMore: false,
-          showload: false
-        });
-      }
+    app.httpRequest(this.data.IPS[3] + city, {
+      pageNo: 1,
+      pageSize: 10
+    }, (error, data) => {
+       this.setData({ hotbuilding: data.data });
     })
 
     //猜你喜欢(默认二手房 首页第1页数据)
@@ -177,50 +155,63 @@ Page({
     this.getDataFromServer(IP, params);
   },
   getDataFromServer(IP, params) {//猜你喜欢
-    this.setData({
-      showload: true,
-      hasMore: true
-    })
-    if (this.data.hasMore == true) {
-      wx.request({
-        url: IP,
-        data: params,
-        method: "GET",
-        header: { 'Content-Type': 'application/json' },
-        success: (res) => {
-          if (res.statusCode == 200) {
-            //修正数据
-            res.data.data.forEach((item) => {
-              item.houseTag = item.houseTag.split(',');
-            })
-            this.setData({
-              houseList: res.data.data,
-              hasMore: false,
-              showload: false
-            })
-            this.data.num == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
-          } else if (res.statusCode == 500 || res.statusCode == 404) {
-            wx.showModal({
-              content: '服务器错误',
-              success: (res) => {
-                this.setData({
-                  houseList: '',
-                  hasMore: false,
-                  showload: false
-                })
-              }
-            })
-          }
-        },
-        fail: (error) => {
-          this.setData({
-            houseList: '',
-            hasMore: false,
-            showload: false
-          })
-        }
+
+    app.httpRequest(IP + this.data.currentCity, params, (error, data) => {
+      data.data.forEach((item) => {
+        item.houseTag = item.houseTag.split(',');
       })
-    }
+      this.data.num == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
+      this.setData({
+        houseList: data.data
+      })
+    })
+
+    // this.setData({
+    //   showload: true,
+    //   hasMore: true
+    // })
+    // if (this.data.hasMore == true) {
+      // wx.request({
+      //   url: IP,
+      //   data: params,
+      //   method: "GET",
+      //   header: { 'Content-Type': 'application/json' },
+      //   success: (res) => {
+      //     console.log(res)
+      //     if (res.statusCode == 200) {
+      //       //修正数据
+      //       console.log(res)
+      //       res.data.data.forEach((item) => {
+      //         item.houseTag = item.houseTag.split(',');
+      //       })
+      //       this.setData({
+      //         houseList: res.data.data,
+      //         hasMore: false,
+      //         showload: false
+      //       })
+      //       this.data.num == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
+      //     } else if (res.statusCode == 500 || res.statusCode == 404) {
+      //       wx.showModal({
+      //         content: '服务器错误',
+      //         success: (res) => {
+      //           this.setData({
+      //             houseList: '',
+      //             hasMore: false,
+      //             showload: false
+      //           })
+      //         }
+      //       })
+      //     }
+      //   },
+      //   fail: (error) => {
+      //     this.setData({
+      //       houseList: '',
+      //       hasMore: false,
+      //       showload: false
+      //     })
+      //   }
+      // })
+    // }
   },
   onPullDownRefresh() {
     wx.stopPullDownRefresh();

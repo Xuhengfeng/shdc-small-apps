@@ -5,14 +5,15 @@
       <text>推荐方式登录</text>
       <view class="line"></view> 
     </view>
-     <button type="primary" 
-             bindtap="getUseInfo"  
-             class="globalBtnColor">
+<!-- open-type="getPhoneNumber" 
+bindgetphonenumber="getPhoneNumber"  -->
+        <button type="primary" 
+            bindtap="getUseInfo"
+            class="globalBtnColor">
              <image src="../../images/wechat.png"></image>账号登录
     </button> 
   </view>
-  <!-- open-type="getPhoneNumber" 
-        bindgetphonenumber="getPhoneNumber" -->
+ 
   
   
   <view class="page__bd" wx:if="{{!isCancelLogin}}">

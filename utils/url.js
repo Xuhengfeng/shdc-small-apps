@@ -1,6 +1,6 @@
 'use strict';
 const SERVERINDEX = 0;
-const SERVER_IPS = ["http://192.168.16.173:7031/custAppApi"];//api接口
+const SERVER_IPS = ["http://112.74.181.229:7031/custAppApi"];//api接口
 // const SERVER_IPS = ["https://192.168.16.173:8443/custAppApi"];//api接口
 // const SERVER_IPS = ["http://192.168.16.173:7051/custService"];//api接口
 

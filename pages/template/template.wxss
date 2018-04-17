@@ -43,6 +43,9 @@
   color:#0064eb;
   font-size:28rpx;
 }
+.goodList .title text{
+  margin-left: 25rpx;
+}
 
 /* goods 列表项 */
 .section{

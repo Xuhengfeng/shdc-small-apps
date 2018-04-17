@@ -55,31 +55,11 @@ Page({
     })
   },
   getServerData(IP, params, bool) {
-    this.setData({
-      showload: true
-    })
-    wx.request({
-      url: IP,
-      data: params,
-      method: "GET",
-      header: { 'Content-Type': 'application/json' },
-      success: (res) => {
-        console.log(res)
-        if (res.statusCode == 200) {
-          if (res.data.status == 1) {
-            this.setData({
-              houseList: this.data.houseList.concat(res.data.data),
-              showload: false
-            });
-          }
-        } else if (res.statusCode == 500) {
-          this.setData({
-            houseList: '',
-            showload: false
-          });
-          wx.showModal({content: '服务器异常'})
-        }
-      }
+    app.httpRequest(IP, params, (error, data) => {
+      this.setData({
+        houseList: this.data.houseList.concat(res.data.data),
+        showload: false
+      });
     })
   },
   onReachBottom() {//上拉

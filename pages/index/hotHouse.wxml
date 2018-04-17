@@ -1,4 +1,4 @@
-<!-- 热门小区  小区二手房  同小区房源 -->
+<!-- 热门小区  小区二手房  同小区房源 小区租房 -->
 
 <view class="section">
  <scroll-view class="page_list" scroll-y="{{isScroll}}" bindscrolltolower="loadMore"

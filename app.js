@@ -1,18 +1,36 @@
-const bmap = require("libs/bmap-wx.min.js");//百度地图sdk
-const pinyin = require("libs/browser.js"); //汉字转拼音
-//app.js
 App({
-  httpRequest(url, options, callback) {
+  httpRequest(url, params, callback, options) {
+    wx.showLoading({
+      title: '加载中...'
+    })
+    if(!options) {
+        var options = "GET";
+    }
     wx.request({
       url: url,
-      data: {},
+      data: params,
       method: options,
       header: { 'Content-Type': 'application/json' },
       success: (res) => {
-        callback(null, res.data);
+        if(res.statusCode == 200) {
+          if(res.data.status == 0) {
+            wx.showModal({
+              title: res.data.msg
+            })
+          }
+          if(res.data.data) {
+             callback(null, res.data);
+          }
+        }else if(res.statusCode == 500) {
+          wx.showModal({
+            title: '500错误'
+          })
+        }
+        wx.hideLoading()
       },
       fail: (error) => {
         callback(error);
+        wx.hideLoading()        
       }
     })
   },

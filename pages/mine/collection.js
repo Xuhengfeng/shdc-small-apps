@@ -35,7 +35,7 @@ Page(filter.loginCheck({
     });
   },
   getDataFromServer(num) {
-    this.setData({
+      this.setData({
       hasMore: true,
       showload: true
     })
@@ -51,14 +51,18 @@ Page(filter.loginCheck({
         "unique-code": wx.getStorageSync("userToken").data
       },
       success: (res) => {
-        //修正数据
-        res.data.data.forEach((item) => {
-          item.houseTag = item.houseTag.split(',');
-        })
+        if(res.data.data) {
+          //修正数据
+          res.data.data.forEach((item) => {
+            item.houseTag = item.houseTag.split(',');
+          })
+          this.setData({houseList: res.data.data})
+        }else{
+          this.setData({houseList: ''})
+        }
         this.setData({
           hasMore: false,
-          showload: false,
-          houseList: res.data.data
+          showload: false
         })
         wx.hideLoading();
       }

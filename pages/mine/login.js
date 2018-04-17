@@ -43,8 +43,8 @@ Page({
                   url: 'https://api.weixin.qq.com/sns/jscode2session',
                   data: {
                     js_code: res1.code,
-                    appid: 'wx436c6a6576047a5f',
-                    secret: '6084fb0068f085973119f82359dddd4f',
+                    appid: 'wxce209331358eecd8',
+                    secret: '3258f8a5649ecdbfb3f1e3c43f5b2907',
                     grant_type: 'authorization_code'
                   },
                   success: response=> {
@@ -153,16 +153,18 @@ Page({
   },
   //返回刷新设置
   goBackSet(res) {
-    let avatarUrl;
+    let avatarUrl,nickName;
     try{
       avatarUrl = res.userInfo.avatarUrl;
+      nickName = res.userInfo.nickName;
     }catch(e){
       avatarUrl = '';
+      nickName = this.data.inputValue1;      
     }
     let pages = getCurrentPages();//当前页面路由栈的信息
     let prevPage = pages[pages.length - 2];//上一个页面
           prevPage.setData({
-            nickName: this.data.inputValue1,
+            nickName: nickName,
             avatarUrl: avatarUrl,
             showLogout: true
           })

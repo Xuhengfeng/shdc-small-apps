@@ -59,12 +59,12 @@ Page({
         this.setData({cityCode: res.data.value});
         
         // banner图片
-        app.httpRequest(Api.IP_INDEXCONSULT + res.data.value + "/HOUSE_USED_BANNER", 'GET', (error, data) => {//获取主页资讯Banner
+        app.httpRequest(Api.IP_INDEXCONSULT + res.data.value + "/HOUSE_USED_BANNER", {}, (error, data) => {//获取主页资讯Banner
             this.setData({ imgUrls: data.data })
         });
 
         //为你推荐
-        app.httpRequest(this.data.recmd[this.data.num] + res.data.value, 'GET', (error, data) => {//获取主页资讯Banner
+        app.httpRequest(this.data.recmd[this.data.num] + res.data.value, {}, (error, data) => {//获取主页资讯Banner
             this.setData({ recommend: data.data })
         });
 
@@ -81,7 +81,7 @@ Page({
   },
   //区域
   areaRequest(currentCity) {
-    app.httpRequest(Api.IP_AREADISTRICTS + currentCity, 'GET', (error, data) => {
+    app.httpRequest(Api.IP_AREADISTRICTS + currentCity, {}, (error, data) => {
       data.data.unshift({
         name: '不限',
         districts: []
@@ -99,36 +99,24 @@ Page({
   },
   //户型 类型
   houseTypeRequest() {
-    wx.request({
-      url: Api.IP_DICTIONARY,
-      data: ['HOUSE_HUXING', 'HOUSE_USE', 'HOUSE_AREA'],
-      method: 'POST',
-      success: (res) => {
-        this.setData({
-          houseType: res.data.data.HOUSE_HUXING,
-          mode: res.data.data.HOUSE_USE,
-          proportion: res.data.data.HOUSE_AREA
-        })
-      }
-    })
+    let params = ['HOUSE_HUXING', 'HOUSE_USE', 'HOUSE_AREA'];
+    app.httpRequest(Api.IP_DICTIONARY, params, (error, data) => {
+      this.setData({
+        houseType: data.data.HOUSE_HUXING,
+        mode: data.data.HOUSE_USE,
+        proportion: data.data.HOUSE_AREA
+      })
+    }, 'POST')
   },
   //价格 租金
   priceAreaRequest(currentCity) {
     if (this.data.flagPrice) {//租金
-      wx.request({
-        url: Api.IP_DICTIONARYCONDITION + 'HOUSE_RENTAL/' + currentCity,
-        method: 'GET',
-        success: (res) => {
-          this.setData({ price: res.data.data });
-        }
+      app.httpRequest(Api.IP_DICTIONARYCONDITION + 'HOUSE_RENTAL/' + currentCity, {}, (error, data) => {
+        this.setData({ price: data.data });
       })
     }else{//价格
-      wx.request({
-        url: Api.IP_DICTIONARYCONDITION + 'SELL_PRICE/' + currentCity,
-        method: 'GET',
-        success: (res) => {
-          this.setData({ price: res.data.data });
-        }
+      app.httpRequest(Api.IP_DICTIONARYCONDITION + 'SELL_PRICE/' + currentCity, {}, (error, data) => {
+        this.setData({ price: data.data });
       })
     }
   },
@@ -223,48 +211,61 @@ Page({
     this.getDataFromServer(IP, Params);
   },
   getDataFromServer(IP, Params) {//请求数据
-    this.setData({
-      showload: true,
-      hasMore: true
-    })
-    wx.request({
-      url: IP,
-      data: Params,
-      method: "POST",
-      header: {'Content-Type': 'application/json' },
-      success: (res) => {
-        if (res.statusCode == 200) {
-          res.data.data.forEach((item) => {
-            item.houseTag = item.houseTag.split(',');
-          })
-          this.setData({
-            houseList: this.data.houseList.concat(res.data.data),
-            hasMore: false,
-            showload: false
-          })
-          if(this.data.num == 0) {
-            this.setData({ flagPrice: true })
-          }else{
-            this.setData({ flagPrice: false })
-          }
-        }
-        if(res.statusCode == 500) {
-          this.setData({
-            houseList: '',
-            hasMore: false,
-            showload: false
-          })
-          wx.showModal({content: '服务器异常'})
-        }
-      },
-      fail: ()=> {
-        this.setData({
-          houseList: '',
-          hasMore: false,
-          showload: false
+    app.httpRequest(IP, Params, (error, data) => {
+        data.data.forEach((item) => {
+          item.houseTag = item.houseTag.split(',');
         })
-      }
-    })
+        this.setData({houseList: this.data.houseList.concat(data.data)})
+        if (this.data.num == 0) {
+          this.setData({ flagPrice: true })
+        } else {
+          this.setData({ flagPrice: false })
+        }
+    },'POST')
   }
 })
+//     this.setData({
+//       showload: true,
+//       hasMore: true
+//     })
+//     wx.request({
+//       url: IP,
+//       data: Params,
+//       method: "POST",
+//       header: {'Content-Type': 'application/json' },
+//       success: (res) => {
+//         if (res.statusCode == 200) {
+//           res.data.data.forEach((item) => {
+//             item.houseTag = item.houseTag.split(',');
+//           })
+//           this.setData({
+//             houseList: this.data.houseList.concat(res.data.data),
+//             hasMore: false,
+//             showload: false
+//           })
+//           if(this.data.num == 0) {
+//             this.setData({ flagPrice: true })
+//           }else{
+//             this.setData({ flagPrice: false })
+//           }
+//         }
+//         if(res.statusCode == 500) {
+//           this.setData({
+//             houseList: '',
+//             hasMore: false,
+//             showload: false
+//           })
+//           wx.showModal({content: '服务器异常'})
+//         }
+//       },
+//       fail: ()=> {
+//         this.setData({
+//           houseList: '',
+//           hasMore: false,
+//           showload: false
+//         })
+//       }
+//     })
+//   }
+// })
 

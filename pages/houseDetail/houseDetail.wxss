@@ -250,6 +250,7 @@ page{
   width: 100%;
   background: #ffffff;
   box-shadow: 0 0 1px rgba(0,0,0,.4);
+  z-index: 1000;
 }
 .footer .type1{
   width: 80%;
@@ -276,10 +277,28 @@ page{
   font-size: 34rpx;
   color: #ffffff;
 }
-.footer .type2 view{
+.footer .type2 .tellBtn{
   background: #5db1ff;
   height: 100%;
   line-height: 100rpx;
+}
+.footer .type2 .addCollection{
+  position: fixed;
+  bottom:  110rpx;
+  right: 20rpx;
+  background: rgba(0,0,0,.1);
+  width: 100rpx;
+  height: 100rpx;
+  font-size: 25rpx;
+  border-radius: 50%;
+}
+.addCollection image{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 60%;
+  height: 60%;
 }
 .footer-placeholder{
   height: 100rpx;

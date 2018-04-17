@@ -3,7 +3,7 @@
       <view class="description">
             <view>温馨兰苑小区房源委托申请</view>
             
-            <view class="more" wx:if="{{showflag}}">
+            <view class="more">
                       <view>
                                 <view>姓名</view>
                                 <input placeholder="请输入您的姓名"/>
@@ -13,8 +13,8 @@
                                 <input placeholder="请输入您的电话"/>
                       </view>
                       <view>
-                                <view>城市</view>
-                                <input/>
+                              <view>城市</view>
+                              <input/>
                       </view>
                       <view>
                                 <view>小区</view>
@@ -25,9 +25,7 @@
                                 <input/>
                       </view>
             </view>
-            <view class="seemore" bindtap="moreopitons">{{lookmore}} 
-                  <image src="../../images/up.png" style="transform:{{drop}}"></image>
-            </view>
+            <view class="seemore" bindtap="lookmore">{{lookmore}} <image src="../../images/up.png" style="transform: rotate(-180deg)"></image></view>
             
       </view>
 </view>
