@@ -6,7 +6,7 @@
     "pages/houseDetail/houseDetail", 
     "pages/mine/mybuyhouse",
     "pages/mine/mine",
-    
+    "pages/index/sellRent",
     "pages/mine/suggest",
     "pages/mine/delegation",
     
@@ -20,7 +20,7 @@
     "pages/index/shop",    
     "pages/houseDetail/houseDetailInfo",
     
-    "pages/index/sellRent",
+    
     "pages/index/guideHand",
     "pages/index/hotHouse",
     "pages/mine/login",

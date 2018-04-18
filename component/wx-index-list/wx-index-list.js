@@ -20,7 +20,11 @@ Component({
       type: String,
       value: null
     },
-    // 用于外部组件搜索使用
+    origin: {//那个页面跳入
+      type: String,
+      value: null
+    },
+    // 用于外部组件搜索使用  meiyou
     search: {
       type: String,
       value: "",
@@ -35,7 +39,7 @@ Component({
     list: [],
     rightArr: [],// 右侧字母展示
     jumpNum: '',//跳转到那个字母
-    myCityName: '请选择', // 默认我的城市,
+    myCityName: '请选择', // 默认我的城市,  
   },
   ready() {
     setTimeout(() => {
@@ -43,10 +47,9 @@ Component({
       this.resetRight(city);
       if (this.data.myCity) this.getCity();
     }, 1000)
-
   },
   methods: {
-    resetRight(data) {// 数据重新渲染
+    resetRight(data) {// 数据重新渲染 
       let rightArr = []
       for (let i in data) {
         rightArr.push(data[i].title.substr(0, 1));
@@ -98,11 +101,12 @@ Component({
       let jumpNum = e.currentTarget.dataset.id;
       this.setData({ jumpNum });
     },
-    detailMt(e) {//列表点击事件
-      let detail = e.currentTarget.dataset.detail;
+    detailMt(e) {//列表点击事件  那个这里页面 没有options 
       let pages = getCurrentPages();//当前页面
-      let currPage = pages[pages.length - 1];//当前页面
-      let prevPage = pages[pages.length - 2];//上一个页面
+      let prevPage = pages[pages.length - 2];//上一页面
+      console.log(this.data)
+
+      if (this.data.origin == "index") {
             prevPage.setData({
               myLocation: e.target.dataset.detail.name,
               scity: e.target.dataset.detail.value,
@@ -121,14 +125,13 @@ Component({
               },
               success: ()=> { wx.navigateBack()}
             });
-
-            // let myEventOption = {
-            //   bubbles: false,//事件是否冒泡
-            //   composed: false,//事件是否可以穿越组件边界
-            //   capturePhase: false //事件是否拥有捕获阶段
-            // }
-            // // 触发事件的选项
-            // this.triggerEvent('detail', detail, myEventOption)
+      }else if (this.data.origin == "sellRent") {
+        prevPage.setData({//直接给上移页面赋值
+          city: e.target.dataset.detail.name,
+          phcolorFlag: false
+        });
+        wx.navigateBack();//返回上一个页面
+      }
     },
     input(e) {// 获取搜索输入内容
       this.value = e.detail.value;
@@ -163,22 +166,31 @@ Component({
     locationMt(e) {// 定位城市点击选择
       let pages = getCurrentPages();//当前页面
       let prevPage = pages[pages.length - 2];//上一页面
-           prevPage.setData({//直接给上移页面赋值
-              myLocation: e.target.dataset.detail,
-              num: 0,
-              currentCity: pinyin.convertToPinyin(e.target.dataset.detail, '', true)
-           });
+      console.log(this.data)
+      if(this.data.origin == "index") {
+          prevPage.setData({//直接给上移页面赋值
+            myLocation: e.target.dataset.detail,
+            num: 0,
+            currentCity: pinyin.convertToPinyin(e.target.dataset.detail, '', true)
+          });
           wx.setStorage({
             key: 'houseTypeSelect',
             data: '二手房'
           })
           wx.getStorage({
             key: 'currentCity',
-            success: (res)=> {
+            success: (res) => {
               prevPage.oneBigRequest(res.data.value);//上一页重新加载数据
               wx.navigateBack();//返回上一个页面
             }
           })  
+      }else if(this.data.origin == "sellRent") {
+          prevPage.setData({//直接给上移页面赋值
+            city: e.target.dataset.detail,
+            phcolorFlag: false
+          });
+          wx.navigateBack();//返回上一个页面
+      }
     }
   }
 })

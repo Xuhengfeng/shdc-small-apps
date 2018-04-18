@@ -18,7 +18,7 @@
     </swiper>
  
     <view class="serarch-content">
-      <navigator url="../location/location" hover-class="none">
+      <navigator url="../location/location?origin=index" hover-class="none">
         <text class="location">{{myLocation}}</text>
         <image src="../../images/drop.png" />
       </navigator>
@@ -241,6 +241,5 @@
                         url="../searchList/searchList?houseType={{houseType[num]}}"
                         hover-class="none">查看全部房源</navigator>
         </view> 
-        <loading wx:if="{{showload}}">加载中...</loading>
     </view>
 

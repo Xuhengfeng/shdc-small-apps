@@ -7,7 +7,9 @@ Page({
       {name: 'one', value: '我要出售', checked: 'true' },
       {name: 'two', value: '我要出租' },
     ],
-    region: ['广东省', '广州市', '海珠区'],
+    city: '请选择您房源所在城市',
+    phcolorFlag: true,
+    selectFlag: true,
     year: ['2018','2019'],
     month: ['1月','2月','3月'],
     day: [1,2,3,4],
@@ -17,21 +19,21 @@ Page({
     IPS: [Api.IP_HOUSEENTRUSTAPPLY, Api.IP_HOUSEENTRUSTAPPLYLIST],
     IPSnum: 0
   },
-  bindRegionChange(e) {//预定义城市控件
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      region: e.detail.value
-    })
-  },
   jumpCityList() {
     wx.navigateTo({
-      url: '../location/location',
+      url: '../location/location?origin=sellRent',
     })
   },
   cancelBtn() {
     this.setData({
       hiddenPicker: !this.data.hiddenPicker
     })
+  },
+  selectOne() {
+    
+  },
+  selectTwo() {
+
   },
   confirmBtn() {
     this.setData({

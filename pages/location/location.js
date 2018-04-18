@@ -3,9 +3,15 @@ let api = require('../../utils/url.js');
 
 Page({
   data: {
-    city: null
+    city: null,
+    origin: ''
   },
-  onLoad() {
+  onLoad(options) {
+
+    this.setData({ 
+      origin: options.origin 
+    });
+
     let hot_city = "热门";
     let hot_city_len = 2;
     let map = {

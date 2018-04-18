@@ -14,7 +14,6 @@ Page({
     houseList: [],//房源数据
     hotbuilding: [],//获取热门小区
 
-    showload: false,
     currentCity: null, //默认城市
     myLocation: "",//默认地址
 
@@ -144,7 +143,6 @@ Page({
     })
   },
   selectYouLike(e) {//猜你喜欢 二手房 租房
-    console.log(this.data.currentCity)
     this.setData({ num: e.target.dataset.index })
     this.cacheHouseType(this.data.guessYouLike[this.data.num]);
     let IP = this.data.guessLikeIP[this.data.num] + '/' + this.data.currentCity;

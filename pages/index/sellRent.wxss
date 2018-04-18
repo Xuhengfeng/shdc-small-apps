@@ -3,25 +3,27 @@
   height: 460rpx;
   overflow: hidden;
 }
-.header image{
+.header>image{
   width: 100%;
 }
-.section1{
+.selectItem{
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
-  text-align: center;
   align-items: center;
+  text-align: center;
 }
-.section1 label{
+.selectItem>view{
   flex: 1;
-  padding: 50rpx 0;
-  font-size: 40rpx;
-  color: #333333;
+  height: 120rpx;
+  line-height: 120rpx;
 }
-.section1 radio{
-  margin-left: 30rpx;
+ .selectItem>view>image{
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 10rpx;
+  vertical-align: middle;
 }
+
 .section3{
   padding: 20rpx 0 0 30rpx;
   font-size: 29rpx;
@@ -29,8 +31,13 @@
 }
 .section4{
   padding: 100rpx 0;
-}
+} 
 .weui-btn{
   width: 600rpx;
   background: #ff4343;
+}
+
+.phcolor{
+  font-size: 30rpx;
+  color: #cacaca;
 }
