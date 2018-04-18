@@ -1,0 +1,60 @@
+.list{
+  background: #ffffff;
+  margin-top: 20rpx;
+  overflow: hidden;
+}
+
+.list image{
+  float: left;
+  width: 150rpx;
+  height: 150rpx;
+  background: red;
+  border-radius: 50%;
+  margin: 20rpx 40rpx 20rpx 20rpx;
+}
+.list .content{
+  overflow: hidden;
+}
+.content{
+  padding: 20rpx 20rpx 20rpx 0;
+}
+.content view:first-child{
+  overflow: hidden;
+}
+.content .name{
+  font-size: 36rpx;
+  color: #333333;
+  float: left;
+}
+.content .name text{ 
+  font-size: 28rpx;
+  margin-left: 20rpx;
+  color: #999999;
+}
+.content  .score{
+  float: right;
+  font-size: 36rpx;
+  color:  #ff4343;
+}
+.content  .score text{
+  font-size: 26rpx;
+  color: #999999;
+}
+.content .location{
+  margin-top: 20rpx;
+  color: #666666;
+  font-size: 30rpx;
+}
+.content .tag{
+  margin-top: 20rpx;
+}
+.content .tag text{
+  display: inline-block;
+  background: #f9f9f9;
+  width: 130rpx;
+  height: 46rpx;
+  line-height: 46rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #999999;
+}

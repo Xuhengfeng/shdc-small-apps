@@ -1,7 +1,7 @@
-const Api = require("../../utils/url");
-const app = getApp();
-const filter = require("../../utils/filter.js");
-const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+let Api = require("../../utils/url");
+let app = getApp();
+let filter = require("../../utils/filter.js");
+let sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
 Page(filter.loginCheck({
   data: {

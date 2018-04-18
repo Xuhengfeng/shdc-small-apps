@@ -1,6 +1,6 @@
-var Api = require("../../utils/url");
-var md5 = require("../../utils/md5.js");
-var app = getApp();
+let Api = require("../../utils/url");
+let md5 = require("../../utils/md5.js");
+let app = getApp();
 Page({
   data: {
     inputValue1: "",//电话号码

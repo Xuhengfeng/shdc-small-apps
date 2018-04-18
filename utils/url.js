@@ -21,8 +21,11 @@ export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你�
 export const IP_RENTHOUSERENTLIKE = SERVER_IPS + "/rentHouse/queryLike";//首页猜你喜欢 租房列表
 
 //租售
-export const IP_HOUSEENTRUSTAPPLY = SERVER_IPS + "/houseEntrustApply/houseEntrustApply";//租售申请
-export const IP_HOUSEENTRUSTAPPLYLIST = SERVER_IPS + "/houseEntrustApply/houseEntrustApplyList";//租售房源列表
+export const IP_HOUSEENTRUSTAPPLYSELLHOUSE= SERVER_IPS + "/houseEntrustApply/sellHouse";//出售申请
+export const IP_HOUSEENTRUSTAPPLYRENTHOUSE = SERVER_IPS + "/houseEntrustApply/rentHouse";//出租申请
+// export const IP_HOUSEENTRUSTAPPLYLIST = SERVER_IPS + "/houseEntrustApply/houseEntrustApplyList";//租售房源列表
+//经纪人
+export const IP_BROKERSLIST = SERVER_IPS + "/broker/brokers";//经纪人
 
 
 //详情页和收藏

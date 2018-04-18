@@ -1,12 +1,15 @@
 {
   "pages": [
-    
     "pages/index/index",
+    "pages/index/sellRent",
+    "pages/index/broker",    
+
+    
     "pages/houseDetail/seehouseList",
     "pages/houseDetail/houseDetail", 
     "pages/mine/mybuyhouse",
     "pages/mine/mine",
-    "pages/index/sellRent",
+
     "pages/mine/suggest",
     "pages/mine/delegation",
     

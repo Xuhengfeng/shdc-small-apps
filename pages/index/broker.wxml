@@ -1,0 +1,16 @@
+<view class="list"
+           wx:for="{{brokers}}"
+           data-item="{{item}}"
+           bindtap="goBackSet">
+      <image src="{{item.photo}}"></image>
+      <view class="content">
+              <view>
+                  <view class="name">{{item.emplName}}<text>{{item.positionName}}</text></view>
+                  <view class="score">{{item.grade}} <text>评分</text></view>    
+              </view>
+              <view class="location">所在门店</view>
+              <view class="tag">
+                    <text wx:for="{{item.emplFlag}}"   wx:for-item="item2" >{{item2}}</text>
+              </view>
+      </view>
+</view>

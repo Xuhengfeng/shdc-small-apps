@@ -1,23 +1,15 @@
-<!-- <import src="../template/template"/> -->
 <view class="header">
-  <image src="../../images/banner.png"/>
+  <image src="{{banner[0].picUrl}}"/>
 </view>
 
-
-<!-- <radio-group bindchange="listenerRadioGroup" class="section1">
-    <label style="flex: 1" wx:for="{{select}}"   data-index="{{index}}"  bindtap="selectItem">{{item.value}}
-        <radio  value="{{true}}"  color="#ff4343" checked="{{item.checked}}"/>
-    </label>
-</radio-group> -->
 <view  class="selectItem">
     <view bindtap="selectOne">我要出售  
-              <image wx:if="{{selectFlag}}" src="../../images/select-on.png"/>
-              <image wx:if="{{!selectFlag}}" src="../../images/select-off.png"/> </view>
+              <image wx:if="{{selectFlag1}}" src="../../images/select-on.png"/>
+              <image wx:if="{{!selectFlag1}}" src="../../images/select-off.png"/> </view>
     <view bindtap="selectTwo">我要出租  
-                <image wx:if="{{!selectFlag}}" src="../../images/select-on.png"/>
-                <image wx:if="{{selectFlag}}" src="../../images/select-off.png"/></view>
+                <image wx:if="{{selectFlag2}}" src="../../images/select-on.png"/>
+                <image wx:if="{{!selectFlag2}}" src="../../images/select-off.png"/></view>
 </view>
-
 
 <view class="section2">
   <view class="weui-cells weui-cells_after-title">
@@ -29,7 +21,8 @@
         <view class="weui-cell__bd">
             <input class="weui-input" 
                         placeholder-class="phcolor"  
-                        placeholder="请输入您的姓名"/>
+                        placeholder="请输入您的姓名"
+                        bindinput="bindKeyInput1"/>
         </view>
     </view>
 
@@ -39,10 +32,11 @@
         </view>
         <view class="weui-cell__bd">
             <input class="weui-input" 
-                        placeholder-class="phcolor"  
                         type="number" 
                         maxlength="11" 
-                        placeholder="请输入您的手机号" />
+                        placeholder-class="phcolor"  
+                        placeholder="请输入您的手机号" 
+                        bindinput="bindKeyInput2"/>
         </view>
     </view>
 
@@ -65,9 +59,41 @@
         <view class="weui-cell__bd">
             <input class="weui-input" 
                         placeholder-class="phcolor"
+                        bindinput="bindKeyInput3"
                         placeholder="请选择您房源所在的小区"/>
         </view>
     </view>
+
+    <view class="weui-cell weui-cell_input own">
+        <view class="weui-cell__hd">
+            <view class="weui-label">栋座</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" 
+                        placeholder-class="phcolor"
+                        bindinput="bindKeyInput4"
+                        placeholder="栋号"/>
+        </view>
+         <view class="weui-cell__hd">
+            <view class="weui-label">单元</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" 
+                        placeholder-class="phcolor"
+                        bindinput="bindKeyInput5"
+                        placeholder="单元号"/>
+        </view>
+         <view class="weui-cell__hd">
+            <view class="weui-label">房号</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" 
+                        placeholder-class="phcolor"
+                        bindinput="bindKeyInput6"
+                        placeholder="房号"/>
+        </view>
+    </view>
+
     <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
             <view class="weui-label">具体地址</view>
@@ -75,26 +101,32 @@
         <view class="weui-cell__bd">
             <input class="weui-input"
                         placeholder-class="phcolor"
+                        bindinput="bindKeyInput7"
                         placeholder="请输入您的房源具体地址"/>
         </view>
     </view>
-    <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-            <view class="weui-label">选经纪人</view>
-        </view>
-        <view class="weui-cell__bd">
-            <input class="weui-input" 
-                        placeholder-class="phcolor"
-                        placeholder="请选择跟进联系人"/>
-        </view>
-    </view>
-
+ 
   </view>
 </view>
-<view class="section3">我们将在最短的时间内与您联系</view>
-<view class="section4">
-  <button class="weui-btn" type="warn">提交</button>
+
+
+<view class="section">
+<view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+        <view class="weui-label">选经纪人</view>
+    </view>
+    <view class="weui-cell__bd">
+        <view class="weui-input {{phcolorFlag2? 'phcolor': ''}}" 
+                    style="text-align:left;" 
+                    bindtap="jumpBrokerList">{{broker}}</view>
+    </view>
+    <view class="weui-cell__ft  weui-cell__ft_in-access"></view>
+</view>
 </view>
 
-<template is="ownPicker" data="{{hiddenPicker,year,month,day}}"/>
+
+<view class="section3">我们将在最短的时间内与您联系</view>
+<view class="section4">
+  <button class="weui-btn" type="warn" bindtap="commit">提交</button>
+</view>
 
