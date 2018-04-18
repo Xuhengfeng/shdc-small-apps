@@ -1,5 +1,5 @@
-var Api = require("../../utils/url");
-const app = getApp();
+let Api = require("../../utils/url");
+let app = getApp();
 
 Component({
   properties: {
@@ -70,16 +70,26 @@ Component({
     minPrice: null,
     maxPrice: null,
 
-    //类型
+    //类型 二手房  租房 
     modeCategories: 0,
     modeCategoriesValue: null,
+
+    //类型2 小区
+    mode2Categories: 0,
+    mode2CategoriesValue: null,
 
     //面积
     proportionCategories: 0,
     minBuildArea: null,
     maxBuildArea: null,
     
+    //用途
+    useCategories: 0,
+    useCategoriesValue: null,
     
+    //楼龄
+    houseAgeCategories: 0,
+    houseAgeCategoriesValue: null,
 
 
     //请求地址
@@ -150,58 +160,23 @@ Component({
       })
     },
 
-    //二手房列表  租房列表
+    //二手房列表  租房列表 小区列表
     getDataFromServer(url, params) {
-      this.setData({
-        houseList: [],
-        loading: true,
-        hasMore: true
-      })
-      wx.request({
-        url: url,
-        data: params,
-        method: 'POST',
-        success: (res)=> {
-          if(res.data.data.length){
-            this.setData({
-              houseList: res.data.data,
-              loading: false,
-              hasMore: false
-            })
-          }else{
-            wx.showModal({
-              content: '没有找任何数据!',
-              success: ()=>{
-                this.setData({
-                  loading: false,
-                  hasMore: false
-                })
-              }
-            })
-          }        
-          let obj = {
-            'params': params,
-            'houseList': res.data.data
-          }
-          this.triggerEvent('myevent', obj);
-        },
-        fail: (error)=> {
-          wx.showModal({
-            content: '请求超时',
-            success: ()=> {
-              setTimeout(()=>{
-                this.setData({
-                  loading: false,
-                  hasMore: false
-                })
-              },2000)
-            }
-          })
+      app.httpRequest(url, params, (error, data)=>{
+        if (data.data.length) {
+          this.setData({houseList: data.data})
+        }else{
+          this.setData({houseList: ''})
+        } 
+        console.log(this.data.houseList)
+        let obj = {
+          'params': params,
+          'houseList': this.data.houseList
         }
-      })
+        this.triggerEvent('myevent', obj);
+      }, 'POST')
+      
     },
-
-
 
     //区域
     //切换城区分类
@@ -368,7 +343,7 @@ Component({
       this.getDataFromServer(this.data.url, params);
     },
 
-    //类型
+    //类型 二手房 租房
     modelabel(e) {
       let label = 'label[' + 4 + ']';
       this.setData({
@@ -395,6 +370,102 @@ Component({
         'pageSize': 10,
         'scity': this.data.currentCity,
         'houseForm': this.data.modeCategoriesValue
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+
+    //用途
+    uselabel(e) {
+      let label = 'label[' + 1+ ']';
+      this.setData({
+        useCategories: e.target.dataset.num,
+        useCategoriesValue: e.target.dataset.value,
+        // [label]: this.data.mode[e.target.dataset.num].name
+      })
+    },
+    uselabelUnlimit() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'businessType': ''
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+    uselabelTrue() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'businessType': this.data.useCategoriesValue
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+
+    //类型2 小区
+    modelabel2(e) {
+      let label = 'label[' + 2 + ']';
+      this.setData({
+        mode2Categories: e.target.dataset.num,
+        mode2CategoriesValue: e.target.dataset.value,
+        // [label]: this.data.mode[e.target.dataset.num].name
+      })
+    },
+    modelabe2Unlimit() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'houseType': ''
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+    modelabel2True() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'houseType': this.data.mode2CategoriesValue
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+ 
+    //楼龄
+    houseAgelabel(e) {
+      let label = 'label[' + 1 + ']';
+      this.setData({
+        houseAgeCategories: e.target.dataset.num,
+        houseAgeCategoriesValue: e.target.dataset.value,
+        // [label]: this.data.mode[e.target.dataset.num].name
+      })
+    },
+    houseAgelabelUnlimit() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'useYear ': ''
+      }
+      this.cancelModal();
+      this.getDataFromServer(this.data.url, params);
+    },
+    houseAgelabelTrue() {
+      let params;
+      params = {
+        'pageNo': 1,
+        'pageSize': 10,
+        'scity': this.data.currentCity,
+        'useYear ': this.data.houseAgeCategoriesValue
       }
       this.cancelModal();
       this.getDataFromServer(this.data.url, params);

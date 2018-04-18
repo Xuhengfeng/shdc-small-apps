@@ -138,7 +138,7 @@ Page(filter.loginCheck({
         "roomNum": this.data.inputValue6,//房号
         "address": this.data.inputValue7,//详细地址
       }
-      console.log(params)
+    
 
       if (this.data.inputValue1 == '' ||
           this.data.inputValue2 == '' ||

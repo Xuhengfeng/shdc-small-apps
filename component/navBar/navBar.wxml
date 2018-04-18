@@ -144,16 +144,16 @@
                   <text wx:for="{{use}}" 
                         data-num="{{index}}"
                         data-value="{{item.value}}"
-                        class="{{index == modeCategories?'font3Color':'font2Color'}}"
-                        bindtap="modelabel">{{item.name}}</text>
+                        class="{{index == useCategories?'font3Color':'font2Color'}}"
+                        bindtap="uselabel">{{item.name}}</text>
               </view>
               <view class="type-ft">
                   <button type="primary" 
                           style="background:#f2f2f2;border:0;color:#666666"
-                          bindtap="modelabeUnlimit">条件不限</button>
+                          bindtap="uselabelUnlimit">条件不限</button>
                   <button type="primary" 
                           class="globalBtnColor"
-                          bindtap="modelabelTrue">确定</button>
+                          bindtap="uselabelTrue">确定</button>
               </view>
           </view>
           <!-- 类型 -->
@@ -162,16 +162,16 @@
                 <text wx:for="{{mode}}" 
                       data-num="{{index}}"
                       data-value="{{item.value}}"
-                      class="{{index == modeCategories?'font3Color':'font2Color'}}"
-                      bindtap="modelabel">{{item.name}}</text>
+                      class="{{index == mode2Categories?'font3Color':'font2Color'}}"
+                      bindtap="modelabel2">{{item.name}}</text>
             </view>
             <view class="type-ft">
                 <button type="primary" 
                         style="background:#f2f2f2;border:0;color:#666666"
-                        bindtap="modelabeUnlimit">条件不限</button>
+                        bindtap="modelabe2Unlimit">条件不限</button>
                 <button type="primary" 
                         class="globalBtnColor"
-                        bindtap="modelabelTrue">确定</button>
+                        bindtap="modelabel2True">确定</button>
             </view>
           </view>
           <!-- 楼龄 -->
@@ -180,16 +180,16 @@
                   <text wx:for="{{houseAge}}" 
                         data-num="{{index}}"
                         data-value="{{item.value}}"
-                        class="{{index == modeCategories?'font3Color':'font2Color'}}"
-                        bindtap="modelabel">{{item.name}}</text>
+                        class="{{index == houseAgeCategories?'font3Color':'font2Color'}}"
+                        bindtap="houseAgelabel">{{item.name}}</text>
               </view>
               <view class="type-ft">
                   <button type="primary" 
                           style="background:#f2f2f2;border:0;color:#666666"
-                          bindtap="modelabeUnlimit">条件不限</button>
+                          bindtap="houseAgelabelUnlimit">条件不限</button>
                   <button type="primary" 
                           class="globalBtnColor"
-                          bindtap="modelabelTrue">确定</button>
+                          bindtap="houseAgelabelTrue">确定</button>
               </view>
           </view>
           
