@@ -4,8 +4,7 @@ App({
     let scity = params.scity?params.scity : null;
     let unicode = params.unicode ? params.unicode : null;
     if(!options) var options = "GET";
-    // delete params.scity;
-    // delete params.unicode;
+    delete params.unicode;
  
     wx.request({
       url: url,
@@ -23,13 +22,14 @@ App({
               title: res.data.msg
             })
           }
-          if(res.data.data) {
+          if(res.data.data||res.data.data.length) {
              callback(null, res.data);
+             wx.hideLoading()
           }
         }else if(res.statusCode == 500) {
           wx.showModal({title: '500错误'})
+          wx.hideLoading()
         }
-        wx.hideLoading()
       },
       fail: (error) => {
         callback(error);

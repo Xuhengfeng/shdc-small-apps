@@ -35,37 +35,15 @@ Page(filter.loginCheck({
     });
   },
   getDataFromServer(num) {
-      this.setData({
-      hasMore: true,
-      showload: true
-    })
-    wx.request({
-      url: this.data.IPS[num],
-      data: {
-        pageNo: 1,
-        pageSize: 10
-      },
-      method: 'GET',
-      header: {
-        "Content-Type": "application/json",
-        "unique-code": wx.getStorageSync("userToken").data
-      },
-      success: (res) => {
-        if(res.data.data) {
-          //修正数据
-          res.data.data.forEach((item) => {
-            item.houseTag = item.houseTag.split(',');
-          })
-          this.setData({houseList: res.data.data})
-        }else{
-          this.setData({houseList: ''})
-        }
-        this.setData({
-          hasMore: false,
-          showload: false
-        })
-        wx.hideLoading();
-      }
+    this.setData({hasMore: true})
+    let params = {pageNo: 1,pageSize: 10,unicode: wx.getStorageSync("userToken").data}
+    app.httpRequest(this.data.IPS[num], params, (error, data) => {
+      //修正数据
+      data.data.forEach((item) => {
+        item.houseTag = item.houseTag.split(',');
+      })
+      this.setData({houseList: data.data})
+      this.setData({hasMore: false});
     })
   }
 }));

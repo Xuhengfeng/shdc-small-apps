@@ -49,7 +49,7 @@ export const IP_COLLECTIONLIST = SERVER_IPS + "/buildCollection/collectionList";
 
 //搜索
 export const IP_AREADISTRICTS = SERVER_IPS + "/area/areaDistricts/";//区域
-export const IP_DICTIONARY = SERVER_IPS + "/dictionary/dictionarys";//户型和类型
+export const IP_DICTIONARY = SERVER_IPS + "/dictionary/dictionarys";//户型和类型 用途
 export const IP_DICTIONARYCONDITION = SERVER_IPS + "/dictionary/";//价格 面积 （不同城市价格 面积 不一样）
 
 export const IP_RENTHOUSE = SERVER_IPS + "/rentHouse/query";//租房所有数据

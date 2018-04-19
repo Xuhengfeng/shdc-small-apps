@@ -6,7 +6,7 @@ Page({
     windowHeight: null
   },
   onLoad() {
-    app.httpRequest(Api.IP_INDEXCONSULT+"beihai"+"/PURCHASE_GUIDE", 'GET', (error, data) => {//获取主页资讯Banner
+    app.httpRequest(Api.IP_INDEXCONSULT+"beihai"+"/PURCHASE_GUIDE", {}, (error, data) => {//获取主页资讯Banner
       data.data.forEach((item)=> {
         let diff = (new Date().getTime() - item.pubTime)/1000;
         let h = diff/3600;//小时

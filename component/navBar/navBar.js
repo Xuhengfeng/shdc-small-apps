@@ -58,7 +58,6 @@ Component({
     isScroll: true,
     scrollTop: 0,
     highSelectItem: false,//打开高亮
-    loading: false,//加载圈
     
     //内部筛选条件
     areaCategories: 0,//区域分类
@@ -165,25 +164,16 @@ Component({
       })
     },
 
-    //二手房列表  租房列表 小区列表
+    //请求二手房列表  租房列表 小区列表
     getDataFromServer(url, params) {
       app.httpRequest(url, params, (error, data)=>{
-        if (data.data.length) {
-          this.setData({houseList: data.data})
-        }else{
-          this.setData({houseList: ''})
-        } 
-        console.log(this.data.houseList)
-        let obj = {
-          'params': params,
-          'houseList': this.data.houseList
-        }
+        let List = data.data.length?data.data:"";
+        this.setData({houseList: List})
+        let obj = {params: params, houseList: this.data.houseList}
         this.triggerEvent('myevent', obj);
       }, 'POST')
-      
     },
 
-    //区域
     //切换城区分类
     changeCategories(e) {
       this.setData({
@@ -203,7 +193,7 @@ Component({
       }
       
     },
-    //区域
+
     //切换城区子分类 进行请求
     changeSubCategories(e) {
       let id = e.target.dataset.num;

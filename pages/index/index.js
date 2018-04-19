@@ -1,9 +1,7 @@
 let Api = require("../../utils/url");
 let bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
 let pinyin = require("../../libs/browser.js"); //汉字转拼音
-
 let app = getApp();
-
 
 Page({
   data: {
@@ -32,26 +30,19 @@ Page({
     IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING],
   },
   onLoad(){
-    
     let that = this;
     wx.getLocation({
       type: 'gcj02',
       success: (res) => {
-        // 百度地图地址解析
-        var BMap = new bmap.BMapWX({
-          ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
-        });
+        var BMap = new bmap.BMapWX({ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'});
         // 发起regeocoding检索请求 
         BMap.regeocoding({
           location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
           success: (data) => {
             var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
             var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
-
             var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
-            this.setData({
-              myLocation: currentCityName
-            })
+            this.setData({ myLocation: currentCityName})
             wx.setStorage({
               key: 'selectCity',
               data: {
@@ -71,16 +62,11 @@ Page({
             if (res.confirm) {
               wx.openSetting({
                 success: res => {
-                  console.log(res)
                   if (res.authSetting["scope.userLocation"]) {//如果用户重新同意了授权登录
                     wx.getLocation({
                       type: 'gcj02',
                       success: (res) => {
-                        console.log(res)
-                        // // 百度地图地址解析
-                        var BMap = new bmap.BMapWX({
-                          ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
-                        });
+                        var BMap = new bmap.BMapWX({ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'});
                         // 发起regeocoding检索请求 
                         BMap.regeocoding({
                           location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
@@ -88,9 +74,7 @@ Page({
                             var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
                             var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
                             var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
-                            this.setData({
-                              myLocation: currentCityName
-                            })
+                            this.setData({myLocation: currentCityName})
                             wx.setStorage({
                               key: 'selectCity',
                               data: {
@@ -166,10 +150,9 @@ Page({
       data.data.forEach((item) => {
         item.houseTag = item.houseTag.split(',');
       })
-      this.data.num == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
-      this.setData({
-        houseList: data.data
-      })
+      let flagpc =  this.data.num == 0 ? true : false;
+      this.setData({flagPrice: flagpc})
+      this.setData({houseList: data.data})
     })
   },
   onPullDownRefresh() {
@@ -203,25 +186,52 @@ Page({
       })
     }
   },
-  // 独家好房 跳转
-  goodsHouse(e) {
-    console.log(e)
+  activity2(e) {
     let num = e.currentTarget.dataset.num;
     if (num == 1) {
       wx.navigateTo({
-        url: "../searchList/searchList"
+        url: ""
       })
     } else if (num == 2) {
       wx.navigateTo({
-        url: "../index/buyRentHouse"
+        url: ""
       })
     } else if (num == 3) {
       wx.navigateTo({
-        url: "../searchList/searchList"
+        url: ""
       })
     } else if (num == 4) {
       wx.navigateTo({
-        url: "../searchList/searchList"
+        url: ""
+      })
+    } else if (num == 5) {
+      wx.navigateTo({
+        url: "shop"
+      })
+    }
+  },
+  //四张pic
+  goodsHouse(e) {
+    let num = e.currentTarget.dataset.num;
+    if (num == 1) {
+      wx.navigateTo({
+        url: ""
+      })
+    } else if (num == 2) {
+      wx.navigateTo({
+        url: ""
+      })
+    } else if (num == 3) {
+      wx.navigateTo({
+        url: ""
+      })
+    } else if (num == 4) {
+      wx.navigateTo({
+        url: ""
+      })
+    } else if (num == 5) {
+      wx.navigateTo({
+        url: ""
       })
     }
   },

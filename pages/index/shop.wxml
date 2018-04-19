@@ -27,7 +27,5 @@
 <view class="tips">
   <view wx:if="{{!shopRent.length}}"><text>没有更多内容</text></view>
 </view>
-<loading wx:if="{{showload}}">
-  加载中...
-</loading>
+
 

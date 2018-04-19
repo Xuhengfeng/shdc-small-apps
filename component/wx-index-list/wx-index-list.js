@@ -1,35 +1,31 @@
-// component/wx-index-list/wx-index-list.js
-const bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
-const pinyin = require("../../libs/browser.js"); //汉字转拼音
-const app = getApp();
+let bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
+let pinyin = require("../../libs/browser.js"); //汉字转拼音
+let app = getApp();
 
 Component({
-  /**
-   * 组件的属性列表
-   */
   properties: {
-    city: {//这里接收
+    city: {
       type: Object,
-      value: {},
+      value: null,
+      observer: 'resetRight'
     },
     myCity: {
       type: String,
-      value: "获取...",
+      value: "..."
     },
     cityCode: {
       type: String,
       value: null
     },
-    origin: {//那个页面跳入
+    origin: {//判断那个页面跳入
       type: String,
       value: null
     },
-    // 用于外部组件搜索使用  meiyou
+    //用于外部组件搜索使用  meiyou
     search: {
       type: String,
       value: "",
       observer: function (newVal, oldVal) {
-        console.log(newVal)
         this.value = newVal;
         this.searchMt();
       }
@@ -42,11 +38,7 @@ Component({
     myCityName: '请选择', // 默认我的城市,  
   },
   ready() {
-    setTimeout(() => {
-      var city = this.data.city;
-      this.resetRight(city);
-      if (this.data.myCity) this.getCity();
-    }, 1000)
+    if (this.data.myCity) this.getCity();
   },
   methods: {
     resetRight(data) {// 数据重新渲染 
@@ -54,10 +46,7 @@ Component({
       for (let i in data) {
         rightArr.push(data[i].title.substr(0, 1));
       }
-      this.setData({//这里赋值渲染
-        list: data,
-        rightArr
-      })
+      this.setData({list: data,rightArr})
     },
     getCity() {//定位
       wx.getLocation({
@@ -81,14 +70,10 @@ Component({
                   value: currentCity
                 },
                 success:()=>{
-                  this.setData({
-                    myCity: currentCityName
-                  })
+                  this.setData({myCity: currentCityName})
                 },
                 fail: ()=>{
-                  this.setData({
-                    myCity: currentCityName
-                  })
+                  this.setData({myCity: currentCityName})
                 }
               });
               
@@ -112,10 +97,7 @@ Component({
               currentCity: e.target.dataset.detail.value
             })
             prevPage.oneBigRequest(e.target.dataset.detail.value);//上一页重新加载数据
-            wx.setStorage({
-              key: 'houseTypeSelect',
-              data: '二手房'
-            })
+            wx.setStorage({key: 'houseTypeSelect',data: '二手房'})
             wx.setStorage({
               key: 'selectCity',
               data: {
@@ -139,7 +121,6 @@ Component({
       this._search();
     },
     _search() {
-      console.log("搜索")
       let data = this.data.city;
       let newData = [];
       for (let i = 0; i < data.length; i++) {
@@ -171,10 +152,7 @@ Component({
             num: 0,
             currentCity: pinyin.convertToPinyin(e.target.dataset.detail, '', true)
           });
-          wx.setStorage({
-            key: 'houseTypeSelect',
-            data: '二手房'
-          })
+          wx.setStorage({key: 'houseTypeSelect',data: '二手房'})
           wx.getStorage({
             key: 'currentCity',
             success: (res) => {

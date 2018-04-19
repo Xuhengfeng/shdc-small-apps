@@ -1,4 +1,3 @@
-<!--component/navBar/navBar.wxml-->
  <!-- 遮罩层 -->
 <view class="shadowModal"
       data-statu="close" 
@@ -52,7 +51,7 @@
             </view> 
             <view class="housetype-ft">
                 <button type="primary" 
-                        style="background:#f2f2f2;border:0;color:#666666"
+                        class="grayBtnColor"
                         bindtap="changeHouseTypeUnlimit">条件不限</button>
                 <button type="primary" 
                         class="globalBtnColor"
@@ -86,7 +85,7 @@
             </view>
             <view class="price-ft">
                 <button type="primary" 
-                        style="background:#f2f2f2;border:0;color:#666666"
+                        class="grayBtnColor"
                         bindtap="pricelabelUnlimit">条件不限</button>
                 <button type="primary" 
                         class="globalBtnColor" 
@@ -106,7 +105,7 @@
             </view>
             <view class="area2-ft">
                 <button type="primary" 
-                        style="background:#f2f2f2;border:0;color:#666666"
+                        class="grayBtnColor"
                         bindtap="proportionlabelUnlimit">条件不限</button>
                 <button type="primary" 
                         class="globalBtnColor"
@@ -125,7 +124,7 @@
             </view>
             <view class="type-ft">
                 <button type="primary" 
-                        style="background:#f2f2f2;border:0;color:#666666"
+                        class="grayBtnColor"
                         bindtap="modelabeUnlimit">条件不限</button>
                 <button type="primary" 
                         class="globalBtnColor"
@@ -149,7 +148,7 @@
               </view>
               <view class="type-ft">
                   <button type="primary" 
-                          style="background:#f2f2f2;border:0;color:#666666"
+                          class="grayBtnColor"
                           bindtap="uselabelUnlimit">条件不限</button>
                   <button type="primary" 
                           class="globalBtnColor"
@@ -167,7 +166,7 @@
             </view>
             <view class="type-ft">
                 <button type="primary" 
-                        style="background:#f2f2f2;border:0;color:#666666"
+                        style=""
                         bindtap="modelabe2Unlimit">条件不限</button>
                 <button type="primary" 
                         class="globalBtnColor"
@@ -185,7 +184,7 @@
               </view>
               <view class="type-ft">
                   <button type="primary" 
-                          style="background:#f2f2f2;border:0;color:#666666"
+                          class="grayBtnColor"
                           bindtap="houseAgelabelUnlimit">条件不限</button>
                   <button type="primary" 
                           class="globalBtnColor"
@@ -197,6 +196,3 @@
   </view>
 </view>
 
-<loading wx:if="{{loading}}">
-  加载中...
-</loading>

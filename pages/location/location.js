@@ -1,26 +1,20 @@
-var app = getApp();
-let api = require('../../utils/url.js');
+let Api = require('../../utils/url.js');
+let app = getApp();
 
 Page({
   data: {
-    city: null,
+    city: '',
     origin: ''
   },
   onLoad(options) {
-
-    this.setData({ 
-      origin: options.origin 
-    });
-
+    this.setData({origin: options.origin});
     let hot_city = "热门";
     let hot_city_len = 2;
     let map = {
-        "hot": {
-            title: hot_city,
-            item: []
+            "hot": {title: hot_city,item: []}
         }
-    }
-    app.httpRequest(api.IP_CITYLIST, 'GET', (err, data)=> {
+
+    app.httpRequest(Api.IP_CITYLIST, '', (err, data)=> {
         data.data.forEach((obj, index) => {//城市数据 重新map排列
               if(index < hot_city_len) {
                 map['hot'].item.push({
@@ -31,10 +25,7 @@ Page({
               }
               const type = obj.value.slice(0, 1).toUpperCase();
               if(!map[type]) {
-                map[type] = {
-                  title: type,
-                  item: []
-                }
+                map[type] = { title: type,item: []}
               }
               map[type].item.push({
                 'name': obj.name,
@@ -54,7 +45,7 @@ Page({
                 return a.title.charCodeAt() - b.title.charCodeAt()
               })
               this.data.city = hot.concat(ret);
-              this.setData({city: this.data.city});
+              this.setData({city: hot.concat(ret)});
         })
     });
   },

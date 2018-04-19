@@ -31,7 +31,7 @@
       <navBar-html class="mynav"
                   label="{{label}}"
                   area="{{area}}" 
-                  houseTy="{{houseTypes}}
+                  houseTy="{{houseTy}}
                   mode="{{mode}}"
                   price="{{price}}"
                   proportion="{{proportion}}"
@@ -117,6 +117,6 @@
             <view wx:elif="{{!houseList}}"><text>没有更多内容</text></view>
         </view>
         <loading wx:if="{{showload}}">加载中...</loading>
-        <view style="height:500px;" wx:if="{{!houseList.length}}"></view>
+        <view style="height:800px;" wx:if="{{!houseList.length}}"></view>
     </view>
 <!-- </view> -->
