@@ -26,7 +26,7 @@ Page({
     showload: false,
     houseList: [],//房源列表
     area: [],//区域
-    houseType: [],//户型
+    houseTypes: [],//户型
     price: [],//价格或者租金
     proportion: [],//面积
     mode: [],//类型
@@ -57,27 +57,25 @@ Page({
       key: 'selectCity',
       success: (res) => {
         this.setData({cityCode: res.data.value});
-        
-        // banner图片
-        app.httpRequest(Api.IP_INDEXCONSULT + res.data.value + "/HOUSE_USED_BANNER", {}, (error, data) => {//获取主页资讯Banner
-            this.setData({ imgUrls: data.data })
-        });
-
-        //为你推荐
-        app.httpRequest(this.data.recmd[this.data.num] + res.data.value, {}, (error, data) => {//获取主页资讯Banner
-            this.setData({ recommend: data.data })
-        });
-
-        //区域
-        this.areaRequest(res.data.value);
-
-        //户型 类型
-        this.houseTypeRequest();
-
-        //价格 面积
-        this.priceAreaRequest(res.data.value);
+        this.oneBigRequest(res.data.value);
       }
     })
+  },
+  oneBigRequest(city) {
+        // banner图片
+        app.httpRequest(Api.IP_INDEXCONSULT + city + "/HOUSE_USED_BANNER", {scity: city}, (error, data) => {
+          this.setData({ imgUrls: data.data })
+        });
+        //为你推荐
+        app.httpRequest(this.data.recmd[this.data.num] + city, { scity: city }, (error, data) => {//获取主页资讯Banner
+          this.setData({ recommend: data.data })
+        });
+        //区域
+        this.areaRequest(city);
+        //户型 类型 用途
+        this.houseTypeRequest();
+        //价格 面积
+        this.priceAreaRequest(city);
   },
   //区域
   areaRequest(currentCity) {
@@ -97,15 +95,19 @@ Page({
       this.setData({ area: newData });
     })
   },
-  //户型 类型
+  //户型 类型 用途
   houseTypeRequest() {
     let params = ['HOUSE_HUXING', 'HOUSE_USE', 'HOUSE_AREA'];
     app.httpRequest(Api.IP_DICTIONARY, params, (error, data) => {
       this.setData({
-        houseType: data.data.HOUSE_HUXING,
+        houseTypes: data.data.HOUSE_HUXING,
         mode: data.data.HOUSE_USE,
         proportion: data.data.HOUSE_AREA
       })
+      console.log('----------------------------')
+      console.log(data.data.HOUSE_HUXING)
+      console.log('----------------------------')
+      
     }, 'POST')
   },
   //价格 租金
@@ -151,9 +153,7 @@ Page({
     })
   },
   userSearch(e) {//用户输入关键字
-    this.setData({
-      keyword: e.detail.value,
-    })
+    this.setData({keyword: e.detail.value})
   },
   startsearch() {//点击icon搜索
     if (!this.data.keyword) {
@@ -185,10 +185,10 @@ Page({
   },
   //监听事件 拿到首次 或 点击筛选条件的第一页数据
   onMyEventHouseList(item) {
+    console.log(item)
     setTimeout(() => {
       //修正数据
       item.detail.houseList.forEach((item2) => {
-        console.log(item2)
         if (item2.houseTag) {
           item2.houseTag = item2.houseTag.split(',');
         }
@@ -224,48 +224,3 @@ Page({
     },'POST')
   }
 })
-//     this.setData({
-//       showload: true,
-//       hasMore: true
-//     })
-//     wx.request({
-//       url: IP,
-//       data: Params,
-//       method: "POST",
-//       header: {'Content-Type': 'application/json' },
-//       success: (res) => {
-//         if (res.statusCode == 200) {
-//           res.data.data.forEach((item) => {
-//             item.houseTag = item.houseTag.split(',');
-//           })
-//           this.setData({
-//             houseList: this.data.houseList.concat(res.data.data),
-//             hasMore: false,
-//             showload: false
-//           })
-//           if(this.data.num == 0) {
-//             this.setData({ flagPrice: true })
-//           }else{
-//             this.setData({ flagPrice: false })
-//           }
-//         }
-//         if(res.statusCode == 500) {
-//           this.setData({
-//             houseList: '',
-//             hasMore: false,
-//             showload: false
-//           })
-//           wx.showModal({content: '服务器异常'})
-//         }
-//       },
-//       fail: ()=> {
-//         this.setData({
-//           houseList: '',
-//           hasMore: false,
-//           showload: false
-//         })
-//       }
-//     })
-//   }
-// })
-

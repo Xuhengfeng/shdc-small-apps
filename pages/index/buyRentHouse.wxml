@@ -31,7 +31,7 @@
       <navBar-html class="mynav"
                   label="{{label}}"
                   area="{{area}}" 
-                  houseType="{{houseType}}
+                  houseTy="{{houseTypes}}
                   mode="{{mode}}"
                   price="{{price}}"
                   proportion="{{proportion}}"

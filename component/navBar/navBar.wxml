@@ -43,13 +43,13 @@
       <view wx:if="{{twoHouseOrArea}}">
           <!-- 户型 -->
           <view wx:if="{{num == 1}}" class="housetype">
-            <view class="housetype-hd">
-                <text wx:for="{{houseType}}" 
+             <view class="housetype-hd">
+                <text wx:for="{{houseTy}}" 
                       data-num="{{index}}"
                       data-value="{{item.value}}"
                       class="{{index == houseTypeCategories?'font3Color':'font2Color'}}"
                       bindtap="changeHouseType">{{item.name}}</text>
-            </view>
+            </view> 
             <view class="housetype-ft">
                 <button type="primary" 
                         style="background:#f2f2f2;border:0;color:#666666"

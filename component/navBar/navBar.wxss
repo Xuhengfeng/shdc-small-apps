@@ -80,12 +80,13 @@
   height: 160rpx;
 }
 
-/* content 公共部分 */
+/* content 公共部分  操作一下*/
 .area,
 .housetype,
 .price,
 .area2,
 .type{
+  height:100px;
   border-top:1rpx solid #cacaca;
 }
 .housetype .housetype-hd,

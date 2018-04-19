@@ -7,7 +7,7 @@ Component({
       type: Array,
       value: ''
     },
-    houseType: {//户型
+    houseTy: {//户型
       type: Array,
       value: ''
     },
@@ -44,6 +44,11 @@ Component({
       value: false
     }
    },
+  created(){
+    console.log('1111111111111111111111111')
+    console.log(this.properties)
+    console.log('1111111111111111111111111')
+  },
   data: {
     //房源列表
     houseList: [],

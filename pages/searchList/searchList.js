@@ -7,7 +7,7 @@ Page({
     houseList: [],//房源列表
 
     area: [],//区域
-    houseType: [],//户型
+    houseTypes: [],//户型
     price: [],//价格
     proportion: [],//面积
     mode: [],//类型
@@ -107,21 +107,17 @@ Page({
   },
   //户型 类型 面积 用途 楼龄
   houseTypeRequest() {
-    wx.request({
-      url: this.data.IPS[1],
-      data: ['HOUSE_HUXING', 'HOUSE_TYPE', 'HOUSE_AREA', 'HOUSE_USE','HOUSE_AGE'],
-      method: 'POST',
-      success: (res)=> {
-        
-        this.setData({
-          houseType: res.data.data.HOUSE_HUXING,
-          mode: res.data.data.HOUSE_TYPE,
-          proportion: res.data.data.HOUSE_AREA,
-          use: res.data.data.HOUSE_USE,
-          houseAge: res.data.data.HOUSE_AGE
-        })
-      }
-    })
+    let params = ['HOUSE_HUXING', 'HOUSE_TYPE', 'HOUSE_AREA', 'HOUSE_USE', 'HOUSE_AGE'];
+    app.httpRequest(this.data.IPS[1], params, (error, data) => {
+      console.log(data)
+      this.setData({
+          houseTypes: data.data.HOUSE_HUXING,
+          mode: data.data.HOUSE_TYPE,
+          proportion: data.data.HOUSE_AREA,
+          use: data.data.HOUSE_USE,
+          houseAge: data.data.HOUSE_AGE
+      })
+    }, 'POST')
   },
   //价格
   priceAreaRequest(currentCity) {
@@ -144,6 +140,10 @@ Page({
   },
   //请求数据
   getDataFromServer(IP, page, code) {
+    app.httpRequest(this.data.IPS[0] + currentCity, 'GET', (error, data) => {
+
+    })
+    
     this.setData({
       showload: true,
       hasMore: true
@@ -186,7 +186,7 @@ Page({
   //监听事件 拿到首次 或 点击筛选条件的第一页数据
   onMyEventHouseList(item) {
     console.log(item)
-    setTimeout(() => {
+    setTimeout((item) => {
       //修正数据
       item.detail.houseList.forEach((item2) => {
         if (item2.houseTag) {

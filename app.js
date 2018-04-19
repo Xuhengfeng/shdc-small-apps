@@ -1,16 +1,21 @@
 App({
-  httpRequest(url, params, callback, options) {
-    wx.showLoading({
-      title: '加载中...'
-    })
-    if(!options) {
-        var options = "GET";
-    }
+  httpRequest(url, params, callback,  options) {
+    wx.showLoading({title: '加载中...'})
+    let scity = params.scity?params.scity : null;
+    let unicode = params.unicode ? params.unicode : null;
+    if(!options) var options = "GET";
+    // delete params.scity;
+    // delete params.unicode;
+ 
     wx.request({
       url: url,
       data: params,
       method: options,
-      header: { 'Content-Type': 'application/json' },
+      header: { 
+        'Content-Type': 'application/json',
+        'scity': scity,
+        'unique-code':  unicode,
+      },
       success: (res) => {
         if(res.statusCode == 200) {
           if(res.data.status == 0) {
@@ -22,9 +27,7 @@ App({
              callback(null, res.data);
           }
         }else if(res.statusCode == 500) {
-          wx.showModal({
-            title: '500错误'
-          })
+          wx.showModal({title: '500错误'})
         }
         wx.hideLoading()
       },

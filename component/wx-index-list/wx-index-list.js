@@ -104,7 +104,6 @@ Component({
     detailMt(e) {//列表点击事件  那个这里页面 没有options 
       let pages = getCurrentPages();//当前页面
       let prevPage = pages[pages.length - 2];//上一页面
-      console.log(this.data)
 
       if (this.data.origin == "index") {
             prevPage.setData({
@@ -166,7 +165,6 @@ Component({
     locationMt(e) {// 定位城市点击选择
       let pages = getCurrentPages();//当前页面
       let prevPage = pages[pages.length - 2];//上一页面
-      console.log(this.data)
       if(this.data.origin == "index") {
           prevPage.setData({//直接给上移页面赋值
             myLocation: e.target.dataset.detail,

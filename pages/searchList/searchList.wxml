@@ -10,7 +10,7 @@
      <!-- <button class="search-button" catchtap="searchMt">搜索</button>  -->
   </view>  
   <navBar-html area="{{area}}" 
-               houseType="{{houseType}}"
+               houseType="{{houseTypes}}"
                mode="{{mode}}"
                price="{{price}}"
                proportion="{{proportion}}"
