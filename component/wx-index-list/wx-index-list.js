@@ -1,5 +1,5 @@
 let bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
-let pinyin = require("../../libs/browser.js"); //汉字转拼音
+let pinyin = require("../../libs/toPinyin.js"); //汉字转拼音
 let app = getApp();
 
 Component({
@@ -60,23 +60,23 @@ Component({
           BMap.regeocoding({
             location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
             success: (data) => {
-              var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
-              var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
-              var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
-              wx.setStorage({
-                key: 'currentCity',
-                data: {
-                  name: currentCityName,
-                  value: currentCity
-                },
-                success:()=>{
-                  this.setData({myCity: currentCityName})
-                },
-                fail: ()=>{
-                  this.setData({myCity: currentCityName})
-                }
-              });
-              
+                  let citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
+                  let lowCase = pinyin.Pinyin.getFullChars(citytoPinyin);
+                  let currentCity = lowCase.toLowerCase();
+                  let currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
+                  wx.setStorage({
+                    key: 'currentCity',
+                    data: {
+                      name: currentCityName,
+                      value: currentCity
+                    },
+                    success:()=>{
+                      this.setData({myCity: currentCityName})
+                    },
+                    fail: ()=>{
+                      this.setData({myCity: currentCityName})
+                    }
+                  });
             }
           });
         }
@@ -144,29 +144,31 @@ Component({
       this.resetRight(newData);
     },
     locationMt(e) {// 定位城市点击选择
-      let pages = getCurrentPages();//当前页面
-      let prevPage = pages[pages.length - 2];//上一页面
-      if(this.data.origin == "index") {
-          prevPage.setData({//直接给上移页面赋值
-            myLocation: e.target.dataset.detail,
-            num: 0,
-            currentCity: pinyin.convertToPinyin(e.target.dataset.detail, '', true)
-          });
-          wx.setStorage({key: 'houseTypeSelect',data: '二手房'})
-          wx.getStorage({
-            key: 'currentCity',
-            success: (res) => {
-              prevPage.oneBigRequest(res.data.value);//上一页重新加载数据
+          let pages = getCurrentPages();//当前页面
+          let prevPage = pages[pages.length - 2];//上一页面
+          let lowCase = pinyin.Pinyin.getFullChars(e.target.dataset.detail);
+          let currentCity = lowCase.toLowerCase();
+          if(this.data.origin == "index") {
+              prevPage.setData({//直接给上移页面赋值
+                myLocation: e.target.dataset.detail,
+                num: 0,
+                currentCity: currentCity
+              });
+              wx.setStorage({key: 'houseTypeSelect',data: '二手房'})
+              wx.getStorage({
+                key: 'currentCity',
+                success: (res) => {
+                  prevPage.oneBigRequest(res.data.value);//上一页重新加载数据
+                  wx.navigateBack();//返回上一个页面
+                }
+              })  
+          }else if(this.data.origin == "sellRent") {
+              prevPage.setData({//直接给上移页面赋值
+                city: e.target.dataset.detail,
+                phcolorFlag: false
+              });
               wx.navigateBack();//返回上一个页面
-            }
-          })  
-      }else if(this.data.origin == "sellRent") {
-          prevPage.setData({//直接给上移页面赋值
-            city: e.target.dataset.detail,
-            phcolorFlag: false
-          });
-          wx.navigateBack();//返回上一个页面
-      }
-    }
+          }
+        }
   }
 })

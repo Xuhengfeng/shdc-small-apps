@@ -5,11 +5,17 @@
       <text>推荐方式登录</text>
       <view class="line"></view> 
     </view>
-<!-- open-type="getPhoneNumber" 
-bindgetphonenumber="getPhoneNumber"  -->
-        <button type="primary" 
+    <!-- 微信授权登录 -->
+    <!-- <button type="primary" 
             bindtap="getUseInfo"
             class="globalBtnColor">
+             <image src="../../images/wechat.png"></image>账号登录
+    </button>  -->
+    <!-- 手机号授权登录 -->
+    <button type="primary" 
+                  open-type="getPhoneNumber" 
+                  bindgetphonenumber="getPhoneNumber"
+                  class="globalBtnColor">
              <image src="../../images/wechat.png"></image>账号登录
     </button> 
   </view>

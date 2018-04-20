@@ -150,6 +150,7 @@ Component({
   },
   methods: {
     selectItem(e) {//控制nav菜单
+    
       this.setData({
         num: e.target.dataset.index,
         isScroll: false,

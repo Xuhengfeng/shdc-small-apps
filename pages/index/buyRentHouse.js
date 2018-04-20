@@ -109,9 +109,18 @@ Page({
   },
   //户型 
   houseTyRequest(city) {
-    app.httpRequest(Api.IP_DICTIONARYCONDITION+'HOUSE_HUXING', {}, (error, data) => {
-      this.setData({houseTy: data.data})
-    })
+    let arr =[
+    { value: "a1", name: "a一房" },
+    { value: "a2", name: "二房" },
+    { value: "a3", name: "三房" },
+    { value: "a6", name: "五房以上" }]
+    this.setData({ houseTy: arr })
+    // app.httpRequest(Api.IP_DICTIONARYCONDITION+'HOUSE_HUXING', {}, (error, data) => {
+    //   console.log(data.data)
+
+    //   this.setData({houseTy: data.data})
+    // })
+    
   },
   //价格 租金
   priceAreaRequest(city) {

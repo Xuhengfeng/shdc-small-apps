@@ -31,7 +31,7 @@
 }
 .serarch-content{
   background: rgba(255,255,255,.9);
-  border-radius: 15rpx;
+  border-radius: 10rpx;
   position: absolute;
   top: 20rpx;
   left: 50%;

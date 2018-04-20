@@ -18,28 +18,30 @@
         </view>
   </view>
   <view class="content" animation="{{animationData}}">
-      <!-- 区域 -->
-      <view wx:if="{{num == 0}}" class="area">
-        <scroll-view scroll-y class="one">
-            <view wx:for="{{area}}"
-                  data-num="{{index}}" 
-                  data-id="{{item.id}}"
-                  class="{{index == areaCategories?'font1Color':'font2Color'}}"
-                  bindtap="changeCategories">{{item.name}}</view>
-        </scroll-view>
-        <!-- 片区 -->
-        <scroll-view scroll-y class="two" scroll-top="{{scrollTop}}">     
-            <view wx:for="{{area[areaCategories].districts}}"
-                  data-num="{{index}}"
-                  data-id="{{item.id}}"
-                  class="{{index == areaSubCategories?'font1Color':'font2Color'}}"
-                  bindtap="changeSubCategories">{{item.name}}</view>
-        </scroll-view>
-      </view>
+      
 
 
       <!-- 二手房 租房 -->
       <view wx:if="{{twoHouseOrArea}}">
+          <!-- 区域 -->
+          <view wx:if="{{num == 0}}" class="area">
+            <scroll-view scroll-y class="one">
+                <view wx:for="{{area}}"
+                      data-num="{{index}}" 
+                      data-id="{{item.id}}"
+                      class="{{index == areaCategories?'font1Color':'font2Color'}}"
+                      bindtap="changeCategories">{{item.name}}</view>
+            </scroll-view>
+            <!-- 片区 -->
+            <scroll-view scroll-y class="two" scroll-top="{{scrollTop}}">     
+                <view wx:for="{{area[areaCategories].districts}}"
+                      data-num="{{index}}"
+                      data-id="{{item.id}}"
+                      class="{{index == areaSubCategories?'font1Color':'font2Color'}}"
+                      bindtap="changeSubCategories">{{item.name}}</view>
+            </scroll-view>
+          </view>
+
           <!-- 户型 -->
           <view wx:if="{{num == 1}}" class="housetype">
              <view class="housetype-hd">
@@ -137,6 +139,24 @@
 
       <!-- 小区 -->
       <view wx:if="{{!twoHouseOrArea}}">
+            <!-- 区域 -->
+          <view wx:if="{{num == 0}}" class="area">
+            <scroll-view scroll-y class="one">
+                <view wx:for="{{area}}"
+                      data-num="{{index}}" 
+                      data-id="{{item.id}}"
+                      class="{{index == areaCategories?'font1Color':'font2Color'}}"
+                      bindtap="changeCategories">{{item.name}}</view>
+            </scroll-view>
+            <!-- 片区 -->
+            <scroll-view scroll-y class="two" scroll-top="{{scrollTop}}">     
+                <view wx:for="{{area[areaCategories].districts}}"
+                      data-num="{{index}}"
+                      data-id="{{item.id}}"
+                      class="{{index == areaSubCategories?'font1Color':'font2Color'}}"
+                      bindtap="changeSubCategories">{{item.name}}</view>
+            </scroll-view>
+          </view>
           <!-- 用途 -->
           <view wx:if="{{num == 1}}" class="type">
               <view class="type-hd">
@@ -166,7 +186,7 @@
             </view>
             <view class="type-ft">
                 <button type="primary" 
-                        style=""
+                       class="grayBtnColor"
                         bindtap="modelabe2Unlimit">条件不限</button>
                 <button type="primary" 
                         class="globalBtnColor"

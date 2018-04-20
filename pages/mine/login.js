@@ -1,6 +1,8 @@
 let Api = require("../../utils/url");
 let md5 = require("../../utils/md5.js");
+let WXBizDataCrypt = require("../../utils/ Rdwxbizdatacrypt.js");
 let app = getApp();
+
 Page({
   data: {
     inputValue1: "",//电话号码
@@ -13,26 +15,44 @@ Page({
   }, 
   getPhoneNumber(e) {//这个方法后面 如果是企业号 就可以获取用户手机号
     if(e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-      wx.showModal({
-        showCancel: false,
-        content: '未授权',
-      })
+      //拒绝 -------------->>>>>
+      //用户手机号登录
+
+
     }else{
-      wx.showModal({
-        showCancel: false,
-        content: '同意授权',
-      })
+      //接受
+      //判断是否有appid--------->>>>
+      let globalData = app.globalData;
+      if (globalData.openid && globalData.session_key) {
+          let appId = 'wxce209331358eecd8';
+          let sessionKey = globalData.session_key;
+          let encryptedData = e.detail.encryptedData;
+          let iv = e.detail.iv;
+          let pc = new WXBizDataCrypt(appId, sessionKey)
+          let data = pc.decryptData(encryptedData, iv)
+          console.log('解密后 data: ', data)
+          //当前页面路由栈的信息
+          let pages = getCurrentPages();
+          let prevPage = pages[pages.length - 2];
+          prevPage.setData({
+            nickName: data.phoneNumber,
+            avatarUrl: globalData.userInfo.avatarUrl,
+            showLogout: true
+          })
+          //请求token
+          app.httpRequest(Api.weChatLogin, {code: globalData.code}, (error, data) => {
+            console.log(data)
+          })
+          wx.showToast({ title: '登录成功', icon: 'success', duration: 1000 });
+          setTimeout(() => { wx.navigateBack() }, 1000);
+      }else{
+
+      }
     }
   },  
+  //用户基本信息
   getUseInfo() {
     var that = this;
-    if(wx.getStorageSync('openId')) {
-      wx.getUserInfo({
-        success: (res)=> {
-          this.goBackSet(res);
-        }
-      })
-    }else{
       wx.login({
         success: res1=> {
           if(res1.code) {
@@ -107,8 +127,7 @@ Page({
           }
         }
       })
-    }
-
+    
   },
   login() {//手机短信验证码登录
     if(this.data.inputValue1 !== "" && this.data.inputValue2 !== "" ) {

@@ -1,6 +1,6 @@
 let Api = require("../../utils/url");
 let bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
-let pinyin = require("../../libs/browser.js"); //汉字转拼音
+let pinyin = require("../../libs/toPinyin.js"); //汉字转拼音
 let app = getApp();
 
 Page({
@@ -39,18 +39,19 @@ Page({
         BMap.regeocoding({
           location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
           success: (data) => {
-            var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
-            var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
-            var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
-            this.setData({ myLocation: currentCityName})
-            wx.setStorage({
-              key: 'selectCity',
-              data: {
-                name: currentCityName,
-                value: currentCity
-              }
-            });
-            this.oneBigRequest(currentCity);
+                let citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
+                let lowCase = pinyin.Pinyin.getFullChars(citytoPinyin);
+                let currentCity = lowCase.toLowerCase();
+                let currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
+                this.setData({ myLocation: currentCityName})
+                wx.setStorage({
+                  key: 'selectCity',
+                  data: {
+                    name: currentCityName,
+                    value: currentCity
+                  }
+                });
+                this.oneBigRequest(currentCity);
           }
         });
       },
@@ -71,18 +72,19 @@ Page({
                         BMap.regeocoding({
                           location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
                           success: (data) => {
-                            var citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
-                            var currentCity = pinyin.convertToPinyin(citytoPinyin, '', true)
-                            var currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
-                            this.setData({myLocation: currentCityName})
-                            wx.setStorage({
-                              key: 'selectCity',
-                              data: {
-                                name: currentCityName,
-                                value: currentCity
-                              }
-                            });
-                            this.oneBigRequest(currentCity);
+                                  let citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
+                                  let lowCase = pinyin.Pinyin.getFullChars(citytoPinyin);
+                                  let currentCity = lowCase.toLowerCase();
+                                  let currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
+                                  this.setData({ myLocation: currentCityName })
+                                  wx.setStorage({
+                                    key: 'selectCity',
+                                    data: {
+                                      name: currentCityName,
+                                      value: currentCity
+                                    }
+                                  });
+                                  this.oneBigRequest(currentCity);
                           }
                         });
                       }
