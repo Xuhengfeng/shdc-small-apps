@@ -171,6 +171,7 @@ Component({
         let List = data.data.length?data.data:"";
         this.setData({houseList: List})
         let obj = {params: params, houseList: this.data.houseList}
+        console.log(obj)
         this.triggerEvent('myevent', obj);
       }, 'POST')
     },

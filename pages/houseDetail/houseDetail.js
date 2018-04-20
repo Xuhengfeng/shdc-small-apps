@@ -1,5 +1,5 @@
-var Api = require("../../utils/url");
-const app = getApp();
+let Api = require("../../utils/url");
+let app = getApp();
 Page({
   data: {
     //轮播图banner
@@ -217,36 +217,29 @@ Page({
   },
   colletionRequest(bool, num) {//收藏
     if(bool) {
-      wx.showLoading({title: '收藏'})
-      wx.request({
-        url: this.data.IPS2[num] + this.data.currentCity + '/' + this.data.houseDetailId,
-        data: '',
-        method: 'POST',
-        header: {
-          "Content-Type": "application/json",
-          "unique-code": wx.getStorageSync("userToken").data
-        },
-        success: (res) => {wx.hideLoading()}
-      })
+      let params = {"title": "收藏","unique-code": wx.getStorageSync("userToken").data}
+      app.httpRequest(this.data.IPS2[num] + this.data.currentCity + '/' + this.data.houseDetailId, params, (error, data) => {
+        data.data.forEach((item) => {
+          item.houseTag = item.houseTag.split(',');
+        })
+        let flagpc = this.data.num == 0 ? true : false;
+        this.setData({ flagPrice: flagpc, guessYoulikeHouse: data.data });
+      }, 'POST')
     }else{
-      wx.showLoading({title: '取消'})
-      wx.request({
-        url: this.data.IPS3[num] + this.data.currentCity + '/' + this.data.houseDetailId,
-        data: '',
-        method: 'POST',
-        header: {
-          "Content-Type": "application/json",
-          "unique-code": wx.getStorageSync("userToken").data
-        },
-        success: (res) => {wx.hideLoading()}
-      })
+      let params = { "title": "取消", "unique-code": wx.getStorageSync("userToken").data }
+      app.httpRequest(this.data.IPS3[num] + this.data.currentCity + '/' + this.data.houseDetailId, params, (error, data) => {
+        data.data.forEach((item) => {
+          item.houseTag = item.houseTag.split(',');
+        })
+        let flagpc = this.data.num == 0 ? true : false;
+        this.setData({ flagPrice: flagpc, guessYoulikeHouse: data.data });
+      }, 'POST')
     }
   },
   toggleSelectLike() {
     if (!wx.getStorageSync("userToken").data && !wx.getStorageSync("openId")){
       wx.redirectTo({url: "/pages/mine/login"})
     };
-
     this.setData({likeFlag: !this.data.likeFlag});
     if(!this.data.likeFlag) {
         if(this.data.detailType == 11) {
@@ -271,18 +264,13 @@ Page({
             this.colletionRequest(false, 2);
         }
     }
-  
   },
-
   previewIamge(e) {
     var current = e.target.dataset.src;
     wx.previewImage({
       current: current, // 当前显示图片的http链接  
       urls: this.data.houseDetail ? this.data.houseDetail.housePicList : this.data.imgUrls //需要预览的图片http链接列表  
     })
-  },
-  onPullDownRefresh() {
-    console.log(23123)
   },
   onShareAppMessage(options) {
     var that = this;
@@ -318,55 +306,16 @@ Page({
   selectYouLike(e) {//猜你喜欢 二手房 租房
     this.setData({ num: e.target.dataset.index })
     var IP = this.data.guessLikeIP[this.data.num] +'/'+ this.data.currentCity;
-    var params = {
-      pageNo: this.data.page
-    }
+    var params = {pageNo: this.data.page}
     this.getDataFromServer(IP, params);
   },
   getDataFromServer(IP, params) {//猜你喜欢
-    this.setData({
-      showload: true,
-      hasMore: true
-    })
-    if(this.data.hasMore == true) {
-      wx.request({
-        url: IP,
-        data: params,
-        method: "GET",
-        header: { 'Content-Type': 'application/json' },
-        success: (res)=> {
-          if (res.statusCode == 200) {
-            res.data.data.forEach((item) => {
-              item.houseTag = item.houseTag.split(',');
-            })
-            this.setData({
-              guessYoulikeHouse: res.data.data,
-              hasMore: false,
-              showload: false
-            })
-            if (this.data.num == 0) {
-              this.setData({ flagPrice: true })
-            } else {
-              this.setData({ flagPrice: false })
-            }
-          }
-          if (res.statusCode == 500) {
-            this.setData({
-              hasMore: false,
-              showload: false
-            })
-            wx.showModal({content: '服务器错误'})
-          }
-        },
-        fail: (error)=> {
-          this.setData({
-            hasMore: false,
-            showload: false
-          })
-          wx.showModal({content: '服务器错误'})
-        }
+    app.httpRequest(IP, params, (error, data) => {
+      data.data.forEach((item) => {
+        item.houseTag = item.houseTag.split(',');
       })
-    }
+      let flagpc = this.data.num == 0? true : false;
+      this.setData({ flagPrice: flagpc, guessYoulikeHouse: data.data});
+    })
   }
-
 })

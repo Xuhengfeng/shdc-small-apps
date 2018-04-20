@@ -74,13 +74,10 @@ Page({
       success: (res)=>{
             //修正 当前的城市
             this.setData({currentCity: res.data.value})
-
             //区域
             this.areaRequest(res.data.value);
-
             //户型 类型 面积 用途 楼龄
             this.houseTypeRequest();
-
             //价格
             this.priceAreaRequest(res.data.value);
       }
@@ -130,69 +127,27 @@ Page({
       }
     })
   },
-  //用途
-  useRequest( ) {
-
-  },
-  //楼龄
-  houseAge() {
-
-  },
   //请求数据
-  getDataFromServer(IP, page, code) {
-    app.httpRequest(this.data.IPS[0] + currentCity, 'GET', (error, data) => {
-
-    })
-    
-    this.setData({
-      showload: true,
-      hasMore: true
-    })
-    wx.request({
-      url: IP,
-      data: this.data.params,
-      method: "POST",
-      header: { 'Content-Type': 'application/json' },
-      success: (res) => {
-        if (res.statusCode == 200) {
-          
-          //修正数据
-          res.data.data.forEach((item) => {
-            console.log(item)
-            if(item.houseTag) {
-              item.houseTag = item.houseTag.split(',');
-            }
-          })
-          this.setData({
-            houseList: this.data.houseList.concat(res.data.data),
-            showload: false,
-            hasMore: false
-          })
-          this.data.ipNum == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
-        }else{
-          wx.showModal({
-            content: '服务器异常',
-            success: ()=> {
-              this.setData({
-                showload: false,
-                hasMore: false
-              })
-            }
-          })
-        }
-      }
-    })
+  getDataFromServer(IP, params) {
+    app.httpRequest(IP, params, (error, data) => {
+      console.log(data)
+      //修正数据
+      data.data.forEach((item) => {
+        if (item.houseTag) {item.houseTag = item.houseTag.split(',')}
+      })
+      this.setData({houseList: this.data.houseList.concat(data.data)})
+      this.data.ipNum == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
+    },'POST')
   },
   //监听事件 拿到首次 或 点击筛选条件的第一页数据
   onMyEventHouseList(item) {
     console.log(item)
-    setTimeout((item) => {
+    setTimeout(() => {
       //修正数据
       item.detail.houseList.forEach((item2) => {
-        if (item2.houseTag) {
-          item2.houseTag = item2.houseTag.split(',');
-        }
+        if (item2.houseTag) {item2.houseTag = item2.houseTag.split(',')}
       })
+      console.log(item.detail.houseList)
       this.setData({
         houseList: item.detail.houseList,
         params: item.detail.params
@@ -201,65 +156,40 @@ Page({
   },
   //获取用户输入关键字
   userSearch(e) {
-    this.setData({
-      keyword: e.detail.value,
-    })
+    this.setData({keyword: e.detail.value})
   },
-
+  searchSubmit() {
+    this.startsearch();
+  },
   //开始检索
   startsearch() {
     if (!this.data.keyword) {
       wx.showModal({content: '请输入关键词'})
     }
-    this.setData({
-      showload: true,
-      hasMore: true,
-    })
-    wx.request({
-      url: this.data.IPS2[this.data.ipNum],
-      data: {
+    let params = {
         'pageNo': 1,
         'pageSize': 10,
         'keyword': this.data.keyword,
         'scity': this.data.currentCity
-      },
-      method: 'POST',
-      success: (res) => {
-        if (res.data.data.length) {
-          //修正数据
-          res.data.data.forEach((item) => {
-            if (item.houseTag) {
-              item.houseTag = item.houseTag.split(',');
-            }
-          })
-          this.setData({
-            houseList: res.data.data,
-            showload: false,
-            hasMore: false
-          })
-        }else{
-          wx.showModal({
-            content: '暂时没有找到数据',
-            success: () => {
-              this.setData({
-                houseList: '',
-                showload: false,
-                hasMore: false
-              })
-            }
-          })
-        }
-      }
+    }
+    app.httpRequest(this.data.IPS2[this.data.ipNum], params, (error, data) => {
+        //修正数据
+        data.data.forEach((item) => {
+          if (item.houseTag) {item.houseTag = item.houseTag.split(',')}
+        })
+        this.setData({houseList: res.data.data})
     })
-  },
-  searchSubmit() {
-    this.startsearch();
   },
   //上拉加载更多
   onReachBottom() {
-    var pageNo = this.data.page++;
-    this.getDataFromServer(this.data.IPS2[this.data.ipNum], pageNo, this.data.currentCity);
+    let page = this.data.page++;
+    let IP = this.data.IPS2[this.data.ipNum];
+    let params = {
+      pageNo: page,
+      keyword: '',
+      scity: this.data.currentCity
+    }
+    this.getDataFromServer(IP, params);
   }
-
 })
 

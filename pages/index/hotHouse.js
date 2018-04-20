@@ -41,20 +41,16 @@ Page({
       key: 'selectCity',
       success: (res)=> {
         this.setData({currentCity: res.data.value});
-
         //同小区房源
         if (this.data.contentType == 33) {
-          let params = {
-            'pageNo': 1
-          }
           let IP = this.data.IPS[this.data.num] + res.data.value+'/'+options.id
-          let bool = false;
-          this.getServerData(IP, params, bool);
+          let params = {'scity': this.data.currentCity, 'pageNo': 1}
+          this.getServerData(IP, params);
         }
       }
     })
   },
-  getServerData(IP, params, bool) {
+  getServerData(IP, params) {
     app.httpRequest(IP, params, (error, data) => {
       this.setData({
         houseList: this.data.houseList.concat(res.data.data),
@@ -63,12 +59,11 @@ Page({
     })
   },
   onReachBottom() {//上拉
-    let bool = true;
     let page = this.data.page++;
     let params = {
-      'scity': res.data.value,
-      'pageNo': 1
+      'scity': this.data.currentCity,
+      'pageNo': page
     }
-    this.getServerData(this.data.IPS[this.data.num], params, bool);
+    this.getServerData(this.data.IPS[this.data.num], params);
   }
 })

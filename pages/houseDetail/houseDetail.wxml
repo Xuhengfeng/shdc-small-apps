@@ -89,7 +89,7 @@
                 <image src="../../images/estate1.png"></image>
                 <view>二手房</view>
             </navigator>
-            <navigator url="../index/buyRentHouse?title=我要租房&houseDetail=我要租房" hover-class="none">
+            <navigator url="../index/hotHouse?title=小区租房" hover-class="none">
                 <image src="../../images/estate2.png"></image>
                 <view>租房</view>
             </navigator>

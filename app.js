@@ -1,10 +1,12 @@
 App({
   httpRequest(url, params, callback,  options) {
-    wx.showLoading({title: '加载中...'})
+    let title = params.title ? params.title : '加载中...';
     let scity = params.scity?params.scity : null;
     let unicode = params.unicode ? params.unicode : null;
     if(!options) var options = "GET";
     delete params.unicode;
+    delete params.title;
+    wx.showLoading({title: title})
  
     wx.request({
       url: url,
@@ -18,18 +20,15 @@ App({
       success: (res) => {
         if(res.statusCode == 200) {
           if(res.data.status == 0) {
-            wx.showModal({
-              title: res.data.msg
-            })
+            wx.showModal({title: res.data.msg})
           }
           if(res.data.data||res.data.data.length) {
              callback(null, res.data);
-             wx.hideLoading()
           }
         }else if(res.statusCode == 500) {
           wx.showModal({title: '500错误'})
-          wx.hideLoading()
         }
+        wx.hideLoading()     
       },
       fail: (error) => {
         callback(error);
@@ -62,14 +61,19 @@ App({
                   this.globalData.openid = response.data.openid;
                   this.globalData.code = res1.code;
                                 //获取注册code
+                                console.log(res)
                                 wx.request({
-                                  url: 'https://api.weixin.qq.com/sns/jscode2session',
+                                  url: 'http://112.74.181.229:7031/custAppApi/member/registerWeixin',
+                                  // url: 'http://192.168.16.173:7032/custAppApi/member/registerWeixin',
                                   data: {
-                                    js_code: res1.code,
-                                    appid: 'wxce209331358eecd8',
+                                    "code": res1.code,
+                                    "headImage": res.userInfo.avatarUrl,
+                                    "nickname": res.userInfo.nickName,
+                                    "sex": res.userInfo.gender
                                   },
-                                  success: response => {
-                                    this.globalData.session_key = response.data.session_key;
+                                  method: 'GET',
+                                  success: response2 => {
+                                      console.log(response2)
                                   }
                                 })
                 }
