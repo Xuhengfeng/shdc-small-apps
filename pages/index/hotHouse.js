@@ -11,13 +11,10 @@ Page({
     //热门小区  小区二手房 同小区房源
     contentType: null,
     IPS: [Api.IP_HOTBUILDING, Api.IP_HOTBUILDING, Api.IP_SAMEUSED],
-    num: '',
-    bool: false//是否开启上拉加载
+    num: ''
   },
   onLoad(options) {
-    wx.setNavigationBarTitle({
-      title: options.title,
-    })
+    wx.setNavigationBarTitle({title: options.title})
 
     if(options.title == '热门小区'){
       this.setData({
@@ -52,10 +49,7 @@ Page({
   },
   getServerData(IP, params) {
     app.httpRequest(IP, params, (error, data) => {
-      this.setData({
-        houseList: this.data.houseList.concat(res.data.data),
-        showload: false
-      });
+      this.setData({houseList: this.data.houseList.concat(data.data)});
     })
   },
   onReachBottom() {//上拉

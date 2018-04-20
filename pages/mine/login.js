@@ -40,8 +40,12 @@ Page({
             showLogout: true
           })
           //请求token
-          app.httpRequest(Api.weChatLogin, {code: globalData.code}, (error, data) => {
-            console.log(data)
+          let params = {
+             openid: globalData.openid,
+             phone: data.phoneNumber
+          }
+          app.httpRequest(Api.weChatLogin, params, (error, data) => {
+            wx.setStorage({key: 'userToken', data: data.data})
           })
           wx.showToast({ title: '登录成功', icon: 'success', duration: 1000 });
           setTimeout(() => { wx.navigateBack() }, 1000);

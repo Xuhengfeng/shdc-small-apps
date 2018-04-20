@@ -63,15 +63,15 @@ App({
                                 //获取注册code
                                 console.log(res)
                                 wx.request({
-                                  url: 'http://112.74.181.229:7031/custAppApi/member/registerWeixin',
-                                  // url: 'http://192.168.16.173:7032/custAppApi/member/registerWeixin',
+                                  // url: 'http://112.74.181.229:7031/custAppApi/member/registerWeixin',
+                                  url: 'http://192.168.16.173:7031/custAppApi/member/registerWeixin',
                                   data: {
-                                    "code": res1.code,
+                                    "openid": response.data.openid,
                                     "headImage": res.userInfo.avatarUrl,
                                     "nickname": res.userInfo.nickName,
                                     "sex": res.userInfo.gender
                                   },
-                                  method: 'GET',
+                                  method: 'POST',
                                   success: response2 => {
                                       console.log(response2)
                                   }
