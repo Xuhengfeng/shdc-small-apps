@@ -51,14 +51,14 @@ Page({
               contentType: 22,
               flagPrice: true
             });
-          } else if (res.data == '租房') {//租房
+          } else if (res.data == '租房' || res.data == '小区租房' || options.houseDetail == "租房") {//租房
             this.setData({
               detailType: 22,
               houseDetailId: options.id,
               IpsNum: 1,
               flagPrice: false              
             });
-          } else if (res.data == '小区找房' || options.houseDetail == '热门小区'||res.data=="小区") {//小区
+          } else if (res.data == '小区找房' || res.data=="小区") {//小区
             this.setData({
               detailType: 33,
               houseDetailId: options.id,

@@ -3,7 +3,7 @@
   <view class="list-search">
     <view class='list-search-box'><icon  bindtap="startsearch" type="search" size="15"/>
       <input placeholder="请输入你要查询的信息"
-             bindconfirm="searchSubmit"
+             bindconfirm="startsearch"
              bindinput="userSearch"/>
     </view>
      <!-- <button class="search-button" catchtap="searchMt">搜索</button>  -->
@@ -16,8 +16,8 @@
       <view class='one'>{{item.deptName}}</view>
       <view class='two'>{{item.addr}}</view>
       <view class='three'>
-        <image src="../../images/location2.png" style="width:50rpx;height:50rpx;"></image>
-        <text>0.132km</text>
+        <image src="../../images/location2.png" style="width:50rpx;height:50rpx;margin-right:20rpx"></image>
+        <text>{{item.distance}}km</text>
       </view>
       <view class="btnGroup">
         <view bindtap="purpose" data-item="{{item}}">门店位置</view> 
@@ -25,7 +25,11 @@
       </view>
 </view>
 <view class="tips">
-  <view wx:if="{{!shopRent.length}}"><text>没有更多内容</text></view>
+  <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/>
+      <text>玩了命的加载中...</text>
+  </view>
+  <view wx:elif="{{shopRent.length}}"><text>上拉加载更多</text></view>
+  <view wx:elif="{{!shopRent.length}}"><text>没有更多内容</text></view>
 </view>
 
 

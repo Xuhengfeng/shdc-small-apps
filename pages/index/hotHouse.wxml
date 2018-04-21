@@ -1,11 +1,13 @@
-<!-- 热门小区  小区二手房  同小区房源 小区租房 -->
-
-<view class="section">
- <scroll-view class="page_list" scroll-y="{{isScroll}}" bindscrolltolower="loadMore"
-             bindscrolltoupper="refresh"
-             style="height: {{windowHeight}}px; width: {{windowWidth}}px;"
-             > 
-  <!--对于ListView总结就是，navigator外一层布局，然后navigator里边只有一个组件-->
+<!-- 热门小区
+     新盘推荐 
+     小区二手房
+     同小区房源
+     小区租房 -->
+ <scroll-view class="page_list" 
+            style="height:{{windowHeight}}px;width:{{windowWidth}}px;"
+            scroll-y="{{isScroll}}" 
+            bindscrolltolower="loadMore"
+            bindscrolltoupper="refresh"> 
   <block wx:for="{{houseList}}" wx:key="{{index}}">
       <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=热门小区">
           <view class="item">
@@ -78,8 +80,4 @@
       <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
       <view wx:else><text>没有更多内容了</text></view>
   </view>
-  <loading wx:if="{{showload}}">
-    加载中...
-  </loading>
  </scroll-view> 
- </view>

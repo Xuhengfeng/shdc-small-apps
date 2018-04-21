@@ -5,7 +5,6 @@ Page({
   data: {
     //轮播图
     imgUrls: [],
-
     //为你推荐
     recommend: [],
 
@@ -17,21 +16,22 @@ Page({
     flagPrice: true,
     page: 1,
 
-    isShow: 'hidden',//nav是否显示
+    isShow: 0,//nav是否显示
     showModalStatus: false,//遮罩层
 
     navNum: null, //菜单
+    banner: ['/HOUSE_USED_BANNER', '/HOUSE_RENT_BANNER'], //banner图
     recmd: [Api.IP_HOUSERECMDLIST, Api.IP_RENTRECMDLIST], //推荐
     IPS: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE],//列表
-    showload: false,
+    num: 0,//修正 banner图丶推荐丶列表
     houseList: [],//房源列表
     area: [],//区域
     houseTy: [],//户型
     price: [],//价格或者租金
     proportion: [],//面积
     mode: [],//类型
-    num: 0,//修正ip的
     keyword: null,//获取用户输入值
+    params: {}//请求参数
   },
   onLoad(options) {
     //初始化
@@ -63,7 +63,7 @@ Page({
   },
   oneBigRequest(city) {
     // banner图片
-    app.httpRequest(Api.IP_INDEXCONSULT + city + "/HOUSE_USED_BANNER", { scity: city }, (error, data) => {
+    app.httpRequest(Api.IP_INDEXCONSULT + city + this.data.banner[this.data.num], { scity: city }, (error, data) => {
       this.setData({ imgUrls: data.data })
     });
     //为你推荐
@@ -72,55 +72,32 @@ Page({
     });
     //区域
     this.areaRequest(city);
-    //用途 面积
+    //用途 面积 户型
     this.useAreaRequest(city);
-    //户型
-    this.houseTyRequest(city);
     //价格 租金
     this.priceAreaRequest(city);
   },
   //区域
   areaRequest(city) {
     app.httpRequest(Api.IP_AREADISTRICTS + city, { scity: city }, (error, data) => {
-      data.data.unshift({
-        name: '不限',
-        districts: []
-      });
-      var newData = data.data;
-      newData.forEach((item) => {
-        item.districts.unshift({
-          name: '不限',
-          px: '',
-          py: ''
-        })
-      })
-      this.setData({ area: newData });
+      data.data.unshift({name: '不限',id: 0, districts: []});
+      let newData = data.data;
+          newData.forEach((item) => {
+            item.districts.unshift({name: '不限',id: 0, px: '',py: ''})
+          })
+      this.setData({area: newData});
     })
   },
-  //用途 面积
+  //用途 面积 户型
   useAreaRequest(city) {
-    let params = ['HOUSE_USE', 'HOUSE_AREA'];
+    let params = ['HOUSE_USE', 'HOUSE_AREA', 'HOUSE_HUXING'];
     app.httpRequest(Api.IP_DICTIONARY, params, (error, data) => {
       this.setData({
         mode: data.data.HOUSE_USE,
-        proportion: data.data.HOUSE_AREA
+        proportion: data.data.HOUSE_AREA,
+        houseTy: data.data.HOUSE_HUXING
       })
     }, 'POST')
-  },
-  //户型 
-  houseTyRequest(city) {
-    let arr =[
-    { value: "a1", name: "a一房" },
-    { value: "a2", name: "二房" },
-    { value: "a3", name: "三房" },
-    { value: "a6", name: "五房以上" }]
-    this.setData({ houseTy: arr })
-    // app.httpRequest(Api.IP_DICTIONARYCONDITION+'HOUSE_HUXING', {}, (error, data) => {
-    //   console.log(data.data)
-
-    //   this.setData({houseTy: data.data})
-    // })
-    
   },
   //价格 租金
   priceAreaRequest(city) {
@@ -136,16 +113,16 @@ Page({
   },
   //页面滚动监听
   onPageScroll(res) {
-    let percent = res.scrollTop / 300;
-    var scrot = wx.getSystemInfoSync().windowWidth / 375 * 330
+    let scrot = wx.getSystemInfoSync().windowWidth / 375 * 330
+    let percent = res.scrollTop / scrot;
     let changeTone = 'rgba(249,249,249,' + percent + ')';
-    let show = res.scrollTop > scrot ? 'visible' : 'hidden';
+    let show = res.scrollTop > scrot ? 1 : 0;
     this.setData({tone: changeTone})
-    this.setData({isShow: show });
+    this.setData({isShow: show});
   },
   //控制nav菜单
   selectItem(e) {
-    var scrot = wx.getSystemInfoSync().windowWidth / 375 * 350
+    let scrot = wx.getSystemInfoSync().windowWidth / 375 * 350
     wx.pageScrollTo({scrollTop: scrot, duration: 0})
     this.setData({
       navNum: e.target.dataset.index,
@@ -196,13 +173,10 @@ Page({
   onReachBottom() {
     let page = this.data.page++;
     let IP = this.data.IPS[this.data.num];
-    let Params = {
-      pageNo: page,
-      pageSize: 10,
-      keyword: '',
-      scity: this.data.cityCode
-    }
-    this.getDataFromServer(IP, Params);
+        this.data.params.pageNo = page;
+        this.data.params.scity = this.data.cityCode;
+
+        this.getDataFromServer(IP, this.data.params);
   },
   //请求数据
   getDataFromServer(IP, Params) {//请求数据

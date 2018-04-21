@@ -31,14 +31,14 @@
       <navBar-html class="mynav"
                   label="{{label}}"
                   area="{{area}}" 
-                  houseTy="{{houseTy}}
+                  houseTy="{{houseTy}}"
                   mode="{{mode}}"
                   price="{{price}}"
                   proportion="{{proportion}}"
                   num="{{navNum}}"
                   showModalStatus="{{showModalStatus}}"
                   bind:myevent="onMyEventHouseList"
-                  style="visibility:{{isShow}}">
+                  style="opacity:{{isShow}}">
       </navBar-html>
     </view>
     <view class="section recommend">

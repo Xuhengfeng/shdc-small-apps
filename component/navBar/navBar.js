@@ -44,11 +44,6 @@ Component({
       value: false
     }
    },
-  created(){
-    console.log('1111111111111111111111111')
-    console.log(this.properties)
-    console.log('1111111111111111111111111')
-  },
   data: {
     //房源列表
     houseList: [],
@@ -69,12 +64,12 @@ Component({
     houseTypeCategories: 0,
     roomsNum: null,
 
-    //价格
+    //价格 租金
     priceCategories: 0,
     minPrice: null,
     maxPrice: null,
 
-    //类型 二手房  租房 
+    //类型1 二手房 租房 
     modeCategories: 0,
     modeCategoriesValue: null,
 
@@ -95,16 +90,59 @@ Component({
     houseAgeCategories: 0,
     houseAgeCategoriesValue: null,
 
-
     //请求地址
     //二手房列表 租房列表 小区找房列表
     IPS: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE, Api.IP_BUILDLIST],  
-    IPSNUM: null,
     url: null,
 
     //显示 小区label 或  二手房 租房
     label: [], 
     twoHouseOrArea: true,
+    params: {},
+
+    //二手房查询请求参数
+    params1: {
+      "areaId": null,
+      "districtId": null,
+      "houseDecor": "",
+      "houseDirec": "",
+      "houseFeature": "",
+      "houseForm": "",
+      "keyword": "",
+      "maxBuildArea": null,
+      "maxPrice": null,
+      "minBuildArea": null,
+      "minPrice": null,
+      "pageNo": null,
+      "roomsNum": null,
+      "scity": ""
+    },
+    //租房查询请求参数
+    params2: {
+      "areaId": null,
+      "districtId": null,
+      "keyword": "",
+      "maxBuildArea": null,
+      "maxRentPrice": null,
+      "minBuildArea": null,
+      "minRentPrice": null,
+      "pageNo": null,
+      "pageSize": null,
+      "roomsNum": null,
+      "scity": ""
+    },
+    //小区查询请求参数
+    params3: {
+      "areaId": null,
+      "businessType": "",
+      "districtId": null,
+      "houseType": "",
+      "keyword": "",
+      "pageNo": null,
+      "pageSize": null,
+      "scity": "",
+      "useYear": ""
+    }
   },
   
   attached() {
@@ -116,19 +154,22 @@ Component({
       this.setData({
         url: this.data.IPS[0],
         label: ["区域", "户型", "价格", "面积", "类型"],
-        twoHouseOrArea: true,        
+        twoHouseOrArea: true, 
+        params: this.data.params1       
       });
     } else if (name == '租房') {
       this.setData({
         url: this.data.IPS[1],
         label: ["区域", "户型", "租金", "面积"],       
-        twoHouseOrArea: true,        
+        twoHouseOrArea: true, 
+        params: this.data.params2       
       })
     }else if(name == '小区') {
       this.setData({
         url: this.data.IPS[2],
         label: ['区域', '用途', '类型', '楼龄'],
-        twoHouseOrArea: false            
+        twoHouseOrArea: false,
+        params: this.data.params3            
       })
     }    
 
@@ -138,19 +179,18 @@ Component({
       success: (res)=> {
         let params = {
             'pageNo': 1,
-            'pageSize': 10,
             'scity': res.data.value,
             'keyword': this.data.keyword
         }
+        let newParams = Object.assign(this.data.params, params);
         //修正 当前城市
         this.setData({currentCity: res.data.value})
-        this.getDataFromServer(this.data.url, params);
+        this.getDataFromServer(this.data.url, newParams);
       }
     })
   },
   methods: {
     selectItem(e) {//控制nav菜单
-    
       this.setData({
         num: e.target.dataset.index,
         isScroll: false,

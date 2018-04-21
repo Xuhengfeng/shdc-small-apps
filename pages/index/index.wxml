@@ -4,14 +4,14 @@
             interval="3000"
             indicator-active-color="white" 
             circular="true"
-            catchtap="onSwiperTap" 
             duration="1000">
       <block wx:for="{{imgUrls}}" wx:key="key">
         <swiper-item>
           <image src="{{item.picUrl}}" 
                 class="slide-image" 
                 style="width:100%;height:100%;"
-                data-jump="{{item.contentUrl}}">
+                data-http="{{item.contentUrl}}"
+                bindtap="h5page">
           </image>
         </swiper-item>
       </block>
@@ -35,19 +35,19 @@
 
   <view class="section menu">
     <view class="flex-row">
-      <view bindtap="activity" data-num="1" class="flex-view-item"> 
+      <view class="flex-view-item" data-num="1" bindtap="activity"> 
         <image src="../../images/buyHouse.png" /><text>二手房</text>
       </view>
-      <view bindtap="activity" data-num="2" class="flex-view-item">
+      <view class="flex-view-item" data-num="2" bindtap="activity">
         <image src="../../images/rentHouse.png" /><text>租房</text>
       </view>
-      <view bindtap="activity" data-num="3" class="flex-view-item">
+      <view class="flex-view-item" data-num="3" bindtap="activity">
         <image src="../../images/fondHouse.png" /><text>小区找房</text>
       </view>
-      <view bindtap="activity" data-num="4" class="flex-view-item">
+      <view class="flex-view-item" data-num="4" bindtap="activity">
         <image src="../../images/saleHouse.png" /><text>我要售/租</text>
       </view>
-      <view bindtap="activity" data-num="5" class="flex-view-item">
+      <view class="flex-view-item" data-num="5" bindtap="activity">
         <image src="../../images/store.png" /><text>找门店</text>
       </view>
     </view>
@@ -74,21 +74,21 @@
 
   <!-- fourPic start -->
   <view class="section fourPic">
-    <view bindtap="goodsHouse" data-num="1">
+    <view data-num="1" bindtap="goodsHouse">
         <view class="image"><image src="../../images/11.png" /></view>
         <view class="content">
           <text>独家好房</text>
           <text>价格优惠</text>
         </view>
     </view>
-    <view bindtap="goodsHouse" data-num="2">
+    <view data-num="2" bindtap="goodsHouse">
         <view class="image"><image src="../../images/22.png" /></view>
         <view class="content">
             <text>新上好房</text>
             <text>一周内新上房</text>
         </view>
     </view>
-    <view bindtap="goodsHouse" data-num="3">
+    <view data-num="3" bindtap="goodsHouse">
         <view class="image"><image src="../../images/33.png" /></view>
         <view style="line-height:1">
           <view class="content">
@@ -97,7 +97,7 @@
           </view>
         </view>
     </view>
-    <view bindtap="goodsHouse" data-num="4">
+    <view data-num="4" bindtap="goodsHouse">
         <view class="image"><image src="../../images/44.png" /></view>
         <view style="line-height:1">
           <view class="content">
@@ -112,24 +112,21 @@
   <view class="section hotRecommend">
     <view class="title">热门推荐</view>
     <view class="house-info">
-            <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
-              <block wx:for="{{hotbuilding}}">
-                <navigator url="../houseDetail/houseDetail?houseDetail=热门小区&id={{item.sdid}}"  
-                      class="house-info-item" hover-class="none">
-                  <view class="imageContainer">
-                     <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" /> 
-                  </view>
-                  <view class="house-info-title">世华易居买房大放送</view>
-                  <view class="house-info-description">即日起世华买房送大礼</view>
-                </navigator>
-              </block>
-            </scroll-view>
+      <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
+        <block wx:for="{{hotbuilding}}">
+          <view class="house-info-item" data-http="https://www.baidu.com" bindtap="h5page">
+            <view class="imageContainer"><image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" /></view>
+            <view class="house-info-title">世华易居买房大放送</view>
+            <view class="house-info-description">即日起世华买房送大礼</view>
+          </view>
+        </block>
+      </scroll-view>
     </view>
   </view>
 
   <view class="section statistics">
     <view class="title">平台二手房成交量统计</view>
-    <view class="section3-content">
+    <view class="section3-content" data-http="https://www.baidu.com" catchtap="h5page">
       <image src="../../images/shihua.png" style="width:100%;height:240rpx;" />
       <view class="section3-content-one">
         <view style="color:#cacaca;">全市{{houseUsed.month}}月均价</view>
@@ -176,13 +173,13 @@
     <view class="house-info">
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
         <block wx:for="{{hotbuilding}}">
-          <navigator url="../houseDetail/houseDetail?id={{item.sdid}}"  class="house-info-item" hover-class="none">
+          <view class="house-info-item" data-http="https://www.baidu.com" bindtap="h5page">
             <view class="imageContainer">
               <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" />
             </view>
             <view class="house-info-title">{{item.buildName}}</view>
             <view class="house-info-description">在售打发点发生大是大</view>
-          </navigator>
+          </view>
         </block>
       </scroll-view>
     </view>

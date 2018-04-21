@@ -127,14 +127,8 @@ Page({
     var IP = this.data.guessLikeIP[0] + '/' + city;
     this.getDataFromServer(IP, { 
       pageNo: 1,
-      pageSize: 10,
       scity: city
     });
-  },
-  onSwiperTap(e) {//轮播图点击跳转
-    wx.navigateTo({
-      url: '../h5Pages/h5Pages?redirect=' + e.target.dataset.jump,
-    })
   },
   selectYouLike(e) {//猜你喜欢 二手房 租房
     this.setData({ num: e.target.dataset.index })
@@ -142,7 +136,6 @@ Page({
     let IP = this.data.guessLikeIP[this.data.num] + '/' + this.data.currentCity;
     let params = {
       pageNo: 1,
-      pageSize: 10,
       scity: this.data.currentCity
     }
     this.getDataFromServer(IP, params);
@@ -160,7 +153,7 @@ Page({
   onPullDownRefresh() {
     wx.stopPullDownRefresh();
   },
-  //活动版块 跳转
+  //活动版块1 跳转
   activity(e) {
     let num = e.currentTarget.dataset.num;
     if (num == 1) {
@@ -188,6 +181,7 @@ Page({
       })
     }
   },
+  //活动版块2 跳转
   activity2(e) {
     let num = e.currentTarget.dataset.num;
     if (num == 1) {
@@ -217,25 +211,33 @@ Page({
     let num = e.currentTarget.dataset.num;
     if (num == 1) {
       wx.navigateTo({
-        url: ""
+        url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"
       })
     } else if (num == 2) {
       wx.navigateTo({
-        url: ""
+        url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"
       })
     } else if (num == 3) {
       wx.navigateTo({
-        url: ""
+        url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"
       })
     } else if (num == 4) {
       wx.navigateTo({
-        url: ""
+        url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"
       })
     } else if (num == 5) {
       wx.navigateTo({
-        url: ""
+        url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"
       })
     }
+  },
+  //h5页面跳转
+  //轮播图 数量统计 热门推荐
+  h5page(e) {
+    let http = e.currentTarget.dataset.http?e.currentTarget.dataset.http:"https://www.baidu.com";
+    wx.navigateTo({
+      url: "../h5Pages/h5Pages?redirect="+http
+    })
   },
   //缓存房源类型
   cacheHouseType(value) {

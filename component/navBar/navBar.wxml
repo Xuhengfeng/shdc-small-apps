@@ -8,19 +8,16 @@
   <view class="navbar" 
         data-statu="open"
         bindtap="selectItem">
-        <view class="nav"
+        <view class="nav {{index==num&&highSelectItem?'font1Color':'font2Color'}}"
               data-index="{{index}}"
               wx:for="{{label}}"
-              class="{{index==num&&highSelectItem?'font1Color':'font2Color'}}"
               wx:key="{{index}}">
               {{item}}
               <image src="../../images/drop.png"/>
         </view>
   </view>
-  <view class="content" animation="{{animationData}}">
+  <view class="content">
       
-
-
       <!-- 二手房 租房 -->
       <view wx:if="{{twoHouseOrArea}}">
           <!-- 区域 -->
@@ -61,7 +58,7 @@
             </view>
           </view>
 
-          <!-- 价格 -->
+          <!-- 价格 租金 -->
           <view wx:if="{{num == 2}}" class="price">
             <view class="price-hd">
                 <text wx:for="{{price}}" 
