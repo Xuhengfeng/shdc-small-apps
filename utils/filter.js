@@ -3,7 +3,7 @@ function loginCheck(pageObj) {
   if(pageObj.onLoad) {
     let _onLoad = pageObj.onLoad;
       pageObj.onLoad = function(options) {
-        if (wx.getStorageSync('userToken').data || wx.getStorageSync('openId') || wx.getStorage('openId')) {//验证用户是否登录
+        if (wx.getStorageSync('userToken').data) {//验证用户是否登录
         //获取页面实例，防止this劫持
         let currentInstance = getPageInstance();
         _onLoad.call(currentInstance, options);

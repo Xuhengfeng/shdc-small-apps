@@ -22,8 +22,8 @@ App({
           if(res.data.status == 0) {
             wx.showModal({title: res.data.msg})
           }
-          if(res.data.data||res.data.data.length) {
-             callback(null, res.data);
+          if(res.data.data !== ""||res.data.data.length !== "") {
+            callback(null, res.data);
           }
         }else if(res.statusCode == 500) {
           wx.showModal({title: '500错误'})

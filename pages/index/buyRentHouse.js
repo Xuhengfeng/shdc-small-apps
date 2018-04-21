@@ -18,7 +18,8 @@ Page({
 
     isShow: 0,//nav是否显示
     showModalStatus: false,//遮罩层
-
+    hasMore: true,
+    
     navNum: null, //菜单
     banner: ['/HOUSE_USED_BANNER', '/HOUSE_RENT_BANNER'], //banner图
     recmd: [Api.IP_HOUSERECMDLIST, Api.IP_RENTRECMDLIST], //推荐
@@ -153,7 +154,7 @@ Page({
       })
     }
   },
-  //监听自定义组件事件 首次渲染第一页数据
+  //监听自定义navbar组件事件 首次渲染第1页数据
   onMyEventHouseList(item) {
     console.log(item)
     setTimeout(() => {
@@ -163,9 +164,11 @@ Page({
           item2.houseTag = item2.houseTag.split(',');
         }
       })
+      //修正参数
       this.setData({
         houseList: item.detail.houseList,
-        params: item.detail.params
+        params: item.detail.params,
+        page:  item.detail.params.pageNo
       })
     }, 500)
   },
@@ -174,8 +177,6 @@ Page({
     let page = this.data.page++;
     let IP = this.data.IPS[this.data.num];
         this.data.params.pageNo = page;
-        this.data.params.scity = this.data.cityCode;
-
         this.getDataFromServer(IP, this.data.params);
   },
   //请求数据

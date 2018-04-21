@@ -217,8 +217,9 @@ Page({
   },
   colletionRequest(bool, num) {//收藏
     if(bool) {
-      let params = {"title": "收藏","unique-code": wx.getStorageSync("userToken").data}
+      let params = {"title": "收藏","unicode": wx.getStorageSync("userToken")}
       app.httpRequest(this.data.IPS2[num] + this.data.currentCity + '/' + this.data.houseDetailId, params, (error, data) => {
+        wx.hideLoading();
         data.data.forEach((item) => {
           item.houseTag = item.houseTag.split(',');
         })
@@ -226,8 +227,9 @@ Page({
         this.setData({ flagPrice: flagpc, guessYoulikeHouse: data.data });
       }, 'POST')
     }else{
-      let params = { "title": "取消", "unique-code": wx.getStorageSync("userToken").data }
+      let params = { "title": "取消", "unicode": wx.getStorageSync("userToken")}
       app.httpRequest(this.data.IPS3[num] + this.data.currentCity + '/' + this.data.houseDetailId, params, (error, data) => {
+        wx.hideLoading();
         data.data.forEach((item) => {
           item.houseTag = item.houseTag.split(',');
         })
@@ -237,9 +239,7 @@ Page({
     }
   },
   toggleSelectLike() {
-    if (!wx.getStorageSync("userToken").data && !wx.getStorageSync("openId")){
-      wx.redirectTo({url: "/pages/mine/login"})
-    };
+    if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
     this.setData({likeFlag: !this.data.likeFlag});
     if(!this.data.likeFlag) {
         if(this.data.detailType == 11) {

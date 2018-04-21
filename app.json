@@ -3,32 +3,26 @@
     "pages/index/index",
     "pages/index/sellRent",
     "pages/index/broker",    
-
-    
+    "pages/index/hotHouse",
+    "pages/index/guideHand",
+    "pages/index/shop",    
+    "pages/index/buyRentHouse",
+    "pages/houseDetail/lookHouse",
+    "pages/houseDetail/houseDetailInfo",
+    "pages/houseDetail/map",
     "pages/houseDetail/seehouseList",
     "pages/houseDetail/houseDetail", 
     "pages/mine/mybuyhouse",
     "pages/mine/mine",
-
+    "pages/mine/login",
     "pages/mine/suggest",
+    "pages/mine/collection",
     "pages/mine/delegation",
     
     "pages/searchList/searchList",
     "pages/search/search",
     
-    "pages/houseDetail/map",
     "pages/location/location",
-    "pages/index/buyRentHouse",
-    "pages/houseDetail/lookHouse",
-    "pages/index/shop",    
-    "pages/houseDetail/houseDetailInfo",
-    
-    
-    "pages/index/guideHand",
-    "pages/index/hotHouse",
-    "pages/mine/login",
-    
-    "pages/mine/collection",
     "pages/h5Pages/h5Pages"
   ],
   "window": {

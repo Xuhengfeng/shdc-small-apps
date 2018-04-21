@@ -5,15 +5,11 @@ Page({
     avatarUrl: null
   },
   telphone() {//拨打电话
-    wx.makePhoneCall({
-      phoneNumber: '13212361223',
-    })
+    wx.makePhoneCall({phoneNumber: '13212361223'})
   },
   login() {//登录
-    if(!wx.getStorageSync('openId')) {
-      wx.navigateTo({
-        url: 'login'
-      })
+    if(!wx.getStorageSync('userToken')) {
+      wx.navigateTo({url: 'login'})
     }
   },
   logout() {//退出
@@ -22,6 +18,6 @@ Page({
       nickName: null,
       avatarUrl: null
     })
-    wx.removeStorageSync('openId');
+    wx.removeStorageSync('userToken');
   }
 })

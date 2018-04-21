@@ -113,10 +113,9 @@
 
         <view class="tips">
             <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
-            <view wx:elif="{{houseList}}"><text>上拉加载更多</text></view>
-            <view wx:elif="{{!houseList}}"><text>没有更多内容</text></view>
+            <view wx:elif="{{houseList.length}}"><text>上拉加载更多</text></view>
+            <view wx:elif="{{!houseList.length}}"><text>没有更多内容</text></view>
         </view>
-        <loading wx:if="{{showload}}">加载中...</loading>
         <view style="height:800px;" wx:if="{{!houseList.length}}"></view>
     </view>
 <!-- </view> -->

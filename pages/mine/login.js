@@ -1,6 +1,7 @@
+// import { IP_RENTHOUSERENTLIKE } from "../../utils/url";
 let Api = require("../../utils/url");
 let md5 = require("../../utils/md5.js");
-let WXBizDataCrypt = require("../../utils/ Rdwxbizdatacrypt.js");
+let WXBizDataCrypt = require("../../utils/Rdwxbizdatacrypt.js");
 let app = getApp();
 
 Page({
@@ -10,15 +11,14 @@ Page({
     toast1Hidden: true,
     nickName: null,
     avatarUrl: null,
-    isCancelLogin: true,  //是否登录
+    isphoneLogin: true,  //是否登录
     code: '', //验证码
   }, 
   getPhoneNumber(e) {//这个方法后面 如果是企业号 就可以获取用户手机号
     if(e.detail.errMsg == 'getPhoneNumber:fail user deny') {
       //拒绝 -------------->>>>>
       //用户手机号登录
-
-
+      this.setData({isphoneLogin: false});
     }else{
       //接受
       //判断是否有appid--------->>>>
@@ -34,21 +34,21 @@ Page({
           //当前页面路由栈的信息
           let pages = getCurrentPages();
           let prevPage = pages[pages.length - 2];
-          prevPage.setData({
-            nickName: data.phoneNumber,
-            avatarUrl: globalData.userInfo.avatarUrl,
-            showLogout: true
-          })
+              prevPage.setData({
+                nickName: data.phoneNumber,
+                avatarUrl: globalData.userInfo.avatarUrl,
+                showLogout: true
+              })
           //请求token
           let params = {
-             openid: globalData.openid,
-             phone: data.phoneNumber
+              openid: globalData.openid,
+              phone: data.phoneNumber
           }
           app.httpRequest(Api.weChatLogin, params, (error, data) => {
-            wx.setStorage({key: 'userToken', data: data.data})
+            wx.setStorageSync('userToken', data.data)
           })
-          wx.showToast({ title: '登录成功', icon: 'success', duration: 1000 });
-          setTimeout(() => { wx.navigateBack() }, 1000);
+          wx.showToast({ title: '登录成功', icon: 'success', duration: 500});
+          setTimeout(() => { wx.navigateBack() }, 500);
       }else{
 
       }
@@ -191,21 +191,20 @@ Page({
             avatarUrl: avatarUrl,
             showLogout: true
           })
-          setTimeout(() => {
-            wx.navigateBack();
-          }, 1000);
+          setTimeout(() => {wx.navigateBack()}, 1000);
+  },
+  //直接返回
+  goback() {
+    this.setData({isphoneLogin: true})
+    wx.navigateBack();
   },
   //输入手机号
   bindKeyInput1(e) {
-    this.setData( {
-      inputValue1: e.detail.value
-    })
+    this.setData({inputValue1: e.detail.value})
   },
   //输入验证码
   bindKeyInput2(e) {
-    this.setData( {
-      inputValue2: e.detail.value
-    })
+    this.setData({ inputValue2: e.detail.value})
   },
   sendCode() {//发送验证码
     let myreg = /^[1][3,4,5,7,8][0-9]{9}$/;//手机号正则
@@ -249,12 +248,6 @@ Page({
           }
         })
       }
-  },
-  back() {
-    this.setData({
-      isCancelLogin: true
-    })
-    wx.navigateBack();
   }
 })
 

@@ -1,5 +1,5 @@
 <view class="page">
-  <view class="page_hd" wx:if="{{isCancelLogin}}">
+  <view class="page_hd" wx:if="{{isphoneLogin}}">
     <view class="flexBox">
       <view class="line"></view> 
       <text>推荐方式登录</text>
@@ -13,18 +13,18 @@
     </button>  -->
     <!-- 手机号授权登录 -->
     <button type="primary" 
-                  open-type="getPhoneNumber" 
-                  bindgetphonenumber="getPhoneNumber"
-                  class="globalBtnColor">
-             <image src="../../images/wechat.png"></image>账号登录
+            open-type="getPhoneNumber" 
+            bindgetphonenumber="getPhoneNumber"
+            class="globalBtnColor">
+            <image src="../../images/wechat.png"></image>账号登录
     </button> 
   </view>
  
   
   
-  <view class="page__bd" wx:if="{{!isCancelLogin}}">
+  <view class="page__bd" wx:if="{{!isphoneLogin}}">
       <view class="section">
-        <view bindtap="back"><image src="../../images/close.png" class="close"></image></view>
+        <view bindtap="goback"><image src="../../images/close.png" class="close"></image></view>
         <view style="margin-top:40rpx;font-size:60rpx;">手机快捷登录</view>
       </view>
       <view class="section">

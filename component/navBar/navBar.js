@@ -191,27 +191,18 @@ Component({
   },
   methods: {
     selectItem(e) {//控制nav菜单
-      this.setData({
-        num: e.target.dataset.index,
-        isScroll: false,
-        showModalStatus: true,
-      });
+      this.setData({num: e.target.dataset.index,showModalStatus: true});
     },
     cancelModal(e) {//取消
-      this.setData({
-        num: 5,
-        isScroll: true,
-        showModalStatus: false
-      })
+      this.setData({num: 5,showModalStatus: false})
     },
 
     //请求二手房列表  租房列表 小区列表
     getDataFromServer(url, params) {
       app.httpRequest(url, params, (error, data)=>{
         let List = data.data.length?data.data:"";
+        let obj = {params: params, houseList: List}
         this.setData({houseList: List})
-        let obj = {params: params, houseList: this.data.houseList}
-        console.log(obj)
         this.triggerEvent('myevent', obj);
       }, 'POST')
     },
@@ -227,11 +218,11 @@ Component({
       if (e.target.dataset.num == 0) {//第一列 不限
         let params = {
           'pageNo': 1,
-          'pageSize': 10,
           'scity': this.data.currentCity
         }
+        let newParams = Object.assign(this.data.params, params);
         this.cancelModal();
-        this.getDataFromServer(this.data.url, params);
+        this.getDataFromServer(this.data.url, newParams);
       }
       
     },
@@ -251,21 +242,20 @@ Component({
       if (e.target.dataset.num == 0) {//第二列 不限
         params = {
           'pageNo': 1,
-          'pageSize': 10,
           'scity': this.data.currentCity,
           'areaId': this.data.areaCategoriesId
         }
       } else {
         params = {
           'pageNo': 1,
-          'pageSize': 10,
           'scity': this.data.currentCity,
           'districtId': this.data.areaSubCategoriesId,
           'areaId': this.data.areaCategoriesId
         }
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
 
     //户型
@@ -278,26 +268,26 @@ Component({
       })
     },
     changeHouseTypeUnlimit() {
-      let params;
-      params = {
-        'pageNo': 1,
-        'pageSize': 10,
-        'scity': this.data.currentCity,
-        'roomsNum': ''
+      let params = {
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity,
+          'roomsNum': ''
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
     changeHouseTypeTrue() {
-      let params;
-      params = {
-        'pageNo': 1,
-        'pageSize': 10,
-        'scity': this.data.currentCity,
-        'roomsNum': this.data.roomsNum
+      let params = {
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity,
+          'roomsNum': this.data.roomsNum
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
 
     //价格
@@ -311,28 +301,28 @@ Component({
       })
     },
     pricelabelUnlimit() {
-      let params;
-      params = {
-        'pageNo': 1,
-        'pageSize': 10,
-        'scity': this.data.currentCity,
-        'minPrice': '',
-        'maxPrice': ''
+      let params = {
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity,
+          'minPrice': '',
+          'maxPrice': ''
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
     pricelabelTrue() {
-      let params;
-      params = {
+      let params = {
         'pageNo': 1,
         'pageSize': 10,
         'scity': this.data.currentCity,
         'minPrice': this.data.minPrice,
         'maxPrice': this.data.maxPrice
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
     minPrice(e) {
       this.setData({
@@ -356,28 +346,28 @@ Component({
       })
     },
     proportionlabelUnlimit() {
-      let params;
-      params = {
-        'pageNo': 1,
-        'pageSize': 10,
-        'scity': this.data.currentCity,
-        'minBuildArea': '',
-        'maxBuildArea': ''
+      let params = {
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity,
+          'minBuildArea': '',
+          'maxBuildArea': ''
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
     proportionlabelTrue(e) {
-      let params;
-      params = {
-        'pageNo': 1,
-        'pageSize': 10,
-        'scity': this.data.currentCity,
-        'minBuildArea': this.data.minBuildArea,
-        'maxBuildArea': this.data.maxBuildArea
+      let params = {
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity,
+          'minBuildArea': this.data.minBuildArea,
+          'maxBuildArea': this.data.maxBuildArea
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
 
     //类型 二手房 租房
@@ -397,19 +387,20 @@ Component({
         'scity': this.data.currentCity,
         'houseForm': ''
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
     modelabelTrue() {
-      let params;
-      params = {
-        'pageNo': 1,
-        'pageSize': 10,
-        'scity': this.data.currentCity,
-        'houseForm': this.data.modeCategoriesValue
+      let params = {
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity,
+          'houseForm': this.data.modeCategoriesValue
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
 
     //用途
@@ -422,26 +413,26 @@ Component({
       })
     },
     uselabelUnlimit() {
-      let params;
-      params = {
-        'pageNo': 1,
-        'pageSize': 10,
-        'scity': this.data.currentCity,
-        'businessType': ''
+      let params = {
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity,
+          'businessType': ''
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
     uselabelTrue() {
-      let params;
-      params = {
-        'pageNo': 1,
-        'pageSize': 10,
-        'scity': this.data.currentCity,
-        'businessType': this.data.useCategoriesValue
+      let params = {
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity,
+          'businessType': this.data.useCategoriesValue
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
 
     //类型2 小区
@@ -454,26 +445,26 @@ Component({
       })
     },
     modelabe2Unlimit() {
-      let params;
-      params = {
+      let params = {
         'pageNo': 1,
         'pageSize': 10,
         'scity': this.data.currentCity,
         'houseType': ''
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
     modelabel2True() {
-      let params;
-      params = {
+      let params = {
         'pageNo': 1,
         'pageSize': 10,
         'scity': this.data.currentCity,
         'houseType': this.data.mode2CategoriesValue
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
  
     //楼龄
@@ -486,26 +477,26 @@ Component({
       })
     },
     houseAgelabelUnlimit() {
-      let params;
-      params = {
-        'pageNo': 1,
-        'pageSize': 10,
-        'scity': this.data.currentCity,
-        'useYear ': ''
+      let params = {
+          'pageNo': 1,
+          'pageSize': 10,
+          'scity': this.data.currentCity,
+          'useYear ': ''
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     },
     houseAgelabelTrue() {
-      let params;
-      params = {
+      let params = {
         'pageNo': 1,
         'pageSize': 10,
         'scity': this.data.currentCity,
         'useYear ': this.data.houseAgeCategoriesValue
       }
+      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.getDataFromServer(this.data.url, params);
+      this.getDataFromServer(this.data.url, newParams);
     }
   }
 })
