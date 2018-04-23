@@ -1,0 +1,52 @@
+ 
+<view class="list"bindtap="goBackSet">
+      <image src="" class="avatar"></image>
+      <view class="content">
+              <view>
+                  <view class="name">11{{item.emplName}}
+                        <text>11{{item.positionName}}</text>
+                  </view>
+                  <view class="score">11{{item.grade}} <text>评分</text></view>    
+              </view>
+              <view class="location">所在门店</view>
+              <view class="num">世华工号: <text>01010101</text></view>
+              <image class="like"></image>
+      </view>
+</view>
+<view class="section flex-content">
+            <view class="flex-item">
+                      <view>10</view>
+                      <view>历史成交</view>
+            </view> 
+            <view class="flex-item">
+                      <view>10</view>
+                      <view>历史成交</view>
+            </view> 
+            <view class="flex-item">
+                      <view>10</view>
+                      <view>历史成交</view>
+            </view> 
+</view>
+<view class="section  appraise">
+      <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">他的评价</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">查看全部</view>
+      </view>
+      <view  wx:for="{{[1,1]}}">
+            <view class="image"><image>1</image></view>
+            <view class="r-content">
+                  <view class="name">用户名 <text>2016.03.26</text></view>
+                  <view class="star" wx:for="{{[1,1,1]}}"><image>星星</image></view>
+                  <view class="discription">
+                          <view class="text">no发丝的环境佛安静地方咯奥克斯的技能福利卡上面那地方 </view>
+                          <view>
+                                  <text>服务好</text>
+                          </view>
+                  </view>
+            </view>
+      </view>
+</view>
+
+<view class="footer">
+  <view>打电话</view>
+</view>

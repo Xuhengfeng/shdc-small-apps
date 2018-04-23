@@ -36,7 +36,7 @@ page{
   align-items: center;
   text-align: center;
   margin-bottom: 30rpx;
-  padding: 20rpx 0;
+  padding: 40rpx 0;
   background: #ffffff;
 }
 .section navigator{
@@ -46,7 +46,10 @@ page{
 .section image{
   width: 80rpx;
   height: 80rpx;
-  background: red;
+}
+.section image+view{
+  margin-top: 20rpx;
+  font-size: 28rpx;
 }
 .weui-cell__bd{
   font-size: 30rpx;
@@ -61,4 +64,16 @@ page{
 .weui-cells:after,
 .weui-cells:before{
 	border: 0;
+}
+.weituo{
+  height: 90rpx;
+  line-height: 90rpx;
+  padding-top:0;
+  padding-bottom:0;
+}
+.contentHeight{
+  height: 100rpx;
+  line-height: 100rpx;
+  padding-top:0;
+  padding-bottom:0;
 }

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/mine/brokterInfo",
     "pages/index/index",
     "pages/index/sellRent",
     "pages/index/broker",    
@@ -18,6 +19,7 @@
     "pages/mine/suggest",
     "pages/mine/collection",
     "pages/mine/delegation",
+    
     
     "pages/searchList/searchList",
     "pages/search/search",

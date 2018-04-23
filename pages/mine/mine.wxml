@@ -7,37 +7,37 @@
   </view>
   <view class="body">
    <view class="weui-cells weui-cells_after-title">
-        <navigator url="collection" class="weui-cell weui-cell_access" hover-class="none">
+        <navigator url="collection" class="weui-cell weui-cell_access weituo" hover-class="none">
             <view class="weui-cell__bd">我的委托</view>
         </navigator>
         <view  class="section weui-cell weui-cell_access">
            <navigator url="mybuyhouse" hover-class="none">
-                <image></image>
+                <image src="../../images/thinkbuyhouse.png"></image>
                 <view>我的卖房</view>
             </navigator>
             <navigator url="mybuyhouse" hover-class="none">
-                <image></image>
+                <image src="../../images/thinkrenthouse.png"></image>
                 <view>我的租房</view>
             </navigator>
         </view>
     </view>
     <view class="weui-cells weui-cells_after-title">
-        <navigator url="collection" class="weui-cell weui-cell_access" hover-class="none">
+        <navigator url="collection" class="weui-cell weui-cell_access contentHeight" hover-class="none">
             <view class="weui-cell__bd">我的收藏</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="none" bindtap="telphone">
+        <navigator url="" class="weui-cell weui-cell_access contentHeight" hover-class="none" bindtap="telphone">
             <view class="weui-cell__bd">客服电话<text class="phone">132-1236-1223</text></view>
         </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="none">
+        <navigator url="../index/broker" class="weui-cell weui-cell_access contentHeight" hover-class="none">
             <view class="weui-cell__bd">我的经纪人</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="none">
+        <navigator url="" class="weui-cell weui-cell_access contentHeight" hover-class="none">
             <view class="weui-cell__bd">我的评论</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="none">
+        <navigator url="" class="weui-cell weui-cell_access contentHeight" hover-class="none">
             <view class="weui-cell__bd">我的咨询</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
@@ -45,13 +45,13 @@
             <view class="weui-cell__bd">意见反馈</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="none">
+        <navigator url="" class="weui-cell weui-cell_access contentHeight" hover-class="none">
             <view class="weui-cell__bd">关于我们</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
     </view>
     <view class="weui-cells weui-cells_after-title" wx:if="{{showLogout}}" bindtap="logout">
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" style="margin-top:20rpx">
+        <navigator url="" class="weui-cell weui-cell_access weituo" hover-class="weui-cell_active" style="margin-top:20rpx">
             <view class="weui-cell__bd" style="text-align:center">退出登录</view>
         </navigator>
     </view>
