@@ -235,7 +235,7 @@
             </view>
             <view wx:elif="{{twohandhouse.length==0}}"><text>没有更多内容</text></view>
             <navigator wx:elif="{{twohandhouse.length!=0}}" 
-                        url="../searchList/searchList?houseType={{houseType[num]}}"
+                        url="../searchList/searchList?houseType={{guessYouLike[num]}}"
                         hover-class="none">查看全部房源</navigator>
         </view> 
     </view>

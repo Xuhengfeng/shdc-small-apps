@@ -47,6 +47,59 @@
       </view>
 </view>
 
+<view class="section goodList">
+    <view class="title">猜你喜欢
+      <view class="lookmore">
+          <text style="font-weight:normal;font-size:30rpx;" 
+                wx:for="{{guessYouLike}}" 
+                wx:key="key" 
+                data-index="{{index}}" 
+                bindtap="selectYouLike" 
+                class="{{index == num?'red':'gray'}}">{{item}}</text>
+      </view>
+      </view>
+      <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
+          <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=二手房" 
+                      hover-class="none">
+              <view class="item">
+                    <view class="image">
+                      <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
+                    <view class="item-content">
+                      <view class="item-title">{{item.houseTitle}}</view>
+                      <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
+                      <view  class="houseTypeInfo">
+                        <text>{{item.houseType}}</text>{{item.builtArea}}m²
+                      </view>
+
+                      <view class="houseLabel">
+                        <text wx:for="{{item.houseTag}}" 
+                              wx:key="{{index2}}"
+                              wx:for-item="item2" 
+                              wx:for-index="index2">{{item2}}</text>
+                      </view>
+
+                    <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
+                        <text>{{item.salePrice}}元/平米</text>
+                    </view>
+                    <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
+                        <text>元/月</text>
+                    </view>
+                  </view>
+              </view>
+          </navigator>
+      </block>
+
+
+      <view class="tips">
+          <view wx:if="{{hasMore}}">
+              <image src="../../images/loading.gif" mode="aspectFill"/>
+              <text>玩了命的加载中...</text>
+          </view>
+          <view wx:elif="{{twohandhouse.length==0}}"><text>没有更多内容</text></view>
+      </view> 
+  </view>
+
+
 <view class="footer">
   <view>打电话</view>
 </view>

@@ -1,3 +1,4 @@
+@import "../template/template.wxss";
 .list{
   background: #ffffff;
   overflow: hidden;

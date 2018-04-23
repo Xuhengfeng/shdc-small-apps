@@ -21,8 +21,7 @@ Page({
     //猜你喜欢
     pageNo: 1,//默认第1页
     flagPrice: true, //是否有价格  二手房 租房
-    guessYouLike: ['二手房', '租房'],
-    houseType: ['二手房', '租房'],//查看全部房源
+    guessYouLike: ['二手房', '租房'],//猜你喜欢 查看全部房源
     num: 0,//猜你喜欢哪一个
     guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
 
