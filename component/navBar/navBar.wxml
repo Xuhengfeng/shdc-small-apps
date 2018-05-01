@@ -13,7 +13,7 @@
               wx:for="{{label}}"
               wx:key="{{index}}">
               {{item}}
-              <image src="../../images/drop.png"/>
+              <image class="tranigle" src="../../images/drop.png"/>
         </view>
   </view>
   <view class="content">

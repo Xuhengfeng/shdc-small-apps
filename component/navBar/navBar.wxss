@@ -57,19 +57,29 @@
   position: relative;
   z-index: 10;
 }
-.labelgroup .navbar view{
+.labelgroup .navbar .nav{
+  position: relative;
   flex: 1;
   height: 70rpx; 
   line-height: 70rpx;
   font-size: 28rpx;
   color: #333333;
+  white-space:nowrap;  
+  padding: 0 30rpx;
+  overflow:hidden;
+  text-overflow:ellipsis; 
+  box-sizing: border-box;
 }
-.labelgroup .navbar image{
+/* tranigle 三角形 */
+.labelgroup .navbar .tranigle{
   width: 14rpx;
   height: 9rpx;
-  margin-left: 10rpx;
   vertical-align: middle;
+  position: absolute;
+  right: 5px;
+  top: 15px;
 }
+
 .labelgroup .content{
   position: absolute;
   left: 0;

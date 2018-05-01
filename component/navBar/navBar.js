@@ -202,6 +202,7 @@ Component({
       app.httpRequest(url, params, (error, data)=>{
         let List = data.data.length?data.data:"";
         let obj = {params: params, houseList: List}
+        console.log(obj)
         this.setData({houseList: List})
         this.triggerEvent('myevent', obj);
       }, 'POST')
@@ -236,7 +237,7 @@ Component({
         areaSubCategoriesId: e.target.dataset.id,
         highSelectItem: true,
         num: 0,
-        // [label]: this.data.area[this.data.areaCategories].districts[id].name
+        [label]: this.data.area[this.data.areaCategories].districts[id].name
       })
       let params;
       if (e.target.dataset.num == 0) {//第二列 不限
@@ -264,7 +265,7 @@ Component({
       this.setData({
         houseTypeCategories: e.target.dataset.num,
         roomsNum: e.target.dataset.value,
-        // [label]: this.data.houseType[e.target.dataset.num].name
+        [label]: this.data.houseTy[e.target.dataset.num].name
       })
     },
     changeHouseTypeUnlimit() {
@@ -283,7 +284,7 @@ Component({
           'pageNo': 1,
           'pageSize': 10,
           'scity': this.data.currentCity,
-          'roomsNum': this.data.roomsNum
+          'roomsNum': this.data.roomsNumroomsNum
       }
       let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
@@ -297,7 +298,7 @@ Component({
         priceCategories: e.target.dataset.num,
         minPrice: e.target.dataset.minprice.value.split('-')[0],
         maxPrice: e.target.dataset.maxprice.value.split('-')[1],
-        // [label]: this.data.price[e.target.dataset.num].name
+        [label]: this.data.price[e.target.dataset.num].name
       })
     },
     pricelabelUnlimit() {
@@ -342,7 +343,7 @@ Component({
         proportionCategories: e.target.dataset.num,
         minBuildArea: e.target.dataset.minbuildarea.value.split('-')[0],
         maxBuildArea: e.target.dataset.maxbuildarea.value.split('-')[1],
-        // [label]: this.data.proportion[e.target.dataset.num].name
+        [label]: this.data.proportion[e.target.dataset.num].name
       })
     },
     proportionlabelUnlimit() {
@@ -376,7 +377,7 @@ Component({
       this.setData({
         modeCategories: e.target.dataset.num,
         modeCategoriesValue: e.target.dataset.value,
-        // [label]: this.data.mode[e.target.dataset.num].name
+        [label]: this.data.mode[e.target.dataset.num].name
       })
     },
     modelabeUnlimit() {
@@ -409,7 +410,7 @@ Component({
       this.setData({
         useCategories: e.target.dataset.num,
         useCategoriesValue: e.target.dataset.value,
-        // [label]: this.data.mode[e.target.dataset.num].name
+        [label]: this.data.use[e.target.dataset.num].name
       })
     },
     uselabelUnlimit() {
@@ -441,7 +442,7 @@ Component({
       this.setData({
         mode2Categories: e.target.dataset.num,
         mode2CategoriesValue: e.target.dataset.value,
-        // [label]: this.data.mode[e.target.dataset.num].name
+        [label]: this.data.mode[e.target.dataset.num].name
       })
     },
     modelabe2Unlimit() {
@@ -469,11 +470,12 @@ Component({
  
     //楼龄
     houseAgelabel(e) {
-      let label = 'label[' + 1 + ']';
+      let label = 'label[' + 3 + ']';
+      console.log(this.data)
       this.setData({
         houseAgeCategories: e.target.dataset.num,
         houseAgeCategoriesValue: e.target.dataset.value,
-        // [label]: this.data.mode[e.target.dataset.num].name
+        [label]: this.data.houseAge[e.target.dataset.num].name
       })
     },
     houseAgelabelUnlimit() {
@@ -481,7 +483,7 @@ Component({
           'pageNo': 1,
           'pageSize': 10,
           'scity': this.data.currentCity,
-          'useYear ': ''
+          'useYear': ''
       }
       let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
@@ -492,7 +494,7 @@ Component({
         'pageNo': 1,
         'pageSize': 10,
         'scity': this.data.currentCity,
-        'useYear ': this.data.houseAgeCategoriesValue
+        'useYear': this.data.houseAgeCategoriesValue
       }
       let newParams = Object.assign(this.data.params, params);
       this.cancelModal();

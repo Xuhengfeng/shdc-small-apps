@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/mine/brokterInfo",
+    
     "pages/index/index",
     "pages/index/sellRent",
     "pages/index/broker",    
@@ -9,6 +9,7 @@
     "pages/index/shop",    
     "pages/index/buyRentHouse",
     "pages/houseDetail/lookHouse",
+    "pages/mine/brokterInfo",
     "pages/houseDetail/houseDetailInfo",
     "pages/houseDetail/map",
     "pages/houseDetail/seehouseList",
