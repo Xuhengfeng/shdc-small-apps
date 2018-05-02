@@ -76,7 +76,6 @@ Page({
         this.buyRentRequest(res.data.value, this.data.houseDetailId); 
       }    
     })
-    
   },
   //二手房详情 租房详情 小区找房详情
   buyRentRequest(city, sdid) {
@@ -168,7 +167,8 @@ Page({
       }
     })
   },
-  //关联小区详情 
+
+  //当前页的关联小区内容 
   guanlianListRequest(px, py, currentCity, buildSdid) {
     wx.request({
       url: Api.IP_BUILDINFO + currentCity + '/' + buildSdid,
@@ -182,6 +182,18 @@ Page({
       }
     })
   },
+  //点击关联小区进入关联小区详情
+  guanlianxiaoqu() {
+    this.cacheHouseType('小区');
+    wx.navigateTo({
+      url: '../houseDetail/houseDetail?id='+this.data.guanlianList.sdid,
+    })
+  },
+  //缓存房源类型
+  cacheHouseType(value) {
+    wx.setStorageSync('houseTypeSelect', value)
+  },
+
   listenSwiper(e) {
     this.setData({//显示图片当前的
       currentIndex: e.detail.current+1
@@ -215,29 +227,8 @@ Page({
       url: "lookHouse?houseDetail=" + JSON.stringify(this.data.houseDetail)
     });
   },
-  colletionRequest(bool, num) {//收藏
-    if(bool) {
-      let params = {"title": "收藏","unicode": wx.getStorageSync("userToken")}
-      app.httpRequest(this.data.IPS2[num] + this.data.currentCity + '/' + this.data.houseDetailId, params, (error, data) => {
-        wx.hideLoading();
-        data.data.forEach((item) => {
-          item.houseTag = item.houseTag.split(',');
-        })
-        let flagpc = this.data.num == 0 ? true : false;
-        this.setData({ flagPrice: flagpc, guessYoulikeHouse: data.data });
-      }, 'POST')
-    }else{
-      let params = { "title": "取消", "unicode": wx.getStorageSync("userToken")}
-      app.httpRequest(this.data.IPS3[num] + this.data.currentCity + '/' + this.data.houseDetailId, params, (error, data) => {
-        wx.hideLoading();
-        data.data.forEach((item) => {
-          item.houseTag = item.houseTag.split(',');
-        })
-        let flagpc = this.data.num == 0 ? true : false;
-        this.setData({ flagPrice: flagpc, guessYoulikeHouse: data.data });
-      }, 'POST')
-    }
-  },
+
+  //收藏
   toggleSelectLike() {
     if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
     this.setData({likeFlag: !this.data.likeFlag});
@@ -265,6 +256,32 @@ Page({
         }
     }
   },
+  colletionRequest(bool, num) {
+    if(bool) {
+      let params = {"title": "收藏","unicode": wx.getStorageSync("userToken")}
+      app.httpRequest(this.data.IPS2[num] + this.data.currentCity + '/' + this.data.houseDetailId, params, (error, data) => {
+        wx.hideLoading();
+        data.data.forEach((item) => {
+          item.houseTag = item.houseTag.split(',');
+        })
+        let flagpc = this.data.num == 0 ? true : false;
+        this.setData({ flagPrice: flagpc, guessYoulikeHouse: data.data });
+      }, 'POST')
+    }else{
+      let params = { "title": "取消", "unicode": wx.getStorageSync("userToken")}
+      app.httpRequest(this.data.IPS3[num] + this.data.currentCity + '/' + this.data.houseDetailId, params, (error, data) => {
+        wx.hideLoading();
+        data.data.forEach((item) => {
+          item.houseTag = item.houseTag.split(',');
+        })
+        let flagpc = this.data.num == 0 ? true : false;
+        this.setData({ flagPrice: flagpc, guessYoulikeHouse: data.data });
+      }, 'POST')
+    }
+  },
+  
+  
+  //图片预览
   previewIamge(e) {
     var current = e.target.dataset.src;
     wx.previewImage({
@@ -272,11 +289,12 @@ Page({
       urls: this.data.houseDetail ? this.data.houseDetail.housePicList : this.data.imgUrls //需要预览的图片http链接列表  
     })
   },
+
+  //分享
   onShareAppMessage(options) {
     var that = this;
-    // 设置菜单中的转发按钮触发转发事件时的转发内容
     var shareObj = {
-      title: "世华地产",        // 默认是小程序的名称(可以写slogan等)
+      title: "世华地产",
       // desc: '世华地产全球遥遥领先',
       path: '/pages/houseDetail/houseDetail',    //默认是当前页面，必须是以‘/’开头的完整路径
       imgUrl: '',     //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
@@ -309,7 +327,7 @@ Page({
     var params = {pageNo: this.data.page}
     this.getDataFromServer(IP, params);
   },
-  getDataFromServer(IP, params) {//猜你喜欢
+  getDataFromServer(IP, params) {
     app.httpRequest(IP, params, (error, data) => {
       data.data.forEach((item) => {
         item.houseTag = item.houseTag.split(',');
