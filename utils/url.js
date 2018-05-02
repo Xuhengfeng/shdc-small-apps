@@ -46,7 +46,6 @@ export const IP_COLLECTIONLIST = SERVER_IPS + "/buildCollection/collectionList";
 
 
 
-
 //搜索
 export const IP_AREADISTRICTS = SERVER_IPS + "/area/areaDistricts/";//区域
 export const IP_DICTIONARY = SERVER_IPS + "/dictionary/dictionarys";//户型和类型 用途
@@ -66,8 +65,9 @@ export const IP_GETSMSCODE= SERVER_IPS + "/member/fetchSmsCode";//获取验证�
 
 
 //微信登录
-export const weChatLogin = SERVER_IPS + "/member/loginWeixin";//获取验证码
+export const weChatLogin = SERVER_IPS + "/member/loginWeixin";//微信手机号码和openid第三方登录
 export const weChatRegister = SERVER_IPS + "/member/registerWeixin";//微信注册
+
 
 
 
