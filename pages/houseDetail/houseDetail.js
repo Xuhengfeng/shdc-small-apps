@@ -198,14 +198,14 @@ Page({
   xiaoquTwoHouse() {
     this.cacheHouseType('小区二手房');
     wx.navigateTo({
-      url: '../index/hotHouse?title=小区二手房&id='+this.data.guanlianList.sdid,
+      url: '../index/hotHouse?title=小区二手房&id='+this.data.houseDetail.sdid,
     })
   },
   //小区租房
   xiaoquRentHouse() {
     this.cacheHouseType('小区租房');
     wx.navigateTo({
-      url: '../index/hotHouse?title=小区租房&id='+this.data.guanlianList.sdid,
+      url: '../index/hotHouse?title=小区租房&id='+this.data.houseDetail.sdid,
     })
   },
   

@@ -50,11 +50,16 @@ Page({
         "sex": userInfo.gender
       }
       app.httpRequest(Api.weChatRegister, params, (error, data) => {
-          console.log(data.data);
+          let newParams = {
+              "openid": ciphertext.openid,
+              "phone": data.phoneNumber
+          }
+          app.httpRequest(Api.weChatLogin, newParams, (error, data) => {
+                wx.setStorage({ key: 'userToken', data: data.data });
+                wx.showToast({ title: '登录成功', icon: 'success', duration: 500});
+                wx.navigateBack();
+          });
       }, 'POST');
-
-      wx.showToast({ title: '登录成功', icon: 'success', duration: 500});
-      setTimeout(() => { wx.navigateBack() }, 500);
     }
   },  
   //用户基本信息
@@ -156,10 +161,7 @@ Page({
           if (res.statusCode == 500) {
             wx.showModal({content: '手机或验证码不对!'})
           }else if(res.statusCode == 200) {
-            wx.setStorage({
-              key: 'userToken',
-              data: res.data
-            })
+            wx.setStorage({ key: 'userToken',data: res.data})
             wx.showToast({
               title: '登录成功',
               icon: 'success',

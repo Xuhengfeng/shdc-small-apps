@@ -86,17 +86,13 @@
   <block wx:if="{{detailType==33}}">
       <view class="estate">
             <view bindtap="xiaoquTwoHouse">
-            <!-- <navigator url="../index/hotHouse?title=小区二手房" hover-class="none"> -->
                 <image src="../../images/estate1.png"></image>
                 <view>二手房</view>
-            <!-- </navigator> -->
             </view>
 
             <view bindtap="xiaoquRentHouse">
-            <!-- <navigator url="../index/hotHouse?title=小区租房" hover-class="none"> -->
                 <image src="../../images/estate2.png"></image>
                 <view>租房</view>
-            <!-- </navigator> -->
             </view>
       </view>
   </block>
@@ -289,7 +285,6 @@
 
     <!-- 小区 -->
     <view class="type2" wx:if="{{detailType==33}}">
-      <view class="tellBtn" bindtap="listenerButton">联系经纪人</view>
       <view class="addCollection" bindtap="toggleSelectLike">
           <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
           <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>

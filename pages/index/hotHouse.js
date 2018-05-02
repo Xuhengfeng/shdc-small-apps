@@ -8,9 +8,9 @@ Page({
     page: 2,
     currentCity: null,//当前城市
     showload: false,//加载圈
-    //热门小区  小区二手房 同小区房源
+    //热门小区  同小区二手房 同小区租房
     contentType: null,
-    IPS: [Api.IP_HOTBUILDING,Api.IP_SAMEUSED],
+    IPS: [Api.IP_HOTBUILDING,Api.IP_SAMEUSED, Api.IP_SAMEUSEDRENT],
     num: '',//切换ip
     sdid: ''
   },
@@ -30,11 +30,11 @@ Page({
           this.setData({
             contentType: 33,
             sdid: options.id,
-            num: 1
+            num: 2
           });
         }else if(res.data == '同小区房源') {
           this.setData({
-            contentType: 33,
+            contentType: 44,
             sdid: options.id,
             num: 1
           });

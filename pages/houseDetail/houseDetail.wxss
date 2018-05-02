@@ -282,18 +282,6 @@ page{
   box-sizing: border-box;
 }
 
-.footer .type2{
-  height: 100rpx;
-  line-height: 100rpx;
-  text-align: center;
-  font-size: 34rpx;
-  color: #ffffff;
-}
-.footer .type2 .tellBtn{
-  background: #5db1ff;
-  height: 100%;
-  line-height: 100rpx;
-}
 .footer .type2 .addCollection{
   position: fixed;
   bottom:  110rpx;
