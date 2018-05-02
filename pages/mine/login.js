@@ -22,36 +22,39 @@ Page({
     }else{
       //接受
       //判断是否有appid--------->>>>
-      let globalData = app.globalData;
-      if (globalData.openid && globalData.session_key) {
-          let appId = 'wxce209331358eecd8';
-          let sessionKey = globalData.session_key;
-          let encryptedData = e.detail.encryptedData;
-          let iv = e.detail.iv;
-          let pc = new WXBizDataCrypt(appId, sessionKey)
-          let data = pc.decryptData(encryptedData, iv)
-          console.log('解密后 data: ', data)
-          //当前页面路由栈的信息
-          let pages = getCurrentPages();
-          let prevPage = pages[pages.length - 2];
-              prevPage.setData({
-                nickName: data.phoneNumber,
-                avatarUrl: globalData.userInfo.avatarUrl,
-                showLogout: true
-              })
-          //请求token
-          let params = {
-              openid: globalData.openid,
-              phone: data.phoneNumber
-          }
-          app.httpRequest(Api.weChatLogin, params, (error, data) => {
-            wx.setStorageSync('userToken', data.data)
-          })
-          wx.showToast({ title: '登录成功', icon: 'success', duration: 500});
-          setTimeout(() => { wx.navigateBack() }, 500);
-      }else{
+      let ciphertext = JSON.parse(wx.getStorageSync('ciphertext'));
+      let userInfo = JSON.parse(wx.getStorageSync('userInfo'));
 
+      let appId = 'wxce209331358eecd8';
+      let Key = ciphertext.sessionKey;
+      let iv = e.detail.iv;
+      let encryptedData = e.detail.encryptedData;
+      let pc = new WXBizDataCrypt(appId, Key)
+      let data = pc.decryptData(encryptedData, iv)
+      console.log('解密后 data: ', data)
+
+      //当前页面路由栈的信息
+      let pages = getCurrentPages();
+      let prevPage = pages[pages.length - 2];
+          prevPage.setData({
+            nickName: data.phoneNumber,
+            avatarUrl: userInfo.avatarUrl,
+            showLogout: true
+          })
+      let params = {
+        "authKey": ciphertext.authKey,
+        "headImage": userInfo.avatarUrl,
+        "nickname": '徐横峰',
+        "openid": ciphertext.openid,
+        "phone": data.phoneNumber,
+        "sex": userInfo.gender
       }
+      app.httpRequest(Api.weChatRegister, params, (error, data) => {
+          console.log(data.data);
+      }, 'POST');
+
+      wx.showToast({ title: '登录成功', icon: 'success', duration: 500});
+      setTimeout(() => { wx.navigateBack() }, 500);
     }
   },  
   //用户基本信息

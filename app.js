@@ -37,53 +37,28 @@ App({
     })
   },
   onLaunch() {
-    // wx.login({
-    //   success: res1 => {
-    //     if (res1.code) {
-    //       wx.getUserInfo({
-    //         withCredentials: true,
-    //         success: (res) => {
-    //           this.globalData.userInfo = res.userInfo
-    //           if (this.userInfoReadyCallback) {
-    //             this.userInfoReadyCallback(res)
-    //           }
-    //            //获取session_key和openid
-    //           wx.request({
-    //             url: 'https://api.weixin.qq.com/sns/jscode2session',
-    //             data: {
-    //               js_code: res1.code,
-    //               appid: 'wxce209331358eecd8',
-    //               secret: '3258f8a5649ecdbfb3f1e3c43f5b2907',
-    //               grant_type: 'authorization_code'
-    //             }, 
-    //             success: response => {
-    //               this.globalData.session_key = response.data.session_key;
-    //               this.globalData.openid = response.data.openid;
-    //               this.globalData.code = res1.code;
-    //                             //获取注册code
-    //                             console.log(res)
-    //                             wx.request({
-    //                               // url: 'http://112.74.181.229:7031/custAppApi/member/registerWeixin',
-    //                               url: 'http://192.168.16.173:7031/custAppApi/member/registerWeixin',
-    //                               data: {
-    //                                 "openid": response.data.openid,
-    //                                 "headImage": res.userInfo.avatarUrl,
-    //                                 "nickname": res.userInfo.nickName,
-    //                                 "sex": res.userInfo.gender
-    //                               },
-    //                               method: 'POST',
-    //                               success: response2 => {
-    //                                   console.log(response2)
-    //                               }
-    //                             })
-    //             }
-    //           })
-
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
+    wx.login({
+      success: res1 => {
+        if (res1.code) {
+          wx.getUserInfo({
+            withCredentials: true,
+            success: (res) => {
+              this.globalData.userInfo = res.userInfo;
+              if (this.userInfoReadyCallback) { this.userInfoReadyCallback(res)};
+              wx.request({
+                url: "http://192.168.16.173:7031/custAppApi/member/authWeixin",
+                data: {"code": res1.code},
+                method: 'GET',
+                success: response => {
+                  wx.setStorageSync('userInfo', JSON.stringify(res.userInfo));
+                  wx.setStorageSync('ciphertext', JSON.stringify(response.data.data));
+                }
+              })
+            }
+          })
+        }
+      }
+    })
     // //获取用户信息
     wx.getSetting({
       success: res => {
@@ -107,8 +82,6 @@ App({
   },
   globalData: {
     userInfo: null,
-    session_key: null,
-    openid: null,
-    code: null
+    ciphertext: null
   }
 })

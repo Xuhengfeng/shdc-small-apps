@@ -1,7 +1,7 @@
 'use strict';
 const SERVERINDEX = 0;
-const SERVER_IPS = ["http://112.74.181.229:7031/custAppApi"];//api接口
-// const SERVER_IPS = ["http://192.168.16.173:7032/custAppApi"];//api接口
+// const SERVER_IPS = ["http://112.74.181.229:7031/custAppApi"];//api接口
+const SERVER_IPS = ["http://192.168.16.173:7031/custAppApi"];//api接口
 // const SERVER_IPS = ["http://192.168.16.173:7051/custService"];//api接口
 
 const SERVER_IP = SERVER_IPS[SERVERINDEX];
@@ -67,7 +67,7 @@ export const IP_GETSMSCODE= SERVER_IPS + "/member/fetchSmsCode";//获取验证�
 
 //微信登录
 export const weChatLogin = SERVER_IPS + "/member/loginWeixin";//获取验证码
-
+export const weChatRegister = SERVER_IPS + "/member/registerWeixin";//微信注册
 
 
 
