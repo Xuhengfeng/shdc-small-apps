@@ -284,7 +284,7 @@ Component({
           'pageNo': 1,
           'pageSize': 10,
           'scity': this.data.currentCity,
-          'roomsNum': this.data.roomsNumroomsNum
+          'roomsNum': this.data.roomsNum
       }
       let label = 'label[' +1 + ']';
       let newParams = Object.assign(this.data.params, params);
