@@ -37,9 +37,7 @@ Page({
     contentType: 11 //热门小区11， 小区二手房22
   },
   onLoad(options) {
-    wx.setNavigationBarTitle({
-      title: "房源详情",
-    })
+    wx.setNavigationBarTitle({title: "房源详情"});
     wx.getStorage({
       key: 'houseTypeSelect',
       success: (res) => {
@@ -182,13 +180,35 @@ Page({
       }
     })
   },
-  //点击关联小区进入关联小区详情
+  //点击关联小区进入关联小区详情 
   guanlianxiaoqu() {
     this.cacheHouseType('小区');
     wx.navigateTo({
-      url: '../houseDetail/houseDetail?id='+this.data.guanlianList.sdid,
+      url: '../houseDetail/houseDetail?title=房源详情&id='+this.data.guanlianList.sdid,
     })
   },
+  //同小区房源更多
+  tongyuanxiaoqu() {
+    this.cacheHouseType('同小区房源');
+    wx.navigateTo({
+      url: '../index/hotHouse?title=同小区房源&id='+this.data.guanlianList.sdid,
+    })
+  },
+  //小区二手房
+  xiaoquTwoHouse() {
+    this.cacheHouseType('小区二手房');
+    wx.navigateTo({
+      url: '../index/hotHouse?title=小区二手房&id='+this.data.guanlianList.sdid,
+    })
+  },
+  //小区租房
+  xiaoquRentHouse() {
+    this.cacheHouseType('小区租房');
+    wx.navigateTo({
+      url: '../index/hotHouse?title=小区租房&id='+this.data.guanlianList.sdid,
+    })
+  },
+  
   //缓存房源类型
   cacheHouseType(value) {
     wx.setStorageSync('houseTypeSelect', value)

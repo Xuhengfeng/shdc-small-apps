@@ -85,14 +85,19 @@
   <!-- 小区找房 -->
   <block wx:if="{{detailType==33}}">
       <view class="estate">
-            <navigator url="../index/hotHouse?title=小区二手房" hover-class="none">
+            <view bindtap="xiaoquTwoHouse">
+            <!-- <navigator url="../index/hotHouse?title=小区二手房" hover-class="none"> -->
                 <image src="../../images/estate1.png"></image>
                 <view>二手房</view>
-            </navigator>
-            <navigator url="../index/hotHouse?title=小区租房" hover-class="none">
+            <!-- </navigator> -->
+            </view>
+
+            <view bindtap="xiaoquRentHouse">
+            <!-- <navigator url="../index/hotHouse?title=小区租房" hover-class="none"> -->
                 <image src="../../images/estate2.png"></image>
                 <view>租房</view>
-            </navigator>
+            <!-- </navigator> -->
+            </view>
       </view>
   </block>
 
@@ -229,9 +234,9 @@
 
 <view class="section" wx:if="{{detailType!==33}}">
   <view class="title">同小区房源 
-      <navigator url="../index/hotHouse?title=同小区房源&id={{guanlianList.sdid}}" hover-class="none">
+      <view class="tongxiaoqu" bindtap="tongyuanxiaoqu">
           更多小区房源<image src="../../images/rightMore.png"/>
-      </navigator>
+      </view>
   </view>
   <block wx:for="{{community}}">
       <view class="item" data-id="{{item.sdid}}" bindtap="RefreshHouseDetail">

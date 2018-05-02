@@ -10,33 +10,43 @@ Page({
     showload: false,//加载圈
     //热门小区  小区二手房 同小区房源
     contentType: null,
-    IPS: [Api.IP_HOTBUILDING, Api.IP_HOTBUILDING, Api.IP_SAMEUSED],
+    IPS: [Api.IP_HOTBUILDING,Api.IP_SAMEUSED],
     num: '',//切换ip
     sdid: ''
   },
   onLoad(options) {
     console.log(options)
-    wx.setNavigationBarTitle({title: options.title})
-
-    if(options.title == '热门小区'){
-      this.setData({
-        contentType: 11,
-        sdid: options.id,
-        num: 0
-      });
-    }else if (options.title == '小区二手房') {
-      this.setData({ 
-        contentType: 22,
-        sdid: options.id,
-        num: 1
-       });
-    }else if(options.title == '同小区房源') {
-      this.setData({
-        contentType: 33,
-        sdid: options.id,
-        num: 2
-      });
-    }
+    wx.setNavigationBarTitle({title: options.title});
+    wx.getStorage({
+      key: 'houseTypeSelect',
+      success: (res) => {
+        if(res.data == '小区二手房'){
+          this.setData({ 
+            contentType: 22,
+            sdid: options.id,
+            num: 1
+          });
+        }else if(res.data == '小区租房') {
+          this.setData({
+            contentType: 33,
+            sdid: options.id,
+            num: 1
+          });
+        }else if(res.data == '同小区房源') {
+          this.setData({
+            contentType: 33,
+            sdid: options.id,
+            num: 1
+          });
+        }else if(res.data == '热门小区') {
+          this.setData({
+            contentType: 11,
+            sdid: options.id,
+            num: 0
+          });
+        }
+      }
+    })
 
     //热门小区 同小区房源 小区二手房
     wx.getStorage({
