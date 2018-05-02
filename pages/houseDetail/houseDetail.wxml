@@ -229,7 +229,8 @@
 
 <view class="section" wx:if="{{detailType!==33}}">
   <view class="title">同小区房源 
-        <navigator url="../index/hotHouse?title=同小区房源&id={{houseDetail.sdid}}" hover-class="none">
+    <!-- houseDetail.sdid -->
+        <navigator url="../index/hotHouse?title=同小区房源&id={{guanlianList.sdid}}" hover-class="none">
             更多小区房源<image src="../../images/rightMore.png"/>
         </navigator>
   </view>
