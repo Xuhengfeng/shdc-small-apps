@@ -67,6 +67,17 @@ Page({
       this.setData({houseList: this.data.houseList.concat(data.data)});
     })
   },
+  RefreshHouseDetail(e){//重新请求数据
+    let sdid = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../houseDetail/houseDetail?title=房源详情&id='+sdid
+    })
+  },
+  jumpLookHouse() {//预约看房
+    wx.navigateTo({
+      url: "lookHouse?houseDetail=" + JSON.stringify(this.data.houseDetail)
+    });
+  },
   onReachBottom() {//上拉
     let page = this.data.page++;
     let params = {
@@ -75,5 +86,9 @@ Page({
     }
     let IP = this.data.IPS[this.data.num] + this.data.currentCity + '/'+ this.data.sdid;
     this.getServerData(IP, params);
+  },
+  //缓存房源类型
+  cacheHouseType(value) {
+    wx.setStorageSync('houseTypeSelect', value)
   }
 })

@@ -71,8 +71,9 @@
                         </view>
                   </block>
 
-                  <!-- 同小区房源 -->
+                  <!-- 同小区更多房源 -->
                   <block wx:if="{{contentType==44}}">
+                    <view data-id="{{item.sdid}}" bindtap="RefreshHouseDetail">
                       <view class="item-title">{{item.buildName}}</view>
                       <view class="description">
                             {{item.areaName}} {{item.districtName}} {{item.buildAge}}建成  {{item.buildType}}
@@ -90,6 +91,7 @@
                       <view  class="housePrice">{{item.saleTotal}}万
                           <text>{{item.salePrice}}元/平米</text>
                       </view>
+                    </view>
                   </block>
 
               </view>

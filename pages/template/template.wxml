@@ -168,7 +168,7 @@
   </view>
 </template>
 
-<!-- 二手房的同小区房源 -->
+<!-- 同小区房源更多 -->
 <template name="houseContent3">
   <view class="item-title">{{item.houseTitle}}</view>
   <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        

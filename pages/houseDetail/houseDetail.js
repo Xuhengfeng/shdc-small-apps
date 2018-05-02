@@ -189,7 +189,6 @@ Page({
   },
   //同小区房源更多
   tongyuanxiaoqu() {
-    this.cacheHouseType('同小区房源');
     wx.navigateTo({
       url: '../index/hotHouse?title=同小区房源&id='+this.data.guanlianList.sdid,
     })
