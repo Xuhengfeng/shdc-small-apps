@@ -105,7 +105,7 @@ Page({
     }
     //小区找房详情
     if (this.data.detailType == 33) {
-      app.httpRequest(this.data.IPS[this.data.IpsNum] + city + '/' + this.data.houseDetailId, { scity: city }, (error, data) => {
+      app.httpRequest(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, { scity: city }, (error, data) => {
         this.setData({
           latitude: data.data.py,
           longitude: data.data.px,
