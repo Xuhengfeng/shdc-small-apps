@@ -48,9 +48,10 @@
           <navigator url="../houseDetail/houseDetail" 
                      class="goods-item"
                      wx:for="{{recommend}}" 
-                     wx:key="index">
+                     wx:key="index"
+                     style="background:rgba(0,0,0,1)">
               <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
-              <view class="content" style="background:rgba(0,0,0,0.5)">
+              <view class="content">
                   <view class="item-title" style="color:#ffffff">{{item.houseTitle}}</view>
                     <view class="description" style="color:#ffffff">{{item.districtName}} {{item.houseDirection}} {{item.houseFeature}}</view>
                     <view  class="houseTypeInfo" style="color:#ffffff">

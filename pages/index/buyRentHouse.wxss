@@ -107,13 +107,6 @@ navigator{
   vertical-align: middle;
 }
 
-/*轮播图指示器*/
-.gray{
-  background: rgba(0,0,0,.4);
-}
-.white{
-  background: #ffffff;
-}
 .recommend>view:nth-of-type(2){
   height: 240rpx;
 }
@@ -134,9 +127,10 @@ navigator{
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 380rpx;
+  height: 240rpx;
   padding: 40rpx;
+  box-sizing: border-box;
 }
 
 .item .item-title{

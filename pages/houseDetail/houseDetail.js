@@ -56,7 +56,7 @@ Page({
               IpsNum: 1,
               flagPrice: false              
             });
-          } else if (res.data == '小区找房' || res.data=="小区") {//小区
+          } else if (res.data=="小区"||res.data=="热门小区") {//小区
             this.setData({
               detailType: 33,
               houseDetailId: options.id,
@@ -189,6 +189,8 @@ Page({
   },
   //同小区房源更多
   tongyuanxiaoqu() {
+    let once = wx.getStorageSync('onceHouseType');
+    this.cacheHouseType(once);
     wx.navigateTo({
       url: '../index/hotHouse?title=同小区房源&id='+this.data.guanlianList.sdid,
     })
@@ -239,6 +241,7 @@ Page({
       duration: 0
     })
     let sdid = e.currentTarget.dataset.id;
+    console.log(sdid);
     this.buyRentRequest(this.data.currentCity, sdid); 
   },
   jumpLookHouse() {//预约看房

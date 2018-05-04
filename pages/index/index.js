@@ -157,11 +157,13 @@ Page({
     let num = e.currentTarget.dataset.num;
     if (num == 1) {
       this.cacheHouseType('二手房');
+      this.cacheHouseType2('二手房');
       wx.navigateTo({
         url: "../index/buyRentHouse"
       })
     } else if (num == 2) {
       this.cacheHouseType('租房');
+      this.cacheHouseType2('租房');
       wx.navigateTo({
         url: "../index/buyRentHouse"
       })
@@ -238,8 +240,18 @@ Page({
       url: "../h5Pages/h5Pages?redirect="+http
     })
   },
-  //缓存房源类型
+  hotxiaoqu() {
+    this.cacheHouseType('热门小区');
+    wx.navigateTo({
+      url: "hotHouse?title=热门小区" 
+    })
+  },
+  //缓存房源类型 可以改变的 
   cacheHouseType(value) {
     wx.setStorageSync('houseTypeSelect', value)
+  },
+  //缓存房源类型 不可改变的
+  cacheHouseType2(value) {
+    wx.setStorageSync('onceHouseType', value)
   }
 })

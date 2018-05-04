@@ -313,7 +313,7 @@
 
   <!-- twohandhouse -->
   <block wx:for="{{guessYoulikeHouse}}" wx:key="index" wx:for-item="item">
-      <view class="item" bindtap="RefreshHouseDetail">
+      <view class="item" data-id="{{item.sdid}}" bindtap="RefreshHouseDetail">
             <view class="image">
               <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
             <view class="item-content">
