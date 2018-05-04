@@ -46,7 +46,7 @@ App({
               this.globalData.userInfo = res.userInfo;
               if (this.userInfoReadyCallback) { this.userInfoReadyCallback(res)};
               wx.request({
-                url: "http://192.168.16.173:7031/custAppApi/member/authWeixin",
+                url: "http://112.74.181.229:7031/custAppApi/member/authWeixin",
                 data: {"code": res1.code},
                 method: 'GET',
                 success: response => {

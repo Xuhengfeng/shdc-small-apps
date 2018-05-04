@@ -80,7 +80,7 @@ Page({
     if (this.data.detailType == 11 || this.data.detailType == 22) {
 
       //二手房  租房详情
-      app.httpRequest(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, 'GET', (error, data) => {
+      app.httpRequest(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, {}, (error, data) => {
         console.log(data)
         this.setData({
           latitude: data.data.py,
@@ -105,26 +105,20 @@ Page({
     }
     //小区找房详情
     if (this.data.detailType == 33) {
-      wx.request({
-        url: this.data.IPS[this.data.IpsNum] + city + '/' + this.data.houseDetailId,
-        data: {},
-        method: "GET",
-        header: { 'Content-Type': 'application/json' },
-        success: (res2) => {
-          this.setData({
-            latitude: res2.data.data.py,
-            longitude: res2.data.data.px,
-            houseDetail: res2.data.data,
-            markers: [{
-              id: "1",
-              latitude: res2.data.data.py,
-              longitude: res2.data.data.px,
-              width: 50,
-              height: 50,
-              title: res2.data.data.buildName
-            }]
-          });
-        }
+      app.httpRequest(this.data.IPS[this.data.IpsNum] + city + '/' + this.data.houseDetailId, { scity: city }, (error, data) => {
+        this.setData({
+          latitude: data.data.py,
+          longitude: data.data.px,
+          houseDetail: data.data,
+          markers: [{
+            id: "1",
+            latitude: data.data.py,
+            longitude: data.data.px,
+            width: 50,
+            height: 50,
+            title: data.data.buildName
+          }]
+        });
       })
       //猜你喜欢(默认二手房 首页第1页数据)
       var IP = this.data.guessLikeIP[this.data.num] + '/' + city;
@@ -168,16 +162,8 @@ Page({
 
   //当前页的关联小区内容 
   guanlianListRequest(px, py, currentCity, buildSdid) {
-    wx.request({
-      url: Api.IP_BUILDINFO + currentCity + '/' + buildSdid,
-      data: {},
-      method: "GET",
-      header: { 'Content-Type': 'application/json' },
-      success: (res) => {
-        this.setData({
-          guanlianList: res.data.data,
-        });
-      }
+    app.httpRequest(Api.IP_BUILDINFO + currentCity + '/' + buildSdid, {}, (error, data) => {
+        this.setData({guanlianList: data.data});
     })
   },
   //点击关联小区进入关联小区详情 
@@ -214,18 +200,20 @@ Page({
   cacheHouseType(value) {
     wx.setStorageSync('houseTypeSelect', value)
   },
-
+  //显示图片当前的
   listenSwiper(e) {
-    this.setData({//显示图片当前的
+    this.setData({
       currentIndex: e.detail.current+1
     })
   },
-  telphone(e) {//拨打电话
+  //拨打电话
+  telphone(e) {
     wx.makePhoneCall({
       phoneNumber: e.target.dataset.phone,
     })
   },
-  contact() {//通讯录
+  //通讯录
+  contact() {
     wx.addPhoneContact({
       weChatNumber: '132 1236 1223',
     })
@@ -235,8 +223,9 @@ Page({
       hiddenModal: !this.data.hiddenModal
     })
   },
-  RefreshHouseDetail(e){//重新请求数据
-    wx.pageScrollTo({//回到顶部
+  //回到顶部 重新请求数据
+  RefreshHouseDetail(e){
+    wx.pageScrollTo({
       scrollTop: 0,
       duration: 0
     })
@@ -278,6 +267,7 @@ Page({
         }
     }
   },
+  //收藏 请求
   colletionRequest(bool, num) {
     if(bool) {
       let params = {"title": "收藏","unicode": wx.getStorageSync("userToken")}
