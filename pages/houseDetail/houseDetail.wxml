@@ -140,7 +140,10 @@
       <view>小区面积：<text>{{houseDetail.totalCoverArea}}m²</text></view>
       <view>车位数：<text>{{houseDetail.carDownNum+houseDetail.carUpNum}}位</text></view>
       <view>绿化率：<text>{{houseDetail.greenRatio}}%</text></view>
-      <view>小区简介：<text>{{houseDetail.buildSynop}}</text></view>
+      <view class="xiaoquinfo">
+            <view>小区简介：</view>
+            <view>{{houseDetail.buildSynop}}</view>
+      </view>
   </view>
 </view> 
 

@@ -127,14 +127,26 @@ page{
   justify-content: flex-start;
   align-items: center;
 }
-.section2 .labelgroup view{
+.section2 .labelgroup>view{
   line-height: 1;
   width: 50%;
   padding-bottom: 30rpx;
   font-size: 30rpx;
   white-space: nowrap;
 }
-
+.section2 .xiaoquinfo{
+  width: 100%!important;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.section2 .xiaoquinfo view:nth-of-type(2){
+  width: 80%;
+  line-height: 1.2;
+  text-align: justify;
+  white-space: normal;
+}
 /* 房源位置 */
 .section3 .map{
   position: relative;
