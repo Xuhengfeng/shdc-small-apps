@@ -41,29 +41,39 @@ Page({
     wx.getStorage({
       key: 'houseTypeSelect',
       success: (res) => {
-          if (res.data == '二手房' || res.data == "小区二手房") {//二手房
-            this.setData({
+        let str = res.data;
+        switch(str) {
+          case '二手房':
+          case '小区二手房':
+          this.setData({
               detailType: 11,
               houseDetailId: options.id,
               IpsNum: 0,
               contentType: 22,
               flagPrice: true
-            });
-          } else if (res.data == '租房' || res.data == '小区租房') {//租房
-            this.setData({
+          });
+          break;
+
+          case '租房':
+          case '小区租房':
+          this.setData({
               detailType: 22,
               houseDetailId: options.id,
               IpsNum: 1,
               flagPrice: false              
-            });
-          } else if (res.data=="小区"||res.data=="热门小区") {//小区
-            this.setData({
+          });
+          break;
+
+          case '小区':
+          case '热门小区':
+          this.setData({
               detailType: 33,
               houseDetailId: options.id,
               IpsNum: 2,
               contentType: 11
-            });
-          }
+          });
+          break;
+        }
       }
     })
     wx.getStorage({
