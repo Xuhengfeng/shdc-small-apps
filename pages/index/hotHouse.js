@@ -1,5 +1,5 @@
 // pages/index/hotHouse.js
-var Api = require("../../utils/url");
+const Api = require("../../utils/url");
 const app = getApp();
 
 Page({

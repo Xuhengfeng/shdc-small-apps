@@ -1,7 +1,7 @@
-let Api = require("../../utils/url");
-let bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
-let pinyin = require("../../libs/toPinyin.js"); //汉字转拼音
-let app = getApp();
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
+const bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
+const pinyin = require("../../libs/toPinyin.js"); //汉字转拼音
 
 Page({
   data: {
@@ -76,27 +76,25 @@ Page({
   },
   oneBigRequest(city) {
     //获取主页banner资讯
-    app.httpRequest(this.data.IPS[0] + city + "/INDEX_BANNER", { scity: city}, (error, data) => {
+    utils.get(this.data.IPS[0] + city + "/INDEX_BANNER", {scity: city}).then((data) => {
       this.setData({ imgUrls: data.data });
     })
-
     //获取主页二手房指南资讯
-    app.httpRequest(this.data.IPS[1] + city + "/PURCHASE_GUIDE", { scity: city }, (error, data) => {
+    utils.get(this.data.IPS[1] + city + "/PURCHASE_GUIDE", {scity: city}).then((data) => {
       this.setData({ purchase_guide: data.data });
-    })
-
+    })    
     //获取成交量统计
-    app.httpRequest(this.data.IPS[2] + city, { scity: city }, (error, data) => {
+    utils.get(this.data.IPS[2] + city, {scity: city}).then((data) => {
       this.setData({ houseUsed: data.data });
     })
-
     //热门小区
-    app.httpRequest(this.data.IPS[3] + city, {
+    utils.get(this.data.IPS[3] + city, {
       pageNo: 1,
       pageSize: 10,
       scity: city
-    }, (error, data) => {
-       this.setData({ hotbuilding: data.data });
+    })
+    .then((data) => {
+      this.setData({ hotbuilding: data.data });
     })
 
     //猜你喜欢(默认二手房 首页第1页数据)
@@ -114,7 +112,8 @@ Page({
     this.getDataFromServer(IP, params);
   },
   getDataFromServer(IP, params) {//猜你喜欢
-    app.httpRequest(IP, params, (error, data) => {
+    utils.get(IP, params)
+    .then((data) => {
       data.data.forEach((item) => {
         item.houseTag = item.houseTag.split(',');
       })

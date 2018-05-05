@@ -19,7 +19,78 @@ const checkPhone = phone => {
     return true;
   }
 }
+
+//用户登录
+const login = ()=> {
+  return new Promise((resolve,reject) => wx.login({
+    success:resolve,
+    fail:reject
+  }))
+}
+
+//获取用户信息
+const getUserInfo = ()=> {
+  return login().then(res => new Promise((resolve,reject) => 
+    wx.getUserInfo({
+      success:resolve,
+      fail:reject
+    })
+  ))
+}
+
+//封装Request请求方法
+const requst = (url,method,data = {})=> {
+  let title = data.title ? data.title : '加载中...';
+  let scity = data.scity?data.scity : null;
+  let unicode = data.unicode ? data.unicode : null;
+  delete data.unicode;
+  delete data.title;
+  wx.showLoading({title: title})
+  return new Promise((resove,reject) => {
+    wx.request({
+      url: url,
+      data: data,
+      header: { 
+        'Content-Type': 'application/json',
+        'scity': scity,
+        'unique-code':  unicode,
+      },
+      method: method.toUpperCase(), // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      success: (res)=> {
+        wx.hideLoading();
+        if(res.statusCode == 200) {
+          if(res.data.status == 0) {
+            wx.showModal({title: res.data.msg});
+          }
+          if(res.data.data !== ""||res.data.data.length !== "") {
+            resove(res.data);
+          }
+        }else if(res.statusCode == 500) {
+          wx.showModal({title: '500错误'});
+        }  
+      },
+      fail:(msg)=> {
+        console.log('reqest error',msg)
+        wx.hideLoading();  
+        reject('fail')
+      }
+    })
+  })
+}
+
+const requstGet = (url, data)=> {
+  return requst(url,'GET',data);
+}
+const requstPost = (url, data)=> {
+  return requst(url,'POST',data);
+}
+
 module.exports = {
   formatTime: formatTime,
-  checkPhone: checkPhone
+  checkPhone: checkPhone,
+  get: requstGet,
+  post: requstPost,
+  requst: requst,
+  login: login,
+  getUserInfo: getUserInfo
 }

@@ -7,7 +7,6 @@ App({
     delete params.unicode;
     delete params.title;
     wx.showLoading({title: title})
- 
     wx.request({
       url: url,
       data: params,
@@ -23,7 +22,7 @@ App({
             wx.showModal({title: res.data.msg})
           }
           if(res.data.data !== ""||res.data.data.length !== "") {
-            callback(null, res.data);
+            callback(null, res.data);//成功回调
           }
         }else if(res.statusCode == 500) {
           wx.showModal({title: '500错误'})
@@ -31,7 +30,7 @@ App({
         wx.hideLoading()     
       },
       fail: (error) => {
-        callback(error);
+        callback(error);//错误回调
         wx.hideLoading()        
       }
     })
