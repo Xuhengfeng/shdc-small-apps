@@ -5,20 +5,14 @@ let app = getApp();
 
 Page({
   data: {
-    //轮播图
-    imgUrls: [],//默认图片
+    imgUrls: [],//轮播图
     hasMore: false,
-
     purchase_guide: null,//二手房购房指南资讯
     houseUsed: null,//成交量统计
     houseList: [],//房源数据
     hotbuilding: [],//获取热门小区
-
     currentCity: null, //默认城市
     myLocation: "",//默认地址
-
-
-    //猜你喜欢
     pageNo: 1,//默认第1页
     flagPrice: true, //是否有价格  二手房 租房
     guessYouLike: ['二手房', '租房'],//猜你喜欢 查看全部房源
@@ -29,31 +23,10 @@ Page({
     IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING],
   },
   onLoad(){
-    let that = this;
+    //定位
     wx.getLocation({
       type: 'gcj02',
-      success: (res) => {
-        var BMap = new bmap.BMapWX({ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'});
-        // 发起regeocoding检索请求 
-        BMap.regeocoding({
-          location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
-          success: (data) => {
-                let citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
-                let lowCase = pinyin.Pinyin.getFullChars(citytoPinyin);
-                let currentCity = lowCase.toLowerCase();
-                let currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
-                this.setData({ myLocation: currentCityName})
-                wx.setStorage({
-                  key: 'selectCity',
-                  data: {
-                    name: currentCityName,
-                    value: currentCity
-                  }
-                });
-                this.oneBigRequest(currentCity);
-          }
-        });
-      },
+      success: (res) => {this.BMapRegeoCode(res)},
       fail: (error) => {
         wx.showModal({
           title: '警告通知',
@@ -66,26 +39,7 @@ Page({
                     wx.getLocation({
                       type: 'gcj02',
                       success: (res) => {
-                        var BMap = new bmap.BMapWX({ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'});
-                        // 发起regeocoding检索请求 
-                        BMap.regeocoding({
-                          location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
-                          success: (data) => {
-                                  let citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
-                                  let lowCase = pinyin.Pinyin.getFullChars(citytoPinyin);
-                                  let currentCity = lowCase.toLowerCase();
-                                  let currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
-                                  this.setData({ myLocation: currentCityName })
-                                  wx.setStorage({
-                                    key: 'selectCity',
-                                    data: {
-                                      name: currentCityName,
-                                      value: currentCity
-                                    }
-                                  });
-                                  this.oneBigRequest(currentCity);
-                          }
-                        });
+                          this.BMapRegeoCode(res);
                       }
                     })
                   }
@@ -96,6 +50,29 @@ Page({
         })
       }
     })
+  },
+  //逆解析
+  BMapRegeoCode(res) {
+    let BMap = new bmap.BMapWX({ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'});
+    // 发起regeocoding检索请求 
+    BMap.regeocoding({
+      location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
+      success: (data) => {
+              let citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
+              let lowCase = pinyin.Pinyin.getFullChars(citytoPinyin);
+              let currentCity = lowCase.toLowerCase();
+              let currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
+              this.setData({ myLocation: currentCityName })
+              wx.setStorage({
+                key: 'selectCity',
+                data: {
+                  name: currentCityName,
+                  value: currentCity
+                }
+              });
+              this.oneBigRequest(currentCity);
+      }
+    });
   },
   oneBigRequest(city) {
     //获取主页banner资讯
@@ -155,96 +132,62 @@ Page({
   //活动版块1 跳转
   activity(e) {
     let num = e.currentTarget.dataset.num;
-    if (num == 1) {
-      this.cacheHouseType('二手房');
-      this.cacheHouseType2('二手房');
-      wx.navigateTo({
-        url: "../index/buyRentHouse"
-      })
-    } else if (num == 2) {
-      this.cacheHouseType('租房');
-      this.cacheHouseType2('租房');
-      wx.navigateTo({
-        url: "../index/buyRentHouse"
-      })
-    } else if (num == 3) {
-      this.cacheHouseType('小区');
-      wx.navigateTo({
-        url: "../searchList/searchList"
-      })
-    } else if (num == 4) {
-      wx.navigateTo({
-        url: "sellRent"
-      })
-    } else if (num == 5) {
-      wx.navigateTo({
-        url: "shop"
-      })
+    switch(num) {
+      case '1': 
+        this.cacheHouseType('二手房');
+        this.cacheHouseType2('二手房');
+        wx.navigateTo({url: "../index/buyRentHouse"});
+        break;      
+      case '2': 
+        this.cacheHouseType('租房');
+        this.cacheHouseType2('租房');
+        wx.navigateTo({url: "../index/buyRentHouse"});
+        break;      
+      case '3': 
+        this.cacheHouseType('小区');
+        wx.navigateTo({url: "../searchList/searchList"});
+        break;      
+      case '4':wx.navigateTo({url: "sellRent"});break;      
+      case '5':wx.navigateTo({url: "shop"});break;      
     }
   },
   //活动版块2 跳转
   activity2(e) {
     let num = e.currentTarget.dataset.num;
-    if (num == 1) {
-      wx.navigateTo({
-        url: ""
-      })
-    } else if (num == 2) {
-      wx.navigateTo({
-        url: ""
-      })
-    } else if (num == 3) {
-      wx.navigateTo({
-        url: ""
-      })
-    } else if (num == 4) {
-      wx.navigateTo({
-        url: ""
-      })
-    } else if (num == 5) {
-      wx.navigateTo({
-        url: "shop"
-      })
+    switch(num) {
+      case '1': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
+      case '2': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
+      case '3': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
+      case '4': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
+      case '5': wx.navigateTo({url: "shop"});break;      
     }
   },
   //四张pic
   goodsHouse(e) {
     let num = e.currentTarget.dataset.num;
-    if (num == 1) {
-      wx.navigateTo({
-        url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"
-      })
-    } else if (num == 2) {
-      wx.navigateTo({
-        url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"
-      })
-    } else if (num == 3) {
-      wx.navigateTo({
-        url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"
-      })
-    } else if (num == 4) {
-      wx.navigateTo({
-        url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"
-      })
-    } else if (num == 5) {
-      wx.navigateTo({
-        url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"
-      })
+    switch(num) {
+      case '1': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;
+      case '2': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;
+      case '3': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;
+      case '4': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;
+      case '5': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;
     }
   },
-  //h5页面跳转
-  //轮播图 数量统计 热门推荐
+  //h5页面跳转 轮播图 数量统计 热门推荐
   h5page(e) {
     let http = e.currentTarget.dataset.http?e.currentTarget.dataset.http:"https://www.baidu.com";
-    wx.navigateTo({
-      url: "../h5Pages/h5Pages?redirect="+http
-    })
+    wx.navigateTo({url: "../h5Pages/h5Pages?redirect="+http});
   },
-  hotxiaoqu() {
+  //热门小区
+  hotxiaoqu(e) {
+    let http;
     this.cacheHouseType('热门小区');
-    wx.navigateTo({
-      url: "hotHouse?title=热门小区" 
-    })
+    if(e.currentTarget.dataset.id){
+      http = "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id;
+    }else{
+      http = "hotHouse?title=热门小区";
+    }
+    wx.navigateTo({url: http});
   },
   //缓存房源类型 可以改变的 
   cacheHouseType(value) {

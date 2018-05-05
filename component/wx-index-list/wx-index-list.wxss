@@ -32,7 +32,7 @@ page{
 .list-name {
   position: relative;
   font-size: 28rpx;
-  padding: 15rpx;
+  padding: 30rpx;
   padding-left: 30rpx;
   color: #999;
 }
@@ -118,16 +118,18 @@ page{
 .list-horizontal {
   display: flex;
   flex-wrap: wrap;
-  padding: 10rpx;
+  padding: 20rpx;
   padding-right: 50rpx;
 }
 
 .list-horizontal .list-name {
-  padding: 5rpx 20rpx;
-  border: 1px #ccc solid;
+  border: 1px solid #ccc;
   border-radius: 10rpx;
   margin: 10rpx;
-  /* margin-right: 20rpx; */
+  width: 100rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
 }
 
 

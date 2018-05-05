@@ -144,15 +144,12 @@
 
   <view class="section hotArea">
     <view class="title">热门小区
-        <!-- <navigator url="hotHouse?title=热门小区" hover-class="none" class="lookmore">查看更多</navigator> -->
         <view  class="lookmore" bindtap="hotxiaoqu">查看更多</view>
     </view>
     <view class="house-info">
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
         <block wx:for="{{hotbuilding}}">
-          <navigator url="../houseDetail/houseDetail?houseDetail=热门小区&id={{item.sdid}}"  
-                            class="house-info-item"
-                            hover-class="none">
+          <view data-id="{{item.sdid}}" class="house-info-item" bindtap="hotxiaoqu">
                           <view class="imageContainer">
                             <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" />
                           </view>
@@ -161,7 +158,7 @@
                           <view class="house-info-description" style="color:#ff4343">{{item.avgSalePrice}}
                             <text style="font-size:22rpx;">元/平米</text>
                           </view>
-          </navigator>
+          </view>
         </block>
       </scroll-view>
     </view>
@@ -198,8 +195,7 @@
         </view>
        </view>
         <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-            <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=二手房" 
-                       hover-class="none">
+            <navigator url="../houseDetail/houseDetail?id={{item.sdid}}" hover-class="none">
                 <view class="item">
                       <view class="image">
                         <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>

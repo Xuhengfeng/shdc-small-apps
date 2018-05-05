@@ -59,7 +59,7 @@ App({
         }
       }
     })
-    // //获取用户信息
+    //获取用户信息
     wx.getSetting({
       success: res => {
          if (res.authSetting['scope.userInfo']) {
