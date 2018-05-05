@@ -38,20 +38,25 @@ Page({
     //初始化
     let name = wx.getStorageSync('houseTypeSelect');
     wx.setNavigationBarTitle({ title: name });
-    if (name == '二手房') {
+    switch(name) {
+      case '二手房':
       this.setData({
         houseDetail: name,
         flagPrice: true,
         num: 0,
         label: ["区域", "户型", "价格", "面积", "类型"]
       });
-    } else if (name == '租房') {
+      break;
+      // ----------------------------------------------------------
+      case '租房':
       this.setData({
         houseDetail: name,
         flagPrice: false,
         num: 1,
         label: ["区域", "户型", "租金", "面积"]
       });
+      break;
+      // ----------------------------------------------------------
     }
 
     wx.getStorage({
@@ -71,22 +76,19 @@ Page({
     app.httpRequest(this.data.recmd[this.data.num] + city, { scity: city }, (error, data) => {
       this.setData({ recommend: data.data })
     });
-    //区域
+    //区域   用途 面积 户型    价格 租金
     this.areaRequest(city);
-    //用途 面积 户型
     this.useAreaRequest(city);
-    //价格 租金
     this.priceAreaRequest(city);
   },
   //区域
   areaRequest(city) {
     app.httpRequest(Api.IP_AREADISTRICTS + city, { scity: city }, (error, data) => {
       data.data.unshift({name: '不限',id: 0, districts: []});
-      let newData = data.data;
-          newData.forEach((item) => {
+      data.data.forEach((item) => {
             item.districts.unshift({name: '不限',id: 0, px: '',py: ''})
           })
-      this.setData({area: newData});
+      this.setData({area:  data.data});
     })
   },
   //用途 面积 户型
@@ -102,29 +104,29 @@ Page({
   },
   //价格 租金
   priceAreaRequest(city) {
-    if (this.data.flagPrice) {//租金
-      app.httpRequest(Api.IP_DICTIONARYCONDITION + 'HOUSE_RENTAL/' + city, {}, (error, data) => {
+    if (this.data.flagPrice) {//价格
+      app.httpRequest(Api.IP_DICTIONARYCONDITION + 'SELL_PRICE/' + city, {}, (error, data) => {
         this.setData({ price: data.data });
       })
-    } else {//价格
-      app.httpRequest(Api.IP_DICTIONARYCONDITION + 'SELL_PRICE/' + city, {}, (error, data) => {
+    } else {//租金
+      app.httpRequest(Api.IP_DICTIONARYCONDITION + 'HOUSE_RENTAL/' + city, {}, (error, data) => {
         this.setData({ price: data.data });
       })
     }
   },
   //页面滚动监听
   onPageScroll(res) {
-    let scrot = wx.getSystemInfoSync().windowWidth / 375 * 330
-    let percent = res.scrollTop / scrot;
+    const denominator  = wx.getSystemInfoSync().windowWidth / 375 * 330;
+    let percent = res.scrollTop / denominator;
     let changeTone = 'rgba(249,249,249,' + percent + ')';
-    let show = res.scrollTop > scrot ? 1 : 0;
+    let show = res.scrollTop > denominator ? 1 : 0;
     this.setData({tone: changeTone})
     this.setData({isShow: show});
   },
   //控制nav菜单
   selectItem(e) {
-    let scrot = wx.getSystemInfoSync().windowWidth / 375 * 350
-    wx.pageScrollTo({scrollTop: scrot, duration: 0})
+    const denominator = wx.getSystemInfoSync().windowWidth / 375 * 350;
+    wx.pageScrollTo({scrollTop: denominator, duration: 0});
     this.setData({
       navNum: e.target.dataset.index,
       showModalStatus: true,

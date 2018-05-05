@@ -110,10 +110,7 @@ Page({
     this.setData({ num: e.target.dataset.index })
     this.cacheHouseType(this.data.guessYouLike[this.data.num]);
     let IP = this.data.guessLikeIP[this.data.num] + '/' + this.data.currentCity;
-    let params = {
-      pageNo: 1,
-      scity: this.data.currentCity
-    }
+    let params = { pageNo: 1,scity: this.data.currentCity};
     this.getDataFromServer(IP, params);
   },
   getDataFromServer(IP, params) {//猜你喜欢
@@ -188,6 +185,11 @@ Page({
       http = "hotHouse?title=热门小区";
     }
     wx.navigateTo({url: http});
+  },
+  //猜你喜欢
+  guesslike(e) {
+    this.cacheHouseType(this.data.guessYouLike[this.data.num]);
+    wx.navigateTo({url: "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id});
   },
   //缓存房源类型 可以改变的 
   cacheHouseType(value) {

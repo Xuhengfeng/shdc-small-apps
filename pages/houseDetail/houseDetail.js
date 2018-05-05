@@ -53,7 +53,7 @@ Page({
               flagPrice: true
           });
           break;
-
+          // ---------------------------------------------------------------------
           case '租房':
           case '小区租房':
           this.setData({
@@ -63,7 +63,7 @@ Page({
               flagPrice: false              
           });
           break;
-
+          // ---------------------------------------------------------------------
           case '小区':
           case '热门小区':
           this.setData({
@@ -73,6 +73,7 @@ Page({
               contentType: 11
           });
           break;
+          // -------------------------------------------------------------------------
         }
       }
     })
@@ -87,22 +88,13 @@ Page({
   //二手房详情 租房详情 小区找房详情
   buyRentRequest(city, sdid) {
     if (this.data.detailType == 11 || this.data.detailType == 22) {
-
       //二手房  租房详情
       app.httpRequest(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, {}, (error, data) => {
-        console.log(data)
         this.setData({
           latitude: data.data.py,
           longitude: data.data.px,
           houseDetail: data.data,
-          markers: [{
-            id: "1",
-            latitude: data.data.py,
-            longitude: data.data.px,
-            width: 50,
-            height: 50,
-            title: data.data.houseTitle
-          }]
+          likeFlag: data.data.isCollect,
         })
         //关联小区详情 附近房源详情 同小区房源 
         this.guanlianListRequest(data.data.px, data.data.py, city, data.data.buildSdid);
@@ -112,25 +104,22 @@ Page({
     }
     //小区找房详情
     if (this.data.detailType == 33) {
-      app.httpRequest(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, { scity: city }, (error, data) => {
-        this.setData({
-          latitude: data.data.py,
-          longitude: data.data.px,
-          houseDetail: data.data,
-          markers: [{
-            id: "1",
-            latitude: data.data.py,
-            longitude: data.data.px,
-            width: 50,
-            height: 50,
-            title: data.data.buildName
-          }]
-        });
-      })
+      this.houseDetailRequest(city, sdid);
       //猜你喜欢(默认二手房 首页第1页数据)
       var IP = this.data.guessLikeIP[this.data.num] + '/' + city;
       this.getDataFromServer(IP, { pageNo: 1 });
     }    
+  },
+  // 房屋详情 
+  houseDetailRequest(city, sdid) {
+    app.httpRequest(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, { scity: city }, (error, data) => {
+      this.setData({
+        latitude: data.data.py,
+        longitude: data.data.px,
+        houseDetail: data.data,
+        likeFlag: data.data.isCollect
+      });
+    })
   },
   //同小区房源
   communityRequest(city, buildSdid) {

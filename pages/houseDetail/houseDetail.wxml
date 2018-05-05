@@ -159,7 +159,7 @@
 
       <view class="circle"></view>
       <view class="rect">
-        <text class="name">{{houseDetail.houseTitle}}</text>
+        <text class="name">{{houseDetail.houseTitle?houseDetail.houseTitle:houseDetail.buildName}}</text>
         <text class="content"></text>
         <image src="../../images/down.png"></image>
       </view>
