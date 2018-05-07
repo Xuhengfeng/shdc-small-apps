@@ -1,5 +1,5 @@
-let Api = require("../../utils/url");
-let app = getApp();
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
 
 Page({
   data: {
@@ -9,21 +9,25 @@ Page({
     wx.getStorage({
       key: 'selectCity',
       success: (res)=> {
-          app.httpRequest(Api.IP_BROKERSLIST, {
-              "scity": res.data.value,
-              "pageNo": 1
-            }, (error, data) => {
-              console.log(data)
-              data.data.forEach(item=>{
-                if(item.emplFlag) {
-                  item.emplFlag = item.emplFlag.split(',')
-                }
-              })
-              this.setData({ brokers: data.data });
-            },'POST')
+        let params = {
+          "scity": res.data.value,
+          "pageNo": 1
+        }
+        this.brokerRequest(params);
       }
     })
   
+  },
+  brokerRequest(params) {
+    utils.post(Api.IP_BROKERSLIST,params)
+    .then((data) => {
+      data.data.forEach(item=>{
+        if(item.emplFlag) {
+          item.emplFlag = item.emplFlag.split(',')
+        }
+      })
+      this.setData({ brokers: data.data });
+    })
   },
   //返回刷新设置
   goBackSet(e) {
@@ -35,5 +39,14 @@ Page({
         phcolorFlag2: false
       })
       wx.navigateBack();
+  },
+  //上拉
+  onReachBottom() {
+    let page = this.data.page++;
+    let params = {
+      'scity': this.data.currentCity,
+      'pageNo': page
+    }
+    this.brokerRequest(params);
   }
 })

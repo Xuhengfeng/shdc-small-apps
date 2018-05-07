@@ -1,0 +1,76 @@
+<import src="../template/template.wxml"/>
+  <!-- <view style="height:auto;"> -->
+    <view class="header">
+      <swiper autoplay="true" 
+            interval="5000"
+            indicator-active-color="white" 
+            circular="true"
+            duration="1000
+            indicator-dots="true">
+              <block wx:for="{{imgUrls}}"
+                    wx:key="{{index}}">
+                    <swiper-item>
+                        <image src="{{item.picUrl}}" 
+                              class="slide-image" 
+                              style="width:100%!important;height:100%!important"/>
+                    </swiper-item>
+              </block>
+      </swiper>
+      <view id="mysearch" class="serarch-content" style="background:{{tone}}">
+        <view class="search-bg">
+          <view class="search">
+                <view bindtap="startsearch"><image src="../../images/search.png" /></view>
+                <input placeholder="请输入您要搜索的内容" 
+                            bindconfirm="searchSubmit" 
+                            bindinput="userSearch"
+                            bindfocus="useFocus"/>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section navbar">
+      <scroll-view scroll-x>
+        <view class="nav-content">  
+          <block wx:for="{{city}}">
+              <view class="house-info-item">{{item.cityName}}</view>
+          </block>
+        </view>
+      </scroll-view>
+    </view>
+
+    
+    <view class="section goodList">
+    <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
+            <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{houseDetail}}" hover-class="none">
+                <view class="item">
+                      <view class="image" style="width:200rpx;min-width:200rpx;height:160rpx">
+                        <image src="{{item.imageUrl?item.imageUrl: '../../images/astate.png'}}"></image>
+                      </view>
+                      <view class="item-content">
+                        <view class="item-title houseTag">{{item.buildName}}
+                          <text wx:for="{{[1,1,1]}}" 
+                                wx:key="{{index2}}"
+                                wx:for-item="item2" 
+                                wx:for-index="index2">111{{item2}}</text>
+                        </view>
+                        <view class="description">22{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>    
+
+                        <view class="housePrice">{{item.avgPrice}}元/平
+                          <text>建筑面积{{item.minBuildArea}}-{{item.maxBuildArea}}m²</text>
+                        </view>
+
+                      </view>
+                </view>
+            </navigator>
+        </block>
+
+
+        <view class="tips">
+            <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
+            <view wx:elif="{{houseList.length}}"><text>上拉加载更多</text></view>
+            <view wx:elif="{{!houseList.length}}"><text>没有更多内容</text></view>
+        </view>
+        <view style="height:800px;" wx:if="{{!houseList.length}}"></view>
+    </view>
+<!-- </view> -->

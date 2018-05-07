@@ -1,6 +1,7 @@
 {
   "pages": [
     
+    "pages/index/newHouse",
     "pages/index/index",
     "pages/index/sellRent",
     "pages/index/broker",    

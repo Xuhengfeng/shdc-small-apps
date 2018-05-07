@@ -16,6 +16,12 @@ export const IP_RENTRECMDLIST = SERVER_IPS + "/rentHouse/recmdList/";//租房(�
 export const IP_APPOINTHOUSE = SERVER_IPS + "/appoint/house";//预约看房
 export const IP_CURRENTDATETIME = SERVER_IPS + "/dictionary/currentDateTime";//预约看房时间
 export const IP_SHOPS = SERVER_IPS + "/shop/shops";//门店信息列表
+export const IP_PLATE = SERVER_IPS + "/plate/query/";//四个栏目
+export const IP_NEWINFO = SERVER_IPS + "/info/query/";//新盘推荐
+export const IP_NEWBUILDINDEX = SERVER_IPS + "/newbuilding/index";//新房首页数据
+export const IP_NEWBUILDING = SERVER_IPS + "/newbuilding/query/";//新房城市信息列表
+
+
 //首页猜你喜欢
 export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你喜欢 二手房列表
 export const IP_RENTHOUSERENTLIKE = SERVER_IPS + "/rentHouse/queryLike";//首页猜你喜欢 租房列表

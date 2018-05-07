@@ -8,9 +8,12 @@ Page({
     imgUrls: [],//轮播图
     hasMore: false,
     purchase_guide: null,//二手房购房指南资讯
+    plate: [],//四个栏目四张图片
+    hotrecommend: [],//热门推荐
     houseUsed: null,//成交量统计
     houseList: [],//房源数据
-    hotbuilding: [],//获取热门小区
+    hotbuilding: [],//热门小区
+    newinfohouse: [],//新盘推荐
     currentCity: null, //默认城市
     myLocation: "",//默认地址
     pageNo: 1,//默认第1页
@@ -19,8 +22,8 @@ Page({
     num: 0,//猜你喜欢哪一个
     guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
 
-    //banner资讯   二手房指南资讯   获取成交量统计 热门小区
-    IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING],
+    //banner资讯 二手房指南资讯 获取成交量统计 热门小区 新盘推荐 四个栏目四张图片
+    IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING, Api.IP_NEWINFO, Api.IP_PLATE],
   },
   onLoad(){
     //定位
@@ -76,11 +79,25 @@ Page({
   },
   oneBigRequest(city) {
     //获取主页banner资讯
-    utils.get(this.data.IPS[0] + city + "/INDEX_BANNER", {scity: city}).then((data) => {
+    utils.get(this.data.IPS[0] + city + "/INDEX_BANNER", {scity: city})
+    .then((data) => {
       this.setData({ imgUrls: data.data });
     })
+    //四个栏目四个图片
+    utils.get(this.data.IPS[5] + "/INDEX_PLATE")
+    .then((data) => {
+      this.setData({ plate: data.data });
+    })  
+    //热门推荐
+    utils.get(this.data.IPS[4] + "1001", {
+      pageNo: 1
+    })
+    .then((data) => {
+      this.setData({ hotrecommend: data.data });
+    })
     //获取主页二手房指南资讯
-    utils.get(this.data.IPS[1] + city + "/PURCHASE_GUIDE", {scity: city}).then((data) => {
+    utils.get(this.data.IPS[1] + city + "/PURCHASE_GUIDE", {scity: city})
+    .then((data) => {
       this.setData({ purchase_guide: data.data });
     })    
     //获取成交量统计
@@ -96,6 +113,14 @@ Page({
     .then((data) => {
       this.setData({ hotbuilding: data.data });
     })
+    //新盘推荐
+    utils.get(this.data.IPS[4] + "1002", {
+      pageNo: 1
+    })
+    .then((data) => {
+      this.setData({ newinfohouse: data.data });
+    })
+
 
     //猜你喜欢(默认二手房 首页第1页数据)
     var IP = this.data.guessLikeIP[0] + '/' + city;
@@ -155,18 +180,7 @@ Page({
       case '2': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
       case '3': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
       case '4': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
-      case '5': wx.navigateTo({url: "shop"});break;      
-    }
-  },
-  //四张pic
-  goodsHouse(e) {
-    let num = e.currentTarget.dataset.num;
-    switch(num) {
-      case '1': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;
-      case '2': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;
-      case '3': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;
-      case '4': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;
-      case '5': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;
+      case '5': wx.navigateTo({url: "guideHand"});break;      
     }
   },
   //h5页面跳转 轮播图 数量统计 热门推荐
