@@ -20,7 +20,7 @@
   <view class="indicator">
     <text>{{currentIndex}}/{{houseDetail.housePicList.length}}</text>
   </view>
-</view>
+ </view>
 
 <view class="section section1">
   <!-- 小区找房详情 -->
@@ -273,15 +273,17 @@
 <view class="footer">
    <!-- 二手房 租房 -->
     <view wx:if="{{detailType!==33}}">
-      <view class="collectionLike" bindtap="toggleSelectLike">
-        <view class="like">
-          <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
-          <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
-          <view class="attention">收藏</view> 
-        </view>
-      </view>
       <view class="type1">
-        <!-- <view bindtap="jumpLookHouse">预约看房</view> -->
+        <view>
+            <view bindtap="toggleSelectLike">
+              <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
+              <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
+            </view>
+            <view>
+              <image src="../../images/see.png"/>
+            </view>
+        </view>
+        <view bindtap="jumpLookHouse">预约看房</view>
         <view bindtap="listenerButton">联系经纪人</view>
       </view>
     </view>
@@ -294,10 +296,6 @@
       </view>
     </view>
 </view> 
-
-
- <template is="shadowLay" data="{{hiddenModal,listenerButton,houseDetail}}"/> 
-
 
 <!-- 小区详情 -->
 <view class="section goodList" wx:if="{{detailType==33}}">
@@ -353,3 +351,5 @@
   </view>
   <loading wx:if="{{showload}}">加载中...</loading>
 </view>
+
+ <template is="shadowLay" data="{{hiddenModal,listenerButton,houseDetail}}"/> 

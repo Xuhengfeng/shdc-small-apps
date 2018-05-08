@@ -73,7 +73,7 @@
 
 <!--自定义弹出层-->
 <template name="shadowLay" >
-  <view class="shadowLay" hidden="{{hiddenModal}}" bindtap="listenerButton">
+  <view class="shadowLay2" hidden="{{hiddenModal}}" bindtap="listenerButton">
       <view class="dialog">
           <view class="dialog-header">
             <view class="avator">

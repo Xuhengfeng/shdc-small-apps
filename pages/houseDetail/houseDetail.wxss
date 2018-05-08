@@ -271,65 +271,78 @@ page{
   position: fixed;
   bottom: 0;
   left: 0;
+  height: 120rpx;
   width: 100%;
   background: #ffffff;
   box-shadow: 0 0 1px rgba(0,0,0,.4);
   z-index: 1000;
 }
-.footer .type1{
-  width: 80%;
-  float: left;
+.footer>view{
+  height: 100%;
 }
-.footer .type1 view{
-  float: left;
+.footer .type1{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 24rpx;
+}
+.footer .type1>view{
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
   font-size: 34rpx;
   color: #ffffff;
-  height: 100rpx;
-  width: 96%;
-  margin: 10rpx;
-  line-height: 100rpx;
   text-align: center;
-  border-radius: 5rpx;
-  background: #ff4343;
+  border-radius: 10rpx;
   box-sizing: border-box;
 }
+.footer .type1>view:first-child{
+  flex: 150rpx 0 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  text-align: left;
+}
+.footer .type1>view:first-child>view{
+  flex: 1;
+}
+.footer .type1>view:first-child>view>image{
+  width: 46rpx;
+  height: 46rpx;
+}
+.footer .type1>view:nth-of-type(2){
+  margin-right: 20rpx;
+  background: #ff4343;
+}
+.footer .type1>view:nth-of-type(3){
+  background: #00b969;
+}
 
-.footer .type2 .addCollection{
+
+.footer .addCollection{
   position: fixed;
-  bottom:  110rpx;
+  bottom:  180rpx;
   right: 20rpx;
-  background: rgba(0,0,0,.1);
+  background: #ffffff;
+  box-shadow: 0 0 2px rgba(0,0,0,.4);
   width: 100rpx;
   height: 100rpx;
   font-size: 25rpx;
   border-radius: 50%;
 }
+
 .addCollection image{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  width: 60%;
-  height: 60%;
+  width: 50%;
+  height: 50%;
 }
 .footer-placeholder{
   height: 100rpx;
-}
-
-/*关注*/
-.collectionLike{
-  float: left;
-  width: 20%;
-  text-align: center;
-}
-.collectionLike .like image{
-  margin-top: 5px;
-  width: 50rpx;
-  height: 50rpx;
-}
-.collectionLike .attention{
-  font-size: 28rpx;
-  margin-top: 10rpx;
 }
 
 

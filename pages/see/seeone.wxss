@@ -1,0 +1,52 @@
+@import "../template/template.wxss";
+::-webkit-scrollbar{
+  display: none;
+}
+navigator{
+  overflow: hidden;
+}
+.headerTab{
+  padding-top: 40px!important;
+}
+.page_hd .flexBox{
+  display: flex;
+  flex-direction: row;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 100rpx;
+}
+.flexBox .line{
+  flex: 1;
+  height: 1px;
+  background: #c7c7c7;
+}
+.flexBox text{
+  flex: 1;
+  font-size: 30rpx;
+  color: #c7c7c7;
+}
+button{
+  margin-top: 40rpx;
+  border-radius: 0;
+  font-size: 40rpx;
+  color: #ffffff;
+  text-align: center;
+}
+.page_hd{
+  padding: 40rpx;
+  height: 100%;
+}
+.page__bd{
+    padding-bottom: 0;
+}
+
+/* 重写weui的tab样式 */
+.weui-navbar__item.weui-bar__item_on{
+  color: #ff4343;
+}
+.weui-navbar__slider{
+  background-color: #ff4343;
+}
+

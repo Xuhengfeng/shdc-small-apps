@@ -2,8 +2,6 @@
 const SERVERINDEX = 0;
 const SERVER_IPS = ["http://112.74.181.229:7031/custAppApi"];//api接口
 // const SERVER_IPS = ["http://192.168.16.173:7031/custAppApi"];//api接口
-// const SERVER_IPS = ["http://192.168.16.173:7051/custService"];//api接口
-
 const SERVER_IP = SERVER_IPS[SERVERINDEX];
 //首页 接口
 export const IP_INDEXCONSULT = SERVER_IPS + "/information/pubs/";//获取资讯
@@ -20,7 +18,6 @@ export const IP_PLATE = SERVER_IPS + "/plate/query/";//四个栏目
 export const IP_NEWINFO = SERVER_IPS + "/info/query/";//新盘推荐
 export const IP_NEWBUILDINDEX = SERVER_IPS + "/newbuilding/index";//新房首页数据
 export const IP_NEWBUILDING = SERVER_IPS + "/newbuilding/query/";//新房城市信息列表
-
 
 //首页猜你喜欢
 export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你喜欢 二手房列表

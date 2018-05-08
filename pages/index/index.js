@@ -176,7 +176,7 @@ Page({
   activity2(e) {
     let num = e.currentTarget.dataset.num;
     switch(num) {
-      case '1': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
+      case '1': wx.navigateTo({url: "newHouse"});break;      
       case '2': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
       case '3': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
       case '4': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      

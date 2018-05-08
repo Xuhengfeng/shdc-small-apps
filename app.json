@@ -1,8 +1,12 @@
 {
   "pages": [
-    
-    "pages/index/newHouse",
+    "pages/houseDetail/houseDetail",
     "pages/index/index",
+    "pages/index/lookHouseList",
+    "pages/see/seeoneDetail",
+    "pages/see/seeone",
+    "pages/see/see",
+    "pages/index/newHouse",
     "pages/index/sellRent",
     "pages/index/broker",    
     "pages/index/hotHouse",
@@ -14,7 +18,7 @@
     "pages/houseDetail/houseDetailInfo",
     "pages/houseDetail/map",
     "pages/houseDetail/seehouseList",
-    "pages/houseDetail/houseDetail", 
+    
     "pages/mine/mybuyhouse",
     "pages/mine/mine",
     "pages/mine/login",
@@ -47,6 +51,12 @@
         "iconPath": "images/home-off.png",
         "selectedIconPath": "images/home-on.png",
         "text": "主页"
+      },
+      {
+        "pagePath": "pages/see/see",
+        "iconPath": "images/see-off.png",
+        "selectedIconPath": "images/see-on.png",
+        "text": "约看"
       },
       {
         "pagePath": "pages/mine/mine",
