@@ -16,20 +16,6 @@ navigator{
 .header swiper{
   height: 100%;
 }
-.header .indicator{
-  position: absolute;
-  left: 50%;
-  bottom: 14rpx;
-  transform: translateX(-50%);
-}
-.header .indicator view{
-  display: inline-block;
-  width: 18rpx;
-  height: 18rpx;
-  border-radius: 100%;
-  margin-right: 15rpx;
-}
-
 
 .serarch-content{
   position: fixed;
@@ -89,7 +75,11 @@ navigator{
   line-height: 70rpx;
   background: #f9f9f9;
 }
-
+.on{
+  color: red; 
+  border-bottom: 5rpx solid red;
+}
+/* 列表内容 */
 .item .item-title{
   font-size:30rpx;
   line-height: 1.2;
