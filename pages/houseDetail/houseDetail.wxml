@@ -280,7 +280,7 @@
               <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
             </view>
             <view>
-              <image src="../../images/see.png"/>
+              <image src="../../images/see.png" style="width:49rpx;height:49rpx"/>
             </view>
         </view>
         <view bindtap="jumpLookHouse">预约看房</view>
