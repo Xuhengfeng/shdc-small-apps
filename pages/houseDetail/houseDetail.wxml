@@ -272,18 +272,32 @@
 
 <view class="footer">
    <!-- 二手房 租房 -->
-    <view wx:if="{{detailType!==33}}">
+    <view wx:if="{{detailType == 11}}">
       <view class="type1">
         <view>
             <view bindtap="toggleSelectLike">
               <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
               <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
             </view>
-            <view>
+            <view class="daiKanList" bindtap="goSeeList">
               <image src="../../images/see.png" style="width:49rpx;height:49rpx"/>
+              <view class="numCount" wx:if="{{count>0?true:false}}">{{count}}</view>  
             </view>
         </view>
-        <view bindtap="jumpLookHouse">预约看房</view>
+        <view bindtap="lookHouse" wx:if="{{lookFlag}}">预约看房</view>
+        <view bindtap="lookHouse" wx:if="{{!lookFlag}}" style="background:#cacaca;">已经加入待看</view>
+        <view bindtap="listenerButton">联系经纪人</view>
+      </view>
+    </view>
+
+     <view wx:if="{{detailType == 22}}">
+      <view class="type1">
+        <view style="flex: 100rpx 0 0">
+            <view bindtap="toggleSelectLike" style="text-align:center">
+              <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
+              <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
+            </view>
+        </view>
         <view bindtap="listenerButton">联系经纪人</view>
       </view>
     </view>

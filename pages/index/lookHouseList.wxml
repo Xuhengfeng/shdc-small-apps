@@ -1,8 +1,8 @@
-<scroll-view scroll-x="{{false}}">
+<scroll-view scroll-x="{{false}}" class="main">
 
 <block wx:for="{{list}}">
   <!-- <navigator url="" > -->
-      <view class="item">
+      <view class="itemlist">
             <!-- 删除 -->
             <view data-index="{{index}}"
                 bindtap="delItem"
@@ -14,34 +14,29 @@
                 bindtouchmove="touchM"
                 bindtouchend="touchE"
                 style="{{item.txtStyle}}">
-                <view>
-                    <image wx:if="{{false}}"  src="../../images/select-off.png"></image>
-                    <image wx:if="{{true}}" src="../../images/select-on.png"></image>
+                <view data-index="{{index}}" catchtap ="selectItem">
+                    <image wx:if="{{!item.isSelect}}"  src="../../images/select-off.png"></image>
+                    <image wx:if="{{item.isSelect}}" src="../../images/select-on.png"></image>
                 </view>
                 <view>
-                    <image src=""></image>
+                    <image src="{{item.housePic}}"></image>
                 </view>
                 <view>
-                    <view class="item-title">{{item.txtStyle}}</view>
-                    <view class="description">
-                        {{item.areaName}} {{item.districtName}} {{item.buildAge}}建成  {{item.buildType}}
+                    <view class="item-title">{{item.houseTitle}}</view>
+                    <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>     
+                    <view  class="houseTypeInfo">
+                        <text>{{item.houseType}}</text>{{item.builtArea}}m²
                     </view>
-                    <view class="houseLabel">
-                        <text wx:for="{{item.houseTag}}" 
-                            wx:key="{{index2}}"
-                            wx:for-item="item2" 
-                            wx:for-index="index2">{{item2}}</text>
-                    </view>
-                    <view class="housePrice">{{item.rentPrice}}
-                        <text>元/月</text>
+                    <view class="housePrice">{{item.rentPrice}}11
+                        <text>元/平米</text>
                     </view>
                 </view>
            </view>
-
-          
     </view>
   <!-- </navigator> -->
 </block>
-
 </scroll-view>
-
+<view class="footer">
+    <view class="numHouse">已经<text>{{count}}</text>套房源</view>
+    <view class="trueBtn">去预约</view>
+</view>

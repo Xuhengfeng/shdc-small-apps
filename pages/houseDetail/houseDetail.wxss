@@ -341,6 +341,22 @@ page{
   width: 50%;
   height: 50%;
 }
+.footer .daiKanList{
+  position: relative;
+}
+.footer .daiKanList .numCount{
+  position: absolute;
+  left: 30rpx;
+  top: -10rpx;
+  width: 30rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  border-radius: 50%;
+  background: red;
+  color: #ffffff;
+  text-align: center;
+  font-size: 20rpx;
+}
 .footer-placeholder{
   height: 100rpx;
 }

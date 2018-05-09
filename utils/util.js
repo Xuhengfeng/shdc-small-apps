@@ -84,12 +84,16 @@ const requstGet = (url, data)=> {
 const requstPost = (url, data)=> {
   return requst(url,'POST',data);
 }
+const requstDelete = (url, data)=> {
+  return requst(url,'DELETE',data);
+}
 
 module.exports = {
   formatTime: formatTime,
   checkPhone: checkPhone,
   get: requstGet,
   post: requstPost,
+  delete: requstDelete,
   requst: requst,
   login: login,
   getUserInfo: getUserInfo

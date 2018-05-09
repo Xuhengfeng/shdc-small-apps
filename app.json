@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/houseDetail/houseDetail",
     "pages/index/index",
     "pages/index/lookHouseList",
+    "pages/houseDetail/houseDetail", 
     "pages/see/seeoneDetail",
     "pages/see/seeone",
     "pages/see/see",
@@ -18,18 +18,14 @@
     "pages/houseDetail/houseDetailInfo",
     "pages/houseDetail/map",
     "pages/houseDetail/seehouseList",
-    
     "pages/mine/mybuyhouse",
     "pages/mine/mine",
     "pages/mine/login",
     "pages/mine/suggest",
     "pages/mine/collection",
     "pages/mine/delegation",
-    
-    
     "pages/searchList/searchList",
     "pages/search/search",
-    
     "pages/location/location",
     "pages/h5Pages/h5Pages"
   ],

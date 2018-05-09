@@ -1,21 +1,57 @@
-// pages/mine/mybuyhouse.js
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
+
 Page({
   data: {
     startX: '',//设置触摸起始点水平方向位置
-    num: 0,
+    count: 0,
     delBtnWidth: 110,
-    list: [
-      {txtStyle: 0},
-      {txtStyle: 0},
-      {txtStyle: 0},
-      {txtStyle: 0},
-      {txtStyle: 0},
-      {txtStyle: 0},
-      {txtStyle: 0}
-    ],
+    list: []
+    // list: [
+    //   {txtStyle: 0, isSelect: true},
+    //   {txtStyle: 0, isSelect: true},
+    //   {txtStyle: 0, isSelect: true},
+    //   {txtStyle: 0, isSelect: true},
+    //   {txtStyle: 0, isSelect: true},
+    //   {txtStyle: 0, isSelect: true},
+    // ],
   },
-  onload() {
-
+  onLoad() {
+    wx.getStorage({
+      key: 'selectCity',
+      success: (res) => {
+        wx.getStorage({
+          key: 'userToken',
+          success: (response)=> {
+            let token = response.data
+            let params = {
+              scity: res.data.value,
+              pageNo: 1,
+              unicode: token
+            };
+            utils.get(Api.IP_DETAILLIST,params)
+            .then((data)=>{
+              this.setData({list: data.data})
+            });
+          }
+        })
+      }
+    })
+  },
+  selectItem(e) {
+    let index = e.currentTarget.dataset.index;
+    let list = this.data.list;
+    list[index].isSelect = !list[index].isSelect;
+    let count = 0;
+    for (let i=0; i<list.length; i++) {
+      //选中的
+      if(list[i].isSelect == true){
+        count++;
+      }else{
+        continue;
+      }
+    }
+    this.setData({list: list,count: count});
   },
   touchS(e) {
     if (e.touches.length == 1) {
@@ -91,6 +127,15 @@ Page({
     //移除列表中下标为index的项
     list.splice(index,1);
     //更新列表的状态
-    this.setData({list:list});
-  }
+    let count = 0;
+    for (let i=0; i<list.length; i++) {
+      //选中的
+      if(list[i].isSelect == true){
+        count++;
+      }else{
+        continue;
+      }
+    }
+    this.setData({list: list,count: count});
+  }  
 })

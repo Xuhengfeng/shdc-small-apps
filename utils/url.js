@@ -18,14 +18,19 @@ export const IP_PLATE = SERVER_IPS + "/plate/query/";//四个栏目
 export const IP_NEWINFO = SERVER_IPS + "/info/query/";//新盘推荐
 export const IP_NEWBUILDINDEX = SERVER_IPS + "/newbuilding/index";//新房首页数据
 export const IP_NEWBUILDING = SERVER_IPS + "/newbuilding/query/";//新房城市信息列表
+export const IP_APPOINTADD = SERVER_IPS + "/appoint/add";//加入待看列表
+export const IP_APPOINTDELETE = SERVER_IPS + "/appoint/delete/";//取消加入待看列表
+export const IP_DETAILLIST = SERVER_IPS + "/appoint/detailLsit";//待看列表
 
 //首页猜你喜欢
 export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你喜欢 二手房列表
 export const IP_RENTHOUSERENTLIKE = SERVER_IPS + "/rentHouse/queryLike";//首页猜你喜欢 租房列表
+
 //租售
 export const IP_HOUSEENTRUSTAPPLYSELLHOUSE= SERVER_IPS + "/houseEntrustApply/sellHouse";//出售申请
 export const IP_HOUSEENTRUSTAPPLYRENTHOUSE = SERVER_IPS + "/houseEntrustApply/rentHouse";//出租申请
 // export const IP_HOUSEENTRUSTAPPLYLIST = SERVER_IPS + "/houseEntrustApply/houseEntrustApplyList";//租售房源列表
+
 //经纪人
 export const IP_BROKERSLIST = SERVER_IPS + "/broker/brokers";//经纪人
 //详情页和收藏

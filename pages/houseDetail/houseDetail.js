@@ -1,5 +1,7 @@
-let Api = require("../../utils/url");
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
 let app = getApp();
+
 Page({
   data: {
     //轮播图banner
@@ -8,6 +10,7 @@ Page({
     
     hiddenModal: true,//二手房(买房)、租房联系经纪人true , 小区联系经纪人false
     likeFlag: true,//喜欢 收藏
+    lookFlag: true,//预约看房 已经加入待看
     scrollTop: 0,
 
     //百度地图
@@ -34,7 +37,8 @@ Page({
     currentCity: null,//城市
     page: 1,
     flagPrice: '',
-    contentType: 11 //热门小区11， 小区二手房22
+    contentType: 11, //热门小区11， 小区二手房22
+    count: 0,//待看房源列表计数
   },
   onLoad(options) {
     wx.setNavigationBarTitle({title: "房源详情"});
@@ -96,10 +100,11 @@ Page({
           houseDetail: data.data,
           likeFlag: data.data.isCollect,
         })
-        //关联小区详情 附近房源详情 同小区房源 
+        //关联小区详情 附近房源详情 同小区房源 待看房源列表
         this.guanlianListRequest(data.data.px, data.data.py, city, data.data.buildSdid);
         this.nearbyHouseRequest(data.data.px, data.data.py, city, data.data.buildSdid);
         this.communityRequest(city, data.data.buildSdid);
+        this.seeHouseRequest(city);
       })
     }
     //小区找房详情
@@ -142,6 +147,23 @@ Page({
       data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
       this.setData({nearbyHouse: data.data});
     }, 'POST');
+  },
+  //待看房源列表
+  seeHouseRequest(city) {
+    wx.getStorage({
+      key: 'userToken',
+      success: (res)=>{
+        let params = {
+          scity: city,
+          pageNo: 1,
+          unicode: res.data
+        }
+        utils.get(Api.IP_DETAILLIST,params)
+        .then((response)=>{
+          this.setData({count: response.data.length});
+        });
+      }
+    })
   },
 
   //当前页的关联小区内容 
@@ -197,10 +219,56 @@ Page({
     this.buyRentRequest(this.data.currentCity, sdid); 
   },
   //预约看房
-  jumpLookHouse() {
-    wx.navigateTo({url: "lookHouse?houseDetail=" + JSON.stringify(this.data.houseDetail)});
+  lookHouse() {
+    // wx.navigateTo({url: "lookHouse?houseDetail=" + JSON.stringify(this.data.houseDetail)});
+    if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
+    let count;
+    if(this.data.lookFlag){
+      count = this.data.count + 1;
+      wx.getStorage({
+        key: 'userToken',
+        success: (res)=>{
+          let params = {
+            scity: this.data.currentCity,
+            unicode: res.data,
+            sdid: this.data.houseDetailId
+          }
+          utils.post(Api.IP_APPOINTADD, params)
+          .then(()=>{});
+        }
+      })
+    }else{
+      count = this.data.count - 1;      
+      wx.getStorage({
+        key: 'userToken',
+        success: (res)=>{
+          let params = {
+            scity: this.data.currentCity,
+            unicode: res.data,
+            // id: this.data.houseDetailId
+          }
+          wx.request({
+            url: Api.IP_DETAILLIST+'/'+this.data.houseDetail.id,
+            data: params,
+            header: {
+              'unique-code': params.unicode
+            },
+            method: 'DELETE',
+            success: (res)=> {
+                console.log(res)
+            }
+          })
+          // utils.delete(Api.IP_DETAILLIST, params)
+          // .then(()=>{});
+        }
+      })
+    }
+    this.setData({lookFlag: !this.data.lookFlag, count: count});
   },
-
+  //带看列表
+  goSeeList() {
+    wx.navigateTo({url: "../index/lookHouseList"});
+  },
   //收藏
   toggleSelectLike() {
     if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
