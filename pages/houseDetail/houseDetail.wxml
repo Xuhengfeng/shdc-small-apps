@@ -152,7 +152,7 @@
     <text wx:if="{{detailType!==33}}">房源位置</text>
     <text wx:if="{{detailType==33}}">小区位置</text>
   </view>
-  <navigator class="map" url="map?longitude={{longitude}}&latitude={{latitude}}">
+  <view class="map" bindtap="mapJump">
       <!-- 百度 静态图 -->
         <image src="https://api.map.baidu.com/staticimage/v2?ak=CWIQ5HNNV8jAcGZ9SpNzkozq5DXOLdTH&center={{longitude}},{{latitude}}&zoom=18&scale=2">
         </image> 
@@ -163,7 +163,7 @@
         <text class="content"></text>
         <image src="../../images/down.png"></image>
       </view>
-  </navigator>
+  </view>
 </view>
 
 <view class="sectoin section4">

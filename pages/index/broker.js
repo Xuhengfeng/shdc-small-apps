@@ -3,7 +3,8 @@ const utils = require("../../utils/util");
 
 Page({
   data: {
-    brokers: []
+    brokers: [],
+    page: 1
   },
   onLoad() {
     wx.getStorage({
@@ -22,11 +23,9 @@ Page({
     utils.post(Api.IP_BROKERSLIST,params)
     .then((data) => {
       data.data.forEach(item=>{
-        if(item.emplFlag) {
-          item.emplFlag = item.emplFlag.split(',')
-        }
+        if(item.emplFlag) {item.emplFlag = item.emplFlag.split(',')}
       })
-      this.setData({ brokers: data.data });
+      this.setData({ brokers: this.data.brokers.concat(data.data) });
     })
   },
   //返回刷新设置
@@ -42,10 +41,11 @@ Page({
   },
   //上拉
   onReachBottom() {
-    let page = this.data.page++;
+    // let page = this.data.page++;
+    // console.log(page)
     let params = {
-      'scity': this.data.currentCity,
-      'pageNo': page
+      scity: this.data.currentCity,
+      pageNo: this.data.page++
     }
     this.brokerRequest(params);
   }

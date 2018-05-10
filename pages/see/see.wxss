@@ -1,4 +1,0 @@
-@import "../template/template";
-page{
-    background: #fff;
-}

@@ -9,106 +9,42 @@
           <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
       </view>
       <view class="section weui-tab__panel headerTab">
-          <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-              <view class="weui-panel__bd">
-              <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-              <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=二手房" 
-                        hover-class="none">
-                  <view class="item">
-                        <view class="image">
-                          <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
-                        <view class="item-content">
-                          <view class="item-title">{{item.houseTitle}}</view>
-                          <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
-                          <view  class="houseTypeInfo">
-                            <text>{{item.houseType}}</text>{{item.builtArea}}m²
-                          </view>
-
-                        <view class="houseLabel">
-                          <text wx:for="{{item.houseTag}}" 
-                                wx:key="{{index2}}"
-                                wx:for-item="item2" 
-                                wx:for-index="index2">{{item2}}</text>
-                                </view>
-
-                              <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
-                                  <text>{{item.salePrice}}元/平米</text>
-                              </view>
-                              <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
-                                  <text>元/月</text>
-                              </view>     
-                            </view>
+          <view class="weui-tab__content oneContent" hidden="{{activeIndex != 0}}">
+              <view class="weui-panel__bd daikan" wx:for="{{[1,1,1]}}" wx:key="index" wx:for-item="item" bindtap="showDetail">
+                    <view class="item-hd" wx:if="{{true}}">
+                        <view class="dateTitle {{isCancel?'deleteLine':''}}">03月28号下午</view>
+                        <view class="countHouse">看房1套</view>
+                        <view class="address">深圳市宝安区西乡2巷12号</view>
+                        <view  wx:if="{{!isCancel}}">确认中</view>
+                        <view class="cancel" wx:if="{{isCancel}}">取消</view>
+                    </view> 
+                    
+                    <view class="item-bd">
+                        <view class="avatar">
+                            <image src=""></image>
                         </view>
-                    </navigator>
-                  </block>
+                        <view class="brokerName">
+                            张三
+                        </view>
+                        <view class="tellphone" bindtap="call">
+                            <image src="../../images/phone.png">电话</image>
+                        </view>
+                        
+                    </view>
               </view>
           </view>
-          <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <view class="weui-tab__content twoContent" hidden="{{activeIndex != 1}}">
               <view class="weui-panel__bd">
-                 <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-              <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=二手房" 
-                        hover-class="none">
-                  <view class="item">
-                        <view class="image">
-                          <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
-                        <view class="item-content">
-                          <view class="item-title">{{item.houseTitle}}</view>
-                          <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
-                          <view  class="houseTypeInfo">
-                            <text>{{item.houseType}}</text>{{item.builtArea}}m²
-                          </view>
-
-                        <view class="houseLabel">
-                          <text wx:for="{{item.houseTag}}" 
-                                wx:key="{{index2}}"
-                                wx:for-item="item2" 
-                                wx:for-index="index2">{{item2}}</text>
-                                </view>
-
-                              <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
-                                  <text>{{item.salePrice}}元/平米</text>
-                              </view>
-                              <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
-                                  <text>元/月</text>
-                              </view>     
-                            </view>
-                        </view>
-                    </navigator>
-                  </block>
+                <block wx:for="{{[1,1,1]}}" wx:key="index" wx:for-item="item">
+              
+                </block>
               </view>
           </view>
-          <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+          <view class="weui-tab__content threeContent" hidden="{{activeIndex != 2}}">
               <view class="weui-panel__bd">
-              <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-              <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=二手房" 
-                        hover-class="none">
-                  <view class="item">
-                        <view class="image">
-                          <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
-                        <view class="item-content">
-                          <view class="item-title">{{item.houseTitle}}</view>
-                          <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
-                          <view  class="houseTypeInfo">
-                            <text>{{item.houseType}}</text>{{item.builtArea}}m²
-                          </view>
-
-                        <view class="houseLabel">
-                          <text wx:for="{{item.houseTag}}" 
-                                wx:key="{{index2}}"
-                                wx:for-item="item2" 
-                                wx:for-index="index2">{{item2}}</text>
-                                </view>
-
-                              <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
-                                  <text>{{item.salePrice}}元/平米</text>
-                              </view>
-                              <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
-                                  <text>元/月</text>
-                              </view>     
-                            </view>
-                        </view>
-                    </navigator>
-                  </block>
+                <block wx:for="{{[1,1,1]}}" wx:key="index" wx:for-item="item">
+              
+                </block>
               </view>
           </view>
       </view>

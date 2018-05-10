@@ -62,6 +62,21 @@
   </view> 
 </view>
 
+<view class="section2">
+  <!-- 预定义的 -->
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">带看经纪人</view>
+      </view>
+      <view class="weui-cell__bd">
+          <view class="weui-input" style="text-align:right;" bindtap="jumpBroker">{{broker}}</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+  </view> 
+</view>
+
 <view class="section3">
   <button class="weui-btn" type="warn" bindtap="commit">提交</button>
 </view>

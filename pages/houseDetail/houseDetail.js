@@ -197,6 +197,14 @@ Page({
   cacheHouseType(value) {
     wx.setStorageSync('houseTypeSelect', value);
   },
+  mapJump() {
+    let obj = {
+      longitude: this.data.longitude,
+      latitude: this.data.latitude,
+      houseDetail: this.data.houseDetail
+    }
+    wx.navigateTo({url: "map?obj="+JSON.stringify(obj)});
+  },
   //显示图片当前的数字
   listenSwiper(e) {
     this.setData({currentIndex: e.detail.current+1});

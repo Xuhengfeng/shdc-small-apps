@@ -1,66 +1,28 @@
-// pages/see/seeoneDetail.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
+    isLoding: true,//正在为你安排经纪人
+    isCancel: false,//取消中 正常显示样式
+    isShadow: false,//取消对话框
+    //显示对应的进度
+    show3: true,
+    show2: true,
+    show1: true,
   
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+  onLoad(options) {
+    
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  //取消预约
+  cancelOrder() {
+    this.setData({isShadow: true});
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  //取消预约 确定
+  OrderConfirm() {
+    // wx.navigateBack();
+    this.setData({isCancel: true,isShadow: false});
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  //取消预约 取消
+  OrderCancel() {
+    this.setData({isCancel: false,isShadow: false});
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

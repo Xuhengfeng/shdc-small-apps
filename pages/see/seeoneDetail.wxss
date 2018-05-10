@@ -1,1 +1,209 @@
-/* pages/see/seeoneDetail.wxss */
+.header{
+    position: relative;
+    margin: 20rpx 25rpx 25rpx;
+    padding: 50rpx 30rpx 0;
+    height: 240rpx;
+    box-sizing: border-box;
+    border-radius: 10rpx;
+}
+.header image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.dateTitle{
+    font-size: 34rpx;
+    color: #222222;
+    margin-bottom: 24rpx;
+}
+.countHouse,
+.address{
+  color: #666666;
+  font-size: 28rpx;
+  margin-bottom: 24rpx;  
+}
+.main{
+    padding-left: 40rpx;
+}
+.border-left{
+    border-left: 1px solid #e6e6e6;
+}
+.content{
+    position: relative;
+    background: #ffffff;
+    margin:0 40rpx 40rpx 40rpx;
+    padding: 40rpx 22rpx 30rpx;
+    border-radius: 10rpx;
+}
+.circle{
+    position: absolute;
+    top: 35rpx;
+    left: -60rpx;
+    width: 40rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    border-radius: 50%;
+    background: #ff4343;
+    text-align: center;
+    color: #ffffff;
+    font-size: 26rpx;
+}
+.decTitle{
+    font-size: 32rpx;
+    color: #222222;
+    margin-bottom: 35rpx;
+}
+.decTitle view{
+    float: right;
+    font-size: 22rpx;
+    color: #666666;
+}
+.decription{
+    font-size: 28rpx;
+    color: #666666;
+    margin-bottom: 50rpx;
+}
+
+/* 头像 电话*/
+.brokerInfo{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+.avatar{
+    flex: 120rpx 0 0;
+    width: 120rpx;
+    height: 120rpx;
+    background: red;
+    border-radius: 50%;
+    margin-right: 20rpx;
+}
+.avatar image{
+    width: 100%;
+    height: 100%;
+}
+.brokerName{
+    flex: 1;
+}
+.brokerName view:first-child{
+    font-size: 36rpx;
+    color: #222222;
+    margin-bottom: 25rpx;
+}
+.brokerName view:first-child>text{
+    margin-left: 30rpx;
+    font-size: 24rpx;
+    color: #999999;
+}
+.brokerName view:nth-of-type(2){
+    font-size: 24rpx;
+    color: #666666;
+}
+.tellphone{
+    width: 34rpx;
+    flex: 34rpx 0 0;
+    height: 34rpx;
+}
+.tellphone image{
+    width: 100%;
+    height: 100%;
+}
+
+/* 提交预约成功 */
+.content1>view:not(:first-child){
+    font-size: 28rpx;
+    color: #999999;
+    margin-bottom: 20rpx;
+}
+.content1>view:not(:first-child) text{
+    margin-left: 20rpx;
+    color: #666666;
+}
+.content1>view:last-child{
+    color: #ffffff;
+}
+
+/* 看房日期安排成功 */
+.content3>view:not(:first-child){
+    font-size: 28rpx;
+    color: #999999;
+    margin-bottom: 20rpx;
+}
+.content3>view:not(:first-child) text{
+    margin-left: 20rpx;
+    color: #666666;
+}
+.content3>view:last-child{
+    color: #ffffff;
+}
+.querySeeHouse{
+    margin: 0 64rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    color: #ff4343!important;
+    background: rgba(255,67,67,.1);
+    border-radius: 10rpx;
+}
+
+
+/* 进度中 */
+.loding{
+    color: #ff4343;
+}
+/* 取消中 */
+.cancel{
+    color: #999999!important;
+    background: #f2f2f2!important;
+}
+/* 取消预约 */
+.cancelYu{
+    color: #999999!important;
+    text-align: center;
+}
+/* 取消对话框 */
+.shadow{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0,0,0,.7);
+}
+.dialog{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background: #ffffff;
+    width: 520rpx;
+    height: 220rpx;
+    border-radius: 10rpx;
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+}
+.dialog-hd{
+    height:140rpx;
+    line-height: 140rpx; 
+    font-size: 30rpx;
+    color: #222222;
+    border-bottom: 1px solid #e6e6e6;
+}
+.dialog-bd{
+    flex: 1;
+    display: flex;
+    flex-flow: row nowrap;
+}
+.dialog-bd view{
+    flex: 1;
+    line-height: 80rpx;
+}
+.dialog-bd view:last-child{
+    color: #0066eb;
+    border-left: 1px solid #e6e6e6;
+}

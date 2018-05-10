@@ -1,11 +1,11 @@
 let Api = require("../../utils/url");
 let app = getApp();
-let filter = require("../../utils/filter.js");
 let sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
-Page(filter.loginCheck({
+Page({
   data: {
     tabs: ["待看日程", "已看记录", "看房报告"],
+    isCancel: false,//取消中 正常显示样式
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
@@ -23,8 +23,17 @@ Page(filter.loginCheck({
         });
       }
     });
-    this.getDataFromServer(0);
+    //this.getDataFromServer(0);
   },
+  //跳转详情
+  showDetail() {
+    wx.navigateTo({url: 'seeoneDetail'});
+  },
+  //拨打电话
+  call() {
+    wx.makePhoneCall({phoneNumber: '13212361223'})
+  },
+  //点击切换
   tabClick(e) {
     console.log(e.currentTarget.dataset.index)
     let num = e.currentTarget.dataset.index;
@@ -34,6 +43,7 @@ Page(filter.loginCheck({
       activeIndex: e.currentTarget.id
     });
   },
+  //请求
   getDataFromServer(num) {
     this.setData({ hasMore: true })
     let params = { pageNo: 1, pageSize: 10, unicode: wx.getStorageSync("userToken").data }
@@ -46,4 +56,4 @@ Page(filter.loginCheck({
       this.setData({ hasMore: false });
     })
   }
-}));
+});

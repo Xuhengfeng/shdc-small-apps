@@ -137,5 +137,9 @@ Page({
       }
     }
     this.setData({list: list,count: count});
-  }  
+  },
+  //预约
+  yuyue() {
+    wx.navigateTo({url: "../houseDetail/lookHouse"});
+  }   
 })

@@ -38,5 +38,5 @@
 </scroll-view>
 <view class="footer">
     <view class="numHouse">已经<text>{{count}}</text>套房源</view>
-    <view class="trueBtn">去预约</view>
+    <view class="trueBtn" bindtap="yuyue">去预约</view>
 </view>

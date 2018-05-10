@@ -6,7 +6,8 @@ Page({
     covers: [],
     latitude: '',
     longitude: '',
-    placeData: {}
+    placeData: {},
+    info: {},
   },
   makertap(e) {
     var that = this;
@@ -15,33 +16,30 @@ Page({
     that.changeMarkerColor(wxMarkerData, id);
   },
   onLoad(options) {
-    console.log(options)
-    var BMap = new bmap.BMapWX({
-      ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
-    });
-    var fail = function (data) {
-      console.log(data)
-    };
+    let obj = JSON.parse(options.obj);
+    this.setData({info: obj.houseDetail});
+    let name = obj.houseDetail.buildName||obj.houseDetail.houseTitle;
+    let desc = obj.houseDetail.areaName;
+    var BMap = new bmap.BMapWX({ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'});
+    var fail = function (data) {console.log(data)};
     var success = (data)=> {
-      console.log(data)
       wxMarkerData = data.wxMarkerData;
       wxMarkerData = [{
-        latitude: options.latitude,
-        longitude: options.longitude,
-        name: 'T.I.T 创意园',
-        desc: '我现在的位置'
+        latitude: obj.latitude,
+        longitude: obj.longitude,
+        name: name,
+        desc: desc,
       }];
       var covers = [{
-        latitude: options.latitude,
-        longitude: options.longitude,
+        latitude: obj.latitude,
+        longitude: obj.longitude,
         iconPath: '../../images/location.png',
         rotate: 10
       }]
 
       this.setData({
-        // markers: wxMarkerData,
-        latitude: options.latitude,
-        longitude: options.longitude,
+        latitude: obj.latitude,
+        longitude: obj.longitude,
         covers: covers
       });
     }
@@ -83,8 +81,8 @@ Page({
       latitude: parseInt(this.data.latitude),
       longitude: parseInt(this.data.longitude),
       scale: 18,
-      name: 'T.I.T 创意园',
-      desc: '我现在的位置'
+      name: this.data.info.buildName||this.data.info.houseTitle,
+      desc: this.data.info.areaName
     })
   }
 })

@@ -190,7 +190,7 @@
                       </view>
 
                     <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
-                        <text>{{item.salePrice}}元/平米</text>
+                        <text>{{item.salePrice}}元/平</text>
                     </view>
                     <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
                         <text>元/月</text>

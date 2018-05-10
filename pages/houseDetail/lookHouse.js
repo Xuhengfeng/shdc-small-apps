@@ -204,8 +204,13 @@ Page(filter.loginCheck({
   bindUserTelphone(e) {
     this.setData({ userTelphone: e.detail.value})
   },
-  formatNumber(n) {//补零
+  //补零
+  formatNumber(n) {
     n = n.toString()
     return n[1] ? n : '0' + n
+  },
+  //选着经纪人
+  jumpBroker() {
+    wx.navigateTo({url: "../index/broker"});
   }
 }))
