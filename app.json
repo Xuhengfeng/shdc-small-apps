@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/see/house",
-    "pages/see/seeone",
-    "pages/see/seeoneDetail",
     "pages/index/index",
+    "pages/see/seeone",
+    "pages/see/house",
+    "pages/see/seeoneDetail",
     "pages/houseDetail/lookHouse",
     "pages/index/lookHouseList",
     "pages/houseDetail/houseDetail", 

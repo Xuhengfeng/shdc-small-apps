@@ -1,32 +1,4 @@
 <import src="../template/template"/>
-<!-- <view style="margin-top:20rpx;background:#ffffff">
-  <view class="item">
-      <view class="image">
-        <image src="{{houseDetail.housePic?houseDetail.housePic: '../../images/astate.png'}}"></image></view>
-      <view class="item-content">
-          <view class="item-title">{{houseDetail.houseTitle}}</view>
-          <view class="description">{{houseDetail.areaName}} {{houseDetail.districtName}} {{houseDetail.houseDirection}}</view>                        
-          <view  class="houseTypeInfo">
-            <text>{{houseDetail.houseType}}</text>{{houseDetail.builtArea}}m²
-          </view>
-
-          <view class="houseLabel">
-            <text wx:for="{{houseDetail.houseTag}}" 
-                  wx:key="{{index2}}"
-                  wx:for-item="item2" 
-                  wx:for-index="index2">{{item2}}</text>
-          </view>
-
-          <view wx:if="{{flagPrice}}" class="housePrice">{{houseDetail.saleTotal}}万
-              <text>{{houseDetail.salePrice}}元/平米</text>
-          </view>
-          <view wx:if="{{!flagPrice}}" class="housePrice">{{houseDetail.rentPrice}}
-              <text>元/月</text>
-          </view>
-      </view>
-  </view>
-</view> -->
-
 <view class="section1">
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_input">

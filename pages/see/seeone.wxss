@@ -52,6 +52,11 @@ button{
 .weui-navbar__slider{
   background-color: #ff4343;
 }
+.navbar{
+  position: fixed;
+  top: 0;
+  background: #ffffff;
+}
 
 /* 待看日程 内容*/
 .oneContent{
@@ -129,7 +134,6 @@ button{
 }
 
 /* 取消状态 */
-
 .deleteLine{
   color: #999999;
   text-decoration: line-through;

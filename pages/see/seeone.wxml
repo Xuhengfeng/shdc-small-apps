@@ -1,6 +1,6 @@
 <view class="page_bd">
   <view class="weui-tab">
-      <view class="weui-navbar">
+      <view class="weui-navbar navbar">
           <block wx:for="{{tabs}}" wx:key="*this">
               <view id="{{index}}" data-index="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
                   <view class="weui-navbar__title">{{item}}</view>
@@ -10,26 +10,25 @@
       </view>
       <view class="section weui-tab__panel headerTab">
           <view class="weui-tab__content oneContent" hidden="{{activeIndex != 0}}">
-              <view class="weui-panel__bd daikan" wx:for="{{[1,1,1]}}" wx:key="index" wx:for-item="item" bindtap="showDetail">
-                    <view class="item-hd" wx:if="{{true}}">
-                        <view class="dateTitle {{isCancel?'deleteLine':''}}">03月28号下午</view>
+              <view class="weui-panel__bd daikan" 
+                    wx:for="{{houseList}}" 
+                    wx:key="index" 
+                    data-index="{{index}}"
+                    bindtap="showDetail">
+                    <view class="item-hd">
+                        <view class="dateTitle {{item.isCancel?'deleteLine':''}}">03月28号下午</view>
                         <view class="countHouse">看房1套</view>
                         <view class="address">深圳市宝安区西乡2巷12号</view>
-                        <view  wx:if="{{!isCancel}}">确认中</view>
-                        <view class="cancel" wx:if="{{isCancel}}">取消</view>
+                        <view wx:if="{{!item.isCancel}}">确认中</view>
+                        <view class="cancel" wx:if="{{item.isCancel}}">取消</view>
                     </view> 
                     
                     <view class="item-bd">
-                        <view class="avatar">
-                            <image src=""></image>
-                        </view>
-                        <view class="brokerName">
-                            张三
-                        </view>
+                        <view class="avatar"><image src=""></image></view>
+                        <view class="brokerName">张三</view>
                         <view class="tellphone" bindtap="call">
                             <image src="../../images/phone.png">电话</image>
                         </view>
-                        
                     </view>
               </view>
           </view>

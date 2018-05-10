@@ -1,20 +1,27 @@
-let Api = require("../../utils/url");
-let app = getApp();
-let sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
+const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
 Page({
   data: {
     tabs: ["待看日程", "已看记录", "看房报告"],
-    isCancel: false,//取消中 正常显示样式
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-    houseList: [],
+    houseList: [//房源 取消中 正常显示样式
+      {isCancel: false},
+      {isCancel: false},
+      {isCancel: true},
+      {isCancel: false}
+    ],
     hasMore: false,
     showload: false,
-    IPS: [Api.IP_HOUSECOLLECTIONLIST, Api.IP_RENTCOLLECTIONLIST, Api.IP_COLLECTIONLIST]
+    //待看日程 已看记录 看房报告
+    IPS: [Api.IP_READYLIST, Api.IP_RENTCOLLECTIONLIST, Api.IP_COLLECTIONLIST],
   },
   onLoad() {
+    //待看日程
+    this.seeScheduleRequest()
     wx.getSystemInfo({
       success: (res) => {
         this.setData({
@@ -24,6 +31,15 @@ Page({
       }
     });
     //this.getDataFromServer(0);
+    this.seeScheduleRequest(0);
+  },
+  //待看日程
+  seeScheduleRequest(num) {
+    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken")}
+    utils.get(this.data.IPS[num],params)
+    .then((data)=>{
+      console.log(data.data)
+    })
   },
   //跳转详情
   showDetail() {
@@ -35,7 +51,6 @@ Page({
   },
   //点击切换
   tabClick(e) {
-    console.log(e.currentTarget.dataset.index)
     let num = e.currentTarget.dataset.index;
     this.getDataFromServer(num);
     this.setData({
@@ -45,15 +60,17 @@ Page({
   },
   //请求
   getDataFromServer(num) {
-    this.setData({ hasMore: true })
-    let params = { pageNo: 1, pageSize: 10, unicode: wx.getStorageSync("userToken").data }
-    app.httpRequest(this.data.IPS[num], params, (error, data) => {
-      //修正数据
-      data.data.forEach((item) => {
-        item.houseTag = item.houseTag.split(',');
-      })
-      this.setData({ houseList: data.data })
-      this.setData({ hasMore: false });
-    })
+    switch(num){
+      case 0:;break;//请求一
+      case 1:;break;//请求二
+      case 2:;break;//请求三
+    }
+    // this.setData({ hasMore: true })
+    // let params = { pageNo: 1, pageSize: 10, unicode: wx.getStorageSync("userToken").data }
+    // utils.get(this.data.IPS[num], params)
+    // .then((data) => {
+    //   this.setData({ houseList: data.data })
+    //   this.setData({ hasMore: false });
+    // })
   }
 });

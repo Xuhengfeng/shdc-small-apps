@@ -19,7 +19,8 @@ Page(filter.loginCheck({
     userTelphone: '', 
     dataTime: '', //日期
     dayTime: '',//早 上 下 午 晚上
-    nowDate: ''
+    nowDate: '',
+    select: []//选中的房源对象
    },
    //自定义城市控件
   showOwnPicker() {
@@ -52,23 +53,29 @@ Page(filter.loginCheck({
   },
   //提交
   commit() {
+    let select = this.data.select;
     wx.getStorage({
       key: 'selectCity',
       success: (res) => {
         wx.getStorage({
           key: 'userToken',
           success: (response)=> {
-            let token = response.data
-            let params = {
-              scity: res.data.value,
-              sdid: this.data.houseDetailId,
-              appointName: this.data.userName,
-              appointMobile: this.data.userTelphone,
-              appointDate: this.data.dataTime,
-              appointRange: this.data.dayTime,
-              unicode: token
-            };
-            utils.post(Api.IP_APPOINTHOUSE,params).then((data)=>{});
+            let token = response.data;
+            console.log(select)
+            select.forEach((item)=>{
+              let params = {
+                scity: res.data.value,
+                sdid: this.data.houseDetailId,
+                appointName: this.data.userName,
+                appointMobile: this.data.userTelphone,
+                appointDate: this.data.dataTime,
+                appointRange: this.data.dayTime,
+                unicode: token,
+                scity: item.scity,
+                sdid: item.sdid
+              };
+              utils.post(Api.IP_APPOINTHOUSE,params).then((data)=>{});
+            })
           }
         })
       }
@@ -89,25 +96,6 @@ Page(filter.loginCheck({
     })
   },
   onLoad(options) {
-    wx.getStorage({
-      key: 'houseTypeSelect',
-      success: (res) => {
-        let str = res.data;
-        switch(str) {
-          case '二手房':
-          case '小区二手房':
-          this.setData({flagPrice: true});
-          break;
-          case '租房':
-          case '小区租房':
-          this.setData({flagPrice: false});
-          break;
-        }
-      }
-    })
-    let newObj = JSON.parse(options.houseDetail);
-    newObj.houseTag = JSON.parse(options.houseDetail).houseTag.split(',');
-    this.setData({houseDetail: newObj});
     //获取当前的时间
     utils.get(Api.IP_CURRENTDATETIME)
     .then((data)=>{
@@ -115,7 +103,8 @@ Page(filter.loginCheck({
       this.setData({
         currentTime: data.data.currentDateTime,
         dateArr: result.dateArr,//开始计算每月几天 日期
-        year: result.year
+        year: result.year,
+        select: JSON.parse(options.select)
       })
     })
   },
@@ -198,9 +187,11 @@ Page(filter.loginCheck({
     }
     return ret;
   },
+  //获取用户姓名
   bindUserName(e) {
     this.setData({userName: e.detail.value})
   },
+  //获取用户手机
   bindUserTelphone(e) {
     this.setData({ userTelphone: e.detail.value})
   },

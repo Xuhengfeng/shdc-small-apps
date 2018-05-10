@@ -21,6 +21,8 @@ export const IP_NEWBUILDING = SERVER_IPS + "/newbuilding/query/";//新房城市�
 export const IP_APPOINTADD = SERVER_IPS + "/appoint/add";//加入待看列表
 export const IP_APPOINTDELETE = SERVER_IPS + "/appoint/delete/";//取消加入待看列表
 export const IP_DETAILLIST = SERVER_IPS + "/appoint/detailLsit";//待看列表
+export const IP_READYLIST = SERVER_IPS + "/appoint/readyList";//待看日程列表
+
 
 //首页猜你喜欢
 export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你喜欢 二手房列表

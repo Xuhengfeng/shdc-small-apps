@@ -13,7 +13,7 @@
             <view class="lookHouseTime">看房时间:<text>03月28号下午</text></view>
             <view class="lookHouseCount">看房套数:<text>经纪人会电话联系你的</text></view>
             <view class="brokerTel">联系方式:<text>张三<text>15857009524</text></text></view>
-            <view class="querySeeHouse {{isCancel?'cancel':''}}">查看房源</view> 
+            <view class="querySeeHouse {{isCancel?'cancel':''}}" bindtap="seeHouse">查看房源</view> 
             <view class="circle {{isCancel?'cancel':''}}">3</view>
         </view>
 

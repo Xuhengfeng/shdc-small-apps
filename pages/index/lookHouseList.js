@@ -6,7 +6,8 @@ Page({
     startX: '',//设置触摸起始点水平方向位置
     count: 0,
     delBtnWidth: 110,
-    list: []
+    list: [],
+    select: [],//用户选中的房源
     // list: [
     //   {txtStyle: 0, isSelect: true},
     //   {txtStyle: 0, isSelect: true},
@@ -31,6 +32,7 @@ Page({
             };
             utils.get(Api.IP_DETAILLIST,params)
             .then((data)=>{
+              console.log(data.data)
               this.setData({list: data.data})
             });
           }
@@ -48,6 +50,7 @@ Page({
       if(list[i].isSelect == true){
         count++;
       }else{
+      //未选中的
         continue;
       }
     }
@@ -140,6 +143,22 @@ Page({
   },
   //预约
   yuyue() {
-    wx.navigateTo({url: "../houseDetail/lookHouse"});
+    let list = this.data.list;
+    let factoryObj = {};
+    this.setData({select: []});
+    for (let i=0; i<list.length; i++) {
+      //选中的
+      if(list[i].isSelect == true){
+        if(this.data.select.indexOf(list[i]== '-1')){
+          factoryObj.scity = list[i].houseScity;
+          factoryObj.sdid = list[i].houseSdid;
+          this.data.select.push(factoryObj);
+        }
+      }else{
+      //未选中的
+        continue;
+      }
+    }
+    wx.navigateTo({url: "../houseDetail/lookHouse?select="+JSON.stringify(this.data.select)});
   }   
 })

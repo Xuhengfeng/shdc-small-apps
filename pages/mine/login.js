@@ -1,8 +1,8 @@
-// import { IP_RENTHOUSERENTLIKE } from "../../utils/url";
-let Api = require("../../utils/url");
-let md5 = require("../../utils/md5.js");
-let WXBizDataCrypt = require("../../utils/Rdwxbizdatacrypt.js");
-let app = getApp();
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
+const md5 = require("../../utils/md5.js");
+const WXBizDataCrypt = require("../../utils/Rdwxbizdatacrypt.js");
+const app = getApp();
 
 Page({
   data: {
@@ -44,7 +44,7 @@ Page({
       let params = {
         "authKey": ciphertext.authKey,
         "headImage": userInfo.avatarUrl,
-        "nickname": '徐横峰',
+        "nickname":  userInfo.nickname,
         "openid": ciphertext.openid,
         "phone": data.phoneNumber,
         "sex": userInfo.gender
@@ -191,12 +191,12 @@ Page({
     }
     let pages = getCurrentPages();//当前页面路由栈的信息
     let prevPage = pages[pages.length - 2];//上一个页面
-          prevPage.setData({
-            nickName: nickName,
-            avatarUrl: avatarUrl,
-            showLogout: true
-          })
-          setTimeout(() => {wx.navigateBack()}, 1000);
+        prevPage.setData({
+          nickName: nickName,
+          avatarUrl: avatarUrl,
+          showLogout: true
+        })
+        setTimeout(() => {wx.navigateBack()}, 1000);
   },
   //直接返回
   goback() {
