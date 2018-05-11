@@ -20,7 +20,11 @@ Page(filter.loginCheck({
     dataTime: '', //日期
     dayTime: '',//早 上 下 午 晚上
     nowDate: '',
-    select: []//选中的房源对象
+    select: [],//选中的房源对象
+    broker: '',
+    brokerId: '',
+    userPhone: "",//用户手机号
+    houseDetailSdid: '',
    },
    //自定义城市控件
   showOwnPicker() {
@@ -40,8 +44,6 @@ Page(filter.loginCheck({
     //   key: 'selectCity',
     //   success: (res) => {
     //     let params = {
-    //       scity: res.data.value,
-    //       sdid: this.data.houseDetailId,
     //       appointName: this.data.userName,
     //       appointMobile: this.data.userTelphone,
     //       appointDate: this.data.nowDate,
@@ -54,27 +56,30 @@ Page(filter.loginCheck({
   //提交
   commit() {
     let select = this.data.select;
+    //城市
     wx.getStorage({
       key: 'selectCity',
       success: (res) => {
+        //用户token
         wx.getStorage({
           key: 'userToken',
           success: (response)=> {
             let token = response.data;
-            console.log(select)
-            select.forEach((item)=>{
-              let params = {
-                scity: res.data.value,
-                sdid: this.data.houseDetailId,
-                appointName: this.data.userName,
-                appointMobile: this.data.userTelphone,
-                appointDate: this.data.dataTime,
-                appointRange: this.data.dayTime,
-                unicode: token,
-                scity: item.scity,
-                sdid: item.sdid
-              };
-              utils.post(Api.IP_APPOINTHOUSE,params).then((data)=>{});
+            let params = {
+              appointName: this.data.userName,
+              appointMobile: this.data.userTelphone,
+              appointDate: this.data.dataTime,
+              appointRange: this.data.dayTime,
+              unicode: token,
+              brokerId: this.data.brokerId,
+              houseList: this.data.select
+            };
+            utils.post(Api.IP_APPOINTHOUSE,params).then((data)=>{
+              if(data.data == null){
+                wx.showModal({content: data.msg});
+              }else{
+                wx.navigateTo({url: '../houseDetail/houseDetail?title=房源详情&id='+this.data.houseDetailSdid});
+              } 
             })
           }
         })
@@ -96,6 +101,25 @@ Page(filter.loginCheck({
     })
   },
   onLoad(options) {
+    //userPhone获取用户手机号
+    wx.getStorage({
+      key: 'userPhone',
+      success: (res)=> {
+        let str = res.data.phoneNumber
+        this.setData({
+          userTelphone: str,
+          userPhone: str.slice(0,3)+"****"+str.slice(7,11)
+        });
+      } 
+    })
+    //获取房源详情的id
+    wx.getStorage({
+      key: 'houseDetailId',
+      success: (res)=> {
+        this.setData({houseDetailSdid: res.data});
+      } 
+    })
+    
     //获取当前的时间
     utils.get(Api.IP_CURRENTDATETIME)
     .then((data)=>{

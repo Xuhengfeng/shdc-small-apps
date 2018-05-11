@@ -38,6 +38,10 @@ Page({
     let params = { pageNo: 1, unicode: wx.getStorageSync("userToken")}
     utils.get(this.data.IPS[num],params)
     .then((data)=>{
+      data.data.forEach((item)=>{
+        item.isCancel = false
+      })
+      this.setData({houseList: data.data});
       console.log(data.data)
     })
   },

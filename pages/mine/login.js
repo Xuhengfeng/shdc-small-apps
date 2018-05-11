@@ -32,6 +32,7 @@ Page({
       let pc = new WXBizDataCrypt(appId, Key)
       let data = pc.decryptData(encryptedData, iv)
       console.log('解密后 data: ', data)
+      wx.setStorage({ key: 'userPhone', data: data});
 
       //当前页面路由栈的信息
       let pages = getCurrentPages();
@@ -49,97 +50,42 @@ Page({
         "phone": data.phoneNumber,
         "sex": userInfo.gender
       }
-      app.httpRequest(Api.weChatRegister, params, (error, data) => {
-          let newParams = {
-              "openid": ciphertext.openid,
-              "phone": data.phoneNumber
-          }
-          app.httpRequest(Api.weChatLogin, newParams, (error, data) => {
-                wx.setStorage({ key: 'userToken', data: data.data });
-                wx.showToast({ title: '登录成功', icon: 'success', duration: 500});
-                wx.navigateBack();
-          });
-      }, 'POST');
+      utils.post(Api.weChatRegister, params)
+      .then((data) => {
+        let newParams = {
+            "openid": ciphertext.openid,
+            "phone": data.phoneNumber
+        }
+        return utils.get(Api.weChatLogin, newParams);
+      })
+      .then((data)=>{
+        wx.setStorage({ key: 'userToken', data: data.data });
+        wx.showToast({ title: '登录成功', icon: 'success', duration: 500});
+        wx.navigateBack();
+      })
     }
   },  
+  onLoad(options) {
+    this.getUseInfo();
+  },
   //用户基本信息
   getUseInfo() {
-    var that = this;
-      wx.login({
-        success: res1=> {
-          if(res1.code) {
-            wx.getUserInfo({
-              withCredentials: true,
-              success: (res)=> {
-                wx.request({
-                  url: 'https://api.weixin.qq.com/sns/jscode2session',
-                  data: {
-                    js_code: res1.code,
-                    appid: 'wxce209331358eecd8',
-                    secret: '3258f8a5649ecdbfb3f1e3c43f5b2907',
-                    grant_type: 'authorization_code'
-                  },
-                  success: response=> {
-                    wx.setStorageSync('openId', response.data.openid);
-                  }
-                })
-                this.goBackSet(res);
-              }, 
-              fail: ()=> {
-                wx.showModal({
-                  title: '警告通知',
-                  content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
-                  success: res=> {
-                    if(res.cancel) {
-                      this.setData({
-                        isCancelLogin: false
-                      })
-                    }
-                    if(res.confirm) {
-                      wx.openSetting({
-                        success: res=> {
-                          if (res.authSetting["scope.userInfo"]) {//如果用户重新同意了授权登录
-                            wx.login({
-                              success: res_login=> {
-                                if(res_login.code) {
-                                  wx.getUserInfo({
-                                    withCredentials: true,
-                                    success: res_user=> {
-                                      wx.request({
-                                        url: 'https://api.weixin.qq.com/sns/jscode2session',
-                                        data: {
-                                          code: res_login.code,
-                                          encryptedData: res_user.encryptedData,
-                                          iv: res_user.iv
-                                        },
-                                        method: 'GET',
-                                        header: {'content-type': 'application/json'},
-                                        success: res=> {
-                                          that.setData({
-                                            nickName: res.data.nickName,
-                                            avatarUrl: res.data.avatarUrl,
-                                          })
-                                          wx.setStorageSync('openId', res.data.openId);
-                                        }
-                                      })
-                                    }
-                                  })
-                                }
-                              }
-                            });
-                          }
-                        } 
-                      })
-                    }
-                  }
-                })
-              },
-              complete: (res)=> {}
-            })
-          }
+    //获取用户信息
+    wx.getSetting({
+      success: res => {
+         if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              wx.setStorageSync('userInfo', JSON.stringify(res.userInfo));
+              if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(res)
+              }
+            }
+          })
         }
-      })
-    
+      }
+    })
   },
   login() {//手机短信验证码登录
     if(this.data.inputValue1 !== "" && this.data.inputValue2 !== "" ) {

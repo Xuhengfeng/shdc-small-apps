@@ -110,9 +110,9 @@ button{
   width: 68rpx;
   flex: 68rpx 0 0;
   height: 68rpx;
-  background: red;
   border-radius: 50%;
   margin-right: 20rpx;
+  overflow: hidden;
 }
 .avatar image{
   width: 100%;

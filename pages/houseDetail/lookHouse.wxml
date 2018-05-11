@@ -14,7 +14,7 @@
             <view class="weui-label">电话</view>
         </view>
         <view class="weui-cell__bd">
-            <input class="weui-input" bindinput="bindUserTelphone" type="number" maxlength="11" placeholder="请输入您的手机号" />
+            <input class="weui-input" placeholder="{{userPhone}}" disabled="{{true}}"/>
         </view>
     </view>
   </view>

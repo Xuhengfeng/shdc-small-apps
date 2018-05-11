@@ -15,6 +15,7 @@ Page({
     hotbuilding: [],//热门小区
     newinfohouse: [],//新盘推荐
     currentCity: null, //默认城市
+    isAuth: false,//获取用户主动授权
     myLocation: "",//默认地址
     pageNo: 1,//默认第1页
     flagPrice: true, //是否有价格  二手房 租房
@@ -26,6 +27,12 @@ Page({
     IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING, Api.IP_NEWINFO, Api.IP_PLATE],
   },
   onLoad(){
+    //判断是否授权
+    wx.getStorage({
+      key: 'userInfo',
+      success: (res)=> {},
+      fail:()=>{this.setData({isAuth:true})}
+    })
     //定位
     wx.getLocation({
       type: 'gcj02',
@@ -211,5 +218,17 @@ Page({
   //缓存房源类型 不可改变的
   cacheHouseType2(value) {
     wx.setStorageSync('onceHouseType', value)
+  },
+  //用户取消授权
+  cancelAuth() {
+    this.setData({isAuth: false});
+  },
+  //去授权
+  bindGetUserInfo(e) {
+    this.setData({isAuth: false});
+    wx.setStorage({
+      key:'userInfo',
+      data: JSON.stringify(e.detail.userInfo)
+    })
   }
 })

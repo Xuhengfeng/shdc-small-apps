@@ -212,3 +212,15 @@
         </view> 
     </view>
 
+<!-- 用户授权弹窗 -->
+<view class="wxShadow" wx:if="{{isAuth}}">
+    <view class="wechatAuth">
+      <view class="txt">世华地产小程序需获取您的公开信息(昵称、头像等)</view>
+      <view class="wxFooter">
+          <!-- <button open-type="getUserInfo" bindtap="gotoAuth">去授权</button>
+          <button bindtap="cancelAuth">拒绝</button> -->
+          <button wx:if="{{true}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+          <view wx:else>请升级微信版本</view>
+      </view>
+    </view>
+</view>

@@ -252,5 +252,38 @@
   left: 425rpx;
 }
 
+/* 微信授权登录弹窗 */
+.wxShadow{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.8);
+}
+.wechatAuth{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500rpx;
+  transform: translate(-50%,-50%);
+  background: #ffffff;
+  border-radius: 10rpx;
+  padding: 20rpx 30rpx;
+}
+.wechatAuth .txt{
+  line-height: 1.5
+}
+.wxFooter button{
+  float: right;
+  border:0;
+  background: #fff;
+}
+.wxFooter button:nth-of-type(1){
+  color: #ff4343;
+}
+.wxFooter button::after{
+  border: none;
+}
 
 

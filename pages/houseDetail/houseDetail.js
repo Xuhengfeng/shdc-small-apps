@@ -41,6 +41,7 @@ Page({
     count: 0,//待看房源列表计数
   },
   onLoad(options) {
+    wx.setStorage({key:"houseDetailId",data: options.id});
     wx.setNavigationBarTitle({title: "房源详情"});
     wx.getStorage({
       key: 'houseTypeSelect',
@@ -245,31 +246,7 @@ Page({
           .then(()=>{});
         }
       })
-    }else{
-      count = this.data.count - 1;      
-      wx.getStorage({
-        key: 'userToken',
-        success: (res)=>{
-          let params = {
-            scity: this.data.currentCity,
-            unicode: res.data,
-            // id: this.data.houseDetailId
-          }
-          wx.request({
-            url: Api.IP_DETAILLIST+'/'+this.data.houseDetail.id,
-            data: params,
-            header: {
-              'unique-code': params.unicode
-            },
-            method: 'DELETE',
-            success: (res)=> {
-                console.log(res)
-            }
-          })
-          // utils.delete(Api.IP_DETAILLIST, params)
-          // .then(()=>{});
-        }
-      })
+    
     }
     this.setData({lookFlag: !this.data.lookFlag, count: count});
   },

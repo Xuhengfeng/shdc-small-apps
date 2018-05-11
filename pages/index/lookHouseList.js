@@ -7,14 +7,14 @@ Page({
     count: 0,
     delBtnWidth: 110,
     list: [],
-    select: [],//用户选中的房源
+    select: [],//用户选中的房源 isMove是否移动  isSelect是否选着
     // list: [
-    //   {txtStyle: 0, isSelect: true},
-    //   {txtStyle: 0, isSelect: true},
-    //   {txtStyle: 0, isSelect: true},
-    //   {txtStyle: 0, isSelect: true},
-    //   {txtStyle: 0, isSelect: true},
-    //   {txtStyle: 0, isSelect: true},
+    //   {isMove: false, isSelect: true},
+    //   {isMove: false, isSelect: true},
+    //   {isMove: false, isSelect: true},
+    //   {isMove: false, isSelect: true},
+    //   {isMove: false, isSelect: true},
+    //   {isMove: false, isSelect: true},
     // ],
   },
   onLoad() {
@@ -68,21 +68,17 @@ Page({
       //手指起始点位置与移动期间的差值
       let disX = this.data.startX - moveX;
       let delBtnWidth = this.data.delBtnWidth;
-      let txt = "";
+      let flag = false;
       if (disX == 0 || disX < 0) { //如果移动距离小于等于0，文本层位置不变
-        txt = "left:0px";
+        flag = false;
       }
       else if (disX > 0) { //移动距离大于0，文本层left值等于手指移动距离
-        txt = "left:-" + disX + "px";
-        if (disX >= delBtnWidth) {
-          //控制手指移动距离最大值为删除按钮的宽度
-          txt = "left:-" + delBtnWidth + "px";
-        }
+        flag = true;
       }
       //获取手指触摸的是哪一项
       let index = e.currentTarget.dataset.index;
       let list = this.data.list;
-      list[index].txtStyle = txt;
+      list[index].isMove = flag;
       //更新列表的状态
       this.setData({list: list});
     }
@@ -95,11 +91,11 @@ Page({
       let disX = this.data.startX - endX;
       let delBtnWidth = this.data.delBtnWidth;
       //如果距离小于删除按钮的1/2，不显示删除按钮
-      let txt = disX > delBtnWidth/2 ? "left:-"+delBtnWidth+"px":"left:0px";
+      let flag = disX > delBtnWidth/2 ? true:false;
       //获取手指触摸的是哪一项
       let index = e.currentTarget.dataset.index;
       let list = this.data.list;
-      list[index].txtStyle = txt;
+      list[index].isMove = flag;
       //更新列表的状态
       this.setData({list: list});
     }
@@ -140,6 +136,33 @@ Page({
       }
     }
     this.setData({list: list,count: count});
+
+    //请求删除
+  // }else{
+  //   count = this.data.count - 1;      
+  //   wx.getStorage({
+  //     key: 'userToken',
+  //     success: (res)=>{
+  //       let params = {
+  //         scity: this.data.currentCity,
+  //         unicode: res.data,
+  //         // id: this.data.houseDetailId
+  //       }
+  //       wx.request({
+  //         url: Api.IP_DETAILLIST+'/'+this.data.houseDetail.id,
+  //         data: params,
+  //         header: {
+  //           'unique-code': params.unicode
+  //         },
+  //         method: 'DELETE',
+  //         success: (res)=> {
+  //             console.log(res)
+  //         }
+  //       })
+  //       // utils.delete(Api.IP_DETAILLIST, params)
+  //       // .then(()=>{});
+  //     }
+  //   })
   },
   //预约
   yuyue() {

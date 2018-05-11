@@ -1,11 +1,11 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/lookHouseList",
     "pages/see/seeone",
     "pages/see/house",
     "pages/see/seeoneDetail",
     "pages/houseDetail/lookHouse",
-    "pages/index/lookHouseList",
     "pages/houseDetail/houseDetail", 
     "pages/index/newHouse",
     "pages/index/sellRent",

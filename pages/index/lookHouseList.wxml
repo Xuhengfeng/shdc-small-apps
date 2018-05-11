@@ -8,7 +8,7 @@
                 bindtap="delItem"
                 class="cancel">删除</view>
             <!-- 内容层 -->
-            <view class="content"
+            <view class="content {{item.isMove?'move':''}}"
                 data-index="{{index}}"
                 bindtouchstart="touchS"
                 bindtouchmove="touchM"

@@ -16,17 +16,17 @@
                     data-index="{{index}}"
                     bindtap="showDetail">
                     <view class="item-hd">
-                        <view class="dateTitle {{item.isCancel?'deleteLine':''}}">03月28号下午</view>
-                        <view class="countHouse">看房1套</view>
-                        <view class="address">深圳市宝安区西乡2巷12号</view>
+                        <view class="dateTitle {{item.isCancel?'deleteLine':''}}">{{item.appointDate}}</view>
+                        <view class="countHouse">看房{{item.houseNum}}套</view>
+                        <view class="address">{{item.houseContent}}</view>
                         <view wx:if="{{!item.isCancel}}">确认中</view>
                         <view class="cancel" wx:if="{{item.isCancel}}">取消</view>
                     </view> 
                     
                     <view class="item-bd">
-                        <view class="avatar"><image src=""></image></view>
-                        <view class="brokerName">张三</view>
-                        <view class="tellphone" bindtap="call">
+                        <view class="avatar"><image src="{{item.broker.photo?item.broker.photo:'../../images/astate.png'}}"></image></view>
+                        <view class="brokerName">{{item.broker.emplName}}</view>
+                        <view class="tellphone" data-phone="{{item.broker.phone}}" bindtap="call">
                             <image src="../../images/phone.png">电话</image>
                         </view>
                     </view>
