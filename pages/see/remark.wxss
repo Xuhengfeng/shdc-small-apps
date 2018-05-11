@@ -1,0 +1,33 @@
+.header{
+    height: 100rpx;
+    line-height: 100rpx;
+    background: #f2f2f2;
+    padding-left: 25rpx;
+    color: #666666;
+}
+.header text{
+    font-size: 30rpx;
+    margin-right: 25rpx;
+}
+.tagContent{
+    padding: 50rpx 24rpx 80rpx;
+    background: #ffffff;
+}
+.tagContent .remark1{
+    padding-bottom: 40rpx;
+}
+.tagContent .remark2{
+    padding: 80rpx 0 30rpx;
+}
+.tagContent .tag{
+    display: inline-block;
+    margin: 0 40rpx 20rpx 0;
+    padding: 15rpx 20rpx;
+    background: #f2f2f2;
+    word-break: break-all;
+    border-radius: 10rpx;
+}
+.bgColor{
+    background: #ff4343!important;
+    color: #ffffff;
+}

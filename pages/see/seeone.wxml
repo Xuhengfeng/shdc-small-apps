@@ -37,34 +37,34 @@
           <view class="weui-tab__content twoContent" hidden="{{activeIndex != 1}}">
               <!-- 已看记录 -->
               <view class="weui-panel__bd">
-                    <view class="brokerItem" wx:for="{{[1,1,1,1]}}">
+                    <view class="brokerItem" wx:for="{{borkerItems}}">
                         <view class="brokerItem-hd">
-                            <view><text class="time">2018.03.28下午</text><text class="name">张三</text>带看</view>
+                            <view><text class="time">{{item.scheduleTime}}</text><text class="name">{{item.brokerName}}</text>带看</view>
                             <view>
                                 <image src="../../images/complain.png"></image>
                                 <image src="../../images/flower.png"></image>
                             </view>
                         </view>
-                        <block wx:for="{{[1,1]}}" wx:key="index" wx:for-item="item">
-                            <view class="item" data-id="{{item.sdid}}" bindtap="guesslike">
+                        <block wx:for="{{item.houseList}}" wx:key="index" wx:for-item="item2">
+                            <view class="item" data-id="{{item2.sdid}}" bindtap="guesslike">
                                 <view class="image">
-                                    <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
+                                    <image src="{{item2.housePic?item2.housePic: '../../images/astate.png'}}"></image></view>
                                 <view class="item-content">
-                                    <view class="item-title">{{item.houseTitle}}</view>
-                                    <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
+                                    <view class="item-title">{{item2.houseTitle}}</view>
+                                    <view class="description">{{item2.areaName}} {{item2.districtName}} {{item2.houseDirection}}</view>                        
                                     <view  class="houseTypeInfo">
-                                        <text>{{item.houseType}}</text>{{item.builtArea}}m²
+                                        <text>{{item2.houseType}}</text>{{item2.builtArea}}m²
                                     </view>
 
                                         <view class="houseLabel">
-                                        <text wx:for="{{item.houseTag}}" 
+                                        <text wx:for="{{item2.houseTag}}" 
                                                 wx:key="{{index2}}"
-                                                wx:for-item="item2" 
-                                                wx:for-index="index2">{{item2}}</text>
+                                                wx:for-item="item3" 
+                                                wx:for-index="index2">{{item3}}</text>
                                         </view>
 
-                                    <view class="housePrice">{{item.saleTotal}}万
-                                        <text>{{item.salePrice}}元/平</text>
+                                    <view class="housePrice">{{item2.saleTotal}}万
+                                        <text>{{item2.salePrice}}元/平</text>
                                     </view>
                                 </view>
                             </view>

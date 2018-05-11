@@ -1,0 +1,12 @@
+<view class="header">
+    <text>光明小区学区房</text><text>两房一厅</text>263万
+</view>
+<view class="tagContent" style="height: 800rpx;">
+    <view class="remark1">标签备注</view>
+    <view wx:for="{{tags}}"
+          class="tag {{index == num ? 'bgColor':''}}"
+          data-index="{{index}}"
+          bindtap="selectItem">{{item}}</view>
+    <view class="remark2">文字备注</view>
+    <textarea placeholder="用文字记录您对这套房子的看房感受"></textarea>
+</view>

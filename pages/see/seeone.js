@@ -14,9 +14,9 @@ Page({
       {isCancel: true},
       {isCancel: false}
     ],
+    borkerItems: [],//经纪人已看记录 
     hasMore: false,
     showload: false,
-    borkerItems: []//经纪人已看记录
     //待看日程 已看记录 看房报告
     IPS: [Api.IP_READYLIST, Api.IP_RENTCOLLECTIONLIST, Api.IP_COLLECTIONLIST],
   },
@@ -35,11 +35,24 @@ Page({
   },
   //待看日程
   seeScheduleRequest(num) {
-    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken")}
+    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken").data}
     utils.get(this.data.IPS[num],params)
     .then((data)=>{
       data.data.forEach((item)=>{item.isCancel = false});
       this.setData({houseList: data.data});
+    })
+  },
+  //经纪人已看记录
+  borkerItemsRequest() {
+    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken").data}
+    utils.get(Api.IP_COMPLETE,params)
+    .then((data)=>{
+      data.data.forEach((item)=>{
+        item.houseList.forEach((item2)=>{
+          item2.houseTag = item2.houseTag.split(',');
+        })
+      })
+      this.setData({borkerItems: data.data});
     })
   },
   //跳转详情
@@ -59,19 +72,12 @@ Page({
       activeIndex: e.currentTarget.id
     });
   },
-  //经纪人 经纪人已看记录
-  borkerItemsRequest() {
-    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken")}
-    utils.get(Api.IP_COMPLETE,params)
-    .then((data)=>{
-      console.log(data)
-    })
-  },
+  
   //请求
   getDataFromServer(num) {
     switch(num){
-      case 0:;break;//请求一
-      case 1:;break;//请求二
+      case 0:this.seeScheduleRequest(0);;break;//请求一
+      case 1:this.borkerItemsRequest();break;//请求二
       case 2:;break;//请求三
     }
     // this.setData({ hasMore: true })

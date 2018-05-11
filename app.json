@@ -1,8 +1,10 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/index/lookHouseList",
     "pages/see/seeone",
+    "pages/see/apprasieBroker",
+    "pages/index/lookHouseList",
+    "pages/see/remark",
     "pages/see/house",
     "pages/see/seeoneDetail",
     "pages/houseDetail/lookHouse",

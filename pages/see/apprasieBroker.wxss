@@ -1,0 +1,82 @@
+page{
+    background: #ffffff;
+}
+.brokerApprasie{
+    padding: 40rpx 24rpx 0;
+    background: #ffffff;
+}
+.name{
+    font-size: 30rpx;
+    margin-bottom: 20rpx;
+    color: #666666;
+}
+.decription{
+    font-size: 30rpx;
+    color: #666666;
+    width: calc(100% - 120rpx);
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    margin-bottom: 80rpx;
+}
+.decription text{
+    margin-right: 20rpx;
+}
+.starLevel{
+    font-size: 36rpx;
+    color: #222222;
+}
+.starimg{
+    width: 464rpx;
+    margin: 0 auto;
+    padding: 60rpx 0; 
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+.starimg image{
+    width: 63rpx;
+    height: 60rpx;
+    margin-right: 40rpx;
+}
+.tips{
+    padding: 30rpx 20rpx;
+    font-size: 28rpx;
+    color: #cacaca;
+}
+textarea{
+    width: 100%;
+    height: 400rpx;
+    padding: 30rpx 20rpx;
+    background: #f9f9f9;
+    box-sizing: border-box;
+    border-radius: 10rpx;
+}
+.tagContent{
+    padding: 60rpx 24rpx 50rpx;
+    background: #ffffff;
+}
+.tagContent .remark1{
+    padding-bottom: 40rpx;
+}
+.tag{
+    display: inline-block;
+    margin: 0 40rpx 20rpx 0;
+    padding: 15rpx 20rpx;
+    background: #f2f2f2;
+    word-break: break-all;
+    border-radius: 10rpx;
+    font-size: 22rpx;
+    color:#666666;
+}
+button{
+    background: #ff4343;
+    margin: 0 75rpx 200rpx;
+    color: #ffffff;
+    font-size: 34rpx;
+}
+.button-hover {
+    background-color: #ff4343;
+    color: #ffffff;
+    opacity: 0.8;
+}
