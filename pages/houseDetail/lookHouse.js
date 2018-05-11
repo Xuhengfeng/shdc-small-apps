@@ -25,6 +25,7 @@ Page(filter.loginCheck({
     brokerId: '',
     userPhone: "",//用户手机号
     houseDetailSdid: '',
+    currentCity: ''
    },
    //自定义城市控件
   showOwnPicker() {
@@ -60,6 +61,7 @@ Page(filter.loginCheck({
     wx.getStorage({
       key: 'selectCity',
       success: (res) => {
+        this.setData({currentCity: res.data.value})
         //用户token
         wx.getStorage({
           key: 'userToken',
@@ -71,6 +73,7 @@ Page(filter.loginCheck({
               appointDate: this.data.dataTime,
               appointRange: this.data.dayTime,
               unicode: token,
+              scity: this.data.currentCity,
               brokerId: this.data.brokerId,
               houseList: this.data.select
             };

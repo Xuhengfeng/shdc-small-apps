@@ -16,6 +16,7 @@ Page({
     ],
     hasMore: false,
     showload: false,
+    borkerItems: []//经纪人已看记录
     //待看日程 已看记录 看房报告
     IPS: [Api.IP_READYLIST, Api.IP_RENTCOLLECTIONLIST, Api.IP_COLLECTIONLIST],
   },
@@ -30,7 +31,6 @@ Page({
         });
       }
     });
-    //this.getDataFromServer(0);
     this.seeScheduleRequest(0);
   },
   //待看日程
@@ -38,16 +38,13 @@ Page({
     let params = { pageNo: 1, unicode: wx.getStorageSync("userToken")}
     utils.get(this.data.IPS[num],params)
     .then((data)=>{
-      data.data.forEach((item)=>{
-        item.isCancel = false
-      })
+      data.data.forEach((item)=>{item.isCancel = false});
       this.setData({houseList: data.data});
-      console.log(data.data)
     })
   },
   //跳转详情
-  showDetail() {
-    wx.navigateTo({url: 'seeoneDetail'});
+  showDetail(e) {
+    wx.navigateTo({url: 'seeoneDetail?id='+e.currentTarget.dataset.id});
   },
   //拨打电话
   call() {
@@ -61,6 +58,14 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
+  },
+  //经纪人 经纪人已看记录
+  borkerItemsRequest() {
+    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken")}
+    utils.get(Api.IP_COMPLETE,params)
+    .then((data)=>{
+      console.log(data)
+    })
   },
   //请求
   getDataFromServer(num) {
@@ -78,3 +83,4 @@ Page({
     // })
   }
 });
+

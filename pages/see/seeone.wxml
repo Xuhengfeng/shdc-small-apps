@@ -10,10 +10,12 @@
       </view>
       <view class="section weui-tab__panel headerTab">
           <view class="weui-tab__content oneContent" hidden="{{activeIndex != 0}}">
+              <!-- 待看日程 -->
               <view class="weui-panel__bd daikan" 
                     wx:for="{{houseList}}" 
                     wx:key="index" 
                     data-index="{{index}}"
+                    data-id="{{item.id}}"
                     bindtap="showDetail">
                     <view class="item-hd">
                         <view class="dateTitle {{item.isCancel?'deleteLine':''}}">{{item.appointDate}}</view>
@@ -24,7 +26,7 @@
                     </view> 
                     
                     <view class="item-bd">
-                        <view class="avatar"><image src="{{item.broker.photo?item.broker.photo:'../../images/astate.png'}}"></image></view>
+                        <view class="avatar"><image src="{{item.broker.photo?item.broker.photo:'../../images/avatar.png'}}"></image></view>
                         <view class="brokerName">{{item.broker.emplName}}</view>
                         <view class="tellphone" data-phone="{{item.broker.phone}}" bindtap="call">
                             <image src="../../images/phone.png">电话</image>
@@ -33,17 +35,49 @@
               </view>
           </view>
           <view class="weui-tab__content twoContent" hidden="{{activeIndex != 1}}">
+              <!-- 已看记录 -->
               <view class="weui-panel__bd">
-                <block wx:for="{{[1,1,1]}}" wx:key="index" wx:for-item="item">
-              
-                </block>
+                    <view class="brokerItem" wx:for="{{[1,1,1,1]}}">
+                        <view class="brokerItem-hd">
+                            <view><text class="time">2018.03.28下午</text><text class="name">张三</text>带看</view>
+                            <view>
+                                <image src="../../images/complain.png"></image>
+                                <image src="../../images/flower.png"></image>
+                            </view>
+                        </view>
+                        <block wx:for="{{[1,1]}}" wx:key="index" wx:for-item="item">
+                            <view class="item" data-id="{{item.sdid}}" bindtap="guesslike">
+                                <view class="image">
+                                    <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
+                                <view class="item-content">
+                                    <view class="item-title">{{item.houseTitle}}</view>
+                                    <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
+                                    <view  class="houseTypeInfo">
+                                        <text>{{item.houseType}}</text>{{item.builtArea}}m²
+                                    </view>
+
+                                        <view class="houseLabel">
+                                        <text wx:for="{{item.houseTag}}" 
+                                                wx:key="{{index2}}"
+                                                wx:for-item="item2" 
+                                                wx:for-index="index2">{{item2}}</text>
+                                        </view>
+
+                                    <view class="housePrice">{{item.saleTotal}}万
+                                        <text>{{item.salePrice}}元/平</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </block>
+                        <view class="remark">添加房源备注</view>
+                    </view>
+
               </view>
           </view>
           <view class="weui-tab__content threeContent" hidden="{{activeIndex != 2}}">
+              <!-- 看房报告 -->
               <view class="weui-panel__bd">
-                <block wx:for="{{[1,1,1]}}" wx:key="index" wx:for-item="item">
-              
-                </block>
+                  开发中
               </view>
           </view>
       </view>

@@ -16,23 +16,25 @@ Page({
     //   {isMove: false, isSelect: true},
     //   {isMove: false, isSelect: true},
     // ],
+    currentCity: '',
+    token: '',
   },
   onLoad() {
     wx.getStorage({
       key: 'selectCity',
       success: (res) => {
+        this.setData({currentCity: res.data.value})
         wx.getStorage({
           key: 'userToken',
           success: (response)=> {
-            let token = response.data
+            this.setData({token: response.data});
             let params = {
-              scity: res.data.value,
               pageNo: 1,
-              unicode: token
+              scity: this.data.currentCity,
+              unicode: this.data.token
             };
             utils.get(Api.IP_DETAILLIST,params)
             .then((data)=>{
-              console.log(data.data)
               this.setData({list: data.data})
             });
           }
@@ -136,33 +138,18 @@ Page({
       }
     }
     this.setData({list: list,count: count});
-
     //请求删除
-  // }else{
-  //   count = this.data.count - 1;      
-  //   wx.getStorage({
-  //     key: 'userToken',
-  //     success: (res)=>{
-  //       let params = {
-  //         scity: this.data.currentCity,
-  //         unicode: res.data,
-  //         // id: this.data.houseDetailId
-  //       }
-  //       wx.request({
-  //         url: Api.IP_DETAILLIST+'/'+this.data.houseDetail.id,
-  //         data: params,
-  //         header: {
-  //           'unique-code': params.unicode
-  //         },
-  //         method: 'DELETE',
-  //         success: (res)=> {
-  //             console.log(res)
-  //         }
-  //       })
-  //       // utils.delete(Api.IP_DETAILLIST, params)
-  //       // .then(()=>{});
-  //     }
-  //   })
+    let params = {
+      scity: this.data.currentCity,
+      unicode: this.data.token
+    }
+    utils.delete(Api.IP_APPOINTDELETE+"/"+this.data.list[index].id, params)
+    .then(data =>{wx.showModal({content: data.data})});
+    //刷新上一个页面
+    let pages = getCurrentPages();//当前页面
+    let prevPage = pages[pages.length - 2];//上一页面
+    console.log(prevPage)
+    prevPage.seeHouseRequest(this.data.currentCity);
   },
   //预约
   yuyue() {

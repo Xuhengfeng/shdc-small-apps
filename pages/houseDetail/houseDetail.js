@@ -100,6 +100,7 @@ Page({
           longitude: data.data.px,
           houseDetail: data.data,
           likeFlag: data.data.isCollect,
+          lookFlag: data.data.isAppoint
         })
         //关联小区详情 附近房源详情 同小区房源 待看房源列表
         this.guanlianListRequest(data.data.px, data.data.py, city, data.data.buildSdid);
@@ -246,9 +247,8 @@ Page({
           .then(()=>{});
         }
       })
-    
+      this.setData({lookFlag: false, count: count});
     }
-    this.setData({lookFlag: !this.data.lookFlag, count: count});
   },
   //带看列表
   goSeeList() {

@@ -57,8 +57,7 @@ button{
   top: 0;
   background: #ffffff;
 }
-
-/* 待看日程 内容*/
+/* 待看日程 内容---------------------------------------------------------------------------------*/
 .oneContent{
   background: #f9f9f9;
 }
@@ -141,3 +140,50 @@ button{
 .cancel{
   background: #e6e6e6!important;
 }
+
+
+/* 带看记录------------------------------------------------------------------ */
+@import "../template/template.wxss";
+.brokerItem{
+    background: #ffffff;
+    margin-bottom: 20rpx;
+}
+.brokerItem-hd{
+    background: #f2f2f2;
+    height: 100rpx; 
+    padding-left: 24rpx;
+}
+.brokerItem-hd>view:first-child{
+    float: left;
+    height: 100rpx; 
+    line-height: 100rpx;
+}
+.brokerItem-hd>view:first-child .time{
+    margin-right: 24rpx;
+}
+.brokerItem-hd>view:first-child .name{
+    color: #ff4343;
+}
+.brokerItem-hd>view:last-child{
+    float: right;
+    height: 100rpx; 
+    line-height: 100rpx;
+}
+.brokerItem-hd image{
+    float: right;
+    margin-top: 25rpx;
+    width: 50rpx;
+    height: 48rpx;
+}
+.brokerItem-hd image:nth-of-type(1){
+    margin-right: 44rpx;
+}
+.brokerItem-hd image:nth-of-type(2){
+    margin-right: 70rpx;
+}
+.remark{
+    height: 100rpx;
+    line-height: 100rpx;
+    text-align: center;
+}
+/* 看房报告----------------------------------------------------------------- */

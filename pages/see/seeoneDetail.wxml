@@ -1,7 +1,7 @@
 <view class="header">
-    <view class="dateTitle">03月28号下午</view>
-    <view class="countHouse">看房1套</view>
-    <view class="address">深圳市宝安区西乡2巷12号</view>
+    <view class="dateTitle">{{seeHouseDetail.appointDate}}</view>
+    <view class="countHouse">看房{{seeHouseDetail.houseNum}}套</view>
+    <view class="address">{{seeHouseDetail.houseContent}}</view>
     <image src="../../images/bg-on.png" wx:if="{{!isCancel}}"></image>
     <image src="../../images/bg-off.png" wx:if="{{isCancel}}"></image>
 </view>
@@ -9,27 +9,27 @@
 <view class="main">
     <view class="border-left">
          <view class="content content3" wx:if="{{show3}}">
-            <view class="decTitle">看房日期安排成功<view>2017.03.28</view></view>
-            <view class="lookHouseTime">看房时间:<text>03月28号下午</text></view>
-            <view class="lookHouseCount">看房套数:<text>经纪人会电话联系你的</text></view>
-            <view class="brokerTel">联系方式:<text>张三<text>15857009524</text></text></view>
+            <view class="decTitle">看房日期安排成功<view>{{seeHouseDetail.scheduleTime}}</view></view>
+            <view class="lookHouseTime">看房时间:<text>{{seeHouseDetail.appointDate}}</text></view>
+            <view class="lookHouseCount">看房套数:<text>{{seeHouseDetail.houseNum}}</text></view>
+            <view class="brokerTel">联系方式:<text>{{seeHouseDetail.broker.emplName}}<text>{{seeHouseDetail.broker.phone}}</text></text></view>
             <view class="querySeeHouse {{isCancel?'cancel':''}}" bindtap="seeHouse">查看房源</view> 
             <view class="circle {{isCancel?'cancel':''}}">3</view>
         </view>
 
         <view class="content content2" wx:if="{{show2}}">
-            <view class="decTitle" wx:if="{{isLoding}}">经纪人安排成功 <view>03.28 12.30</view></view>
-            <view class="decTitle loding" wx:if="{{!isLoding}}">正在为您安排经纪人 <view>03.28 12.30</view></view>
+            <view class="decTitle" wx:if="{{isLoding}}">经纪人安排成功 <view>{{seeHouseDetail.procScheduleTime}}</view></view>
+            <view class="decTitle loding" wx:if="{{!isLoding}}">正在为您安排经纪人 <view>{{seeHouseDetail.procScheduleTime}}</view></view>
             <view class="decription">经纪人会电话联系你的</view>
             <view class="brokerInfo">
                 <view class="avatar">
-                    <image src=""></image>
+                    <image src="{{seeHouseDetail.broker.photo?seeHouseDetail.broker.photo:'../../images/avatar.png'}}"></image>
                 </view>
                 <view class="brokerName">
-                    <view>张三<text>高级经纪人</text></view>
+                    <view>{{seeHouseDetail.broker.emplName}}<text>{{seeHouseDetail.broker.positionName}}</text></view>
                     <view>所在门店</view>
                 </view>
-                <view class="tellphone">
+                <view class="tellphone" data-telNum="{{seeHouseDetail.broker.phone}}" bindtap="tellbroker">
                     <image src="../../images/phone.png">电话</image>
                 </view>
             </view>
@@ -37,10 +37,10 @@
         </view>
 
         <view class="content content1" wx:if="{{show1}}">
-            <view class="decTitle">提交预约成功<view>2017.03.28</view></view>
-            <view class="lookHouseTime">看房时间:<text>03月28号下午</text></view>
+            <view class="decTitle">提交预约成功<view>{{seeHouseDetail.createDateTime}}</view></view>
+            <view class="lookHouseTime">看房时间:<text>{{seeHouseDetail.appointDate}}</text></view>
             <view class="lookHouseCount">看房套数:<text>经纪人会电话联系你的</text></view>
-            <view class="brokerTel">联系方式:<text>张三<text>15857009524</text></text></view>
+            <view class="brokerTel">联系方式:<text>{{seeHouseDetail.broker.emplName}}<text>{{seeHouseDetail.broker.phone}}</text></text></view>
             <view class="circle {{isCancel?'cancel':''}}">1</view>
         </view>
 
