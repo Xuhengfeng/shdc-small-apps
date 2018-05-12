@@ -81,7 +81,7 @@ Page(filter.loginCheck({
               if(data.data == null){
                 wx.showModal({content: data.msg});
               }else{
-                wx.navigateTo({url: '../houseDetail/houseDetail?title=房源详情&id='+this.data.houseDetailSdid});
+                wx.navigateBack();
               } 
             })
           }
@@ -114,15 +114,7 @@ Page(filter.loginCheck({
           userPhone: str.slice(0,3)+"****"+str.slice(7,11)
         });
       } 
-    })
-    //获取房源详情的id
-    wx.getStorage({
-      key: 'houseDetailId',
-      success: (res)=> {
-        this.setData({houseDetailSdid: res.data});
-      } 
-    })
-    
+    })  
     //获取当前的时间
     utils.get(Api.IP_CURRENTDATETIME)
     .then((data)=>{

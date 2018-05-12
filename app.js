@@ -37,22 +37,14 @@ App({
   },
   onLaunch() {
     wx.login({
-      success: res1 => {
-        if (res1.code) {
-          wx.getUserInfo({
-            withCredentials: true,
-            success: (res) => {
-              this.globalData.userInfo = res.userInfo;
-              if (this.userInfoReadyCallback) { this.userInfoReadyCallback(res)};
-              wx.request({
-                url: "http://112.74.181.229:7031/custAppApi/member/authWeixin",
-                data: {"code": res1.code},
-                method: 'GET',
-                success: response => {
-                  wx.setStorageSync('userInfo', JSON.stringify(res.userInfo));
-                  wx.setStorageSync('ciphertext', JSON.stringify(response.data.data));
-                }
-              })
+      success: res => {
+        if (res.code) {
+          wx.request({
+            url: "http://112.74.181.229:7031/custAppApi/member/authWeixin",
+            data: {"code": res.code},
+            method: 'GET',
+            success: response => {
+              wx.setStorageSync('ciphertext', JSON.stringify(response.data.data));
             }
           })
         }

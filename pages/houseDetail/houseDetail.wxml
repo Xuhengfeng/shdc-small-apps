@@ -271,25 +271,25 @@
 </view>
 
 <view class="footer">
-   <!-- 二手房 租房 -->
-    <view wx:if="{{detailType == 11}}">
-      <view class="type1">
-        <view>
-            <view bindtap="toggleSelectLike">
-              <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
-              <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
-            </view>
-            <view class="daiKanList" bindtap="goSeeList">
-              <image src="../../images/see.png" style="width:49rpx;height:49rpx"/>
-              <view class="numCount" wx:if="{{count>0?true:false}}">{{count}}</view>  
-            </view>
+      <!-- 二手房 -->
+      <view wx:if="{{detailType == 11}}">
+        <view class="type1">
+          <view>
+              <view bindtap="toggleSelectLike">
+                <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
+                <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
+              </view>
+              <view class="daiKanList" bindtap="goSeeList">
+                <image src="../../images/see.png" style="width:49rpx;height:49rpx"/>
+                <view class="numCount" wx:if="{{count>0?true:false}}">{{count}}</view>  
+              </view>
+          </view>
+          <view bindtap="lookHouse" wx:if="{{!isAppoint}}">预约看房</view>
+          <view bindtap="lookHouse" wx:if="{{isAppoint}}" style="background:#cacaca;">已经加入待看</view>
+          <view bindtap="linkman">联系经纪人</view>
         </view>
-        <view bindtap="lookHouse" wx:if="{{lookFlag}}">预约看房</view>
-        <view bindtap="lookHouse" wx:if="{{!lookFlag}}" style="background:#cacaca;">已经加入待看</view>
-        <view bindtap="listenerButton">联系经纪人</view>
       </view>
-    </view>
-
+     <!-- 租房  -->
      <view wx:if="{{detailType == 22}}">
       <view class="type1">
         <view style="flex: 100rpx 0 0">
@@ -298,10 +298,9 @@
               <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
             </view>
         </view>
-        <view bindtap="listenerButton">联系经纪人</view>
+        <view bindtap="linkman">联系经纪人</view>
       </view>
     </view>
-
     <!-- 小区 -->
     <view class="type2" wx:if="{{detailType==33}}">
       <view class="addCollection" bindtap="toggleSelectLike">
@@ -324,9 +323,7 @@
         </view>
        </view>
 
-
-
-  <!-- twohandhouse -->
+  <!-- 猜你喜欢 -->
   <block wx:for="{{guessYoulikeHouse}}" wx:key="index" wx:for-item="item">
       <view class="item" data-id="{{item.sdid}}" bindtap="RefreshHouseDetail">
             <view class="image">
@@ -366,4 +363,9 @@
   <loading wx:if="{{showload}}">加载中...</loading>
 </view>
 
- <template is="shadowLay" data="{{hiddenModal,listenerButton,houseDetail}}"/> 
+<!-- 联系人 -->
+<template is="linkman" data="{{isLinkman,cancelLinkman,houseDetail}}"/> 
+
+
+<!-- 预约看房 -->
+<template is="appointment" data="{{isAppointment,cancelLookHouse}}"/> 

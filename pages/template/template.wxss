@@ -152,49 +152,9 @@
   background: rgba(0,0,0,.5);
   z-index: 1000;
 } 
-.shadowLay2 .dialog{
-  width: 600rpx;
-  height: auto;
-  background: #ffffff;
-  border-radius: 10rpx;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  box-sizing: border-box;
-}
 .dialog-header{
   padding: 60rpx 30rpx 0;
   overflow: hidden;
-}
-.dialog .avator{
-  float: left;
-  width: 160rpx;
-  height: 160rpx;
-  background: #cacaca;
-  margin-right: 30rpx;
-  border-radius: 15rpx;
-  overflow: hidden;
-}
-.dialog .avator image{
-  width: 100%;
-  height: 100%;
-}
-.dialog .discription{
-  overflow: hidden;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.dialog .dialog-body{
-  text-align: center;
-  padding: 40rpx 0;
-  letter-spacing: 5rpx;
-  font-size: 36rpx;
-  color: #333333;
-  line-height: 1;
 }
 
 /* 筛选背景高亮 */
@@ -220,3 +180,4 @@
   border-radius: 50%;
   font-weight: bold;
 } 
+

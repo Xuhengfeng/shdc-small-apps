@@ -8,14 +8,31 @@ Page({
     imgUrls: [],//轮播图
     hasMore: false,
     purchase_guide: null,//二手房购房指南资讯
-    plate: [],//四个栏目四张图片
-    hotrecommend: [],//热门推荐
+    plate: [
+      {title:"独家好房",subhead:"价格优惠",imageUrl:"../../images/1.png"},
+      {title:"新上好房",subhead:"一周内新上房",imageUrl:"../../images/2.png"},
+      {title:"品质租房",subhead:"领包入住",imageUrl:"../../images/3.png"},
+      {title:"热门好房",subhead:"热关注度房源",imageUrl:"../../images/4.png"},
+    ],//四个栏目四张图片
+    hotrecommend: [
+      {title:'世华易居买房大放送',summary:'即日起世华易居买房大放送'},
+      {title:'世华易居买房大放送',summary:'即日起世华易居买房大放送'},
+      {title:'世华易居买房大放送',summary:'即日起世华易居买房大放送'},
+    ],//热门推荐
+    newinfohouse: [
+      {title:'世华易居买房大放送',summary:'即日起世华易居买房大放送'},
+      {title:'世华易居买房大放送',summary:'即日起世华易居买房大放送'},
+      {title:'世华易居买房大放送',summary:'即日起世华易居买房大放送'},
+    ],//新盘推荐
+    hotbuilding: [
+      {buildName:'世华易居买房大放送',avgSalePrice:0,saleCount:0,rentCount:0},
+      {buildName:'世华易居买房大放送',avgSalePrice:0,saleCount:0,rentCount:0},
+      {buildName:'世华易居买房大放送',avgSalePrice:0,saleCount:0,rentCount:0},
+    ],//热门小区
     houseUsed: null,//成交量统计
     houseList: [],//房源数据
-    hotbuilding: [],//热门小区
-    newinfohouse: [],//新盘推荐
     currentCity: null, //默认城市
-    isAuth: false,//获取用户主动授权
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),//是否授权
     myLocation: "",//默认地址
     pageNo: 1,//默认第1页
     flagPrice: true, //是否有价格  二手房 租房
@@ -27,11 +44,21 @@ Page({
     IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING, Api.IP_NEWINFO, Api.IP_PLATE],
   },
   onLoad(){
-    //判断是否授权
-    wx.getStorage({
-      key: 'userInfo',
-      success: (res)=> {},
-      fail:()=>{this.setData({isAuth:true})}
+    wx.hideTabBar();
+    // 查看是否授权
+    console.log(wx.canIUse('button.open-type.getUserInfo'))
+    wx.getSetting({
+      success: (res)=>{
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: (res)=> {
+              console(res.userInfo)
+              wx.showTabBar();
+            }
+          })
+        }
+      }
     })
     //定位
     wx.getLocation({
@@ -93,14 +120,14 @@ Page({
     //四个栏目四个图片
     utils.get(this.data.IPS[5] + "/INDEX_PLATE")
     .then((data) => {
-      this.setData({ plate: data.data });
+      if(data.data.length) this.setData({ plate: data.data });
     })  
     //热门推荐
     utils.get(this.data.IPS[4] + "1001", {
       pageNo: 1
     })
     .then((data) => {
-      this.setData({ hotrecommend: data.data });
+      if(data.data.length) this.setData({ hotrecommend: data.data });
     })
     //获取主页二手房指南资讯
     utils.get(this.data.IPS[1] + city + "/PURCHASE_GUIDE", {scity: city})
@@ -118,14 +145,14 @@ Page({
       scity: city
     })
     .then((data) => {
-      this.setData({ hotbuilding: data.data });
+      if(data.data.length) this.setData({ hotbuilding: data.data });
     })
     //新盘推荐
     utils.get(this.data.IPS[4] + "1002", {
       pageNo: 1
     })
     .then((data) => {
-      this.setData({ newinfohouse: data.data });
+      if(data.data.length) this.setData({ newinfohouse: data.data });
     })
 
 
@@ -139,6 +166,7 @@ Page({
   selectYouLike(e) {//猜你喜欢 二手房 租房
     this.setData({ num: e.target.dataset.index })
     this.cacheHouseType(this.data.guessYouLike[this.data.num]);
+    this.cacheHouseType2(this.data.guessYouLike[this.data.num]);
     let IP = this.data.guessLikeIP[this.data.num] + '/' + this.data.currentCity;
     let params = { pageNo: 1,scity: this.data.currentCity};
     this.getDataFromServer(IP, params);
@@ -209,6 +237,7 @@ Page({
   //猜你喜欢
   guesslike(e) {
     this.cacheHouseType(this.data.guessYouLike[this.data.num]);
+    this.cacheHouseType2(this.data.guessYouLike[this.data.num]);
     wx.navigateTo({url: "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id});
   },
   //缓存房源类型 可以改变的 
@@ -224,11 +253,14 @@ Page({
     this.setData({isAuth: false});
   },
   //去授权
-  bindGetUserInfo(e) {
-    this.setData({isAuth: false});
+  userInfoHandle(e) {
     wx.setStorage({
       key:'userInfo',
-      data: JSON.stringify(e.detail.userInfo)
+      data: JSON.stringify(e.detail.userInfo),
+      success:()=>{
+        wx.showTabBar();
+        this.setData({canIUse: false}
+      )}
     })
   }
 })

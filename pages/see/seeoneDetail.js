@@ -7,14 +7,25 @@ Page({
     isCancel: false,//取消中 正常显示样式
     isShadow: false,//取消对话框
     //显示对应的进度
-    show3: true,
-    show2: true,
-    show1: true,
-    itemIndex: 0,//判断是那个跳转进来的
-    seeHouseDetail: ''
+    show3: false,
+    show2: false,
+    show1: false,
+    seeHouseDetail: '',
+    seeHouseId: null,
+    currentCity: '',
   
   },
   onLoad(options) {
+    if(options.status==2){
+      this.setData({isCancel: true})
+    }
+    wx.getStorage({
+      key: 'selectCity',
+      success: (res)=>{
+        this.setData({currentCity: res.data.value})
+      }
+    })
+    this.setData({seeHouseId: options.id});
     this.seeHouseDetailRequest(options.id);
   },
   //取消预约
@@ -23,12 +34,19 @@ Page({
   },
   //取消预约 确定
   OrderConfirm() {
-    let flag = 'houseList['+this.data.itemIndex+'].isCancel';
-    let pages = getCurrentPages();//当前页面
-    let prevPage = pages[pages.length - 2];//上一页面
-        prevPage.setData({[flag]: true});
-    this.setData({isCancel: true,isShadow: false});
-    wx.navigateBack();
+    let params = {
+      "cancelCause": "取消",
+      "id": this.data.seeHouseId,
+      "unicode": wx.getStorageSync("userToken"),
+      "scity": this.data.currentCity
+    }
+    utils.post(Api.IP_ORDERCANCEL, params)
+    .then(data=>{
+      let pages = getCurrentPages();//当前页面
+      let prevPage = pages[pages.length - 2];//上一页面
+          prevPage.onLoad();
+      wx.navigateBack();
+    })
   },
   //取消预约 取消
   OrderCancel() {

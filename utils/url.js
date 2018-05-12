@@ -23,6 +23,7 @@ export const IP_APPOINTDELETE = SERVER_IPS + "/appoint/delete/";//取消加入�
 export const IP_DETAILLIST = SERVER_IPS + "/appoint/detailLsit";//待看列表
 export const IP_READYLIST = SERVER_IPS + "/appoint/readyList";//待看日程列表
 export const IP_READYDETAIL = SERVER_IPS + "/appoint/readyDetail/";//待看日程详情
+export const IP_ORDERCANCEL = SERVER_IPS + "/appoint/cancel";//取消预约
 export const IP_COMPLETE = SERVER_IPS + "/appoint/complete";//已看记录
 
 

@@ -200,7 +200,7 @@
         </block>
 
 
-        <view class="tips">
+        <!-- <view class="tips">
             <view wx:if="{{hasMore}}">
                 <image src="../../images/loading.gif" mode="aspectFill"/>
                 <text>玩了命的加载中...</text>
@@ -209,17 +209,15 @@
             <navigator wx:elif="{{twohandhouse.length!=0}}" 
                         url="../searchList/searchList?houseType={{guessYouLike[num]}}"
                         hover-class="none">查看全部房源</navigator>
-        </view> 
+        </view>  -->
     </view>
 
 <!-- 用户授权弹窗 -->
-<view class="wxShadow" wx:if="{{isAuth}}">
+<view class="wxShadow" wx:if="{{canIUse}}">
     <view class="wechatAuth">
       <view class="txt">世华地产小程序需获取您的公开信息(昵称、头像等)</view>
       <view class="wxFooter">
-          <!-- <button open-type="getUserInfo" bindtap="gotoAuth">去授权</button>
-          <button bindtap="cancelAuth">拒绝</button> -->
-          <button wx:if="{{true}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+          <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandle">授权登录</button>
           <view wx:else>请升级微信版本</view>
       </view>
     </view>

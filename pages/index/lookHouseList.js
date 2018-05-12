@@ -108,12 +108,10 @@ Page({
     try{
       let res = wx.getSystemInfoSync().windowWidth;
       let scale = (750/2)/(w/2);//以宽度750px设计稿做宽度的自适应
-      // console.log(scale);
       real = Math.floor(res/scale);
       return real;
     } catch(e) {
       return false;
-     // Do something when catch error
     }
   },
   initEleWidth() {
@@ -122,13 +120,10 @@ Page({
   },
   //点击删除按钮事件
   delItem(e){
-    //获取列表中要删除项的下标
+    let count = 0;
     let index = e.currentTarget.dataset.index;
     let list = this.data.list;
-    //移除列表中下标为index的项
     list.splice(index,1);
-    //更新列表的状态
-    let count = 0;
     for (let i=0; i<list.length; i++) {
       //选中的
       if(list[i].isSelect == true){
@@ -148,7 +143,6 @@ Page({
     //刷新上一个页面
     let pages = getCurrentPages();//当前页面
     let prevPage = pages[pages.length - 2];//上一页面
-    console.log(prevPage)
     prevPage.seeHouseRequest(this.data.currentCity);
   },
   //预约
@@ -169,6 +163,6 @@ Page({
         continue;
       }
     }
-    wx.navigateTo({url: "../houseDetail/lookHouse?select="+JSON.stringify(this.data.select)});
+    wx.redirectTo({url: "../houseDetail/lookHouse?select="+JSON.stringify(this.data.select)});
   }   
 })

@@ -16,19 +16,19 @@
                     wx:key="index" 
                     data-index="{{index}}"
                     data-id="{{item.id}}"
+                    data-status="{{item.status}}"
                     bindtap="showDetail">
                     <view class="item-hd">
-                        <view class="dateTitle {{item.isCancel?'deleteLine':''}}">{{item.appointDate}}</view>
+                        <view class="dateTitle {{item.status==2?'deleteLine':''}}">{{item.appointDate}}</view>
                         <view class="countHouse">看房{{item.houseNum}}套</view>
                         <view class="address">{{item.houseContent}}</view>
-                        <view wx:if="{{!item.isCancel}}">确认中</view>
-                        <view class="cancel" wx:if="{{item.isCancel}}">取消</view>
+                        <view class="{{item.status==2?'cancel':''}}">{{status[item.status]}}</view>
                     </view> 
                     
                     <view class="item-bd">
                         <view class="avatar"><image src="{{item.broker.photo?item.broker.photo:'../../images/avatar.png'}}"></image></view>
                         <view class="brokerName">{{item.broker.emplName}}</view>
-                        <view class="tellphone" data-phone="{{item.broker.phone}}" bindtap="call">
+                        <view class="tellphone" data-phone="{{item.broker.phone}}" catchtap="call">
                             <image src="../../images/phone.png">电话</image>
                         </view>
                     </view>

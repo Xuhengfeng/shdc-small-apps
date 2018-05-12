@@ -8,21 +8,20 @@ Page({
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-    houseList: [//房源 取消中 正常显示样式
-      {isCancel: false},
-      {isCancel: false},
-      {isCancel: true},
-      {isCancel: false}
-    ],
+    houseList: [],
+    status: ['确认中','预约成功','已取消'],//0=确认中，1=预约成功，2=已取消
     borkerItems: [],//经纪人已看记录 
     hasMore: false,
     showload: false,
     //待看日程 已看记录 看房报告
-    IPS: [Api.IP_READYLIST, Api.IP_RENTCOLLECTIONLIST, Api.IP_COLLECTIONLIST],
+    IPS: [Api.IP_READYLIST, Api.IP_COMPLETE, Api.IP_COLLECTIONLIST],
+    num: 0,
+    currentCity: '',
+    page: 1
   },
   onLoad() {
+    wx.setNavigationBarTitle({title: "待看日程"});
     //待看日程
-    this.seeScheduleRequest()
     wx.getSystemInfo({
       success: (res) => {
         this.setData({
@@ -31,20 +30,25 @@ Page({
         });
       }
     });
-    this.seeScheduleRequest(0);
+    wx.getStorage({
+      key: 'selectCity',
+      success: (res)=>{
+        this.setData({currentCity: res.data.value})
+        this.seeScheduleRequest()
+      }
+    })
   },
   //待看日程
-  seeScheduleRequest(num) {
-    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken").data}
-    utils.get(this.data.IPS[num],params)
+  seeScheduleRequest() {
+    let params = { pageNo: 1,  scity: this.data.currentCity, unicode: wx.getStorageSync("userToken")}
+    utils.get(Api.IP_READYLIST, params)
     .then((data)=>{
-      data.data.forEach((item)=>{item.isCancel = false});
       this.setData({houseList: data.data});
     })
   },
   //经纪人已看记录
   borkerItemsRequest() {
-    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken").data}
+    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken")}
     utils.get(Api.IP_COMPLETE,params)
     .then((data)=>{
       data.data.forEach((item)=>{
@@ -57,7 +61,9 @@ Page({
   },
   //跳转详情
   showDetail(e) {
-    wx.navigateTo({url: 'seeoneDetail?id='+e.currentTarget.dataset.id});
+    let seeHouseId = e.currentTarget.dataset.id;
+    let status = e.currentTarget.dataset.status;
+    wx.navigateTo({url: `seeoneDetail?id=${seeHouseId}&status=${status}`});
   },
   //拨打电话
   call() {
@@ -69,24 +75,31 @@ Page({
     this.getDataFromServer(num);
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+      activeIndex: e.currentTarget.id,
+      num: num
     });
   },
   
   //请求
   getDataFromServer(num) {
     switch(num){
-      case 0:this.seeScheduleRequest(0);;break;//请求一
-      case 1:this.borkerItemsRequest();break;//请求二
-      case 2:;break;//请求三
+      case 0:wx.setNavigationBarTitle({title: "待看日程"});this.seeScheduleRequest();;break;//请求一
+      case 1:wx.setNavigationBarTitle({title: "已看记录"});this.borkerItemsRequest();break;//请求二
+      case 2:wx.setNavigationBarTitle({title: "看房报告"});this.borkerItemsRequest();;break;//请求三
     }
-    // this.setData({ hasMore: true })
-    // let params = { pageNo: 1, pageSize: 10, unicode: wx.getStorageSync("userToken").data }
-    // utils.get(this.data.IPS[num], params)
-    // .then((data) => {
-    //   this.setData({ houseList: data.data })
-    //   this.setData({ hasMore: false });
-    // })
+  },
+  //上拉
+  onReachBottom() {
+    let params = {
+      scity: this.data.currentCity,
+      pageNo: this.data.page++,
+      unicode: wx.getStorageSync("userToken")
+    }
+    utils.get(this.data.IPS[this.data.num], params)
+    .then((data) => {
+      this.setData({ houseList: this.data.houseList.concat(data.data) })
+      this.setData({ hasMore: false });
+    })
   }
 });
 

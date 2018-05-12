@@ -393,3 +393,82 @@ page{
 .houseTag text:nth-of-type(3){
   background: #fface5;
 }
+
+
+/* 预约看房 */
+.dialog{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background: #ffffff;
+  width: 520rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.dialog-hd{
+  height:140rpx;
+  font-size: 30rpx;
+  color: #222222;
+  border-bottom: 1px solid #e6e6e6;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.dialog-hd view{
+  flex: 1;
+  line-height: 70rpx;
+}
+.dialog-bd{
+  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.dialog-bd view{
+  flex: 1;
+  line-height: 80rpx;
+}
+.dialog-bd view:last-child{
+  color: #0066eb;
+  border-left: 1px solid #e6e6e6;
+}
+
+/* 联系人 */
+.dialog .avator{
+  float: left;
+  width: 160rpx;
+  height: 160rpx;
+  background: #cacaca;
+  margin-right: 30rpx;
+  border-radius: 15rpx;
+  overflow: hidden;
+}
+.dialog .avator image{
+  width: 100%;
+  height: 100%;
+}
+.dialog .discription{
+  overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dialog .dialog-body{
+  text-align: center;
+  padding: 40rpx 0;
+  letter-spacing: 5rpx;
+  font-size: 36rpx;
+  color: #333333;
+  line-height: 1;
+}
+.dialog .dialog-body+image{
+  position:absolute;
+  bottom:-100rpx;
+  left:50%;
+  width:60rpx;
+  height:60rpx;
+  transform: translateX(-50%);
+}

@@ -1,16 +1,16 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-let app = getApp();
 
 Page({
   data: {
     //轮播图banner
     imgUrls: ['../../images/banner.png'],//默认图片
     currentIndex: 1,
-    
-    hiddenModal: true,//二手房(买房)、租房联系经纪人true , 小区联系经纪人false
-    likeFlag: true,//喜欢 收藏
-    lookFlag: true,//预约看房 已经加入待看
+
+    likeFlag: false,//喜欢 收藏
+    isAppoint: false,//预约看房 已经加入待看
+    isAppointment: false,//点击预约看房弹窗
+    isLinkman: false,//二手房 租房联系经纪人
     scrollTop: 0,
 
     //百度地图
@@ -39,6 +39,8 @@ Page({
     flagPrice: '',
     contentType: 11, //热门小区11， 小区二手房22
     count: 0,//待看房源列表计数
+    token: null,
+   
   },
   onLoad(options) {
     wx.setStorage({key:"houseDetailId",data: options.id});
@@ -89,50 +91,55 @@ Page({
         this.buyRentRequest(res.data.value, this.data.houseDetailId); 
       }    
     })
+    wx.getStorage({
+      key: 'userToken',
+      success: (res)=>{
+        this.setData({token:  res.data});
+      }
+    })
   },
   //二手房详情 租房详情 小区找房详情
   buyRentRequest(city, sdid) {
     if (this.data.detailType == 11 || this.data.detailType == 22) {
       //二手房  租房详情
-      app.httpRequest(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, {}, (error, data) => {
-        this.setData({
-          latitude: data.data.py,
-          longitude: data.data.px,
-          houseDetail: data.data,
-          likeFlag: data.data.isCollect,
-          lookFlag: data.data.isAppoint
-        })
+      utils.get(this.data.IPS[this.data.IpsNum] + city + '/' + sdid)
+      .then(data => {
         //关联小区详情 附近房源详情 同小区房源 待看房源列表
         this.guanlianListRequest(data.data.px, data.data.py, city, data.data.buildSdid);
         this.nearbyHouseRequest(data.data.px, data.data.py, city, data.data.buildSdid);
         this.communityRequest(city, data.data.buildSdid);
         this.seeHouseRequest(city);
+        this.setData({
+          latitude: data.data.py,
+          longitude: data.data.px,
+          houseDetail: data.data,
+          likeFlag: data.data.isCollect,
+          isAppoint: data.data.isAppoint
+        })
       })
     }
     //小区找房详情
     if (this.data.detailType == 33) {
-      this.houseDetailRequest(city, sdid);
+        utils.get(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, { scity: city })
+        .then(data => {
+          this.setData({
+            latitude: data.data.py,
+            longitude: data.data.px,
+            houseDetail: data.data,
+            likeFlag: data.data.isCollect
+          });
+        })
       //猜你喜欢(默认二手房 首页第1页数据)
-      var IP = this.data.guessLikeIP[this.data.num] + '/' + city;
+      let IP = this.data.guessLikeIP[this.data.num] + '/' + city;
       this.getDataFromServer(IP, { pageNo: 1 });
     }    
   },
-  // 房屋详情 
-  houseDetailRequest(city, sdid) {
-    app.httpRequest(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, { scity: city }, (error, data) => {
-      this.setData({
-        latitude: data.data.py,
-        longitude: data.data.px,
-        houseDetail: data.data,
-        likeFlag: data.data.isCollect
-      });
-    })
-  },
   //同小区房源
   communityRequest(city, buildSdid) {
-    app.httpRequest(Api.IP_SAMEUSED+city+'/'+buildSdid+'?pageNo='+1, {}, (error, data) => {
-        data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
-        this.setData({community: data.data});
+    utils.get(Api.IP_SAMEUSED+city+'/'+buildSdid+'?pageNo='+1)
+    .then(data => {
+      data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
+      this.setData({community: data.data});
     })
   },
   //附近房源详情
@@ -145,33 +152,27 @@ Page({
       'pageSize': 10,
       'scity': city
     }
-    app.httpRequest(Api.IP_RIMHOUSING, params, (error, data) => {
+    utils.post(Api.IP_RIMHOUSING, params)
+    .then(data => {
       data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
       this.setData({nearbyHouse: data.data});
-    }, 'POST');
+    });
   },
   //待看房源列表
   seeHouseRequest(city) {
-    wx.getStorage({
-      key: 'userToken',
-      success: (res)=>{
-        let params = {
-          scity: city,
-          pageNo: 1,
-          unicode: res.data
-        }
-        utils.get(Api.IP_DETAILLIST,params)
-        .then((response)=>{
-          this.setData({count: response.data.length});
-        });
-      }
-    })
+    let params = {
+      scity: city,
+      pageNo: 1,
+      unicode: this.data.token
+    }
+    utils.get(Api.IP_DETAILLIST,params)
+    .then(data=>{this.setData({count: data.data.length})});
   },
-
   //当前页的关联小区内容 
   guanlianListRequest(px, py, currentCity, buildSdid) {
-    app.httpRequest(Api.IP_BUILDINFO + currentCity + '/' + buildSdid, {}, (error, data) => {
-        this.setData({guanlianList: data.data});
+    utils.get(Api.IP_BUILDINFO + currentCity + '/' + buildSdid)
+    .then(data => {
+      this.setData({guanlianList: data.data});
     })
   },
   //点击关联小区进入关联小区详情 
@@ -183,17 +184,17 @@ Page({
   tongyuanxiaoqu() {
     let once = wx.getStorageSync('onceHouseType');
     this.cacheHouseType(once);
-    wx.navigateTo({url: '../index/hotHouse?title=同小区房源&id='+this.data.guanlianList.sdid});
+    wx.redirectTo({url: '../index/hotHouse?title=同小区房源&id='+this.data.guanlianList.sdid});
   },
   //小区二手房
   xiaoquTwoHouse() {
     this.cacheHouseType('小区二手房');
-    wx.navigateTo({url: '../index/hotHouse?title=小区二手房&id='+this.data.houseDetail.sdid});
+    wx.redirectTo({url: '../index/hotHouse?title=小区二手房&id='+this.data.houseDetail.sdid});
   },
   //小区租房
   xiaoquRentHouse() {
     this.cacheHouseType('小区租房');
-    wx.navigateTo({url: '../index/hotHouse?title=小区租房&id='+this.data.houseDetail.sdid});
+    wx.redirectTo({url: '../index/hotHouse?title=小区租房&id='+this.data.houseDetail.sdid});
   },
   //缓存房源类型
   cacheHouseType(value) {
@@ -219,9 +220,7 @@ Page({
   contact() {
     wx.addPhoneContact({ weChatNumber: '13212361223'});
   },
-  listenerButton() {
-    this.setData({hiddenModal: !this.data.hiddenModal});
-  },
+  
   //回到顶部 重新请求数据
   RefreshHouseDetail(e){
     wx.pageScrollTo({scrollTop: 0,duration: 0});
@@ -230,25 +229,40 @@ Page({
   },
   //预约看房
   lookHouse() {
-    // wx.navigateTo({url: "lookHouse?houseDetail=" + JSON.stringify(this.data.houseDetail)});
     if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
-    let count;
-    if(this.data.lookFlag){
-      count = this.data.count + 1;
-      wx.getStorage({
-        key: 'userToken',
-        success: (res)=>{
-          let params = {
-            scity: this.data.currentCity,
-            unicode: res.data,
-            sdid: this.data.houseDetailId
-          }
-          utils.post(Api.IP_APPOINTADD, params)
-          .then(()=>{});
-        }
-      })
-      this.setData({lookFlag: false, count: count});
+    if(!this.data.isAppointment){
+      this.isLookHouse();
     }
+  },
+  //预约看房弹窗
+  isLookHouse() {
+    this.setData({isAppointment: true});
+  },
+  //取消预约看房弹窗
+  cancelLookHouse() {
+    this.setData({isAppointment: false});
+  },
+  //确定预约看房
+  confirmLookHouse() {
+    this.cancelLookHouse();
+    let count = this.data.count;
+        count = count + 1;
+    this.setData({count: count,isAppoint: true});
+    let params = {
+      scity: this.data.currentCity,
+      unicode: this.data.token,
+      sdid: this.data.houseDetailId
+    }
+    utils.post(Api.IP_APPOINTADD, params)
+    .then(()=>{});
+  },
+  //联系人弹窗
+  linkman() {
+    this.setData({isLinkman: true});
+  },
+  //关闭联系人弹窗
+  cancelLinkman() {
+    this.setData({isLinkman: false});
   },
   //带看列表
   goSeeList() {
@@ -276,18 +290,15 @@ Page({
   //收藏 请求
   colletionRequest(bool, num) {
     if(bool) {
-      let params = {"title": "收藏","unicode": wx.getStorageSync("userToken")}
-      app.httpRequest(this.data.IPS2[num] + this.data.currentCity + '/' + this.data.houseDetailId, params, (error, data) => {
-        wx.hideLoading();
-      }, 'POST');
+      let params = {"title": "收藏","unicode": wx.getStorageSync("userToken")};
+      utils.post(this.data.IPS2[num] + this.data.currentCity + '/' + this.data.houseDetailId, params)
+      .then(data => {wx.hideLoading()});
     }else{
       let params = { "title": "取消", "unicode": wx.getStorageSync("userToken")}
-      app.httpRequest(this.data.IPS3[num] + this.data.currentCity + '/' + this.data.houseDetailId, params, (error, data) => {
-        wx.hideLoading();
-      }, 'POST');
+      utils.post(this.data.IPS3[num] + this.data.currentCity + '/' + this.data.houseDetailId, params)
+      .then(data => {wx.hideLoading()});
     }
   },
-    
   //图片预览
   previewIamge(e) {
     var current = e.target.dataset.src;
@@ -333,7 +344,8 @@ Page({
     this.getDataFromServer(IP, params);
   },
   getDataFromServer(IP, params) {
-    app.httpRequest(IP, params, (error, data) => {
+    utils.get(IP, params)
+    .then(data => {
       data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
       let flagpc = this.data.num == 0? true : false;
       this.setData({ flagPrice: flagpc, guessYoulikeHouse: data.data});

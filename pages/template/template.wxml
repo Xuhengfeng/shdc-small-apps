@@ -71,13 +71,13 @@
   </view>
 </template>
 
-<!--自定义弹出层-->
-<template name="shadowLay" >
-  <view class="shadowLay2" hidden="{{hiddenModal}}" bindtap="listenerButton">
+<!--联系人-->
+<template name="linkman" >
+  <view class="shadowLay2" wx:if="{{isLinkman}}">
       <view class="dialog">
           <view class="dialog-header">
             <view class="avator">
-                <image  src="{{houseDetail.broker.photo? houseDetail.broker.photo:'../../images/banner.png'}}" background-size="cover"/>
+                <image  src="{{houseDetail.broker.photo? houseDetail.broker.photo:'../../images/avatar.png'}}"/>
             </view>
             <view class="discription">
               <view class="name" style="font-size:40rpx;color:#000000">{{houseDetail.broker.emplName}}</view>
@@ -85,11 +85,27 @@
               <view style="font-size:30rpx;color:#333333;white-space:normal;margin-top:20rpx">{{houseDetail.broker.emplFlag}}</view>
             </view>
           </view>
-          <view class="dialog-body" bindtap="telphone" data-phone="{{houseDetail.broker.phone}}">电话</view>
+          <view class="dialog-body" data-phone="{{houseDetail.broker.phone}}">电话</view>
+          <image src="../../images/close2.png" bindtap="cancelLinkman"></image>
       </view>
   </view>
 </template> 
 
+<!-- 预约看房 -->
+<template name="appointment">
+  <view class="shadowLay2" wx:if="{{isAppointment}}">
+      <view class="dialog">
+          <view class="dialog-hd">
+            <view>已添加到看房列表</view>
+            <view>在看房列表预约看房时间</view>
+          </view>
+          <view class="dialog-bd">
+            <view bindtap="OrderCancel" catchtap="cancelLookHouse">取消</view>
+              <view bindtap="OrderConfirm" catchtap="confirmLookHouse">确定</view>
+          </view>
+      </view>
+  </view>
+</template>
 
 <!-- 自定义城市picker -->
 <template name="ownPicker">
