@@ -2,7 +2,7 @@
 <!-- 外部搜索 -->
 <view class="list-search">
   <view class='list-search-box'>
-    <view bindtap="Item">
+    <view bindtap="isShowItem">
       <text class="selectItem">{{item}}</text>
       <image src="../../images/drop.png"/>
     </view>
@@ -10,11 +10,7 @@
         <text wx:for="{{selectItem}}"
               bindtap="selectItem"
               data-index="{{index}}"
-              data-item="{{item}}" 
               class="{{index == num?'gray':'white'}}">{{item}}</text>
-        <!-- <text>二手房</text>
-        <text>租房</text>
-        <text>小区</text> -->
     </view> 
     <view class="search"> 
       <view bindtap="startsearch"><image src="../../images/search.png"/></view>
@@ -26,6 +22,7 @@
 <!-- </form> -->
 <view class="history">
   <text>历史记录</text>
+  <text class="clear" bindtap="clearAll" wx:if="{{history.length>5}}">清空</text>
   <view class="label">
     <text wx:for="{{history}}" data-item="{{item}}" bindtap="historyLabel">{{item}}</text>
   </view>

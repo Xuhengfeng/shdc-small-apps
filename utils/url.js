@@ -53,6 +53,8 @@ export const IP_HOUSECOLLECTIONLIST = SERVER_IPS + "/houseCollection/collectionL
 export const IP_RENTCOLLECTIONLIST = SERVER_IPS + "/rentHCollection/collectionList";//租房收藏列表
 export const IP_COLLECTIONLIST = SERVER_IPS + "/buildCollection/collectionList";//小区收藏列表
 //搜索
+export const IP_SEARCHRECORD = SERVER_IPS + "/searchRecord/list/";//搜索历史记录
+export const IP_SEARCHRECORDCLEAR = SERVER_IPS + "/searchRecord/clear";//清空历史记录
 export const IP_AREADISTRICTS = SERVER_IPS + "/area/areaDistricts/";//区域
 export const IP_DICTIONARY = SERVER_IPS + "/dictionary/dictionarys";//户型和类型 用途
 export const IP_DICTIONARYCONDITION = SERVER_IPS + "/dictionary/";//价格 面积 （不同城市价格 面积 不一样）

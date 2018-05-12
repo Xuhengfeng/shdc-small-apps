@@ -1,6 +1,5 @@
-var Api = require("../../utils/url");
-const app = getApp();
-
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
 Page({
   data: {
     //轮播图
@@ -69,11 +68,13 @@ Page({
   },
   oneBigRequest(city) {
     // banner图片
-    app.httpRequest(Api.IP_INDEXCONSULT + city + this.data.banner[this.data.num], { scity: city }, (error, data) => {
+    utils.get(Api.IP_INDEXCONSULT + city + this.data.banner[this.data.num], { scity: city })
+    .then(data => {
       this.setData({ imgUrls: data.data })
     });
     //为你推荐
-    app.httpRequest(this.data.recmd[this.data.num] + city, { scity: city }, (error, data) => {
+    utils.get(this.data.recmd[this.data.num] + city, { scity: city })
+    .then(data => {
       this.setData({ recommend: data.data })
     });
     //区域   用途 面积 户型    价格 租金
@@ -83,7 +84,8 @@ Page({
   },
   //区域
   areaRequest(city) {
-    app.httpRequest(Api.IP_AREADISTRICTS + city, { scity: city }, (error, data) => {
+    utils.get(Api.IP_AREADISTRICTS + city, { scity: city })
+    .then(data => {
       data.data.unshift({name: '不限',id: 0, districts: []});
       data.data.forEach((item) => {
             item.districts.unshift({name: '不限',id: 0, px: '',py: ''})
@@ -94,22 +96,25 @@ Page({
   //用途 面积 户型
   useAreaRequest(city) {
     let params = ['HOUSE_USE', 'HOUSE_AREA', 'HOUSE_HUXING'];
-    app.httpRequest(Api.IP_DICTIONARY, params, (error, data) => {
+    utils.post(Api.IP_DICTIONARY, params)
+    .then(data => {
       this.setData({
         mode: data.data.HOUSE_USE,
         proportion: data.data.HOUSE_AREA,
         houseTy: data.data.HOUSE_HUXING
       })
-    }, 'POST')
+    })
   },
   //价格 租金
   priceAreaRequest(city) {
     if (this.data.flagPrice) {//价格
-      app.httpRequest(Api.IP_DICTIONARYCONDITION + 'SELL_PRICE/' + city, {}, (error, data) => {
+      utils.get(Api.IP_DICTIONARYCONDITION + 'SELL_PRICE/' + city)
+      .then(data => {
         this.setData({ price: data.data });
       })
     } else {//租金
-      app.httpRequest(Api.IP_DICTIONARYCONDITION + 'HOUSE_RENTAL/' + city, {}, (error, data) => {
+      utils.get(Api.IP_DICTIONARYCONDITION + 'HOUSE_RENTAL/' + city)
+      .then(data => {
         this.setData({ price: data.data });
       })
     }
@@ -146,19 +151,16 @@ Page({
     if (!this.data.keyword) {
       wx.showModal({ content: '请输入关键词' });
     } else {
-      wx.getStorage({
-        key: 'houseTypeSelect',
-        success: (res) => {
-          wx.navigateTo({
-            url: "../searchList/searchList?houseType=" + res.data + "&keywords=" + this.data.keyword
-          })
-        }
+      utils.storage('houseTypeSelect')
+      .then(res=>{
+        wx.navigateTo({
+          url: "../searchList/searchList?houseType=" + res.data + "&keywords=" + this.data.keyword
+        })
       })
     }
   },
   //监听自定义navbar组件事件 首次渲染第1页数据
   onMyEventHouseList(item) {
-    console.log(item)
     setTimeout(() => {
       //修正数据
       item.detail.houseList.forEach((item2) => {
@@ -183,13 +185,14 @@ Page({
   },
   //请求数据
   getDataFromServer(IP, Params) {//请求数据
-    app.httpRequest(IP, Params, (error, data) => {
+    utils.post(IP, Params)
+    .then(data => {
       data.data.forEach((item) => {
         item.houseTag = item.houseTag.split(',');
       })
       this.setData({ houseList: this.data.houseList.concat(data.data) })
       let falgpc = this.data.num == 0 ? true : false;
       this.setData({flagPrice: falgpc})
-    }, 'POST')
+    })
   }
 })

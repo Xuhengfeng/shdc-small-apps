@@ -111,7 +111,10 @@
   margin: 0 10rpx 20rpx 0;
   border-radius: 10rpx;
 }
-
+.clear{
+  margin-left: 50rpx;
+  font-size: 28rpx!important;
+}
 /* 按钮切换高亮 */
 .gray{
   background: #f2f2f2;

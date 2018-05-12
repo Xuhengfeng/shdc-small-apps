@@ -154,10 +154,17 @@ Component({
                 num: 0,
                 currentCity: currentCity
               });
-              wx.setStorage({key: 'houseTypeSelect',data: '二手房'})
               wx.getStorage({
                 key: 'currentCity',
                 success: (res) => {
+                  wx.setStorage({
+                    key: 'selectCity',
+                    data: {
+                      name: e.target.dataset.detail,
+                      value: res.data.value
+                    }
+                  });
+                  wx.setStorage({key: 'houseTypeSelect',data: '二手房'});
                   prevPage.oneBigRequest(res.data.value);//上一页重新加载数据
                   wx.navigateBack();//返回上一个页面
                 }

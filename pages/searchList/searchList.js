@@ -1,10 +1,11 @@
-var Api = require("../../utils/url");
-const app = getApp();
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
 
 Page({
   data: {
     label: [],
     houseList: [],//房源列表
+    dataList: [],//每一次的数据
 
     area: [],//区域
     houseTypes: [],//户型
@@ -69,24 +70,22 @@ Page({
     }
 
     //获取筛选条件
-    wx.getStorage({
-      key: 'selectCity',
-      success: (res)=>{
-            //修正 当前的城市
-            this.setData({currentCity: res.data.value})
-            //区域
-            this.areaRequest(res.data.value);
-            //户型 类型 面积 用途 楼龄
-            this.houseTypeRequest();
-            //价格
-            this.priceAreaRequest(res.data.value);
-      }
+    utils.storage('selectCity')
+    .then((res)=>{
+      //修正 当前的城市
+      this.setData({currentCity: res.data.value})
+      //区域
+      this.areaRequest(res.data.value);
+      //户型 类型 面积 用途 楼龄
+      this.houseTypeRequest();
+      //价格
+      this.priceAreaRequest(res.data.value);
     })
-     
   },
   //区域
   areaRequest(currentCity) {
-    app.httpRequest(this.data.IPS[0] + currentCity, 'GET', (error, data) => {
+    utils.get(this.data.IPS[0] + currentCity)
+    .then(data => {
       data.data.unshift({
         name: '不限',
         districts: []
@@ -105,8 +104,8 @@ Page({
   //户型 类型 面积 用途 楼龄
   houseTypeRequest() {
     let params = ['HOUSE_HUXING', 'HOUSE_TYPE', 'HOUSE_AREA', 'HOUSE_USE', 'HOUSE_AGE'];
-    app.httpRequest(this.data.IPS[1], params, (error, data) => {
-      console.log(data)
+    utils.post(this.data.IPS[1], params)
+    .then(data => {
       this.setData({
           houseTypes: data.data.HOUSE_HUXING,
           mode: data.data.HOUSE_TYPE,
@@ -114,30 +113,26 @@ Page({
           use: data.data.HOUSE_USE,
           houseAge: data.data.HOUSE_AGE
       })
-    }, 'POST')
+    })
   },
   //价格
   priceAreaRequest(currentCity) {
-    wx.request({
-      url: this.data.IPS[2] + 'SELL_PRICE/' + currentCity,
-      data: '',
-      method: 'GET',
-      success: (res) => {
-        this.setData({ price: res.data.data });
-      }
+    utils.get(this.data.IPS[2] + 'SELL_PRICE/' + currentCity)
+    .then(data=>{
+      this.setData({ price: data.data });
     })
   },
   //请求数据
   getDataFromServer(IP, params) {
-    app.httpRequest(IP, params, (error, data) => {
-      console.log(data)
+    utils.post(IP, params)
+    .then(data => {
       //修正数据
       data.data.forEach((item) => {
         if (item.houseTag) {item.houseTag = item.houseTag.split(',')}
       })
-      this.setData({houseList: this.data.houseList.concat(data.data)})
+      this.setData({houseList: this.data.houseList.concat(data.data), dataList: data.data})
       this.data.ipNum == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
-    },'POST')
+    })
   },
   //监听事件 拿到首次 或 点击筛选条件的第一页数据
   onMyEventHouseList(item) {
@@ -172,7 +167,8 @@ Page({
         'keyword': this.data.keyword,
         'scity': this.data.currentCity
     }
-    app.httpRequest(this.data.IPS2[this.data.ipNum], params, (error, data) => {
+    utils.get(this.data.IPS2[this.data.ipNum], params)
+    .then(data => {
         //修正数据
         data.data.forEach((item) => {
           if (item.houseTag) {item.houseTag = item.houseTag.split(',')}

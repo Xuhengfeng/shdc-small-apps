@@ -230,7 +230,7 @@ Page({
   //预约看房
   lookHouse() {
     if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
-    if(!this.data.isAppointment){
+    if(!this.data.isAppoint){
       this.isLookHouse();
     }
   },

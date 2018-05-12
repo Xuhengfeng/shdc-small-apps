@@ -19,6 +19,16 @@ const checkPhone = phone => {
     return true;
   }
 }
+//封装获取缓存
+const storage = (key)=> {
+  return new Promise((resolve, reject)=> {
+    wx.getStorage({
+      key: key,
+      success: resolve,
+      fail: reject 
+    })
+  })
+}
 
 //用户登录
 const login = ()=> {
@@ -96,5 +106,6 @@ module.exports = {
   delete: requstDelete,
   requst: requst,
   login: login,
-  getUserInfo: getUserInfo
+  getUserInfo: getUserInfo,
+  storage: storage
 }

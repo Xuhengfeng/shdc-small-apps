@@ -1,6 +1,5 @@
-let Api = require("../../utils/url");
-let app = getApp();
-
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
 Component({
   properties: {
     area: {//区域
@@ -174,19 +173,17 @@ Component({
     }    
 
     //第一页数据 首次请求
-    wx.getStorage({
-      key: 'selectCity',
-      success: (res)=> {
-        let params = {
-            'pageNo': 1,
-            'scity': res.data.value,
-            'keyword': this.data.keyword
-        }
-        let newParams = Object.assign(this.data.params, params);
-        //修正 当前城市
-        this.setData({currentCity: res.data.value})
-        this.getDataFromServer(this.data.url, newParams);
+    utils.storage('selectCity')
+    .then(res=>{
+      let params = {
+          'pageNo': 1,
+          'scity': res.data.value,
+          'keyword': this.data.keyword
       }
+      let newParams = Object.assign(this.data.params, params);
+      //修正 当前城市
+      this.setData({currentCity: res.data.value})
+      this.getDataFromServer(this.data.url, newParams);
     })
   },
   methods: {
@@ -199,13 +196,14 @@ Component({
 
     //请求二手房列表  租房列表 小区列表
     getDataFromServer(url, params) {
-      app.httpRequest(url, params, (error, data)=>{
+      utils.post(url, params)
+      .then(data =>{
         let List = data.data.length?data.data:"";
         let obj = {params: params, houseList: List}
         console.log(obj)
         this.setData({houseList: List})
         this.triggerEvent('myevent', obj);
-      }, 'POST')
+      })
     },
 
     //切换城区分类
