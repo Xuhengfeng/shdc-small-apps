@@ -18,28 +18,30 @@ Page({
     // ],
     currentCity: '',
     token: '',
+    winHeight: ''
   },
   onLoad() {
-    wx.getStorage({
-      key: 'selectCity',
-      success: (res) => {
-        this.setData({currentCity: res.data.value})
-        wx.getStorage({
-          key: 'userToken',
-          success: (response)=> {
-            this.setData({token: response.data});
-            let params = {
-              pageNo: 1,
-              scity: this.data.currentCity,
-              unicode: this.data.token
-            };
-            utils.get(Api.IP_DETAILLIST,params)
-            .then((data)=>{
-              this.setData({list: data.data})
-            });
-          }
-        })
+    wx.getSystemInfo({
+      success:(res)=>{
+        this.setData({winHeight: res.windowHeight})
       }
+    })
+    utils.storage('selectCity')
+    .then(res=>{
+      this.setData({currentCity: res.data.value});
+      return utils.storage('userToken');
+    })
+    .then(data1=>{
+      this.setData({token: data1.data});
+      let params = {
+        pageNo: 1,
+        scity: this.data.currentCity,
+        unicode: this.data.token
+      };
+      return utils.get(Api.IP_DETAILLIST,params);
+    })
+    .then(data2=>{
+      this.setData({list: data2.data});
     })
   },
   selectItem(e) {
@@ -64,6 +66,9 @@ Page({
     }
   },
   touchM(e) {
+    this.data.list.forEach((item)=>{
+      item.isMove = false;
+    })
     if (e.touches.length == 1) {
       //手指移动时水平方向位置
       let moveX = e.touches[0].clientX;

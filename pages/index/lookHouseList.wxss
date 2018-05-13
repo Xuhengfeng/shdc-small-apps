@@ -1,6 +1,7 @@
 @import "../template/template.wxss";
 .main{
   background: #ffffff;
+  padding-bottom: 100rpx;
 }
 .itemlist{
   position: relative;

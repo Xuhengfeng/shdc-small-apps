@@ -1,5 +1,5 @@
-<scroll-view scroll-x="{{false}}" class="main">
-
+<scroll-view class="main" scroll-x="{{false}}">
+<!-- list -->
 <block wx:for="{{list}}">
   <!-- <navigator url="" > -->
       <view class="itemlist">

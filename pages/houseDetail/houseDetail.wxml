@@ -217,8 +217,7 @@
     <view bindtap="guanlianxiaoqu">
       <view class="item addbottomborder">
           <view class="image">
-            <image src="{{guanlianList.housePic?guanlianList.housePic:'../../images/astate.png'}}"
-                   mode="aspectFit">
+            <image src="{{guanlianList.housePic?guanlianList.housePic:'../../images/astate.png'}}">
             </image>
           </view>
           <view>

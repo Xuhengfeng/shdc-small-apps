@@ -44,22 +44,20 @@ Page({
     IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING, Api.IP_NEWINFO, Api.IP_PLATE],
   },
   onLoad(){
-    wx.hideTabBar();
     // 查看是否授权
-    console.log(wx.canIUse('button.open-type.getUserInfo'))
-    wx.getSetting({
-      success: (res)=>{
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
-            success: (res)=> {
-              console(res.userInfo)
-              wx.showTabBar();
-            }
-          })
-        }
-      }
+    utils.storage('userInfo')
+    .then(()=>{
+      wx.showTabBar();
     })
+    .catch(()=>{
+      wx.hideTabBar();
+      wx.getUserInfo({
+        success: (res)=> {
+          wx.showTabBar();
+        }
+      })
+    })
+    
     //定位
     wx.getLocation({
       type: 'gcj02',
