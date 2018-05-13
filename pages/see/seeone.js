@@ -76,7 +76,8 @@ Page({
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
-      num: num
+      num: num,
+      page: 1
     });
   },
   

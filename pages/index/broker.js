@@ -41,8 +41,6 @@ Page({
   },
   //上拉
   onReachBottom() {
-    // let page = this.data.page++;
-    // console.log(page)
     let params = {
       scity: this.data.currentCity,
       pageNo: this.data.page++

@@ -41,7 +41,11 @@ button{
 .page__bd{
     padding-bottom: 0;
 }
-
+.navbar{
+  position: fixed;
+  top: 0;
+  background: #ffffff;
+}
 /* 重写weui的tab样式 */
 .weui-navbar__item.weui-bar__item_on{
   color: #ff4343;
