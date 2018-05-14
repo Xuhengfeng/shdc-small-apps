@@ -149,6 +149,7 @@ button{
     margin-bottom: 20rpx;
 }
 .brokerItem-hd{
+    position: relative;
     background: #f2f2f2;
     height: 100rpx; 
     padding-left: 24rpx;
@@ -165,7 +166,9 @@ button{
     color: #ff4343;
 }
 .brokerItem-hd>view:last-child{
-    float: right;
+    position: absolute;
+    right: 0;
+    top: 0;
     height: 100rpx; 
     line-height: 100rpx;
 }
@@ -176,10 +179,10 @@ button{
     height: 48rpx;
 }
 .brokerItem-hd image:nth-of-type(1){
-    margin-right: 44rpx;
+    margin-right: 40rpx;
 }
 .brokerItem-hd image:nth-of-type(2){
-    margin-right: 70rpx;
+    margin-right: 40rpx;
 }
 .remark{
     height: 100rpx;
@@ -187,3 +190,5 @@ button{
     text-align: center;
 }
 /* 看房报告----------------------------------------------------------------- */
+
+

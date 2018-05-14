@@ -31,12 +31,9 @@
                                 wx:for-index="index2">{{item2}}</text>
                                 </view>
 
-                              <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
+                              <view class="housePrice">{{item.saleTotal}}万
                                   <text>{{item.salePrice}}元/平米</text>
                               </view>
-                              <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
-                                  <text>元/月</text>
-                              </view>     
                             </view>
                         </view>
                     </navigator>
@@ -46,7 +43,7 @@
           <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
               <view class="weui-panel__bd">
                  <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-              <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=二手房" 
+              <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=租房" 
                         hover-class="none">
                   <view class="item">
                         <view class="image">
@@ -65,10 +62,7 @@
                                 wx:for-index="index2">{{item2}}</text>
                                 </view>
 
-                              <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
-                                  <text>{{item.salePrice}}元/平米</text>
-                              </view>
-                              <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
+                              <view class="housePrice">{{item.rentPrice}}
                                   <text>元/月</text>
                               </view>     
                             </view>

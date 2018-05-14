@@ -17,7 +17,8 @@ Page({
     IPS: [Api.IP_READYLIST, Api.IP_COMPLETE, Api.IP_COLLECTIONLIST],
     num: 0,
     currentCity: '',
-    page: 1
+    page: 1,
+    isShadow: false,
   },
   onLoad() {
     wx.setNavigationBarTitle({title: "待看日程"});
@@ -56,6 +57,7 @@ Page({
           item2.houseTag = item2.houseTag.split(',');
         })
       })
+      console.log(data.data)
       this.setData({borkerItems: data.data});
     })
   },
@@ -66,8 +68,8 @@ Page({
     wx.navigateTo({url: `seeoneDetail?id=${seeHouseId}&status=${status}`});
   },
   //拨打电话
-  call() {
-    wx.makePhoneCall({phoneNumber: '13212361223'})
+  call(e) {
+    wx.makePhoneCall({phoneNumber: e.currentTarget.dataset.phone});
   },
   //点击切换
   tabClick(e) {
@@ -80,7 +82,6 @@ Page({
       page: 1
     });
   },
-  
   //请求
   getDataFromServer(num) {
     switch(num){
@@ -88,6 +89,28 @@ Page({
       case 1:wx.setNavigationBarTitle({title: "已看记录"});this.borkerItemsRequest();break;//请求二
       case 2:wx.setNavigationBarTitle({title: "看房报告"});this.borkerItemsRequest();;break;//请求三
     }
+  },
+  //投诉弹窗
+  complain(e) {
+    wx.hideTabBar();
+    wx.showModal({
+      title: '投诉',
+      content: e.currentTarget.dataset.phone,
+      success: (res)=> {
+        wx.showTabBar();
+        if(res.confirm){
+          wx.makePhoneCall({phoneNumber: e.currentTarget.dataset.phone});
+        }
+      }
+    })
+  },
+  //评价联系人
+  goComment() {
+    wx.navigateTo({url:'apprasieBroker'});
+  },
+  //添加看房备注
+  addHouseRemark() {
+    wx.navigateTo({url:'remark'});
   },
   //上拉
   onReachBottom() {

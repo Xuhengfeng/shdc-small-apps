@@ -7,17 +7,11 @@ Page({
     page: 1
   },
   onLoad() {
-    wx.getStorage({
-      key: 'selectCity',
-      success: (res)=> {
-        let params = {
-          "scity": res.data.value,
-          "pageNo": 1
-        }
-        this.brokerRequest(params);
-      }
-    })
-  
+    utils.storage('selectCity')
+    .then((res)=>{
+      let params = {"scity": res.data.value,"pageNo": 1};
+      this.brokerRequest(params);
+    })  
   },
   brokerRequest(params) {
     utils.post(Api.IP_BROKERSLIST,params)
@@ -30,14 +24,23 @@ Page({
   },
   //返回刷新设置
   goBackSet(e) {
-      let pages = getCurrentPages();//当前页面路由栈的信息
-      let prevPage = pages[pages.length - 2];//上一个页面
-      prevPage.setData({
-        broker: e.currentTarget.dataset.item.emplName,
-        brokerId: e.currentTarget.dataset.item.id,
-        phcolorFlag2: false
-      })
-      wx.navigateBack();
+    let broker = e.currentTarget.dataset.item.emplName;
+    let brokerId =  e.currentTarget.dataset.item.id;
+    utils.storage('currentPage')
+    .then(res=>{
+      if(res.data=='我的'){
+        wx.navigateTo({url: "../mine/brokterInfo?id="+brokerId});
+      }else{
+        let pages = getCurrentPages();//当前页面路由栈的信息
+        let prevPage = pages[pages.length - 2];//上一个页面
+        prevPage.setData({
+          broker: broker,
+          brokerId: brokerId,
+          phcolorFlag2: false
+        })
+        wx.navigateBack();
+      }
+    })
   },
   //上拉
   onReachBottom() {

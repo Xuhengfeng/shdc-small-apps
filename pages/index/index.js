@@ -40,50 +40,61 @@ Page({
     num: 0,//猜你喜欢哪一个
     guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
 
-    //banner资讯 二手房指南资讯 获取成交量统计 热门小区 新盘推荐 四个栏目四张图片
-    IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING, Api.IP_NEWINFO, Api.IP_PLATE],
+    //轮播图 二手房指南资讯 获取成交量统计 热门小区 新盘推荐 四个栏目四张图片 默认城市
+    IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING, Api.IP_NEWINFO, Api.IP_PLATE, Api.IP_DEFAULTCITY],
   },
   onLoad(){
     // 查看是否授权
     utils.storage('userInfo')
     .then(()=>{
-      wx.showTabBar();
+      this.setData({canIUse:false});
     })
     .catch(()=>{
       wx.hideTabBar();
-      wx.getUserInfo({
-        success: (res)=> {
-          wx.showTabBar();
+      this.setData({canIUse:true});
+    })
+    //默认城市定位 和 百度城市定位
+    utils.get(this.data.IPS[6])
+    .then((data)=>{
+      if(data.data != undefined){
+        this.setData({ myLocation: data.data.name})
+        wx.setStorage({
+          key: 'selectCity',
+          data: {
+            name: data.data.name,
+            value: data.data.value
+          }
+        });
+        this.oneBigRequest(data.data.value);
+      }
+    })
+    .catch(error=>{
+      wx.getLocation({
+        type: 'gcj02',
+        success: (res) => {this.BMapRegeoCode(res)},
+        fail: (error) => {
+          wx.showModal({
+            title: '警告通知',
+            content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
+            success: res => {
+              if (res.confirm) {
+                wx.openSetting({
+                  success: res => {
+                    if (res.authSetting["scope.userLocation"]) {//如果用户重新同意了授权登录
+                      wx.getLocation({
+                        type: 'gcj02',
+                        success: (res) => {
+                            this.BMapRegeoCode(res);
+                        }
+                      })
+                    }
+                  }
+                })
+              }
+            }
+          })
         }
       })
-    })
-    
-    //定位
-    wx.getLocation({
-      type: 'gcj02',
-      success: (res) => {this.BMapRegeoCode(res)},
-      fail: (error) => {
-        wx.showModal({
-          title: '警告通知',
-          content: '您点击了拒绝授权,将无法正常显示个人信息,点击确定重新获取授权。',
-          success: res => {
-            if (res.confirm) {
-              wx.openSetting({
-                success: res => {
-                  if (res.authSetting["scope.userLocation"]) {//如果用户重新同意了授权登录
-                    wx.getLocation({
-                      type: 'gcj02',
-                      success: (res) => {
-                          this.BMapRegeoCode(res);
-                      }
-                    })
-                  }
-                }
-              })
-            }
-          }
-        })
-      }
     })
   },
   //逆解析
@@ -190,18 +201,17 @@ Page({
       case '1': 
         this.cacheHouseType('二手房');
         this.cacheHouseType2('二手房');
-        wx.navigateTo({url: "../index/buyRentHouse"});
-        break;      
+        wx.navigateTo({url: "../index/buyRentHouse"});break;      
       case '2': 
         this.cacheHouseType('租房');
         this.cacheHouseType2('租房');
-        wx.navigateTo({url: "../index/buyRentHouse"});
-        break;      
+        wx.navigateTo({url: "../index/buyRentHouse"});break;      
       case '3': 
         this.cacheHouseType('小区');
-        wx.navigateTo({url: "../searchList/searchList"});
-        break;      
-      case '4':wx.navigateTo({url: "sellRent"});break;      
+        wx.navigateTo({url: "../searchList/searchList"});break;      
+      case '4':
+        wx.setStorageSync('currentPage', '主页');
+        wx.navigateTo({url: "sellRent"});break;      
       case '5':wx.navigateTo({url: "shop"});break;      
     }
   },

@@ -1,30 +1,33 @@
  
 <view class="list"bindtap="goBackSet">
-      <image src="" class="avatar"></image>
+      <image class="avatar" src="{{brokerInfo.photo}}"></image>
       <view class="content">
-              <view>
-                  <view class="name">11{{item.emplName}}
-                        <text>11{{item.positionName}}</text>
-                  </view>
-                  <view class="score">11{{item.grade}} <text>评分</text></view>    
-              </view>
-              <view class="location">所在门店</view>
-              <view class="num">世华工号: <text>01010101</text></view>
-              <image class="like"></image>
+            <view>
+                <view class="name">{{brokerInfo.emplName}}
+                    <text>{{brokerInfo.positionName}}</text>
+                </view>
+                <view class="score">{{brokerInfo.grade}}.0 <text>评分</text></view>    
+            </view>
+            <view class="location">所在门店</view>
+            <view class="num">世华工号: <text>{{brokerInfo.emplAccNo}}</text></view>
+            <view class="like" bindtap="toggleSelectLike">
+                <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
+                <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
+            </view>
       </view>
 </view>
 <view class="section flex-content">
             <view class="flex-item">
-                      <view>10</view>
+                      <view>{{brokerInfo.historyDealNum}}</view>
                       <view>历史成交</view>
             </view> 
             <view class="flex-item">
-                      <view>10</view>
-                      <view>历史成交</view>
+                      <view>{{brokerInfo.byCollectNum}}</view>
+                      <view>被收藏</view>
             </view> 
             <view class="flex-item">
-                      <view>10</view>
-                      <view>历史成交</view>
+                      <view>{{brokerInfo.houseSeeNum}}</view>
+                      <view>带看量</view>
             </view> 
 </view>
 <view class="section  appraise">

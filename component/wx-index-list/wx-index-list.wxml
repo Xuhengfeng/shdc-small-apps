@@ -11,11 +11,11 @@
   <block wx:if="{{list.length != 0 }}">
     <scroll-view class="list-scroll {{config.search?'top':''}}" scroll-y="true" scroll-into-view="{{jumpNum}}" scroll-with-animation="{{config.animation}}">
       <!-- 我的位置  -->
-      <view wx:if="{{myCity}}">
+      <view>
         <view class='list-title'>我的位置</view>
         <view class='list-horizontal'>
-          <view class='list-name {{idx === 0 ?"":"border"}}' data-detail="{{myCity}}" bindtap="locationMt">
-           {{myCity}}
+          <view class='list-name {{idx === 0 ?"":"border"}}' data-detail="{{myCityName}}" bindtap="locationMt">
+           {{myCityName}}
           </view>
         </view>
       </view>

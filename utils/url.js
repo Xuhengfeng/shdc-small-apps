@@ -1,9 +1,10 @@
 'use strict';
 const SERVERINDEX = 0;
 const SERVER_IPS = ["http://112.74.181.229:7031/custAppApi"];//api接口
-// const SERVER_IPS = ["http://192.168.16.173:7031/custAppApi"];//api接口
 const SERVER_IP = SERVER_IPS[SERVERINDEX];
+
 //首页 接口
+export const IP_DEFAULTCITY = SERVER_IPS + "/dictionary/defaultCity";//默认城市
 export const IP_INDEXCONSULT = SERVER_IPS + "/information/pubs/";//获取资讯
 export const IP_CITYLIST = SERVER_IPS + "/dictionary/citys";//获取城市列表
 export const IP_HOUSEUSED = SERVER_IPS + "/statistics/houseUsed/";//获取二手房成交量统计
@@ -25,19 +26,19 @@ export const IP_READYLIST = SERVER_IPS + "/appoint/readyList";//待看日程列�
 export const IP_READYDETAIL = SERVER_IPS + "/appoint/readyDetail/";//待看日程详情
 export const IP_ORDERCANCEL = SERVER_IPS + "/appoint/cancel";//取消预约
 export const IP_COMPLETE = SERVER_IPS + "/appoint/complete";//已看记录
-
-
 //首页猜你喜欢
 export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你喜欢 二手房列表
 export const IP_RENTHOUSERENTLIKE = SERVER_IPS + "/rentHouse/queryLike";//首页猜你喜欢 租房列表
-
 //租售
 export const IP_HOUSEENTRUSTAPPLYSELLHOUSE= SERVER_IPS + "/houseEntrustApply/sellHouse";//出售申请
 export const IP_HOUSEENTRUSTAPPLYRENTHOUSE = SERVER_IPS + "/houseEntrustApply/rentHouse";//出租申请
 // export const IP_HOUSEENTRUSTAPPLYLIST = SERVER_IPS + "/houseEntrustApply/houseEntrustApplyList";//租售房源列表
-
 //经纪人
-export const IP_BROKERSLIST = SERVER_IPS + "/broker/brokers";//经纪人
+export const IP_BROKERSLIST = SERVER_IPS + "/broker/brokers";//经纪人列表
+export const IP_BROKERSDETAIL = SERVER_IPS + "/broker/";//经纪人详情
+export const IP_BROKERADD = SERVER_IPS + "/brokerCollection/add/";//添加收藏经纪人
+export const IP_BROKERCANCEL = SERVER_IPS + "/brokerCollection/cancel/";//取消收藏经纪人
+
 //详情页和收藏
 export const IP_HOUSESEE = SERVER_IPS + "/house/houseSee/";//小区带看房源记录列表
 export const IP_SAMEUSED = SERVER_IPS + "/build/same-used/";//同小区二手房
@@ -67,7 +68,6 @@ export const IP_RIMHOUSING = SERVER_IPS + "/house/rimHousing";//获取房屋详�
 //我的 接口
 export const IP_SMSCODELOGIN = SERVER_IPS + "/member/smsCodelogin";//手机验证码登录
 export const IP_GETSMSCODE= SERVER_IPS + "/member/fetchSmsCode";//获取验证码
-
 //微信登录
 export const weChatLogin = SERVER_IPS + "/member/loginWeixin";//微信手机号码和openid第三方登录
 export const weChatRegister = SERVER_IPS + "/member/registerWeixin";//微信注册

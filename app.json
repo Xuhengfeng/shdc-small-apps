@@ -1,9 +1,11 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/mine/comment",
+    "pages/mine/brokterInfo",
+    "pages/see/apprasieBroker",
     "pages/index/lookHouseList",
     "pages/see/seeone",
-    "pages/see/apprasieBroker",
     "pages/see/remark",
     "pages/see/house",
     "pages/see/seeoneDetail",
@@ -16,7 +18,6 @@
     "pages/index/guideHand",
     "pages/index/shop",    
     "pages/index/buyRentHouse",
-    "pages/mine/brokterInfo",
     "pages/houseDetail/houseDetailInfo",
     "pages/houseDetail/map",
     "pages/houseDetail/seehouseList",

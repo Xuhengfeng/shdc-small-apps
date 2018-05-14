@@ -1,8 +1,7 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
-let filter = require("../../utils/filter.js");
-let sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+const filter = require("../../utils/filter.js");
+const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
 Page(filter.loginCheck({
   data: {
@@ -42,6 +41,8 @@ Page(filter.loginCheck({
       num: num,
       page: 1
     });
+    this.cacheHouseType(this.data.tabs[num]);
+    this.cacheHouseType2(this.data.tabs[num]);
   },
   getDataFromServer(num) {
     this.setData({hasMore: true})
@@ -71,5 +72,13 @@ Page(filter.loginCheck({
       this.setData({ houseList: this.data.houseList.concat(data.data)})
       this.setData({ hasMore: false });
     })
-  }
+  },
+  //缓存房源类型 可以改变的 
+  cacheHouseType(value) {
+    wx.setStorageSync('houseTypeSelect', value)
+  },
+  //缓存房源类型 不可改变的
+  cacheHouseType2(value) {
+    wx.setStorageSync('onceHouseType', value)
+  },
 }));

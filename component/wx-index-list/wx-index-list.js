@@ -1,6 +1,7 @@
-let bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
-let pinyin = require("../../libs/toPinyin.js"); //汉字转拼音
-let app = getApp();
+const utils = require("../../utils/util");
+const bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
+const pinyin = require("../../libs/toPinyin.js"); //汉字转拼音
+const app = getApp();
 
 Component({
   properties: {
@@ -53,9 +54,7 @@ Component({
         type: 'gcj02',
         success: (res) => {
           // 百度地图地址解析
-          var BMap = new bmap.BMapWX({
-            ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'
-          });
+          let BMap = new bmap.BMapWX({ak: '55An9ZpRGSA8v5Mw7uHxmONFCI3mkTW0'});
           // 发起regeocoding检索请求 
           BMap.regeocoding({
             location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
@@ -64,17 +63,12 @@ Component({
                   let lowCase = pinyin.Pinyin.getFullChars(citytoPinyin);
                   let currentCity = lowCase.toLowerCase();
                   let currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
+                  this.setData({myCityName: currentCityName});
                   wx.setStorage({
                     key: 'currentCity',
                     data: {
                       name: currentCityName,
                       value: currentCity
-                    },
-                    success:()=>{
-                      this.setData({myCity: currentCityName})
-                    },
-                    fail: ()=>{
-                      this.setData({myCity: currentCityName})
                     }
                   });
             }
@@ -104,7 +98,7 @@ Component({
                 name: e.target.dataset.detail.name,
                 value: e.target.dataset.detail.value
               },
-              success: ()=> { wx.navigateBack()}
+              success: ()=> {wx.navigateBack()}
             });
       }else if (this.data.origin == "sellRent") {
         prevPage.setData({//直接给上移页面赋值
@@ -154,9 +148,8 @@ Component({
                 num: 0,
                 currentCity: currentCity
               });
-              wx.getStorage({
-                key: 'currentCity',
-                success: (res) => {
+              utils.storage('currentCity')
+              .then((res)=>{
                   wx.setStorage({
                     key: 'selectCity',
                     data: {
@@ -167,8 +160,7 @@ Component({
                   wx.setStorage({key: 'houseTypeSelect',data: '二手房'});
                   prevPage.oneBigRequest(res.data.value);//上一页重新加载数据
                   wx.navigateBack();//返回上一个页面
-                }
-              })  
+              })
           }else if(this.data.origin == "sellRent") {
               prevPage.setData({//直接给上移页面赋值
                 city: e.target.dataset.detail,

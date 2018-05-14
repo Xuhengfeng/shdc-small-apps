@@ -1,0 +1,20 @@
+<view class="main" wx:for="{{[1,1,1,11,1]}}">
+    <view class="commentItem">
+        <view class="commentItem-hd">
+            <image></image>
+            <view>
+                我的用户名<text>03.26</text>
+            </view>
+        </view>
+        <view class="commentItem-bd">
+            <view class="content">高级经纪人高级经纪人高级经纪人高级经纪人高级经纪人高级经纪人高级经纪人高级经纪人</view>
+            <view class="tags">
+                <text wx:for="{{[1,1,1,1]}}">{{item}}</text>
+            </view>
+            <view class="brokerInfo">
+                <image></image>
+                <view><text class="brokerName">刘小妹</text>高级经纪人</view>
+            </view>
+        </view>
+    </view>
+</view>

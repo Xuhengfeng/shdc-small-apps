@@ -10,3 +10,4 @@
     <view class="remark2">文字备注</view>
     <textarea placeholder="用文字记录您对这套房子的看房感受"></textarea>
 </view>
+<button class="weui-btn" type="warn" bindtap="commit">提交</button>

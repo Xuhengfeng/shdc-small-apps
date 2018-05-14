@@ -68,16 +68,11 @@ const requst = (url,method,data = {})=> {
       method: method.toUpperCase(), // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       success: (res)=> {
         wx.hideLoading();
-        if(res.statusCode == 200) {
-          if(res.data.status == 0) {
-            wx.showModal({title: res.data.msg});
-          }
-          if(res.data.data !== ""||res.data.data.length !== "") {
-            resove(res.data);
-          }
-        }else if(res.statusCode == 500) {
-          wx.showModal({title: '500错误'});
-        }  
+        if(res.data.status != 1) {
+          wx.showModal({title: res.data.msg});
+        }else{
+          resove(res.data);
+        }
       },
       fail:(msg)=> {
         console.log('reqest error',msg)

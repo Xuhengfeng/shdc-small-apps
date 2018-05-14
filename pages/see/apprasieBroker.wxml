@@ -3,8 +3,10 @@
     <view class="decription"><text>带看</text>fasdfasdfasdfasdfasdfasfasdfasdfasdfdfasdfasdf</view>
     <view class="starLevel">星级</view>
     <view class="starimg">
-        <image src="../../images/star-on.png" wx:for="{{star1}}"></image>
-        <image src="../../images/star-off.png" wx:for="{{star2}}"></image>
+        <image src="{{item.isStar?star1:star2}}"
+                      wx:for="{{star}}"
+                      data-index="{{index}}"
+                      bindtap="selectItem" ></image>
     </view>
     <textarea placeholder="您舒适的看房体验是我们服务的宗旨"></textarea>
 </view>
