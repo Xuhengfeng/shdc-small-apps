@@ -2,11 +2,11 @@
            wx:for="{{brokers}}"
            data-item="{{item}}"
            bindtap="goBackSet">
-      <image src="{{item.photo}}"></image>
+      <image src="{{item.photo?item.photo:'../../images/avatar.png'}}"></image>
       <view class="content">
               <view>
                   <view class="name">{{item.emplName}}<text>{{item.positionName}}</text></view>
-                  <view class="score">{{item.grade}} <text>评分</text></view>    
+                  <view class="score">{{item.grade}}.0 <text>评分</text></view>    
               </view>
               <view class="location">所在门店</view>
               <view class="tag">

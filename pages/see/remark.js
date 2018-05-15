@@ -40,7 +40,9 @@ Page({
     let params={
       "id": this.data.seeHouseItem.id,
       "memberRemark": this.data.content,
-      "remarkTag": tagStr
+      "remarkTag": tagStr,
+      "scity": this.data.currentCity,
+      "unicode": wx.getStorageSync("userToken")
     }
     utils.post(Api.IP_FILLMEMBERMARK,params)
     .then(data=>{

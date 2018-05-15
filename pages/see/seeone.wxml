@@ -37,7 +37,7 @@
           <view class="weui-tab__content twoContent" hidden="{{activeIndex != 1}}">
               <!-- 已看记录 -->
               <view class="weui-panel__bd">
-                    <view class="brokerItem" wx:for="{{borkerItems}}">
+                    <view class="brokerItem" wx:for="{{borkerItems}}" style="background:#f9f9f9">
                         <view class="brokerItem-hd">
                             <view><text class="time">{{item.scheduleTime}}</text><text class="name">{{item.brokerName}}</text>带看</view>
                             <view>
@@ -45,7 +45,8 @@
                                 <image src="../../images/flower.png" data-item="{{item}}" bindtap="goComment"></image>
                             </view>
                         </view>
-                        <block wx:for="{{item.houseList}}" wx:key="index" wx:for-item="item2">
+
+                        <view wx:for="{{item.houseList}}" wx:key="index" wx:for-item="item2" style="margin-bottom:10rpx;background: #ffffff">
                             <view class="item" data-id="{{item2.houseSdid}}" bindtap="seeHouse">
                                 <view class="image">
                                     <image src="{{item2.housePic?item2.housePic: '../../images/astate.png'}}"></image></view>
@@ -68,8 +69,9 @@
                                     </view>
                                 </view>
                             </view>
-                        </block>
-                        <view class="remark" data-item="{{item}}" bindtap="addHouseRemark">添加房源备注</view>
+                            <view class="remark" data-item="{{item}}" bindtap="addHouseRemark">添加房源备注</view>
+                        </view>
+
                     </view>
 
               </view>

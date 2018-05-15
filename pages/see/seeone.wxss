@@ -145,7 +145,6 @@ button{
 /* 带看记录------------------------------------------------------------------ */
 @import "../template/template.wxss";
 .brokerItem{
-    background: #ffffff;
     margin-bottom: 20rpx;
 }
 .brokerItem-hd{
