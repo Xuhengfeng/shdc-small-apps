@@ -80,6 +80,7 @@
     height: 120rpx;
     border-radius: 50%;
     margin-right: 20rpx;
+    overflow: hidden;
 }
 .avatar image{
     width: 100%;
@@ -181,29 +182,40 @@
     transform: translate(-50%,-50%);
     background: #ffffff;
     width: 520rpx;
-    height: 220rpx;
     border-radius: 10rpx;
     text-align: center;
     display: flex;
     flex-flow: column nowrap;
 }
 .dialog-hd{
-    height:140rpx;
-    line-height: 140rpx; 
+    padding: 50rpx 0 30rpx;
     font-size: 30rpx;
     color: #222222;
-    border-bottom: 1px solid #e6e6e6;
 }
 .dialog-bd{
+  margin: 0 20rpx;
+}
+.dialog-bd textarea{
+  width: 100%;
+  text-align: left;
+  margin-bottom: 20rpx;
+  background: #f9f9f9;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  line-height:  1.2;
+  box-sizing: border-box;
+}
+.dialog-ft{
     flex: 1;
     display: flex;
     flex-flow: row nowrap;
+    border-top: 1px solid #e6e6e6;
 }
-.dialog-bd view{
+.dialog-ft view{
     flex: 1;
     line-height: 80rpx;
 }
-.dialog-bd view:last-child{
+.dialog-ft view:last-child{
     color: #0066eb;
     border-left: 1px solid #e6e6e6;
 }

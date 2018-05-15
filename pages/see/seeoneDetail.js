@@ -13,6 +13,7 @@ Page({
     seeHouseDetail: '',
     seeHouseId: null,
     currentCity: '',
+    content: '',//用户取消预约的原因
   
   },
   onLoad(options) {
@@ -28,6 +29,10 @@ Page({
     this.setData({seeHouseId: options.id});
     this.seeHouseDetailRequest(options.id);
   },
+  //获取取消预约的原因
+  bindTextAreaBlur(e) {
+    this.setData({content: e.detail.value}); 
+  },
   //取消预约
   cancelOrder() {
     this.setData({isShadow: true});
@@ -35,7 +40,7 @@ Page({
   //取消预约 确定
   OrderConfirm() {
     let params = {
-      "cancelCause": "取消",
+      "cancelCause": this.data.content,
       "id": this.data.seeHouseId,
       "unicode": wx.getStorageSync("userToken"),
       "scity": this.data.currentCity
@@ -70,5 +75,10 @@ Page({
         case 'TO_SCHEDULE': this.setData({show1:true,show2:true,show3:true});break;
       }
     })
+  },
+  //打电话
+  tellbroker(e) {
+    console.log(e.currentTarget.dataset.phone)
+    wx.makePhoneCall({phoneNumber: e.currentTarget.dataset.phone});
   }
 })

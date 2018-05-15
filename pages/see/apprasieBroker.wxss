@@ -80,3 +80,7 @@ button{
     color: #ffffff;
     opacity: 0.8;
 }
+.bgColor{
+    background: #ff4343;
+    color: #ffffff;
+}

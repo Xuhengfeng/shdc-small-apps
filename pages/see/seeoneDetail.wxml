@@ -18,8 +18,8 @@
         </view>
 
         <view class="content content2" wx:if="{{show2}}">
-            <view class="decTitle" wx:if="{{isLoding}}">经纪人安排成功 <view>{{seeHouseDetail.procScheduleTime}}</view></view>
-            <view class="decTitle loding" wx:if="{{!isLoding}}">正在为您安排经纪人 <view>{{seeHouseDetail.procScheduleTime}}</view></view>
+            <view class="decTitle" wx:if="{{isLoding}}">经纪人安排成功 <view>{{seeHouseDetail.assignBrokerTime}}</view></view>
+            <view class="decTitle loding" wx:if="{{!isLoding}}">正在为您安排经纪人 <view>{{seeHouseDetail.assignBrokerTime}}</view></view>
             <view class="decription">经纪人会电话联系你的</view>
             <view class="brokerInfo">
                 <view class="avatar">
@@ -29,7 +29,7 @@
                     <view>{{seeHouseDetail.broker.emplName}}<text>{{seeHouseDetail.broker.positionName}}</text></view>
                     <view>所在门店</view>
                 </view>
-                <view class="tellphone" data-telNum="{{seeHouseDetail.broker.phone}}" bindtap="tellbroker">
+                <view class="tellphone" data-phone="{{seeHouseDetail.broker.phone}}" bindtap="tellbroker">
                     <image src="../../images/phone.png">电话</image>
                 </view>
             </view>
@@ -48,8 +48,11 @@
     <view class="content cancelYu" bindtap="cancelOrder" wx:if="{{!isCancel}}">取消预约</view>
     <view class="shadow" wx:if="{{isShadow}}">
         <view class="dialog">
-            <view class="dialog-hd">您是否要取消预约看房</view>
+            <view class="dialog-hd">是否要取消预约看房</view>
             <view class="dialog-bd">
+                <textarea placeholder="取消预约的原因" bindblur="bindTextAreaBlur"></textarea>
+            </view>
+            <view class="dialog-ft">
                 <view bindtap="OrderConfirm">确定</view>
                 <view bindtap="OrderCancel">取消</view>
             </view>

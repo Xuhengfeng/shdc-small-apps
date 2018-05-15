@@ -1,20 +1,21 @@
 <view class="brokerApprasie">
-    <view class="name">张三</view>
-    <view class="decription"><text>带看</text>fasdfasdfasdfasdfasdfasfasdfasdfasdfdfasdfasdf</view>
+    <view class="name">{{item.brokerName}}</view>
+    <view class="decription"><text>带看</text>{{item.houseContent}}</view>
     <view class="starLevel">星级</view>
     <view class="starimg">
         <image src="{{item.isStar?star1:star2}}"
                       wx:for="{{star}}"
                       data-index="{{index}}"
-                      bindtap="selectItem" ></image>
+                      bindtap="selectStar" ></image>
     </view>
-    <textarea placeholder="您舒适的看房体验是我们服务的宗旨"></textarea>
+    <textarea placeholder="您舒适的看房体验是我们服务的宗旨" bindblur="bindTextAreaBlur"></textarea>
 </view>
 <view class="tagContent">
     <view class="remark1">标签</view>
     <view wx:for="{{tags}}"
-            class="tag {{index == num ? 'bgColor':''}}"
+            class="tag {{item.isSelect == true? 'bgColor':''}}"
             data-index="{{index}}"
-            bindtap="selectItem">{{item}}</view>
+            data-id="{{item.value}}"
+            bindtap="selectTag">{{item.name}}</view>
 </view>
-<button>提交</button>
+<button bindtap="commitRequest">提交</button>

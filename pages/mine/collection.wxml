@@ -74,7 +74,7 @@
           <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
               <view class="weui-panel__bd">
               <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-              <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=二手房" 
+              <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=小区" 
                         hover-class="none">
                   <view class="item">
                         <view class="image">

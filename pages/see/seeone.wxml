@@ -42,11 +42,11 @@
                             <view><text class="time">{{item.scheduleTime}}</text><text class="name">{{item.brokerName}}</text>带看</view>
                             <view>
                                 <image src="../../images/complain.png" data-phone="{{item.complaintPhone}}" bindtap="complain"></image>
-                                <image src="../../images/flower.png" bindtap="goComment"></image>
+                                <image src="../../images/flower.png" data-item="{{item}}" bindtap="goComment"></image>
                             </view>
                         </view>
                         <block wx:for="{{item.houseList}}" wx:key="index" wx:for-item="item2">
-                            <view class="item" data-id="{{item2.sdid}}" bindtap="guesslike">
+                            <view class="item" data-id="{{item2.houseSdid}}" bindtap="seeHouse">
                                 <view class="image">
                                     <image src="{{item2.housePic?item2.housePic: '../../images/astate.png'}}"></image></view>
                                 <view class="item-content">
@@ -69,7 +69,7 @@
                                 </view>
                             </view>
                         </block>
-                        <view class="remark" bindtap="addHouseRemark">添加房源备注</view>
+                        <view class="remark" data-item="{{item}}" bindtap="addHouseRemark">添加房源备注</view>
                     </view>
 
               </view>

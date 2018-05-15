@@ -57,7 +57,6 @@ Page({
     utils.get(this.data.IPS[6])
     .then((data)=>{
       if(data.data != undefined){
-        this.setData({ myLocation: data.data.name})
         wx.setStorage({
           key: 'selectCity',
           data: {
@@ -65,6 +64,7 @@ Page({
             value: data.data.value
           }
         });
+        this.setData({myLocation: data.data.name});
         this.oneBigRequest(data.data.value);
       }
     })
@@ -108,7 +108,6 @@ Page({
               let lowCase = pinyin.Pinyin.getFullChars(citytoPinyin);
               let currentCity = lowCase.toLowerCase();
               let currentCityName = data.originalData.result.addressComponent.city.slice(0, -1);
-              this.setData({ myLocation: currentCityName })
               wx.setStorage({
                 key: 'selectCity',
                 data: {
@@ -116,6 +115,7 @@ Page({
                   value: currentCity
                 }
               });
+              this.setData({myLocation: data.data.name});
               this.oneBigRequest(currentCity);
       }
     });
@@ -127,13 +127,17 @@ Page({
       this.setData({ imgUrls: data.data });
     })
     //四个栏目四个图片
-    utils.get(this.data.IPS[5] + "/INDEX_PLATE")
+    utils.get(this.data.IPS[5] + "/INDEX_PLATE",{
+      scity: city
+    })
     .then((data) => {
+      console.log(data.data)
       if(data.data.length) this.setData({ plate: data.data });
     })  
     //热门推荐
     utils.get(this.data.IPS[4] + "1001", {
-      pageNo: 1
+      pageNo: 1,
+      scity: city
     })
     .then((data) => {
       if(data.data.length) this.setData({ hotrecommend: data.data });
@@ -158,7 +162,8 @@ Page({
     })
     //新盘推荐
     utils.get(this.data.IPS[4] + "1002", {
-      pageNo: 1
+      pageNo: 1,
+      scity: city
     })
     .then((data) => {
       if(data.data.length) this.setData({ newinfohouse: data.data });

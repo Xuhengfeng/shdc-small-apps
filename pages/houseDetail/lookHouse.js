@@ -11,7 +11,7 @@ Page(filter.loginCheck({
     hiddenPicker: true,
     currentTime: null, //当前时间戳
     showTime: '',
-    year: '',
+    year: '',//年
     houseDetail: '',//房源
     flagPrice: '',
     //请求参数
@@ -27,6 +27,33 @@ Page(filter.loginCheck({
     houseDetailSdid: '',
     currentCity: ''
    },
+   onLoad(options) {
+    //userPhone获取用户手机号
+    utils.storage('userPhone')
+    .then(res=>{
+      let str = res.data.phoneNumber
+      this.setData({
+        userTelphone: str,
+        userPhone: str.slice(0,3)+"****"+str.slice(7,11)
+      });
+    })
+    //获取当前的时间
+    utils.get(Api.IP_CURRENTDATETIME)
+    .then((data)=>{
+      let result = this.totalDay(data.data.currentDateTime);
+      this.setData({
+        currentTime: data.data.currentDateTime,
+        dateArr: result.dateArr,//开始计算每月几天 日期
+        year: result.year,
+        select: JSON.parse(options.select),
+      });
+      this.setData({
+        showTime: this.data.dateArr[0] +" "+ "全天",//默认时间(前台)
+        dataTime: this.data.year + this.data.dateArr[0].split(' ')[0],//默认时间(丢后台)
+        dayTime: 'ALL_DAY',
+      })
+    })
+  },
    //自定义城市控件
   showOwnPicker() {
     this.setData({hiddenPicker: !this.data.hiddenPicker});
@@ -41,18 +68,6 @@ Page(filter.loginCheck({
       hiddenPicker: !this.data.hiddenPicker,
       dataTime: this.data.year + this.data.showTime.split(' ')[0]
     });
-    // wx.getStorage({
-    //   key: 'selectCity',
-    //   success: (res) => {
-    //     let params = {
-    //       appointName: this.data.userName,
-    //       appointMobile: this.data.userTelphone,
-    //       appointDate: this.data.nowDate,
-    //       appointRange: '全天'
-    //     }
-    //     utils.post(Api.IP_APPOINTHOUSE,params).then((data)=>{});
-    //   }
-    // })
   },
   //提交
   commit() {
@@ -89,6 +104,7 @@ Page(filter.loginCheck({
       }
     })
   },
+  //改变触发
   bindChange(e) {
     let newArr = this.data.dateArr[e.detail.value[0]].split(' ');
     let dayTime;
@@ -103,30 +119,7 @@ Page(filter.loginCheck({
       dayTime: dayTime
     })
   },
-  onLoad(options) {
-    //userPhone获取用户手机号
-    wx.getStorage({
-      key: 'userPhone',
-      success: (res)=> {
-        let str = res.data.phoneNumber
-        this.setData({
-          userTelphone: str,
-          userPhone: str.slice(0,3)+"****"+str.slice(7,11)
-        });
-      } 
-    })  
-    //获取当前的时间
-    utils.get(Api.IP_CURRENTDATETIME)
-    .then((data)=>{
-      let result = this.totalDay(data.data.currentDateTime);
-      this.setData({
-        currentTime: data.data.currentDateTime,
-        dateArr: result.dateArr,//开始计算每月几天 日期
-        year: result.year,
-        select: JSON.parse(options.select)
-      })
-    })
-  },
+
   totalDay(currentTime) {//计算一个月有几天 日期
     let curDate = new Date(currentTime)//转时间对象
     let curMonth = curDate.getMonth();//外国月份

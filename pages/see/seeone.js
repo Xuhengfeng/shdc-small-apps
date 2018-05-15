@@ -17,7 +17,7 @@ Page({
     IPS: [Api.IP_READYLIST, Api.IP_COMPLETE, Api.IP_COLLECTIONLIST],
     num: 0,
     currentCity: '',
-    page: 1,
+    page: 2,
     isShadow: false,
   },
   onLoad() {
@@ -79,7 +79,7 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
       num: num,
-      page: 1
+      page: 2
     });
   },
   //请求
@@ -105,12 +105,17 @@ Page({
     })
   },
   //评价联系人
-  goComment() {
-    wx.navigateTo({url:'apprasieBroker'});
+  goComment(e) {
+    wx.navigateTo({url:`apprasieBroker?item=${JSON.stringify(e.currentTarget.dataset.item)}`});
+  },
+  seeHouse(e) {
+    this.cacheHouseType('二手房');
+    this.cacheHouseType2('二手房');
+    wx.navigateTo({url:`../houseDetail/houseDetail?id=${e.currentTarget.dataset.id}`});    
   },
   //添加看房备注
-  addHouseRemark() {
-    wx.navigateTo({url:'remark'});
+  addHouseRemark(e) {
+    wx.navigateTo({url:`remark?item=${JSON.stringify(e.currentTarget.dataset.item)}`});
   },
   //上拉
   onReachBottom() {
@@ -124,6 +129,14 @@ Page({
       this.setData({ houseList: this.data.houseList.concat(data.data) })
       this.setData({ hasMore: false });
     })
-  }
+  },
+  //缓存房源类型 可以改变的 
+  cacheHouseType(value) {
+  wx.setStorageSync('houseTypeSelect', value)
+  },
+  //缓存房源类型 不可改变的
+  cacheHouseType2(value) {
+    wx.setStorageSync('onceHouseType', value)
+  },
 });
 

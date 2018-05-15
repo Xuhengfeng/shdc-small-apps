@@ -1,14 +1,14 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/see/apprasieBroker",
+    "pages/see/seeoneDetail",
     "pages/mine/comment",
     "pages/mine/brokterInfo",
-    "pages/see/apprasieBroker",
     "pages/index/lookHouseList",
     "pages/see/seeone",
     "pages/see/remark",
     "pages/see/house",
-    "pages/see/seeoneDetail",
     "pages/houseDetail/lookHouse",
     "pages/houseDetail/houseDetail", 
     "pages/index/newHouse",
