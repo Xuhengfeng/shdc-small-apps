@@ -69,7 +69,7 @@
                                     </view>
                                 </view>
                             </view>
-                            <view class="remark" data-item="{{item}}" bindtap="addHouseRemark">添加房源备注</view>
+                            <view class="remark" data-item="{{item2}}" bindtap="addHouseRemark">添加房源备注</view>
                         </view>
 
                     </view>
