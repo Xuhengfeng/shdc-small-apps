@@ -26,6 +26,10 @@ export const IP_READYLIST = SERVER_IPS + "/appoint/readyList";//待看日程列�
 export const IP_READYDETAIL = SERVER_IPS + "/appoint/readyDetail/";//待看日程详情
 export const IP_ORDERCANCEL = SERVER_IPS + "/appoint/cancel";//取消预约
 export const IP_COMPLETE = SERVER_IPS + "/appoint/complete";//已看记录
+export const IP_REPORTLIST = SERVER_IPS + "/report/list";//看房报告
+export const IP_BROKEREVALUATE = SERVER_IPS + "/brokerEval/brokerEvaluates";//查询经纪人评价信息(我的评论)
+
+
 //首页猜你喜欢
 export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你喜欢 二手房列表
 export const IP_RENTHOUSERENTLIKE = SERVER_IPS + "/rentHouse/queryLike";//首页猜你喜欢 租房列表
@@ -38,7 +42,7 @@ export const IP_BROKERSLIST = SERVER_IPS + "/broker/brokers";//经纪人列表
 export const IP_BROKERSDETAIL = SERVER_IPS + "/broker/";//经纪人详情
 export const IP_BROKERADD = SERVER_IPS + "/brokerCollection/add/";//添加收藏经纪人
 export const IP_BROKERCANCEL = SERVER_IPS + "/brokerCollection/cancel/";//取消收藏经纪人
-export const IP_BROKEREVALUATE = SERVER_IPS + "/brokerEval/fillBrokerEvaluate";//用户提价经纪人评价
+export const IP_FILLBROKEREVALUATE = SERVER_IPS + "/brokerEval/fillBrokerEvaluate";//用户提价经纪人评价
 export const IP_FILLMEMBERMARK = SERVER_IPS + "/appoint/fillMemberRemark";//用户填写看房备注
 
 

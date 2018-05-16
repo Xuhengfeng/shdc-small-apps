@@ -1,0 +1,16 @@
+<view class="section" wx:for="{{brokerComment}}">
+    <view class="image"><image src="{{item.headUrl?item.headUrl:'../../images/avatar.png'}}"></image></view>
+    <view class="r-content">
+            <view class="name">{{item.memberName}}<text>{{item.evaluateDate}}</text></view>
+            <view class="star">
+                <image wx:for="{{item.grade}}" wx:for-item="item2" src="{{item2?'../../images/star-on.png':'../../images/star-off.png'}}"></image>
+            </view>
+            <view class="discription">
+                <view class="text">{{item.content}} </view>
+                <view>
+                    <text wx:for="{{item.tag}}" wx:for-item="item3">{{item3}}</text>
+                </view>
+            </view>
+    </view>
+</view>
+<view class="nodata" wx:if="{{!brokerComment.length}}">暂时没有更多评价!</view>

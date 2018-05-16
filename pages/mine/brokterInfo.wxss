@@ -11,7 +11,6 @@
   float: left;
   width: 150rpx;
   height: 150rpx;
-  background: red;
   border-radius: 50%;
   margin: 20rpx 40rpx 40rpx 20rpx;
 }
@@ -94,6 +93,7 @@
   font-size: 28rpx;
   color: #666666;
 }
+/* 评论 */
 .appraise{
   background: #ffffff;
   padding: 60rpx 24rpx 0;
@@ -109,8 +109,8 @@
   width: 68rpx;
   height: 68rpx;
   margin-right: 20rpx;
-  background: red;
   border-radius: 50%;
+  overflow: hidden;
   float: left;
 }
 .appraise view:not(:nth-of-type(1)) .image image{
@@ -125,8 +125,7 @@
     margin-bottom: 26rpx;
 }
 .r-content .star{
-  display: inline-block;
-  margin: 0 14rpx 20rpx 0;
+  margin-bottom: 20rpx;
 }
 .name text{
   float: right;
@@ -134,11 +133,24 @@
 .star image{
   width: 29rpx;
   height: 26rpx;
-  background: red;
+  margin-right: 14rpx;
 }
-.discription .text{
+.discription{
   padding: 20rpx;
   background: #f9f9f9;
+}
+.discription .text{
+  margin-bottom: 10rpx;
+}
+.discription view text{
+  display: inline-block;
+  background: #f9f9f9;
+  font-size: 30rpx;
+  color: #333333;
+  margin: 0 10rpx 10rpx 0;
+  padding: 5rpx;
+  border-radius: 5rpx;
+  border: 1px solid #cacaca;
 }
 .footer{
   height: 120rpx;
@@ -162,4 +174,9 @@
 }
 .weui-cell{
   padding:0;
+}
+.nodata{
+  text-align: center;
+  line-height: 80rpx;
+  color: #cacaca;
 }

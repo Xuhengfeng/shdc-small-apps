@@ -1,6 +1,6 @@
  
 <view class="list"bindtap="goBackSet">
-      <image class="avatar" src="{{brokerInfo.photo}}"></image>
+      <image class="avatar" src="{{brokerInfo.photo?brokerInfo.photo:'../../images/avatar.png'}}"></image>
       <view class="content">
             <view>
                 <view class="name">{{brokerInfo.emplName}}
@@ -33,21 +33,24 @@
 <view class="section  appraise">
       <view class="weui-cell weui-cell_access">
             <view class="weui-cell__bd">他的评价</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">查看全部</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access" bindtap="seeMoreComment">查看全部</view>
       </view>
-      <view  wx:for="{{[1,1]}}">
-            <view class="image"><image>1</image></view>
+      <view  wx:for="{{brokerComment}}">
+            <view class="image"><image src="{{item.headUrl?item.headUrl:'../../images/avatar.png'}}"></image></view>
             <view class="r-content">
-                  <view class="name">用户名 <text>2016.03.26</text></view>
-                  <view class="star" wx:for="{{[1,1,1]}}"><image>星星</image></view>
+                  <view class="name">{{item.memberName}} <text>{{item.evaluateDate}}</text></view>
+                  <view class="star">
+                      <image wx:for="{{item.grade}}" wx:for-item="item2" src="{{item2?'../../images/star-on.png':'../../images/star-off.png'}}"></image>
+                  </view>
                   <view class="discription">
-                          <view class="text">no发丝的环境佛安静地方咯奥克斯的技能福利卡上面那地方 </view>
-                          <view>
-                                  <text>服务好</text>
-                          </view>
+                        <view class="text">{{item.content}} </view>
+                        <view>
+                            <text wx:for="{{item.tag}}" wx:for-item="item3">{{item3}}</text>
+                        </view>
                   </view>
             </view>
       </view>
+      <view class="nodata" wx:if="{{!brokerComment.length}}">暂时没有任何人评价!</view>
 </view>
 
 <view class="section goodList">
@@ -104,5 +107,5 @@
 
 
 <view class="footer">
-  <view>打电话</view>
+  <view data-phone="{{brokerInfo.phone}}" bindtap="call">打电话</view>
 </view>

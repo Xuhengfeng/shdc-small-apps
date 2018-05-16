@@ -4,6 +4,19 @@ Page({
     nickName: null,
     avatarUrl: null
   },
+  onLoad() {
+    utils.storage('userToken')
+    .then(res=>{
+       utils.storage('userInfo')
+       .then(res2=>{
+         this.setData({
+          nickName: res2.nickName,
+          avatarUrl: res2.avatarUrl,
+          showLogout: true
+         })
+       })
+    })
+  },
   //拨打电话
   telphone() {
     wx.makePhoneCall({phoneNumber: '13212361223'})

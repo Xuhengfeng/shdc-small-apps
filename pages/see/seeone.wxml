@@ -79,7 +79,13 @@
           <view class="weui-tab__content threeContent" hidden="{{activeIndex != 2}}">
               <!-- 看房报告 -->
               <view class="weui-panel__bd">
-                  开发中
+                    <view class="item"  data-url="{{item.reportUrl}}" wx:for="{{report}}" bindtap="seeHouseReport">
+                        <view>{{item.summary}}</view>
+                        <view>
+                            <view>{{item.createDateTime}}</view>
+                        </view>
+                    </view>
+                    <view class="nodata" wx:if="{{!report.length}}">没有任何看房报告!</view>  
               </view>
           </view>
       </view>

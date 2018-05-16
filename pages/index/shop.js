@@ -110,5 +110,4 @@ Page({
     }
     this.lookShopsRequest(params);
   }
- 
 })

@@ -11,10 +11,11 @@ Page({
     houseList: [],
     status: ['确认中','预约成功','已取消'],//0=确认中，1=预约成功，2=已取消
     borkerItems: [],//经纪人已看记录 
+    report: [],//看房报告
     hasMore: false,
     showload: false,
     //待看日程 已看记录 看房报告
-    IPS: [Api.IP_READYLIST, Api.IP_COMPLETE, Api.IP_COLLECTIONLIST],
+    IPS: [Api.IP_READYLIST, Api.IP_COMPLETE, Api.IP_REPORTLIST],
     num: 0,
     currentCity: '',
     page: 2,
@@ -61,6 +62,18 @@ Page({
       this.setData({borkerItems: data.data});
     })
   },
+  //看房报告
+  seeHouseReportRequest() {
+    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken")}
+    utils.get(Api.IP_REPORTLIST,params)
+    .then(data=>{
+      console.log(data)
+    })
+  },
+  //看房报告跳转
+  seeHouseReport() {
+    
+  },
   //跳转详情
   showDetail(e) {
     let seeHouseId = e.currentTarget.dataset.id;
@@ -87,7 +100,7 @@ Page({
     switch(num){
       case 0:wx.setNavigationBarTitle({title: "待看日程"});this.seeScheduleRequest();;break;//请求一
       case 1:wx.setNavigationBarTitle({title: "已看记录"});this.borkerItemsRequest();break;//请求二
-      case 2:wx.setNavigationBarTitle({title: "看房报告"});this.borkerItemsRequest();;break;//请求三
+      case 2:wx.setNavigationBarTitle({title: "看房报告"});this.seeHouseReportRequest();;break;//请求三
     }
   },
   //投诉弹窗

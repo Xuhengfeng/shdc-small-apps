@@ -1,10 +1,12 @@
 {
   "pages": [
+    "pages/mine/mine",
     "pages/index/index",
+    "pages/mine/moreComment",
+    "pages/mine/brokterInfo",
+    "pages/mine/comment",
     "pages/see/apprasieBroker",
     "pages/see/seeoneDetail",
-    "pages/mine/comment",
-    "pages/mine/brokterInfo",
     "pages/index/lookHouseList",
     "pages/see/seeone",
     "pages/see/remark",
@@ -22,7 +24,7 @@
     "pages/houseDetail/map",
     "pages/houseDetail/seehouseList",
     "pages/mine/mybuyhouse",
-    "pages/mine/mine",
+
     "pages/mine/login",
     "pages/mine/suggest",
     "pages/mine/collection",

@@ -13,6 +13,7 @@ Page({
     avatarUrl: null,
     isphoneLogin: true,  //是否登录
     code: '', //验证码
+    currentCity: null
   }, 
   getPhoneNumber(e) {//这个方法后面 如果是企业号 就可以获取用户手机号
     if(e.detail.errMsg == 'getPhoneNumber:fail user deny') {
@@ -67,6 +68,10 @@ Page({
   },  
   onLoad(options) {
     this.getUseInfo();
+    utils.storage('selectCity')
+    .then(res=>{
+      this.setData({currentCity: res.data.value});
+    })
   },
   //用户基本信息
   getUseInfo() {
@@ -92,32 +97,22 @@ Page({
       let mobilePhone = this.data.inputValue1
       let smsCode = this.data.inputValue2
     
-      wx.request({
-        url: Api.IP_SMSCODELOGIN,
-        data: {
-          deviceCode: "wx",
-          smsCode: smsCode,//验证码  暂时默认111111
-          mobile: mobilePhone
-        },
-        method: 'POST',
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: (res) => {
-          if (res.statusCode == 500) {
-            wx.showModal({content: '手机或验证码不对!'})
-          }else if(res.statusCode == 200) {
-            wx.setStorage({ key: 'userToken',data: res.data})
-            wx.showToast({
-              title: '登录成功',
-              icon: 'success',
-              duration: 1000
-            })
-            this.goBackSet(res);
-          }
-        }
+      let params = {
+        "deviceCode": "wx",
+        "smsCode": smsCode,//验证码  暂时默认111111
+        "mobile": mobilePhone
+      }
+      utils.post(Api.IP_SMSCODELOGIN,params)
+      .then(data=>{
+        wx.setStorage({ key: 'userToken',data: data.data})
+        wx.showToast({
+          title: '登录成功',
+          icon: 'success',
+          duration: 1000
+        })
+        this.goBackSet(data);
       })
-    }else{
+     }else{
       wx.showToast({
         title: '登录失败',
         icon: 'none',
@@ -166,39 +161,61 @@ Page({
     let key = this.data.inputValue1 + "29e94f94-8664-48f2-a4ff-7a5807e13b68";
     
     if(this.data.inputValue1) {
-      var mobilePhone = this.data.inputValue1
-      //注册 
-      wx.request({
-        url: Api.IP_GETSMSCODE,
-        data: {
-          mobile: mobilePhone,
-          sign: md5(key.toUpperCase()),
-          operateType: "REGISTER" 
-        },
-        method: 'POST',
-        header: {'content-type': 'application/json'},
-        success: (res)=> {
-          console.log(res)
-            //再次请求登录 获取验证码
-            if(res.data.status == 500) {//说明用户已经注册过
-                wx.request({
-                url: Api.IP_GETSMSCODE,
-                data: {
-                  mobile: mobilePhone,
-                  sign: md5(key.toUpperCase()),
-                  operateType: "LOGIN"
-                },
-                method: 'POST',
-                header: {
-                  'content-type': 'application/json' // 默认值
-                },
-                success: (res) => {}
-              })
-            }
-             
-          }
-        })
+      let mobilePhone = this.data.inputValue1
+      let params = {
+        mobile: mobilePhone,
+        sign: md5(key.toUpperCase()),
+        operateType: "REGISTER",
+        scity: this.data.currentCity
       }
+      utils.post(Api.IP_GETSMSCODE,params)
+      .then(data=>{
+        if(data.data.status == 500){
+          let params2 = {
+            mobile: mobilePhone,
+            sign: md5(key.toUpperCase()),
+            operateType: "LOGIN",
+            scity: this.data.currentCity
+          }
+          return utils.post(Api.IP_GETSMSCODE,params2)
+        }
+      })
+      .then(data2=>{
+         console.log(data2)
+      })
+      //注册 
+      // wx.request({
+      //   url: Api.IP_GETSMSCODE,
+      //   data: {
+      //     mobile: mobilePhone,
+      //     sign: md5(key.toUpperCase()),
+      //     operateType: "REGISTER" 
+      //   },
+      //   method: 'POST',
+      //   header: {'content-type': 'application/json'},
+      //   success: (res)=> {
+      //     console.log(res)
+      //       //再次请求登录 获取验证码
+      //       if(res.data.status == 500) {//说明用户已经注册过
+      //           wx.request({
+      //           url: Api.IP_GETSMSCODE,
+      //           data: {
+      //             mobile: mobilePhone,
+      //             sign: md5(key.toUpperCase()),
+      //             operateType: "LOGIN"
+      //           },
+      //           method: 'POST',
+      //           header: {
+      //             'content-type': 'application/json' // 默认值
+      //           },
+      //           success: (res) => {}
+      //         })
+      //       }
+             
+      //     }
+      //   })
+      // }
+    }
   }
 })
 

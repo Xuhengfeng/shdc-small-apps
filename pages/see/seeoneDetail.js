@@ -71,8 +71,8 @@ Page({
       console.log(step)
       switch(step){
         case 'SUCCESS': this.setData({show1:true,show2:false,show3:false});break;
-        case 'TO_ASSIGN_BROKER': this.setData({show1:true,show2:true,show3:false});break;
-        case 'TO_SCHEDULE': this.setData({show1:true,show2:true,show3:true});break;
+        case 'TO_ASSIGN_BROKER': this.setData({show1:true,show2:true,isLoding:false,show3:false});break;
+        case 'TO_SCHEDULE': this.setData({show1:true,show2:true,isLoading:true,show3:true});break;
       }
     })
   },

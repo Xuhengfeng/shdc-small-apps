@@ -1,0 +1,60 @@
+page{
+    background: #ffffff;
+}
+.section{
+    margin: 30rpx 24rpx 0;
+    padding-bottom: 30rpx;
+    border-bottom: 1px solid #e6e6e6;
+}
+.image {
+    width: 68rpx;
+    height: 68rpx;
+    margin-right: 20rpx;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
+}
+.image image {
+    width: 100%;
+    height: 100%;
+}
+.r-content {
+    overflow: hidden;
+}
+.r-content .name {
+    font-size: 30rpx;
+    margin-bottom: 26rpx;
+}
+.r-content .star {
+    margin-bottom: 20rpx;
+}
+.name text {
+    float: right;
+}
+.star image {
+    width: 29rpx;
+    height: 26rpx;
+    margin-right: 14rpx;
+}
+.discription{
+    padding: 20rpx;
+    background: #f9f9f9;
+}
+.discription .text{
+    margin-bottom: 10rpx;
+}
+.discription view text{
+    display: inline-block;
+    background: #f9f9f9;
+    font-size: 30rpx;
+    color: #333333;
+    margin: 0 10rpx 10rpx 0;
+    padding: 5rpx;
+    border-radius: 5rpx;
+    border: 1px solid #cacaca;
+}
+.nodata {
+    text-align: center;
+    line-height: 80rpx;
+    color: #cacaca;
+}

@@ -9,7 +9,8 @@ Page({
     currentCity: '',
     brokerInfo: null,
     likeFlag: true,
-    brokerId: ''
+    brokerId: '',
+    brokerComment: [],//经纪人评论
   },
   onLoad(options) {
     let id = options.id;
@@ -24,6 +25,41 @@ Page({
       this.getDataFromServer(IP, params);
       this.brokerInfoRequest(id);
     });
+    this.brokerCommentInfo();
+  },
+  //经纪人评论
+  brokerCommentInfo() { 
+    let params = {
+      brokerId: this.data.brokerId,
+      pageNo: 1
+    }
+    utils.get(Api.IP_BROKEREVALUATE,params)
+    .then(data=>{
+      data.data.forEach(item=>{
+        item.grade = this.newStar(item.grade);
+        item.tag = item.tag.split(',');
+      })
+      this.setData({brokerComment: data.data});
+    })
+  },
+  //查看更多的评论
+  seeMoreComment() {
+    wx.navigateTo({url: `moreComment?id=${this.data.brokerId}`})
+  },
+  //拨打电话
+  call(e) {
+    wx.makePhoneCall({phoneNumber: e.currentTarget.dataset.phone});
+  },
+  //生成星星组合
+  newStar(num) {
+    let arr=[];
+    for(let i=0;i<num;i++){
+      arr.push(true);
+    }
+    for(let j=0;j<(5-num);j++){
+      arr.push(false);
+    }
+    return arr;
   },
   //猜你喜欢 二手房 租房
   selectYouLike(e) {

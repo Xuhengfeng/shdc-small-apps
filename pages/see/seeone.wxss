@@ -190,4 +190,36 @@ button{
 }
 /* 看房报告----------------------------------------------------------------- */
 
-
+.threeContent .item{
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 30rpx;
+  background:  #fff;
+  margin-top: 20rpx;
+  align-items: center;
+  position: relative;
+  transform: translate3d(0,0,0);
+  transition: all .3s ease;
+}
+.threeContent .item>view:nth-of-type(2){
+  width: 155rpx;
+  white-space: nowrap;
+  text-align: center;
+  margin-left: 90rpx;
+  font-size: 26rpx;
+  color: #999999;
+}
+.threeContent .item>view:nth-of-type(2)>view:nth-of-type(2){
+  margin-top: 20rpx;
+}
+.threeContent .item>view:nth-of-type(1){
+  flex: 1;
+  font-size: 34rpx;
+  color: #333333;
+  line-height: 1.2;
+}
+.threeContent .nodata{
+  text-align: center;
+  line-height: 80rpx;
+  color: #333333;
+}

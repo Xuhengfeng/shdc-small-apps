@@ -27,6 +27,7 @@ Page({
     utils.get(Api.IP_DICTIONARYCONDITION+"USER_REMARK_TAG")
     .then(data=>{
       this.setData({tags: data.data})
+      wx.navigateBack();
     })
   },
   //提交看房备注

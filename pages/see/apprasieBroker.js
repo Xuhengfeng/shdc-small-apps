@@ -77,7 +77,7 @@ Page({
       "tag": tagStr,
       "unicode": wx.getStorageSync("userToken")
     }
-    utils.post(Api.IP_BROKEREVALUATE,params)
+    utils.post(Api.IP_FILLBROKEREVALUATE,params)
     .then(data=>{
       wx.showModal({
         content: "非常感谢您的评价!",
