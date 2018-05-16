@@ -25,7 +25,7 @@
   vertical-align: middle;
 }
 .own .weui-cell__hd{
-  width: 100rpx;
+  width: 275rpx;
 }
 .section3{
   padding: 20rpx 0 0 30rpx;

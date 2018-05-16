@@ -57,23 +57,26 @@
             <view class="weui-label">小区</view>
         </view>
         <view class="weui-cell__bd">
-            <input class="weui-input" 
+            <input class="weui-input {{phcolorFlag3? 'phcolor': ''}}"  
                         placeholder-class="phcolor"
-                        bindinput="bindKeyInput3"
-                        placeholder="请选择您房源所在的小区"/>
+                        bindtap="houseRim"
+                        placeholder="房源所在的小区"/>
         </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </view>
 
     <view class="weui-cell weui-cell_input own">
         <view class="weui-cell__hd">
-            <view class="weui-label">栋座</view>
+            <view class="weui-label" style="white-space:nowrap">栋座/单元/门牌号</view>
         </view>
         <view class="weui-cell__bd">
-            <input class="weui-input" 
+            <input class="weui-input {{phcolorFlag4? 'phcolor': ''}}"  
                         placeholder-class="phcolor"
-                        bindinput="bindKeyInput4"
-                        placeholder="栋号"/>
+                        bindtap="houseInfo"
+                        placeholder="房源信息"/>
         </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        <!-- 
          <view class="weui-cell__hd">
             <view class="weui-label">单元</view>
         </view>
@@ -91,12 +94,12 @@
                         placeholder-class="phcolor"
                         bindinput="bindKeyInput6"
                         placeholder="房号"/>
-        </view>
+        </view> -->
     </view>
 
     <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-            <view class="weui-label">具体地址</view>
+            <view class="weui-label" style="white-space:nowrap">具体地址</view>
         </view>
         <view class="weui-cell__bd">
             <input class="weui-input"

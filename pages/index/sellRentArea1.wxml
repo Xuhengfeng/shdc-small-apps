@@ -1,0 +1,15 @@
+<!-- 栋座号 -->
+<view class="search-box">
+    <view class="search"> 
+      <view class="img" bindtap="startsearch"><image src="../../images/search.png"/></view>
+      <input confirm-type="搜索"  bindconfirm="searchSubmit" placeholder="请输入栋座号"  bindinput="userSearch" value="{{inputTxt}}" />
+      <view class="confirmBtn" >确定</view>
+    </view> 
+</view>   
+<view class="section">
+    <view class="title">快速选择</view>
+    <view wx:for="{{buildingBlock}}" catchtap="selectItem1">
+        <view>无栋座号</view>
+        <view>1单元</view>
+    </view>
+</view>

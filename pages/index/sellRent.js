@@ -4,10 +4,12 @@ let filter = require("../../utils/filter.js");
 
 Page(filter.loginCheck({
   data: {
-    selectFlag1: true,
-    selectFlag2: false,    
+    selectFlag1: true,//出售
+    selectFlag2: false,//出租    
     phcolorFlag: true,//城市
     phcolorFlag2: true,//经纪人
+    phcolorFlag3: true,//小区
+    phcolorFlag4: true,//房源信息 
     city: '请选择您房源所在城市',
     broker: '请选择跟进联系人',
     brokerId: '',
@@ -112,15 +114,19 @@ Page(filter.loginCheck({
   },
   //城市
   jumpCityList() {
-    wx.navigateTo({
-      url: '../location/location?origin=sellRent',
-    })
+    wx.navigateTo({url: '../location/location?origin=sellRent'});
   },
   //经纪人
   jumpBrokerList() {
-    wx.navigateTo({
-      url: 'broker',
-    })
+    wx.navigateTo({url: 'broker'});
+  },
+  //房源所在的小区
+  houseRim() {
+    wx.navigateTo({url: 'sellRentArea'});
+  },
+  //房源信息
+  houseInfo() {
+    wx.navigateTo({url: 'sellRentArea1'});
   },
   //提交
   commit(IP) {
