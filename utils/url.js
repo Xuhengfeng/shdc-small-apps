@@ -19,6 +19,12 @@ export const IP_PLATE = SERVER_IPS + "/plate/query/";//四个栏目
 export const IP_NEWINFO = SERVER_IPS + "/info/query/";//新盘推荐
 export const IP_NEWBUILDINDEX = SERVER_IPS + "/newbuilding/index";//新房首页数据
 export const IP_NEWBUILDING = SERVER_IPS + "/newbuilding/query/";//新房城市信息列表
+export const IP_BUILDINGLIST = SERVER_IPS + "/build/buildList/";//小区列表
+export const IP_BUILDINGLISTDZ = SERVER_IPS + "/build/building/dz/";//栋座号列表
+export const IP_BUILDINGLISTDYFH = SERVER_IPS + "/build/building/dyfh";//单元或房号列表
+
+
+//预约看房
 export const IP_APPOINTADD = SERVER_IPS + "/appoint/add";//加入待看列表
 export const IP_APPOINTDELETE = SERVER_IPS + "/appoint/delete/";//取消加入待看列表
 export const IP_DETAILLIST = SERVER_IPS + "/appoint/detailLsit";//待看列表

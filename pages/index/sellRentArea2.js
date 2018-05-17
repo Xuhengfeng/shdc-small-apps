@@ -1,39 +1,60 @@
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
 Page({
   data: {
-    buildingBlock: true,//栋座
-    unit: false,//单元
-    roomNumber: false,//门牌号
-    estate: false,//小区
+    unit: [],//单元
+    keyword: null,
+    currentCity: null,
+    //栋座号名称 栋座号id 小区id 这个要传递给门牌号  
+    roomItem: null,
   },
   onLoad(options) {
-    let name = options.id;
-    if (name == 'houseRim') {
-      this.setData({ estate: true, buildingBlock: false, unit: false, roomNumber: false });
-    } else {
-      this.setData({ estate: false, buildingBlock: true, unit: false, roomNumber: false });
-    }
+    this.setData({roomItem: options});    
+    utils.storage('selectCity')
+    .then(res=>{
+      this.setData({currentCity: res.data.value});
+      this.unitRequest();
+    })
   },
-  //栋座号请求
-  //选着栋座号
-  selectItem1() {
-    console.log(111);
-    this.setData({ buildingBlock: false, unit: true });
-  },
-
   //单元号请求
+  unitRequest() {
+    let params = {
+      keyword: this.data.keyword,
+      pageNo: 1,
+      dyname: null,
+      scity: this.data.currentCity,
+      buildId: this.data.roomItem.houseRimId,//小区id
+      dzId: this.data.roomItem.buildingBlockId//栋座号id
+    };
+    utils.post(Api.IP_BUILDINGLISTDYFH, params)
+    .then(data=>{
+      data.data.unshift('无单元号');
+      this.setData({unit: data.data});
+    })
+  },
   //选着单元号
-  selectItem2() {
-    console.log(22)
-    this.setData({ buildingBlock: false, unit: false, roomNumber: true });
+  selectItem(e) {
+    let target = e.currentTarget.dataset.item;
+    let room = this.data.roomItem;
+    //栋座号名称 栋座号id 小区id 单元号----------------------------->>>>>>>>>门牌号页面
+    wx.navigateTo({url: 
+      `sellRentArea3?buildingBlockName=${room.buildingBlockName}&buildingBlockId=${room.buildingBlockId}&houseRimId=${room.houseRimId}&unitName=${target}`
+    });
   },
-  //门牌号请求
-  //选着门牌号请求
-  selectItem3() {
-    console.log(33)
+  //获取用户输入关键字
+  userSearch(e) {
+    this.setData({ keyword: e.detail.value })
   },
-  //小区请求
-  //选着小区
-  selectItem4() {
-    console.log(44)
-  }
+  //点击icon搜索 或 确定按钮
+  startsearch() {
+    this.searchSubmit();
+  },
+  //键盘回车搜索
+  searchSubmit() {
+    if (!this.data.keyword) {
+      wx.showModal({ content: '请输入关键词' });
+    } else {
+      this.unitRequest(this.data.houseRimId);
+    }
+  }, 
 })

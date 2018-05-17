@@ -8,8 +8,7 @@
 </view>   
 <view class="section">
     <view class="title">快速选择</view>
-    <view wx:for="{{unit}}" catchtap="selectItem2">
-        <view>无单元号</view>
-        <view>1单元</view>
+    <view wx:for="{{unit}}" data-item="{{item}}" catchtap="selectItem">
+        <view>{{item}}</view>
     </view>
 </view>

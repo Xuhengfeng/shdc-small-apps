@@ -1,11 +1,11 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/index/sellRent",
     "pages/index/sellRentArea",
     "pages/index/sellRentArea1",
     "pages/index/sellRentArea2",
     "pages/index/sellRentArea3",
-    "pages/index/index",
     "pages/mine/mine",
     "pages/mine/moreComment",
     "pages/mine/brokterInfo",

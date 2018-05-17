@@ -1,6 +1,10 @@
 .search-box{
-    padding: 40rpx 35rpx 25rpx;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 40rpx 35rpx 0;
     background: #f9f9f9;
+    box-sizing: border-box;
 }
 .search{
     height: 90rpx;
@@ -23,6 +27,9 @@ image{
     width: 35rpx;
     height: 35rpx;
 }
+.search{
+  margin-bottom: 25rpx;
+}
 .search input{
     flex: 1;
     text-align: left;
@@ -34,7 +41,15 @@ image{
     line-height: 90rpx;
     background: #e6e6e6;
 }
+.title{
+    height: 100rpx;
+    line-height: 100rpx;
+    background: #f9f9f9;
+    font-size: 30rpx;
+    color: #999999;
+}
 .section{
+    padding-top: 250rpx;
     background: #ffffff;
 }
 .section>view>view{
@@ -43,11 +58,12 @@ image{
     border-bottom: 1px solid #e6e6e6;
     margin: 0 35rpx;
 }
-.title{
+.section>view>view>text{
+    float: right;
     height: 100rpx;
     line-height: 100rpx;
-    background: #f9f9f9;
-    padding: 0 35rpx;
-    font-size: 30rpx;
-    color: #999999;
+}
+.fontColor{
+    color: #ffffff;
+    background: #ff4343!important;
 }

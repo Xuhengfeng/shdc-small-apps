@@ -83,7 +83,6 @@ Component({
     detailMt(e) {//列表点击事件  那个这里页面 没有options 
       let pages = getCurrentPages();//当前页面
       let prevPage = pages[pages.length - 2];//上一页面
-
       if (this.data.origin == "index") {
             prevPage.setData({
               myLocation: e.target.dataset.detail.name,
@@ -120,19 +119,19 @@ Component({
       for (let i = 0; i < data.length; i++) {
         let itemArr = [];
         for (let j = 0; j < data[i].item.length; j++) {
-          if (data[i].item[j].name.indexOf(this.value) > -1) {
-            let itemJson = {};
-            for (let k in data[i].item[j]) {
-              itemJson[k] = data[i].item[j][k];
+            if (data[i].item[j].name.indexOf(this.value) > -1) {
+              let itemJson = {};
+              for (let k in data[i].item[j]) {
+                itemJson[k] = data[i].item[j][k];
+              }
+              itemArr.push(itemJson);
             }
-            itemArr.push(itemJson);
-          }
         }
         if (itemArr.length === 0) { continue };
         newData.push({
-          title: data[i].title,
-          type: data[i].type ? data[i].type : "",
-          item: itemArr
+            title: data[i].title,
+            type: data[i].type ? data[i].type : "",
+            item: itemArr
         })
       }
       this.resetRight(newData);
@@ -143,9 +142,9 @@ Component({
           let lowCase = pinyin.Pinyin.getFullChars(e.target.dataset.detail);
           let currentCity = lowCase.toLowerCase();
           if(this.data.origin == "index") {
-              prevPage.setData({//直接给上移页面赋值
-                myLocation: e.target.dataset.detail,
+              prevPage.setData({
                 num: 0,
+                myLocation: e.target.dataset.detail,
                 currentCity: currentCity
               });
               utils.storage('currentCity')
@@ -158,15 +157,12 @@ Component({
                     }
                   });
                   wx.setStorage({key: 'houseTypeSelect',data: '二手房'});
-                  prevPage.oneBigRequest(res.data.value);//上一页重新加载数据
-                  wx.navigateBack();//返回上一个页面
+                  prevPage.oneBigRequest(res.data.value);
+                  wx.navigateBack();
               })
           }else if(this.data.origin == "sellRent") {
-              prevPage.setData({//直接给上移页面赋值
-                city: e.target.dataset.detail,
-                phcolorFlag: false
-              });
-              wx.navigateBack();//返回上一个页面
+              prevPage.setData({city: e.target.dataset.detail,phcolorFlag: false});
+              wx.navigateBack();
           }
         }
   }

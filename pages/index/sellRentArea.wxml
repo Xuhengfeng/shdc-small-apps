@@ -2,13 +2,18 @@
 <view class="search-box">
     <view class="search"> 
       <view class="img" bindtap="startsearch"><image src="../../images/search.png"/></view>
-      <input confirm-type="搜索"  bindconfirm="searchSubmit" placeholder="请输入小区名称"  bindinput="userSearch" value="{{inputTxt}}" />
-      <view class="confirmBtn" >确定</view>
+      <input confirm-type="搜索" bindinput="userSearch" bindconfirm="searchSubmit" placeholder="请输入小区名称"/>
+      <view class="confirmBtn {{keyword?'fontColor':''}}" bindtap="startsearch">确定</view>
     </view> 
+    <view class="title">快速选择</view>
 </view>   
 <view class="section">
-    <view class="title">快速选择</view>
-    <view catchtap="selectItem">
-        <view>xx小区</view>
+    <!-- 在售 -->
+    <view wx:for="{{estate}}" wx:if="{{houseTypes==0}}" data-item="{{item}}" catchtap="selectItem">
+        <view>{{item.buildName}}<text>{{item.saleCount}}套</text></view>
+    </view>
+    <!-- 在租 -->
+    <view wx:for="{{estate}}" wx:if="{{houseTypes==1}}" data-item="{{item}}" catchtap="selectItem">
+        <view>{{item.buildName}}<text>{{item.rentCount}}套</text></view>
     </view>
 </view>
