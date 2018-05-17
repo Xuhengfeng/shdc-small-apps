@@ -35,17 +35,21 @@ Page({
   },
   //选着门牌号 回到 sellRent 页面
   selectItem(e) {
-    let target = e.currentTarget.dataset.item;
     //栋座号名称 单元号 门牌号 
+    let buildingBlockName = this.data.tempData.buildingBlockName;
+    let unitName = this.data.tempData.unitName;
+    let target = e.currentTarget.dataset.item;
     let str = '';
-        str = this.data.tempData.buildingBlockName + ' '+
-              this.data.tempData.unitName+' '+
-              target;
     let pages = getCurrentPages();//当前页面
     let prevPage = pages[pages.length - 4];//sellRent页面
+
+    if(buildingBlockName=='无栋座号') buildingBlockName = '';
+    if(unitName=='无单元号') unitName = '';
+    if(target=='无门牌号') target = '';
+    
+    str = buildingBlockName + ' '+unitName+' '+target;
     prevPage.setData({houseInfoContent: str,phcolorFlag4:false});
-    //页面返回三级
-    wx.navigateBack({delta: 3});
+    wx.navigateBack({delta: 3});//页面返回三级
   },
   //获取用户输入关键字
   userSearch(e) {

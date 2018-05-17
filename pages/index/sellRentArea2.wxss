@@ -51,3 +51,7 @@ image{
     font-size: 30rpx;
     color: #999999;
 }
+.fontColor{
+    color: #ffffff;
+    background: #ff4343!important;
+}

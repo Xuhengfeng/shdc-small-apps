@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/index/sellRent",
+    "pages/index/index",
     "pages/index/sellRentArea",
     "pages/index/sellRentArea1",
     "pages/index/sellRentArea2",

@@ -42,7 +42,7 @@ Page({
     let target = e.currentTarget.dataset.item;
     let pages = getCurrentPages();//当前页面
     let prevPage = pages[pages.length - 2];//上一页面
-    prevPage.setData({houseRimName: target.buildName,houseRimId: target.id,phcolorFlag3:false});
+    prevPage.setData({houseRimName: target.buildName,houseRimId: target.id,phcolorFlag3:false,houseInfoContent: '房源信息'});
     wx.navigateBack();
   },
   //获取用户输入关键字
