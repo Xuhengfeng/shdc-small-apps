@@ -23,11 +23,19 @@ Page({
   },
   onLoad(options) {
     this.setData({houseTypes: options.houseTypes});
-    utils.storage('selectCity')
+    utils.storage('selectCity2')
     .then(data=>{
       this.setData({currentCity:data.data.value});
       let params = {pageNo:1,scity:data.data.value};
       this.selectItemRequest(params);
+    })
+    .catch(error=>{
+      wx.showModal({
+        content:'请先选着城市',
+        success: (res)=>{
+          res.confirm&wx.navigateBack();
+        }
+      })
     })
   },
   //小区请求
@@ -43,6 +51,7 @@ Page({
     let pages = getCurrentPages();//当前页面
     let prevPage = pages[pages.length - 2];//上一页面
     prevPage.setData({houseRimName: target.buildName,houseRimId: target.id,phcolorFlag3:false,houseInfoContent: '房源信息'});
+    wx.setStorage({key:'sellRentXiaoQu',data: target.buildName});
     wx.navigateBack();
   },
   //获取用户输入关键字

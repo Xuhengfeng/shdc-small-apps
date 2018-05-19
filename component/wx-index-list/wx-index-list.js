@@ -84,27 +84,25 @@ Component({
       let pages = getCurrentPages();//当前页面
       let prevPage = pages[pages.length - 2];//上一页面
       if (this.data.origin == "index") {
-            prevPage.setData({
-              myLocation: e.target.dataset.detail.name,
-              scity: e.target.dataset.detail.value,
-              currentCity: e.target.dataset.detail.value
-            })
-            prevPage.oneBigRequest(e.target.dataset.detail.value);//上一页重新加载数据
-            wx.setStorage({key: 'houseTypeSelect',data: '二手房'})
-            wx.setStorage({
-              key: 'selectCity',
-              data: {
-                name: e.target.dataset.detail.name,
-                value: e.target.dataset.detail.value
-              },
-              success: ()=> {wx.navigateBack()}
-            });
-      }else if (this.data.origin == "sellRent") {
-        prevPage.setData({//直接给上移页面赋值
-          city: e.target.dataset.detail.name,
-          phcolorFlag: false
+        prevPage.setData({
+          myLocation: e.target.dataset.detail.name,
+          scity: e.target.dataset.detail.value,
+          currentCity: e.target.dataset.detail.value
+        })
+        prevPage.oneBigRequest(e.target.dataset.detail.value);//上一页重新加载数据
+        wx.setStorage({key: 'houseTypeSelect',data: '二手房'})
+        wx.setStorage({
+          key: 'selectCity',
+          data: {name: e.target.dataset.detail.name,value: e.target.dataset.detail.value},
+          success: ()=> {wx.navigateBack()}
         });
-        wx.navigateBack();//返回上一个页面
+      }else if (this.data.origin == "sellRent") {
+        prevPage.setData({city: e.target.dataset.detail.name,phcolorFlag: false});
+        wx.setStorage({
+          key: 'selectCity2',
+          data: {name: e.target.dataset.detail.name,value: e.target.dataset.detail.value},
+          success: ()=> {wx.navigateBack()}
+        });
       }
     },
     input(e) {// 获取搜索输入内容
@@ -136,7 +134,7 @@ Component({
       }
       this.resetRight(newData);
     },
-    locationMt(e) {// 定位城市点击选择
+    locationMt(e) {// 定位城市点击选择 例如深圳 
           let pages = getCurrentPages();//当前页面
           let prevPage = pages[pages.length - 2];//上一页面
           let lowCase = pinyin.Pinyin.getFullChars(e.target.dataset.detail);
@@ -148,21 +146,25 @@ Component({
                 currentCity: currentCity
               });
               utils.storage('currentCity')
-              .then((res)=>{
-                  wx.setStorage({
-                    key: 'selectCity',
-                    data: {
-                      name: e.target.dataset.detail,
-                      value: res.data.value
-                    }
-                  });
-                  wx.setStorage({key: 'houseTypeSelect',data: '二手房'});
-                  prevPage.oneBigRequest(res.data.value);
-                  wx.navigateBack();
+              .then(res=>{
+                prevPage.oneBigRequest(res.data.value);
+                wx.setStorage({key: 'houseTypeSelect',data: '二手房'});
+                wx.setStorage({
+                  key: 'selectCity',
+                  data: {name: e.target.dataset.detail,value: res.data.value},
+                  success: ()=> {wx.navigateBack()}
+                });
               })
           }else if(this.data.origin == "sellRent") {
               prevPage.setData({city: e.target.dataset.detail,phcolorFlag: false});
-              wx.navigateBack();
+              utils.storage('currentCity')
+              .then(res=>{
+                wx.setStorage({
+                  key: 'selectCity2',
+                  data: {name: e.target.dataset.detail,value: res.data.value},
+                  success: ()=> {wx.navigateBack()}
+                });
+              })
           }
         }
   }

@@ -1,7 +1,6 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-const filter = require("../../utils/filter.js");
-let app = getApp();
+const filter = require("../../utils/filter");
 
 Page(filter.loginCheck({
   data: {
@@ -11,10 +10,12 @@ Page(filter.loginCheck({
     phcolorFlag2: true,//经纪人
     phcolorFlag3: true,//小区
     phcolorFlag4: true,//房源信息 
+    phcolorFlag5: true,//具体地址 
     city: '请选择您房源所在城市',
     broker: '请选择跟进联系人',
     houseRimName: '房源所在的小区',
     houseInfoContent: '房源信息',
+    address:"请输入您的房源具体地址",
     houseRimId: '',//房源小区id
     brokerId: '',
     selectCity: '',//当前的定位城市
@@ -23,15 +24,13 @@ Page(filter.loginCheck({
     //出售 出租
     IPS: [Api.IP_HOUSEENTRUSTAPPLYSELLHOUSE, Api.IP_HOUSEENTRUSTAPPLYRENTHOUSE],
     num: 0,
-
     inputValue1: '',//姓名
     inputValue2: '',//电话
     // inputValue3: '',//小区
     // inputValue4: '',//栋座
     // inputValue5: '',//单元号
-    inputValue6: '',//房号
-    inputValue7: '',//具体地址
-
+    // inputValue6: '',//房号
+    // inputValue7: '',//具体地址
     banner: ''
   },
   onLoad() {
@@ -46,7 +45,7 @@ Page(filter.loginCheck({
     let types = ['WILL_HOUSE_SELL_BANNER', 'WILL_HOUSE_RENT_BANNER']
     utils.get(Api.IP_INDEXCONSULT + this.data.selectCity + '/' + types[num])
     .then(data=>{
-      this.setData({ banner: data.data });
+      this.setData({ banner: data.data});
     })
   },
   //输入姓名
@@ -56,14 +55,6 @@ Page(filter.loginCheck({
   //输入电话
   bindKeyInput2(e) {
     this.setData({inputValue2: e.detail.value});
-  },
-  //输入房号
-  bindKeyInput6(e) {
-    this.setData({inputValue6: e.detail.value})
-  },
-  //输入具体地址
-  bindKeyInput7(e) {
-    this.setData({inputValue7: e.detail.value})
   },
   //出售
   selectOne() {
@@ -93,36 +84,23 @@ Page(filter.loginCheck({
   },
   //提交
   commit(IP) {
-      wx.showLoading({
-        title: '加载中...'
-      })
       let params = {
         "cityCode": this.data.city,//城市编码
         "brokerId": this.data.brokerId,//经纪人id
         "linkman": this.data.inputValue1,//姓名
         "phone": this.data.inputValue2,//联系电话
         "buildingName": this.data.houseRimName,//小区名字
-        "buildNum": this.data.inputValue4,//栋号
-        "unitNum": this.data.inputValue5,//单元号
-        "roomNum": this.data.inputValue6,//房号
-        "address": this.data.inputValue7,//详细地址
+        "buildNum": this.data.houseInfoContent.split(' ')[0],//栋号
+        "unitNum": this.data.houseInfoContent.split(' ')[1],//单元号
+        "roomNum": this.data.houseInfoContent.split(' ')[2],//房号
+        "address": this.data.address,//详细地址
       }
-    
-
-      if (this.data.inputValue1 == '' ||
-          this.data.inputValue2 == '' ||
-          this.data.inputValue3 == '' ||
-          this.data.inputValue4 == '' ||
-          this.data.inputValue5 == '' ||
-          this.data.inputValue6 == '' ||
-          this.data.inputValue7 == '' ){
-          wx.showModal({
-            title: '信息不能为空!'
-          })
+      if (this.data.inputValue1 == '' || this.data.inputValue2 == '' ){
+          wx.showModal({title: '信息填写不完整!'})
       }else{
         let params = {"unicode": wx.getStorageSync("userToken")};
-        utils.post(this.data.IPS[this.data.IPSnum],params)
-        .then(data=>{});
+        utils.post(this.data.IPS[this.data.num],params)
+        .then(data=>{wx.navigateBack()});
       }
   }
 }))

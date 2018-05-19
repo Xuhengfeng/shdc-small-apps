@@ -9,19 +9,18 @@ Page({
     houseRimId: null,//小区id
   },
   onLoad(options) {
-    utils.storage('selectCity')
+    utils.storage('selectCity2')
     .then(res=>{
       this.setData({currentCity: res.data.value,houseRimId: options.houseRimId});
-      if(options.houseRimId == ''){
-        wx.showModal({
-          content:'请先选着小区',
-          success: (res)=>{
-            res.confirm&wx.navigateBack();
-          }
-        });
-      }else{
-        this.buildingBlockRequest(options.houseRimId);
-      }
+      options.houseRimId&&this.buildingBlockRequest(options.houseRimId);
+    })
+    .catch(error=>{
+      wx.showModal({
+        content:'请先选着小区',
+        success: (res)=>{
+          res.confirm&wx.navigateBack();
+        }
+      });
     })
   },
   //栋座号请求

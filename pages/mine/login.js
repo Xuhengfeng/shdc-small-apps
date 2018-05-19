@@ -96,7 +96,6 @@ Page({
     if(this.data.inputValue1 !== "" && this.data.inputValue2 !== "" ) {
       let mobilePhone = this.data.inputValue1
       let smsCode = this.data.inputValue2
-    
       let params = {
         "deviceCode": "wx",
         "smsCode": smsCode,//验证码  暂时默认111111
@@ -104,20 +103,13 @@ Page({
       }
       utils.post(Api.IP_SMSCODELOGIN,params)
       .then(data=>{
-        wx.setStorage({ key: 'userToken',data: data.data})
-        wx.showToast({
-          title: '登录成功',
-          icon: 'success',
-          duration: 1000
-        })
+        wx.setStorage({ key: 'userToken', data: data.data });
+        wx.setStorage({ key: 'userPhone',data: mobilePhone});
+        wx.showToast({title: '登录成功',icon: 'success',duration: 1000});
         this.goBackSet(data);
       })
      }else{
-      wx.showToast({
-        title: '登录失败',
-        icon: 'none',
-        duration: 1000
-      })
+      wx.showToast({ title: '登录失败', icon: 'none', duration: 1000 });
     }
   },
   //返回刷新设置

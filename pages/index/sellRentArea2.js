@@ -10,7 +10,7 @@ Page({
   },
   onLoad(options) {
     this.setData({roomItem: options});    
-    utils.storage('selectCity')
+    utils.storage('selectCity2')
     .then(res=>{
       this.setData({currentCity: res.data.value});
       this.unitRequest();

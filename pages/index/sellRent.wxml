@@ -85,10 +85,9 @@
             <view class="weui-label" style="white-space:nowrap">具体地址</view>
         </view>
         <view class="weui-cell__bd">
-            <input class="weui-input"
-                    placeholder-class="phcolor"
-                    bindinput="bindKeyInput7"
-                    placeholder="请输入您的房源具体地址"/>
+            <input class="weui-input {{phcolorFlag5? 'phcolor': ''}}"
+                    disabled = "{{true}}"
+                    value="{{address}}"/>
         </view>
     </view>
  

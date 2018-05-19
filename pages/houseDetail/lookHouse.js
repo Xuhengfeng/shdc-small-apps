@@ -31,7 +31,7 @@ Page(filter.loginCheck({
     //userPhone获取用户手机号
     utils.storage('userPhone')
     .then(res=>{
-      let str = res.data.phoneNumber
+      let str = res.data.phoneNumber||res.data;
       this.setData({
         userTelphone: str,
         userPhone: str.slice(0,3)+"****"+str.slice(7,11)
