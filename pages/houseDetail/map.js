@@ -34,7 +34,7 @@ Page({
         latitude: obj.latitude,
         longitude: obj.longitude,
         iconPath: '../../images/location.png',
-        rotate: 10
+        rotate: 15
       }]
 
       this.setData({
@@ -78,9 +78,9 @@ Page({
   },
   navMap() {
     wx.openLocation({
-      latitude: parseInt(this.data.latitude),
-      longitude: parseInt(this.data.longitude),
-      scale: 18,
+      latitude: this.data.latitude,
+      longitude: this.data.longitude,
+      scale: 15,
       name: this.data.info.buildName||this.data.info.houseTitle,
       desc: this.data.info.areaName
     })

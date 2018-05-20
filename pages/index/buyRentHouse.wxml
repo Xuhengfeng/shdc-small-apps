@@ -45,11 +45,12 @@
       <view class="title" style="padding:100rpx 0 40rpx">为你推荐</view>
       <view>
         <scroll-view scroll-x style="white-space:nowrap;display:flex;height:100%">
-          <navigator url="../houseDetail/houseDetail" 
-                     class="goods-item"
-                     wx:for="{{recommend}}" 
-                     wx:key="index"
-                     style="background:rgba(0,0,0,1)">
+          <view class="goods-item"
+                wx:for="{{recommend}}" 
+                wx:key="index"
+                data-id="{{item.sdid}}" 
+                bindtap="commendForYou"
+                style="background:rgba(0,0,0,1)">
               <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
               <view class="content">
                   <view class="item-title" style="color:#ffffff">{{item.houseTitle}}</view>
@@ -64,7 +65,7 @@
                           <text style="color:#ffffff">元/月</text>
                     </view>
                 </view> 
-          </navigator> 
+          </view> 
         </scroll-view>
       </view>
     </view>

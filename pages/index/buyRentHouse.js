@@ -194,5 +194,9 @@ Page({
       let falgpc = this.data.num == 0 ? true : false;
       this.setData({flagPrice: falgpc})
     })
+  },
+  //为你推荐跳转
+  commendForYou(e) {
+    wx.navigateTo({url: "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id});
   }
 })
