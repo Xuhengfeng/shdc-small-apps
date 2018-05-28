@@ -1,3 +1,5 @@
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
 Page({
   data: {
     showLogout: false,
@@ -41,8 +43,8 @@ Page({
     let num = e.currentTarget.dataset.num;
     switch(num){
       case '1':wx.navigateTo({url:"collection"});break;//委托
-      case '2':wx.navigateTo({url:"mybuyhouse"});break;//卖房
-      case '3':wx.navigateTo({url:"mybuyhouse"});break;//租房
+      case '2':wx.navigateTo({url:"mybuyhouse?title=我的卖房&num=0"});break;//卖房
+      case '3':wx.navigateTo({url:"mybuyhouse?title=我的租房&num=1"});break;//租房
       case '4':wx.navigateTo({url:"collection"});break;//收藏
       case '5':
         wx.setStorageSync('currentPage', '我的');

@@ -39,10 +39,15 @@ export const IP_BROKEREVALUATE = SERVER_IPS + "/brokerEval/brokerEvaluates";//�
 //首页猜你喜欢
 export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你喜欢 二手房列表
 export const IP_RENTHOUSERENTLIKE = SERVER_IPS + "/rentHouse/queryLike";//首页猜你喜欢 租房列表
-//租售
-export const IP_HOUSEENTRUSTAPPLYSELLHOUSE= SERVER_IPS + "/houseEntrustApply/sellHouse";//出售申请
-export const IP_HOUSEENTRUSTAPPLYRENTHOUSE = SERVER_IPS + "/houseEntrustApply/rentHouse";//出租申请
-// export const IP_HOUSEENTRUSTAPPLYLIST = SERVER_IPS + "/houseEntrustApply/houseEntrustApplyList";//租售房源列表
+
+//租房 售房
+export const IP_APPLYSELLHOUSE= SERVER_IPS + "/houseEntrustApply/sellHouse";//出售申请
+export const IP_APPLYRENTHOUSE = SERVER_IPS + "/houseEntrustApply/rentHouse";//出租申请
+export const IP_SELLAPPLYLIST= SERVER_IPS + "/houseEntrustApply/querySellApplyList";//我的卖房申请列表
+export const IP_RENTAPPLYLIST= SERVER_IPS + "/houseEntrustApply/queryRentApplyList";//我的租房申请列表
+export const IP_ENTRUSTSELL= SERVER_IPS + "/houseEntrustApply/sell/";//卖房委托详情
+export const IP_ENTRUSTRENT= SERVER_IPS + "/houseEntrustApply/rent/";//租房委托详情
+
 //经纪人
 export const IP_BROKERSLIST = SERVER_IPS + "/broker/brokers";//经纪人列表
 export const IP_BROKERSDETAIL = SERVER_IPS + "/broker/";//经纪人详情
@@ -84,6 +89,10 @@ export const IP_DICTIONARYCONDITION = SERVER_IPS + "/dictionary/";//价格 面�
 //我的 接口
 export const IP_SMSCODELOGIN = SERVER_IPS + "/member/smsCodelogin";//手机验证码登录
 export const IP_GETSMSCODE= SERVER_IPS + "/member/fetchSmsCode";//获取验证码
+
+
+
+
 //微信登录
 export const weChatLogin = SERVER_IPS + "/member/loginWeixin";//微信手机号码和openid第三方登录
 export const weChatRegister = SERVER_IPS + "/member/registerWeixin";//微信注册

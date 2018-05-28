@@ -75,7 +75,7 @@
 
   <!-- fourPic start -->
   <view class="section fourPic">
-    <block wx:for="{{plate}}">
+    <block wx:for="{{plate}}" wx:if="{{index<4?true:false}}">
       <view data-http="{{item.phoneContUrl}}" bindtap="h5page">
           <view class="image"><image src="{{item.imageUrl}}"/></view>
           <view class="content">

@@ -1,16 +1,30 @@
+<view class="header">
+      <view>
+            <image src="../../images/request-on.png"></image>
+            <view class="{{isCheck?'bgColor':''}}"></view>
+            <image src="{{isCheck?'../../images/heshi-on.png':'../../images/heshi-off.png'}}"></image>
+            <view class="{{isPublish?'bgColor':''}}"></view>
+            <image src="{{isPublish?'../../images/publish-on.png':'../../images/publish-off.png'}}"></image>
+      </view>
+      <view class="text">
+            <text class="fontColor">申请中</text>
+            <text class="{{isCheck?'fontColor':''}}">核实中</text>
+            <text class="{{isPublish?'fontColor':''}}">已发布</text>
+      </view>
+</view>
 <view class="section">
       <view class="title">申请记录 <view>2018-03-01</view></view>
       <view class="description">
             <view>温馨兰苑小区房源委托申请</view>
             
-            <view class="more">
+            <view class="more" wx:if="{{isMore}}">
                       <view>
                                 <view>姓名</view>
-                                <input placeholder="请输入您的姓名"/>
+                                <input/>
                       </view>
                       <view>
                                 <view>电话</view>
-                                <input placeholder="请输入您的电话"/>
+                                <input/>
                       </view>
                       <view>
                               <view>城市</view>
@@ -25,8 +39,7 @@
                                 <input/>
                       </view>
             </view>
-            <view class="seemore" bindtap="lookmore">{{lookmore}} <image src="../../images/up.png" style="transform: rotate(-180deg)"></image></view>
-            
+            <view class="seemore" bindtap="lookmore">{{lookmore}} <image src="{{isMore?'../../images/up.png':'../../images/down.png'}}"></image></view>
       </view>
 </view>
 <view class="userInfo">
@@ -46,5 +59,19 @@
                   </view>
           </view>
     </view>
-    <view style="height:200rpx;background:#f9f9f9;"></view>
+    <view style="height:80rpx;background:#f9f9f9;"></view>
+</view>
+
+<view class="cancelWei" bindtap="cancelOrder" wx:if="{{isCancel}}">取消委托</view>
+<view class="shadow" wx:if="{{isShadow}}">
+      <view class="dialog">
+      <view class="dialog-hd">是否要取消委托{{flagName}}</view>
+      <view class="dialog-bd">
+            <textarea placeholder="取消预约的原因" bindblur="bindTextAreaBlur"></textarea>
+      </view>
+      <view class="dialog-ft">
+            <view bindtap="OrderConfirm">确定</view>
+            <view bindtap="OrderCancel">取消</view>
+      </view>
+      </view>
 </view>

@@ -22,7 +22,7 @@ Page(filter.loginCheck({
 
     requestType: ['RENT', 'SELL'],
     //出售 出租
-    IPS: [Api.IP_HOUSEENTRUSTAPPLYSELLHOUSE, Api.IP_HOUSEENTRUSTAPPLYRENTHOUSE],
+    IPS: [Api.IP_APPLYSELLHOUSE, Api.IP_APPLYRENTHOUSE],
     num: 0,
     inputValue1: '',//姓名
     inputValue2: '',//电话
@@ -94,13 +94,16 @@ Page(filter.loginCheck({
         "unitNum": this.data.houseInfoContent.split(' ')[1],//单元号
         "roomNum": this.data.houseInfoContent.split(' ')[2],//房号
         "address": this.data.address,//详细地址
+        "unicode": wx.getStorageSync("userToken")
       }
       if (this.data.inputValue1 == '' || this.data.inputValue2 == '' ){
           wx.showModal({title: '信息填写不完整!'})
       }else{
-        let params = {"unicode": wx.getStorageSync("userToken")};
-        utils.post(this.data.IPS[this.data.num],params)
-        .then(data=>{wx.navigateBack()});
+        utils.post(this.data.IPS[this.data.num], params)
+        .then(data=>{
+          console.log(params)
+          wx.navigateBack()
+        });
       }
   }
 }))

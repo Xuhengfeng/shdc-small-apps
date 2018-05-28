@@ -50,3 +50,6 @@ page{
 .move2{
   transform: translate3d(-20%,0,0);  
 }
+.fontColor{
+  color: #ff4343;
+}
