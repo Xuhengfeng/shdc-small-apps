@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/mine/mine",
     "pages/mine/delegation",
     "pages/mine/mybuyhouse",
-    "pages/index/index",
     "pages/index/sellRent",
     "pages/index/sellRentArea",
     "pages/index/sellRentArea1",

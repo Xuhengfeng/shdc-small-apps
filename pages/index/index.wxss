@@ -217,12 +217,18 @@
   margin-top:20rpx;
   font-size:32rpx;
   line-height:1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .house-info-description{
    margin-top:20rpx;
    font-size:26rpx;
    color:#666666;
-   line-height:1
+   line-height:1;
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
 }
 
 .section3-content{

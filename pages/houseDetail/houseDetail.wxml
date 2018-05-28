@@ -164,7 +164,7 @@
       <view class="rect">
         <text class="name">{{houseDetail.houseTitle?houseDetail.houseTitle:houseDetail.buildName}}</text>
         <text class="content"></text>
-        <image src="../../images/down.png"></image>
+        <image src="../../images/down2.png"></image>
       </view>
   </view>
 </view>
