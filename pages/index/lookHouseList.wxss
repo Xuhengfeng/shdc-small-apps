@@ -1,7 +1,7 @@
 @import "../template/template.wxss";
 .main{
   background: #ffffff;
-  padding-bottom: 100rpx;
+  margin-bottom: 100rpx;
 }
 .itemlist{
   position: relative;
@@ -17,7 +17,12 @@
   height: 1px;
   background: #e6e6e6;
 }
-.item-title{
+.itemlist:last-child:after{
+  display: none;
+}
+.item-title text{
+  display: inline-block;
+  width: 100%;
   white-space: nowrap;
   text-overflow:ellipsis;
   overflow: hidden;
@@ -98,4 +103,22 @@
   text-align: center;
   color: #ffffff;
   background: #ff4343;
+}
+/* 做空页面 */
+.nodata{
+  position: fixed;
+  width: 186rpx;
+  height: 136rpx;
+  text-align: center;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.nodataContent{
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #666666;
 }

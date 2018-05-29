@@ -113,8 +113,8 @@
       <view>物业费：<text>{{houseDetail.houseManageFee}}元/平</text></view>
       <view>类型：<text>{{houseDetail.houseForm}}</text></view>
       <view>楼层：<text>{{houseDetail.floor}}</text></view>
-      <!-- <view>总楼层：<text>{{houseDetail.totalFloorNum}}</text></view>
-      <view>所在楼层：<text>{{houseDetail.floorNum}}</text></view> -->
+      <!-- <view>总楼层：<text>{{houseDetail.totalFloorNum}}</text></view> -->
+      <view>所在楼层：<text>{{houseDetail.floorNum}}</text></view>
       <view>电梯：<text>{{houseDetail.elevator}}</text></view>
       <view>建筑结构：<text>{{houseDetail.houseStruc}}</text></view>
       <view>首付预算：<text>{{houseDetail.paymentBudget}}</text></view>      

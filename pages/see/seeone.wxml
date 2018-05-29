@@ -32,48 +32,50 @@
                             <image src="../../images/phone.png">电话</image>
                         </view>
                     </view>
-              </view>
+                </view>
+                <image class="nodata" wx:if="{{!houseList.length}}" src="../../images/nodata.png"/>
+                <view class="nodataContent" wx:if="{{!houseList.length}}">暂无待看记录!</view>
           </view>
           <view class="weui-tab__content twoContent" hidden="{{activeIndex != 1}}">
               <!-- 已看记录 -->
               <view class="weui-panel__bd">
-                    <view class="brokerItem" wx:for="{{borkerItems}}" style="background:#f9f9f9">
-                        <view class="brokerItem-hd">
-                            <view><text class="time">{{item.scheduleTime}}</text><text class="name">{{item.brokerName}}</text>带看</view>
-                            <view>
-                                <image src="../../images/complain.png" data-phone="{{item.complaintPhone}}" bindtap="complain"></image>
-                                <image src="../../images/flower.png" data-item="{{item}}" bindtap="goComment"></image>
-                            </view>
-                        </view>
-
-                        <view wx:for="{{item.houseList}}" wx:key="index" wx:for-item="item2" style="margin-bottom:10rpx;background: #ffffff">
-                            <view class="item" data-id="{{item2.houseSdid}}" bindtap="seeHouse">
-                                <view class="image">
-                                    <image src="{{item2.housePic?item2.housePic: '../../images/astate.png'}}"></image></view>
-                                <view class="item-content">
-                                    <view class="item-title">{{item2.houseTitle}}</view>
-                                    <view class="description">{{item2.areaName}} {{item2.districtName}} {{item2.houseDirection}}</view>                        
-                                    <view  class="houseTypeInfo">
-                                        <text>{{item2.houseType}}</text>{{item2.builtArea}}m²
-                                    </view>
-
-                                        <view class="houseLabel">
-                                        <text wx:for="{{item2.houseTag}}" 
-                                                wx:key="{{index2}}"
-                                                wx:for-item="item3" 
-                                                wx:for-index="index2">{{item3}}</text>
-                                        </view>
-
-                                    <view class="housePrice">{{item2.saleTotal}}万
-                                        <text>{{item2.salePrice}}元/平</text>
-                                    </view>
+                    <view class="brokerItem" 
+                          wx:for="{{borkerItems}}" 
+                          style="background:#f9f9f9">
+                            <view class="brokerItem-hd">
+                                <view><text class="time">{{item.scheduleTime}}</text><text class="name">{{item.brokerName}}</text>带看</view>
+                                <view>
+                                    <image src="../../images/complain.png" data-phone="{{item.complaintPhone}}" bindtap="complain"></image>
+                                    <image src="../../images/flower.png" data-item="{{item}}" bindtap="goComment"></image>
                                 </view>
                             </view>
-                            <view class="remark" data-item="{{item2}}" bindtap="addHouseRemark">添加房源备注</view>
-                        </view>
 
+                            <view wx:for="{{item.houseList}}" wx:key="index" wx:for-item="item2" style="margin-bottom:10rpx;background: #ffffff">
+                                <view class="item" data-id="{{item2.houseSdid}}" bindtap="seeHouse">
+                                    <view class="image">
+                                        <image src="{{item2.housePic?item2.housePic: '../../images/astate.png'}}"></image></view>
+                                    <view class="item-content">
+                                        <view class="item-title">{{item2.houseTitle}}</view>
+                                        <view class="description">{{item2.areaName}} {{item2.districtName}} {{item2.houseDirection}}</view>                        
+                                        <view  class="houseTypeInfo">
+                                            <text>{{item2.houseType}}</text>{{item2.builtArea}}m²
+                                        </view>
+                                        <view class="houseLabel">
+                                            <text wx:for="{{item2.houseTag}}" 
+                                                    wx:key="{{index2}}"
+                                                    wx:for-item="item3" 
+                                                    wx:for-index="index2">{{item3}}</text>
+                                        </view>
+                                        <view class="housePrice">{{item2.saleTotal}}万
+                                            <text>{{item2.salePrice}}元/平</text>
+                                        </view>
+                                    </view>
+                                </view>
+                                <view class="remark" data-item="{{item2}}" bindtap="addHouseRemark">添加房源备注</view>
+                            </view>
                     </view>
-
+                    <image class="nodata" wx:if="{{!borkerItems.length}}" src="../../images/nodata.png"/>
+                    <view class="nodataContent" wx:if="{{!borkerItems.length}}">暂无已看记录!</view>
               </view>
           </view>
           <view class="weui-tab__content threeContent" hidden="{{activeIndex != 2}}">
@@ -85,7 +87,8 @@
                             <view>{{item.createDateTime}}</view>
                         </view>
                     </view>
-                    <view class="nodata" wx:if="{{!report.length}}">没有任何看房报告!</view>  
+                    <image class="nodata" wx:if="{{!report.length}}" src="../../images/nodata.png"/>
+                    <view class="nodataContent" wx:if="{{!report.length}}">暂无看房报告!</view>                    
               </view>
           </view>
       </view>
@@ -96,6 +99,5 @@
         <image src="../../images/loading.gif" mode="aspectFill"/>
         <text>玩了命的加载中...</text>
     </view>
-    <view wx:elif="{{!houseList.length}}"><text>没有更多内容</text></view>
 </view> 
 

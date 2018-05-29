@@ -40,7 +40,7 @@ App({
       success: res => {
         if (res.code) {
           wx.request({
-            url: "http://112.74.181.229:7031/custAppApi/member/authWeixin",
+            url: "https://custapis.shyj.cn/custAppApi/member/authWeixin",
             data: {"code": res.code},
             method: 'GET',
             success: response => {

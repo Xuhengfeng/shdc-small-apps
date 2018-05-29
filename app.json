@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/lookHouseList",
+    "pages/see/seeone",
     "pages/mine/mine",
     "pages/mine/delegation",
     "pages/mine/mybuyhouse",
@@ -14,8 +16,6 @@
     "pages/mine/comment",
     "pages/see/apprasieBroker",
     "pages/see/seeoneDetail",
-    "pages/index/lookHouseList",
-    "pages/see/seeone",
     "pages/see/remark",
     "pages/see/house",
     "pages/index/newHouse",
