@@ -1,7 +1,7 @@
-<textarea class="usersuggest" placeholder-class="placeholder" placeholder="请输入您的反馈内容">
+<textarea class="usersuggest" placeholder-class="placeholder" placeholder="请输入您的反馈内容" bindinput="inputValue">
     
 </textarea>
 <view class="text">
   感谢您怼我们提出宝贵的建议！
 </view>
-<button class="commit">提交</button>
+<button class="commit" bindtap="commitBtn">提交</button>
