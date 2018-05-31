@@ -1,3 +1,4 @@
+const Api = require("utils/url");
 App({
   httpRequest(url, params, callback,  options) {
     let title = params.title ? params.title : '加载中...';
@@ -40,7 +41,7 @@ App({
       success: res => {
         if (res.code) {
           wx.request({
-            url: "https://custapis.shyj.cn/custAppApi/member/authWeixin",
+            url: Api.weChat,
             data: {"code": res.code},
             method: 'GET',
             success: response => {
