@@ -31,10 +31,10 @@ Page({
       data.data.forEach(item => {
          item.applicationTime1 = item.applicationTime.split(' ')[0];
          switch(item.status){
-           case 'ZERO':this.setData({statusName:'申请中',isStatus:true});break;
-           case 'ONE':this.setData({statusName:'核实中',isStatus:true});break;
-           case 'TWO':this.setData({statusName:'已发布',isStatus:true});break;
-           case 'CANCEL':this.setData({statusName:'已出售',isStatus:false});break;
+           case 'ZERO':(item.statusName='申请中',item.isStatus=true);break;
+           case 'ONE':(item.statusName='核实中',item.isStatus=true);break;
+           case 'TWO':(item.statusName='已发布',item.isStatus=true);break;
+           case 'CANCEL':(item.statusName='已取消',item.isStatus=true);break;
          }
       });
       this.setData({houseRequestList: data.data});

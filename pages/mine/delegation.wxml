@@ -1,42 +1,43 @@
 <view class="header">
-      <view>
+      <view wx:if="{{isCancel}}">
             <image src="../../images/request-on.png"></image>
             <view class="{{isCheck?'bgColor':''}}"></view>
             <image src="{{isCheck?'../../images/heshi-on.png':'../../images/heshi-off.png'}}"></image>
             <view class="{{isPublish?'bgColor':''}}"></view>
             <image src="{{isPublish?'../../images/publish-on.png':'../../images/publish-off.png'}}"></image>
       </view>
-      <view class="text">
-            <text class="fontColor">申请中</text>
+      <view class="text" wx:if="{{isCancel}}">
+            <text class="{{isRequest?'fontColor':''}}">申请中</text>
             <text class="{{isCheck?'fontColor':''}}">核实中</text>
             <text class="{{isPublish?'fontColor':''}}">已发布</text>
       </view>
+      <view class="nocontent" wx:if="{{!isCancel}}">委托已取消</view>
 </view>
 <view class="section">
-      <view class="title">申请记录 <view>2018-03-01</view></view>
+      <view class="title">申请记录 <view>{{dataDetail.applicationTime}}</view></view>
       <view class="description">
             <view>温馨兰苑小区房源委托申请</view>
             
             <view class="more" wx:if="{{isMore}}">
                       <view>
                                 <view>姓名</view>
-                                <input/>
+                                <input placeholder="{{dataDetail.linkman}}"/>
                       </view>
                       <view>
                                 <view>电话</view>
-                                <input/>
+                                <input placeholder="{{dataDetail.phone}}"/>
                       </view>
                       <view>
                               <view>城市</view>
-                              <input/>
+                              <input placeholder="{{dataDetail.cityCode}}"/>
                       </view>
                       <view>
                                 <view>小区</view>
-                                <input/>
+                                <input placeholder="{{dataDetail.buildingName}}"/>
                       </view>
                       <view>
                                 <view>具体地址</view>
-                                <input/>
+                                <input placeholder="{{dataDetail.address}}"/>
                       </view>
             </view>
             <view class="seemore" bindtap="lookmore">{{lookmore}} <image src="{{isMore?'../../images/up.png':'../../images/down.png'}}"></image></view>
@@ -45,13 +46,13 @@
 <view class="userInfo">
     <view>跟进人</view>
     <view>
-          <image></image>
+          <image src="{{dataDetail.broker.photo?dataDetail.broker.photo:'../../images/avatar.png'}}"></image>
           <view class="content">
                   <view>
-                      <view class="name">刘小妹<text>高级经纪人</text></view>
-                      <view class="score">5.0 <text>活跃度</text></view>    
+                      <view class="name">{{dataDetail.broker.emplName}}<text>{{dataDetail.broker.positionName}}</text></view>
+                      <view class="score">{{dataDetail.broker.grade}}.0 <text>活跃度</text></view>    
                   </view>
-                  <view class="location">所在门店</view>
+                  <view class="location">{{dataDetail.broker.deptName}}</view>
                   <view class="tag">
                         <text>销售达人</text>
                         <text>销售达人</text>

@@ -31,6 +31,9 @@ page{
   font-size: 34rpx;
   color: #333333;
   line-height: 1.2;
+  text-overflow:ellipsis; 
+  white-space:nowrap; 
+  overflow:hidden;
 }
 .item .cancel{
   position: absolute;

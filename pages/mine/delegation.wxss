@@ -101,7 +101,7 @@
   float: left;
   width: 150rpx;
   height: 150rpx;
-  background: #ff4343;
+  background: #e6e6e6;
   margin: 20rpx 40rpx 20rpx 20rpx;
 }
 .userInfo>view:nth-of-type(2) .content{
@@ -157,6 +157,14 @@
   background: #f2f2f2!important;
 }
 /* 取消委托 */
+.nocontent{
+  overflow: hidden;
+  display: flex;
+  padding: 70rpx 60rpx!important;
+  flex-flow: row nowrap;
+  justify-content: center!important;
+  color: #999999!important;
+}
 .cancelWei{
   color: #999999!important;
   text-align: center;

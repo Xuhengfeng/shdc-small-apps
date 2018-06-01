@@ -4,10 +4,10 @@
 <block wx:for="{{houseRequestList}}">
   <view data-id="{{item.id}}" bindtap="selectItem">
       <view class="item"  data-num="{{index}}">
-          <view>{{item.buildingName}}</view>
+          <view>{{item.address}}</view>
           <view>
             <view>{{item.applicationTime1}}</view>
-            <view class="{{isStatus?'fontColor':''}}">{{statusName}}</view>
+            <view class="{{isStatus?'fontColor':''}}">{{item.statusName}}</view>
           </view>
     </view>
   </view>
