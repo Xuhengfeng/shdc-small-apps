@@ -23,6 +23,7 @@ export const IP_NEWBUILDING = SERVER_IPS + "/newbuilding/query/";//新房城市�
 export const IP_BUILDINGLIST = SERVER_IPS + "/build/buildList/";//小区列表
 export const IP_BUILDINGLISTDZ = SERVER_IPS + "/build/building/dz/";//栋座号列表
 export const IP_BUILDINGLISTDYFH = SERVER_IPS + "/build/building/dyfh";//单元或房号列表
+export const IP_ALLH5PAGEURL = SERVER_IPS + "/dictionary/";//单元或房号列表
 
 
 //预约看房

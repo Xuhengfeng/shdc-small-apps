@@ -40,8 +40,9 @@ Page({
     num: 0,//猜你喜欢哪一个
     guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
 
-    //轮播图 二手房指南资讯 获取成交量统计 热门小区 新盘推荐 四个栏目四张图片 默认城市
-    IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING, Api.IP_NEWINFO, Api.IP_PLATE, Api.IP_DEFAULTCITY],
+    //轮播图 二手房指南资讯 获取成交量统计 热门小区 新盘推荐 四个栏目四张图片 默认城市 所有的h5链接
+    IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING, Api.IP_NEWINFO, Api.IP_PLATE, Api.IP_DEFAULTCITY, Api.IP_ALLH5PAGEURL],
+    allH5url: null,
   },
   onLoad(){
     // 查看是否授权
@@ -126,6 +127,13 @@ Page({
     .then((data) => {
       this.setData({ imgUrls: data.data });
     })
+
+    //所有的H5链接
+    utils.get(this.data.IPS[7] +"/APP_H5_URL",{scity: city})
+    .then(data=>{
+      this.setData({ allH5url: data.data });
+    })
+
     //四个栏目四个图片
     utils.get(this.data.IPS[5] + "/INDEX_PLATE",{
       scity: city
@@ -168,7 +176,6 @@ Page({
     .then((data) => {
       if(data.data.length) this.setData({ newinfohouse: data.data });
     })
-
 
     //猜你喜欢(默认二手房 首页第1页数据)
     var IP = this.data.guessLikeIP[0] + '/' + city;
@@ -223,18 +230,22 @@ Page({
   //活动版块2 跳转
   activity2(e) {
     let num = e.currentTarget.dataset.num;
+    let urlArr = this.data.allH5url;
     switch(num) {
       case '1': wx.navigateTo({url: "newHouse"});break;      
-      case '2': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
-      case '3': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
-      case '4': wx.navigateTo({url: "../h5Pages/h5Pages?redirect=https://www.baidu.com"});break;      
-      case '5': wx.navigateTo({url: "guideHand"});break;      
+      case '2': wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[9].value}`});break;//海外置业      
+      case '3': wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[10].value}`});break;//旅居投资
+      case '4': wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[6].value}`});break;//世华公益
+      case '5': wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[3].value}`});break;//购房指南
     }
   },
   //h5页面跳转 轮播图 数量统计 热门推荐
   h5page(e) {
-    let http = e.currentTarget.dataset.http?e.currentTarget.dataset.http:"https://www.baidu.com";
-    wx.navigateTo({url: "../h5Pages/h5Pages?redirect="+http});
+    let num = e.currentTarget.dataset.num;   
+    let urlArr = this.data.allH5url;
+    switch(num) {
+      case '1': wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[0].value}`});break;//数量统计  
+    }
   },
   //热门小区
   hotxiaoqu(e) {
@@ -276,4 +287,5 @@ Page({
       )}
     })
   }
+
 })

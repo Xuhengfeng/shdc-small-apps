@@ -41,8 +41,10 @@
       </scroll-view>
     </view>
 
-    <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHieght - 235}}px" bindchange="bindChange">
-          <swiper-item wx:for="{{city}}" wx:key="index" wx:for-item="item">
+   
+
+  <!-- <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHieght - 235}}px" bindchange="bindChange">
+          <swiper-item wx:for="{{city}}" wx:key="index" wx:for-item="item"> -->
             <scroll-view scroll-y style="height:{{winHieght - 235}}px">
               <view class="section goodList">
                     <block wx:for="{{houseList}}">
@@ -76,7 +78,7 @@
                     <view style="height:800px;" wx:if="{{!houseList.length}}"></view>
               </view>
             </scroll-view>
-          </swiper-item>
-    </swiper>
+          <!-- </swiper-item>
+    </swiper> -->
 
     
