@@ -7,17 +7,19 @@ Page({
     avatarUrl: null
   },
   onLoad() {
-    utils.storage('userToken')
-    .then(res=>{
-       utils.storage('userInfo')
-       .then(res2=>{
-         this.setData({
-          nickName: res2.nickName,
-          avatarUrl: res2.avatarUrl,
-          showLogout: true
-         })
-       })
-    })
+    try {
+      let value = wx.getStorageSync('userInfo2');
+      if (value) {
+        let data = JSON.parse(value);
+        this.setData({
+          showLogout: data.showLogout,
+          nickName: data.nickName,
+          avatarUrl: data.avatarUrl
+        })
+      }
+    } catch (e) {
+      return false;
+    }
   },
   //拨打电话
   telphone() {
@@ -37,6 +39,7 @@ Page({
       avatarUrl: null
     })
     wx.removeStorageSync('userToken');
+    wx.removeStorageSync('userInfo2');
   },
   //跳转
   active(e) {

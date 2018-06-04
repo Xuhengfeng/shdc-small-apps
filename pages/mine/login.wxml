@@ -24,7 +24,7 @@
   
   <view class="page__bd" wx:if="{{!isphoneLogin}}">
       <view class="section">
-        <view bindtap="goback"><image src="../../images/close.png" class="close"></image></view>
+        <view bindtap="toggleClick"><image src="../../images/close.png" class="close"></image></view>
         <view style="margin-top:40rpx;font-size:60rpx;">手机快捷登录</view>
       </view>
       <view class="section">

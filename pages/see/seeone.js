@@ -1,8 +1,9 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const filter = require("../../utils/filter");
 const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
-Page({
+Page(filter.loginCheck({
   data: {
     tabs: ["待看日程", "已看记录", "看房报告"],
     activeIndex: 0,
@@ -151,5 +152,5 @@ Page({
   cacheHouseType2(value) {
     wx.setStorageSync('onceHouseType', value)
   },
-});
+}));
 

@@ -1,7 +1,7 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-const md5 = require("../../utils/md5.js");
-const WXBizDataCrypt = require("../../utils/Rdwxbizdatacrypt.js");
+const md5 = require("../../utils/md5");
+const WXBizDataCrypt = require("../../utils/Rdwxbizdatacrypt");
 const app = getApp();
 
 Page({
@@ -16,12 +16,11 @@ Page({
     currentCity: null
   }, 
   getPhoneNumber(e) {//这个方法后面 如果是企业号 就可以获取用户手机号
-    if(e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-      //拒绝 -------------->>>>>
-      //用户手机号登录
+  console.log(e.detail)
+  if (e.detail.errMsg == 'getPhoneNumber:fail user deny' || e.detail.errMsg =='getPhoneNumber:fail:cancel to confirm login') {
+      //切换到用户手机号登录
       this.setData({isphoneLogin: false});
     }else{
-      //接受
       //判断是否有appid--------->>>>
       let ciphertext = JSON.parse(wx.getStorageSync('ciphertext'));
       let userInfo = JSON.parse(wx.getStorageSync('userInfo'));
@@ -33,20 +32,12 @@ Page({
       let pc = new WXBizDataCrypt(appId, Key)
       let data = pc.decryptData(encryptedData, iv)
       console.log('解密后 data: ', data)
+      
       wx.setStorage({ key: 'userPhone', data: data});
-
-      //当前页面路由栈的信息
-      let pages = getCurrentPages();
-      let prevPage = pages[pages.length - 2];
-          prevPage.setData({
-            nickName: data.phoneNumber,
-            avatarUrl: userInfo.avatarUrl,
-            showLogout: true
-          })
       let params = {
         "authKey": ciphertext.authKey,
         "headImage": userInfo.avatarUrl,
-        "nickname":  userInfo.nickname,
+        "nickname":  userInfo.nickName,
         "openid": ciphertext.openid,
         "phone": data.phoneNumber,
         "sex": userInfo.gender
@@ -61,8 +52,7 @@ Page({
       })
       .then((data)=>{
         wx.setStorage({ key: 'userToken', data: data.data });
-        wx.showToast({ title: '登录成功', icon: 'success', duration: 500});
-        wx.navigateBack();
+        this.goBackSet(params,2);
       })
     }
   },  
@@ -105,36 +95,46 @@ Page({
       .then(data=>{
         wx.setStorage({ key: 'userToken', data: data.data });
         wx.setStorage({ key: 'userPhone',data: mobilePhone});
-        wx.showToast({title: '登录成功',icon: 'success',duration: 1000});
-        this.goBackSet(data);
+        this.goBackSet(null,1);
       })
      }else{
       wx.showToast({ title: '登录失败', icon: 'none', duration: 1000 });
     }
   },
-  //返回刷新设置
-  goBackSet(res) {
-    let avatarUrl,nickName;
-    try{
-      avatarUrl = res.userInfo.avatarUrl;
-      nickName = res.userInfo.nickName;
-    }catch(e){
-      avatarUrl = '';
-      nickName = this.data.inputValue1;      
-    }
-    let pages = getCurrentPages();//当前页面路由栈的信息
-    let prevPage = pages[pages.length - 2];//上一个页面
-        prevPage.setData({
-          nickName: nickName,
-          avatarUrl: avatarUrl,
-          showLogout: true
-        })
-        setTimeout(() => {wx.navigateBack()}, 1000);
+  //切回到快捷登录
+  toggleClick() { 
+    this.setData({isphoneLogin: true});
   },
-  //直接返回
-  goback() {
-    this.setData({isphoneLogin: true})
-    wx.navigateBack();
+  //返回刷新设置
+  goBackSet(data,num) {
+    console.log(data)
+    wx.showToast({title: '登录成功',icon: 'success',duration: 1000});
+    let newobj;
+    switch(num){
+      case 1: 
+          newobj = {
+            nickName: this.data.inputValue1,
+            avatarUrl: '',
+            showLogout: true
+          }
+          break;
+      case 2:  
+          newobj = {
+            nickName:  data.nickname,
+            avatarUrl:  data.headImage,
+            showLogout: true
+          }
+          break;
+    }
+    wx.setStorageSync('userInfo2', JSON.stringify(newobj));
+
+    //上一个页面刷新
+    let pages = getCurrentPages();//当前页面
+    let prevPage = pages[pages.length - 2];//上一页面
+    if(prevPage){
+      prevPage.onLoad();
+    }
+    setTimeout(() => {wx.navigateBack()}, 1000);
   },
   //输入手机号
   bindKeyInput1(e) {
@@ -175,38 +175,6 @@ Page({
       .then(data2=>{
          console.log(data2)
       })
-      //注册 
-      // wx.request({
-      //   url: Api.IP_GETSMSCODE,
-      //   data: {
-      //     mobile: mobilePhone,
-      //     sign: md5(key.toUpperCase()),
-      //     operateType: "REGISTER" 
-      //   },
-      //   method: 'POST',
-      //   header: {'content-type': 'application/json'},
-      //   success: (res)=> {
-      //     console.log(res)
-      //       //再次请求登录 获取验证码
-      //       if(res.data.status == 500) {//说明用户已经注册过
-      //           wx.request({
-      //           url: Api.IP_GETSMSCODE,
-      //           data: {
-      //             mobile: mobilePhone,
-      //             sign: md5(key.toUpperCase()),
-      //             operateType: "LOGIN"
-      //           },
-      //           method: 'POST',
-      //           header: {
-      //             'content-type': 'application/json' // 默认值
-      //           },
-      //           success: (res) => {}
-      //         })
-      //       }
-             
-      //     }
-      //   })
-      // }
     }
   }
 })
