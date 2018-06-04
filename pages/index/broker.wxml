@@ -5,8 +5,9 @@
       <image src="{{item.photo?item.photo:'../../images/avatar.png'}}"></image>
       <view class="content">
               <view>
-                  <view class="name">{{item.emplName}}<text>{{item.positionName}}</text></view>
-                  <view class="score">{{item.grade}}.0 <text>评分</text></view>    
+                  <view class="name"><text class="{{true?'changecolor':''}}">{{item.emplName}}</text><text>{{item.positionName}}</text></view>
+                  <view class="score" wx:if="{{false}}">{{item.grade}}.0 <text>评分</text></view>    
+                  <view class="score lose" wx:if="{{true}}">已离职</view>    
               </view>
               <view class="location">所在门店</view>
               <view class="tag">

@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/index/broker",    
+    "pages/mine/collection",
     "pages/index/index",
     "pages/index/lookHouseList",
     "pages/see/seeone",
@@ -19,7 +21,6 @@
     "pages/see/remark",
     "pages/see/house",
     "pages/index/newHouse",
-    "pages/index/broker",    
     "pages/index/hotHouse",
     "pages/index/guideHand",
     "pages/index/shop",    
@@ -32,7 +33,6 @@
 
     "pages/mine/login",
     "pages/mine/suggest",
-    "pages/mine/collection",
     "pages/searchList/searchList",
     "pages/search/search",
     "pages/location/location",
