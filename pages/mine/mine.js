@@ -58,10 +58,10 @@ Page(filter.loginCheck({
       case '6':wx.navigateTo({url:"comment"});break;//我的评论
       case '7':wx.navigateTo({url:"suggest"});break;//意见反馈
       case '8':wx.navigateTo({url:"../h5Pages/h5Pages?redirect=http://www.baidu.com"});break;//关于我们
-      case '9':wx.navigateTo({url:"../h5Pages/h5Pages?redirect=http://www.baidu.com"});break;//二手房收藏
-      case '10':wx.navigateTo({url:"../h5Pages/h5Pages?redirect=http://www.baidu.com"});break;//租房收藏
-      case '11':wx.navigateTo({url:"../h5Pages/h5Pages?redirect=http://www.baidu.com"});break;//经纪人收藏
-      case '12':wx.navigateTo({url:"../h5Pages/h5Pages?redirect=http://www.baidu.com"});break;//小区收藏
+      case '9':wx.navigateTo({url:"collection1"});break;//二手房收藏
+      case '10':wx.navigateTo({url:"collection2"});break;//租房收藏
+      case '11':wx.navigateTo({url:"collection3"});break;//经纪人收藏
+      case '12':wx.navigateTo({url:"collection4"});break;//小区收藏
     }
   }
 }))

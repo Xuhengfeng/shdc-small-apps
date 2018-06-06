@@ -1,2 +1,51 @@
-<!--pages/mine/collection2.wxml-->
-<text>pages/mine/collection2.wxml</text>
+<view class="page_bd">
+  <view class="weui-tab">
+  
+      <view class="section weui-tab__panel headerTab">
+          
+          <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+              <view class="weui-panel__bd">
+                 <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
+              <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=租房" 
+                        hover-class="none">
+                  <view class="item">
+                        <view class="image">
+                          <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
+                          <view class="originHouse" wx:if="{{false}}">原始房源</view>
+                          <view class="lose" wx:if="{{true}}">已失效/原始房源</view>
+                          <view class="shadow"></view>
+                        </view>
+                        <view class="item-content">
+                           <view class="item-title {{true?'changecolor':''}}">{{item.houseTitle}}</view>
+                          <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
+                          <view  class="houseTypeInfo">
+                            <text>{{item.houseType}}</text>{{item.builtArea}}m²
+                          </view>
+
+                        <view class="houseLabel">
+                          <text wx:for="{{item.houseTag}}" 
+                                wx:key="{{index2}}"
+                                wx:for-item="item2" 
+                                wx:for-index="index2">{{item2}}</text>
+                                </view>
+
+                              <view class="housePrice">{{item.rentPrice}}
+                                  <text>元/月</text>
+                              </view>     
+                            </view>
+                        </view>
+                    </navigator>
+                  </block>
+              </view>
+          </view>
+      </view>
+  </view>
+</view>
+<view class="tips">
+    <view wx:if="{{hasMore}}">
+        <image src="../../images/loading.gif" mode="aspectFill"/>
+        <text>玩了命的加载中...</text>
+    </view>
+    <view wx:elif="{{!houseList.length}}"><text>没有更多内容</text></view>
+</view> 
+

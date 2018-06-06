@@ -1,66 +1,84 @@
-// pages/mine/collection2.js
-Page({
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
+const filter = require("../../utils/filter.js");
+const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
-  /**
-   * 页面的初始数据
-   */
+Page(filter.loginCheck({
   data: {
-  
+    tabs: ["二手房", "租房", "小区"],
+    activeIndex: 0,
+    sliderOffset: 0,
+    sliderLeft: 0,
+    houseList: [],
+    hasMore: false,
+    showload: false,
+    IPS: [Api.IP_HOUSECOLLECTIONLIST, Api.IP_RENTCOLLECTIONLIST, Api.IP_COLLECTIONLIST],
+    num: 0,
+    currentCity: null,
+    page: 1,
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+  onLoad() {
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          sliderLeft: (res.windowWidth / this.data.tabs.length - sliderWidth) / 2,
+          sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
+        });
+      }
+    });
+    utils.storage('selectCity')
+    .then((res)=>{
+      this.setData({currentCity: res.data.value})
+    })
+    this.getDataFromServer(0);    
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  tabClick(e) {
+    let num = e.currentTarget.dataset.index;
+    this.getDataFromServer(num);
+    this.setData({
+      sliderOffset: e.currentTarget.offsetLeft,
+      activeIndex: e.currentTarget.id,
+      num: num,
+      page: 1
+    });
+    this.cacheHouseType(this.data.tabs[num]);
+    this.cacheHouseType2(this.data.tabs[num]);
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  getDataFromServer(num) {
+    this.setData({hasMore: true})
+    let params = {pageNo: 1,unicode: wx.getStorageSync("userToken")}
+    utils.get(this.data.IPS[num], params)
+    .then(data => {
+      data.data.forEach((item) => {
+        item.houseTag = item.houseTag.split(',');
+      })
+      this.setData({houseList: data.data})
+      this.setData({hasMore: false});
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  onReachBottom() {
+    this.setData({ hasMore: true })
+    let params = {
+      scity: this.data.currentCity,
+      pageNo: this.data.page++,
+      unicode: wx.getStorageSync("userToken")
+    }
+    utils.get(this.data.IPS[this.data.num], params)
+    .then(data => {
+      //修正数据
+      data.data.forEach((item) => {
+        item.houseTag = item.houseTag.split(',');
+      })
+      this.setData({ houseList: this.data.houseList.concat(data.data)})
+      this.setData({ hasMore: false });
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
+  //缓存房源类型 可以改变的 
+  cacheHouseType(value) {
+    wx.setStorageSync('houseTypeSelect', value)
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
+  //缓存房源类型 不可改变的
+  cacheHouseType2(value) {
+    wx.setStorageSync('onceHouseType', value)
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
-})
+}));
