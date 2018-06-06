@@ -122,12 +122,17 @@ Page({
     if (this.data.detailType == 33) {
         utils.get(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, { scity: city })
         .then(data => {
-          this.setData({
-            latitude: data.data.py,
-            longitude: data.data.px,
-            houseDetail: data.data,
-            likeFlag: data.data.isCollect
-          });
+          try {
+            this.setData({
+              latitude: data.data.py,
+              longitude: data.data.px,
+              likeFlag: data.data.isCollect
+            });
+          }
+          catch(err) {
+            console.log(err)
+          }
+          this.setData({houseDetail: data.data});
         })
       //猜你喜欢(默认二手房 首页第1页数据)
       let IP = this.data.guessLikeIP[this.data.num] + '/' + city;

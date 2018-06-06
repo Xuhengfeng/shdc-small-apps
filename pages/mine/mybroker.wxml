@@ -1,4 +1,4 @@
-<!-- 经纪人 -->
+<!-- 我的经纪人 -->
 <view class="list"
            wx:for="{{brokers}}"
            data-item="{{item}}"
@@ -6,8 +6,9 @@
       <image src="{{item.photo?item.photo:'../../images/avatar.png'}}"></image>
       <view class="content">
               <view>
-                  <view class="name"><text>{{item.emplName}}</text><text>{{item.positionName}}</text></view>
-                  <view class="score">{{item.grade+'.0'}} <text>评分</text></view>    
+                  <view class="name"><text class="{{item.status==1?'changecolor':''}}">{{item.emplName}}</text><text>{{item.positionName}}</text></view>
+                  <view class="score" wx:if="{{item.status==0}}">{{item.grade}}.0 <text>评分</text></view>    
+                  <view class="score lose" wx:if="{{item.status==1}}">已离职</view>    
               </view>
               <view class="location">所在门店</view>
               <view class="tag">

@@ -4,17 +4,20 @@ const utils = require("../../utils/util");
 Page({
   data: {
     brokers: [],
-    page: 1
+    page: 1,
+    currentCity: null,
   },
   onLoad() {
     utils.storage('selectCity')
     .then((res)=>{
-      let params = {"scity": res.data.value,"pageNo": 1};
+      let params = {"scity": res.data.value,"pageNo": 1,"unicode": wx.getStorageSync("userToken")};
       this.brokerRequest(params);
     })  
   },
   brokerRequest(params) {
-    utils.post(Api.IP_BROKERSLIST,params)
+    console.log(params)
+  
+    utils.get(Api.IP_MYBROKERSLIST,params)
     .then((data) => {
       data.data.forEach(item=>{
         if(item.emplFlag) {item.emplFlag = item.emplFlag.split(',')}
@@ -26,14 +29,21 @@ Page({
   goBackSet(e) {
     let broker = e.currentTarget.dataset.item.emplName;
     let brokerId =  e.currentTarget.dataset.item.id;
-    let pages = getCurrentPages();//当前页面路由栈的信息
-    let prevPage = pages[pages.length - 2];//上一个页面
-    prevPage.setData({
-      broker: broker,
-      brokerId: brokerId,
-      phcolorFlag2: false
+    utils.storage('currentPage')
+    .then(res=>{
+      if(res.data=='我的'){
+        wx.navigateTo({url: "../mine/brokterInfo?id="+brokerId});
+      }else{
+        let pages = getCurrentPages();//当前页面路由栈的信息
+        let prevPage = pages[pages.length - 2];//上一个页面
+        prevPage.setData({
+          broker: broker,
+          brokerId: brokerId,
+          phcolorFlag2: false
+        })
+        wx.navigateBack();
+      }
     })
-    wx.navigateBack();
   },
   //上拉
   onReachBottom() {

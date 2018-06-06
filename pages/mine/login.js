@@ -127,15 +127,13 @@ Page({
           break;
     }
     wx.setStorageSync('userInfo2', JSON.stringify(newobj));
-
     //上一个页面刷新
     let pages = getCurrentPages();//当前页面
-    let prevPage = pages[pages.length - 2];//上一页面
-    if(prevPage){
-      prevPage.onLoad();
-    }
-    setTimeout(() => {wx.navigateBack()}, 1000);
+    let prevPage = pages[pages.length - 1];//上一页面
+    prevPage.onLoad();
+    setTimeout(() => {wx.switchTab({url: '../index/index'})}, 1000); //tabs 切换必须用switchto
   },
+  
   //输入手机号
   bindKeyInput1(e) {
     this.setData({inputValue1: e.detail.value})

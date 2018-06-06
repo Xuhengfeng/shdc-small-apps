@@ -146,6 +146,10 @@ page{
   line-height: 1.2;
   text-align: justify;
   white-space: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 /* 房源位置 */
 .section3 .map{

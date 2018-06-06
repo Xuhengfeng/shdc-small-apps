@@ -6,6 +6,30 @@
     <view class="login">{{nickName?nickName:'点击注册/登录'}}</view>
   </view>
   <view class="body">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_access weituo" data-num="1" bindtap="active">
+            <view class="weui-cell__bd">我的收藏</view>
+        </view>
+        <view class="section weui-cell weui-cell_access">
+           <view data-num="9" bindtap="active">
+                <image src="../../images/my1.png"></image>
+                <view>二手房(<text class="fontred">0</text>)</view>
+            </view>
+            <view data-num="10" bindtap="active">
+                <image src="../../images/my2.png"></image>
+                <view>租房(<text class="fontred">0</text>)</view>
+            </view>
+            <view data-num="11" bindtap="active">
+                <image src="../../images/my3.png"></image>
+                <view>经纪人(<text class="fontred">0</text>)</view>
+            </view>
+            <view data-num="12" bindtap="active">
+                <image src="../../images/my4.png"></image>
+                <view>小区(<text class="fontred">0</text>)</view>
+            </view>
+        </view>
+    </view>
+
    <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_access weituo" data-num="1" bindtap="active">
             <view class="weui-cell__bd">我的委托</view>

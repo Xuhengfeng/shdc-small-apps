@@ -1,11 +1,16 @@
 {
   "pages": [
+    "pages/mine/mine",
+    "pages/index/index",
+    "pages/mine/mybroker",
     "pages/index/broker",    
     "pages/mine/collection",
-    "pages/index/index",
+    "pages/mine/collection1",
+    "pages/mine/collection2",
+    "pages/mine/collection3",
+    "pages/mine/collection4",
     "pages/index/lookHouseList",
     "pages/see/seeone",
-    "pages/mine/mine",
     "pages/mine/delegation",
     "pages/mine/mybuyhouse",
     "pages/index/sellRent",
@@ -32,6 +37,7 @@
     "pages/houseDetail/seehouseList",
 
     "pages/mine/login",
+   
     "pages/mine/suggest",
     "pages/searchList/searchList",
     "pages/search/search",
