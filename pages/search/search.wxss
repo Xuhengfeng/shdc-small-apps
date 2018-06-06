@@ -33,23 +33,28 @@
   box-sizing: border-box;
   position: relative;
 }
-.list-search-box .selectItem+image{
-  display: inline-block;
-  margin: 0 20rpx 0 10rpx; 
+.selectItem{
+  padding-right: 40rpx;
+  font-size: 30rpx;
+  color: #333333;
+  white-space: nowrap;
+}
+.one{
+  position: relative;
+}
+.one .oImg{
+  position: absolute;
+  right: 20rpx;
+  top: 10rpx;
   width: 14rpx;
   height: 9rpx;
-  vertical-align: middle;
 }
+
+
 .list-search-box input{
   width: 100%;
   border-left: 1px solid #cacaca;
   padding-left: 50rpx;
-}
-.selectItem{
-  font-size: 30rpx;
-  color: #333333;
-  float: left;
-  white-space: nowrap;
 }
 .list-search-box .options{
   position: absolute;

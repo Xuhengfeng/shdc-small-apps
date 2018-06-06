@@ -2,9 +2,9 @@
 <!-- 外部搜索 -->
 <view class="list-search">
   <view class='list-search-box'>
-    <view bindtap="isShowItem">
-      <text class="selectItem">{{item}}</text>
-      <image src="../../images/drop.png"/>
+    <view class="one" bindtap="isShowItem">
+      <view class="selectItem">{{item}}</view>
+      <image class="oImg" src="../../images/drop.png"></image>
     </view>
     <view class="options" wx:if="{{flag}}">
         <text wx:for="{{selectItem}}"

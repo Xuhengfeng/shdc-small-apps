@@ -167,13 +167,13 @@ Page({
         'keyword': this.data.keyword,
         'scity': this.data.currentCity
     }
-    utils.get(this.data.IPS2[this.data.ipNum], params)
+    utils.post(this.data.IPS2[this.data.ipNum], params)
     .then(data => {
         //修正数据
         data.data.forEach((item) => {
           if (item.houseTag) {item.houseTag = item.houseTag.split(',')}
         })
-        this.setData({houseList: res.data.data})
+        this.setData({houseList: data.data});
     })
   },
   //上拉加载更多
