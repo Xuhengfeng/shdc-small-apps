@@ -59,7 +59,7 @@
   font-size:32rpx;
   color: #222222;
   line-height: 1.2;
-  text-align: justify;
+  /* text-align: justify; */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;

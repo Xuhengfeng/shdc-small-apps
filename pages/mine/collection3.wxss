@@ -1,4 +1,7 @@
 @import "../template/template.wxss";
+page{
+  background: #ffffff;
+}
 ::-webkit-scrollbar{
   display: none;
 }

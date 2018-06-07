@@ -1,40 +1,38 @@
-<view class="weui-tab__content">
-    <view class="weui-panel__bd">
+<view class="weui-panel__bd">
     <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
     <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=二手房" 
             hover-class="none">
-        <view class="item">
-            <view class="image">
-                <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
-                <view class="originHouse" wx:if="{{false}}">原始房源</view>
-                <view class="lose" wx:if="{{true}}">已失效/原始房源</view>
-                <view class="shadow"></view>
+    <view class="item">
+        <view class="image">
+            <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
+            <view class="originHouse {{item.status=='正常'?'':'lose'}}">{{item.status}}</view>
+            <view class="shadow" wx:if="{{!isOriginHouse}}"></view>
+        </view>
+        <view class="item-content">
+            <view class="item-title {{!isOriginHouse?'changecolor':''}}">{{item.houseTitle}}</view>
+            <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
+            <view  class="houseTypeInfo">
+            <text>{{item.houseType}}</text>{{item.builtArea}}m²
             </view>
-            <view class="item-content">
-                <view class="item-title {{true?'changecolor':''}}">{{item.houseTitle}}</view>
-                <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
-                <view  class="houseTypeInfo">
-                <text>{{item.houseType}}</text>{{item.builtArea}}m²
+
+        <view class="houseLabel">
+            <text wx:for="{{item.houseTag}}" 
+                wx:key="{{index2}}"
+                wx:for-item="item2" 
+                wx:for-index="index2">{{item2}}</text>
                 </view>
 
-            <view class="houseLabel">
-                <text wx:for="{{item.houseTag}}" 
-                    wx:key="{{index2}}"
-                    wx:for-item="item2" 
-                    wx:for-index="index2">{{item2}}</text>
-                    </view>
-
-                    <view class="housePrice">{{item.saleTotal}}万
-                        <text>{{item.salePrice}}元/平米</text>
-                    </view>
+                <view class="housePrice">{{item.saleTotal}}万
+                    <text>{{item.salePrice}}元/平米</text>
                 </view>
             </view>
-        </navigator>
-        </block>
-    </view>
+        </view>
+    </navigator>
+    </block>
 </view>
+
 <view class="tips">
-    <view wx:if="{{hasMore}}">
+    <view wx:if="{{houseList.length}}">
         <image src="../../images/loading.gif" mode="aspectFill"/>
         <text>玩了命的加载中...</text>
     </view>
