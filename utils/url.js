@@ -92,6 +92,8 @@ export const IP_DICTIONARYCONDITION = SERVER_IPS + "/dictionary/";//价格 面�
 export const IP_SMSCODELOGIN = SERVER_IPS + "/member/smsCodelogin";//手机验证码登录
 export const IP_GETSMSCODE= SERVER_IPS + "/member/fetchSmsCode";//获取验证码
 export const IP_MYBROKERSLIST = SERVER_IPS + "/my/collectionList";//我的经纪人列表
+export const IP_MYBROKERSCOLLECTIONLIST = SERVER_IPS + "/brokerCollection/collectionList";//经纪人收藏列表
+
 export const IP_ADVICE= SERVER_IPS + "/feedback/advice";//意见反馈
 
 

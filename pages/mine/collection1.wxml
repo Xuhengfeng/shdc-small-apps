@@ -39,3 +39,5 @@
     <view wx:elif="{{!houseList.length}}"><text>没有更多内容</text></view>
 </view> 
 
+
+

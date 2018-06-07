@@ -23,11 +23,14 @@ Page(filter.loginCheck({
     utils.get(Api.IP_HOUSECOLLECTIONLIST, params)
     .then(data => {
       data.data.forEach((item) => {
-        item.houseTag = item.houseTag.split(',');
-        this.statusParse(item, item.status);
+        try{
+          item.houseTag = item.houseTag.split(',');
+          this.statusParse(item, item.status);
+        }catch(err){
+          console.log(err);
+        }
       })
-      console.log(data.data)
-      this.setData({houseList: data.data})
+      this.setData({houseList: this.data.houseList.concat(data.data)});
     })
   },
   //状态检测

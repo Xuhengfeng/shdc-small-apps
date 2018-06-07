@@ -20,24 +20,23 @@ Page(filter.loginCheck({
   },
   getDataFromServer(num) {
     let params = {pageNo: 1,unicode: wx.getStorageSync("userToken")}
-    utils.get(Api.IP_COLLECTIONLIST, params)
+    utils.get(Api.IP_MYBROKERSCOLLECTIONLIST, params)
     .then(data => {
       data.data.forEach((item) => {
-        item.houseTag = item.houseTag.split(',');
-        this.statusParse(item, item.status);
+        try{
+          item.houseTag = item.houseTag.split(',');
+        }catch(err){
+          console.log(err);
+        }
       })
-      console.log(data.data)
-      this.setData({houseList: data.data})
+      this.setData({houseList: this.data.houseList.concat(data.data)});
     })
   },
   //状态检测
   statusParse(item, num) {
-    console.log(item, num)
     switch(num){
       case 0:item.status="正常";break;//正常
-      case 1:item.status="已售";break;//已售
-      case 2:item.status="已失效";break;//已失效
-      case 3:item.status="已停售";break;//已停售
+      case 1:item.status="已离职";break;//已售
     }
   },
   onReachBottom() {

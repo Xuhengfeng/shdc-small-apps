@@ -2,40 +2,30 @@
     <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
     <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=小区" 
         hover-class="none">
-    <view class="item">
-        <view class="image">
-            <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
-            <view class="originHouse {{item.status=='正常'?'':'lose'}}">{{item.status}}</view>
-            <view class="shadow" wx:if="{{!isOriginHouse}}"></view>
-        </view>
-        <view class="item-content">
-            <view class="item-title {{item.status=='正常'?'changecolor':''}}">{{item.houseTitle}}</view>
-            <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
-            <view  class="houseTypeInfo">
-            <text>{{item.houseType}}</text>{{item.builtArea}}m²
-            </view>
-
-        <view class="houseLabel">
-            <text wx:for="{{item.houseTag}}" 
-                wx:key="{{index2}}"
-                wx:for-item="item2" 
-                wx:for-index="index2">{{item2}}</text>
+            <view class="item">
+                <view class="image">
+                    <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
                 </view>
-
-                <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
-                    <text>{{item.salePrice}}元/平米</text>
+                <view class="item-content">
+                    <!-- 小区 -->
+                    <view class="item-title">{{item.buildName}}</view>
+                    <view class="description">
+                            {{item.areaName}} {{item.districtName}} {{item.buildAge}}建成  {{item.buildType}}
+                    </view>
+                    <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1">
+                        在售{{item.saleCount}}套<text style="margin: 0 10rpx;">/</text>在租{{item.rentCount}}套
+                    </view>
+                    <view style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">
+                        {{item.avgSalePrice}}<text style="font-size:22rpx;color:#666666;margin-left:10rpx">元/平米</text>
+                    </view>
                 </view>
-                <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
-                    <text>元/月</text>
-                </view>     
             </view>
-        </view>
     </navigator>
     </block>
 </view>
 
 <view class="tips">
-    <view wx:if="{{hasMore}}">
+    <view wx:if="{{houseList.length}}">
         <image src="../../images/loading.gif" mode="aspectFill"/>
         <text>玩了命的加载中...</text>
     </view>
