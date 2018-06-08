@@ -60,5 +60,10 @@ Page(filter.loginCheck({
       case '11':wx.navigateTo({url:"collection3"});break;//经纪人收藏
       case '12':wx.navigateTo({url:"collection4"});break;//小区收藏
     }
-  }
+  },
+  //二手房收藏数量
+  
+  //租房收藏数量
+  //经纪人收藏数量
+  //小区收藏数量
 }))

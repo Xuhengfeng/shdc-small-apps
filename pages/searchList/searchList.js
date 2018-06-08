@@ -136,13 +136,11 @@ Page({
   },
   //监听事件 拿到首次 或 点击筛选条件的第一页数据
   onMyEventHouseList(item) {
-    console.log(item)
     setTimeout(() => {
       //修正数据
       item.detail.houseList.forEach((item2) => {
         if (item2.houseTag) {item2.houseTag = item2.houseTag.split(',')}
       })
-      console.log(item.detail.houseList)
       this.setData({
         houseList: item.detail.houseList,
         params: item.detail.params

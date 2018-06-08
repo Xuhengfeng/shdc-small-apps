@@ -57,7 +57,7 @@
             <view class="weui-cell__bd">我的评论</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
-        <view class="weui-cell weui-cell_access" data-num="7" bindtap="active">
+        <view class="weui-cell weui-cell_access contentHeight" data-num="7" bindtap="active">
             <view class="weui-cell__bd">意见反馈</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
