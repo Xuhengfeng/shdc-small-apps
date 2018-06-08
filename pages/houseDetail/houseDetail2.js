@@ -217,9 +217,6 @@ Page({
   //小区详情 猜你喜欢
   selectYouLike(e) {//猜你喜欢 二手房 租房
     this.setData({ num: e.target.dataset.index })
-    
-   
-    
     let IP = this.data.guessLikeIP[this.data.num] +'/'+ this.data.currentCity;
     let params = {pageNo: this.data.page}
     this.getDataFromServer(IP, params);

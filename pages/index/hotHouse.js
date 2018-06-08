@@ -16,7 +16,6 @@ Page({
   },
   onLoad(options) {
     wx.setNavigationBarTitle({title: options.title});
-
     wx.getStorage({
       key: 'houseTypeSelect',
       success: (res) => {
@@ -107,6 +106,6 @@ Page({
   },
   houseDetail1(e) {
     let sdid = e.currentTarget.dataset.id;
-    wx.navigateTo({url: '../houseDetail/houseDetail2?title=房源详情&id='+sdid});
+    wx.navigateTo({url: '../houseDetail/houseDetail?title=房源详情&id='+sdid});
   },
 })
