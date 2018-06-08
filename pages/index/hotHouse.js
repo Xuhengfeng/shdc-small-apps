@@ -16,6 +16,7 @@ Page({
   },
   onLoad(options) {
     wx.setNavigationBarTitle({title: options.title});
+
     wx.getStorage({
       key: 'houseTypeSelect',
       success: (res) => {
@@ -31,7 +32,7 @@ Page({
             sdid: options.id,
             num: 2
           });
-        }else if(res.data == '热门小区') {
+        }else if(res.data == '小区') {
           this.setData({
             contentType: 11,
             sdid: options.id,
@@ -98,5 +99,14 @@ Page({
   //缓存房源类型
   cacheHouseType(value) {
     wx.setStorageSync('houseTypeSelect', value)
-  }
+  },
+  houseDetail2(e) {
+    this.cacheHouseType('小区');
+    let sdid = e.currentTarget.dataset.id;
+    wx.navigateTo({url: '../houseDetail/houseDetail2?title=房源详情&id='+sdid});
+  },
+  houseDetail1(e) {
+    let sdid = e.currentTarget.dataset.id;
+    wx.navigateTo({url: '../houseDetail/houseDetail2?title=房源详情&id='+sdid});
+  },
 })

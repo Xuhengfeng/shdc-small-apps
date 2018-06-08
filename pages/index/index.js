@@ -43,6 +43,7 @@ Page({
     //轮播图 二手房指南资讯 获取成交量统计 热门小区 新盘推荐 四个栏目四张图片 默认城市 所有的h5链接
     IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING, Api.IP_NEWINFO, Api.IP_PLATE, Api.IP_DEFAULTCITY, Api.IP_ALLH5PAGEURL],
     allH5url: null,
+    scity: null
   },
   onLoad(){
     // 查看是否授权
@@ -65,6 +66,7 @@ Page({
             value: data.data.value
           }
         });
+        this.setData({scity: data.data.value});
         this.setData({myLocation: data.data.name});
         this.oneBigRequest(data.data.value);
       }
@@ -116,6 +118,7 @@ Page({
                   value: currentCity
                 }
               });
+              this.setData({scity: currentCity});
               this.setData({myLocation: data.data.name});
               this.oneBigRequest(currentCity);
       }
@@ -242,17 +245,21 @@ Page({
   //h5页面跳转 轮播图 数量统计 热门推荐
   h5page(e) {
     let num = e.currentTarget.dataset.num;   
+    let http = e.currentTarget.dataset.http;   
     let urlArr = this.data.allH5url;
+    let scity = this.data.scity;
+    let scityName = this.data.myLocation;
     switch(num) {
-      case '1': wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[0].value}`});break;//数量统计  
+      case '1': wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[0].value}&scityname=北海&scity=${scity}`});break;//数量统计  
+      default: wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${http}`});break;//默认地址
     }
   },
   //热门小区
   hotxiaoqu(e) {
     let http;
-    this.cacheHouseType('热门小区');
+    this.cacheHouseType('小区');
     if(e.currentTarget.dataset.id){
-      http = "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id;
+      http = "../houseDetail/houseDetail2?id="+e.currentTarget.dataset.id;
     }else{
       http = "hotHouse?title=热门小区";
     }

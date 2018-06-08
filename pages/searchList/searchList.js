@@ -174,6 +174,11 @@ Page({
         this.setData({houseList: data.data});
     })
   },
+  houseDetail2(e) {
+    this.cacheHouseType('小区');
+    let sdid = e.currentTarget.dataset.id;
+    wx.navigateTo({url: '../houseDetail/houseDetail2?title=房源详情&id='+sdid});
+  },
   //上拉加载更多
   onReachBottom() {
     let page = this.data.page++;
@@ -184,6 +189,10 @@ Page({
       scity: this.data.currentCity
     }
     this.getDataFromServer(IP, params);
-  }
+  },
+  //缓存房源类型
+  cacheHouseType(value) {
+    wx.setStorageSync('houseTypeSelect', value);
+  },
 })
 

@@ -28,7 +28,7 @@
   <!--房源列表-->
   <block wx:for="{{houseList}}">
         <view wx:if="{{!flagTwoHouse}}">
-            <navigator url="../houseDetail/houseDetail2?id={{item.sdid}}&houseDetail={{houseDetail}}">
+            <view bindtap="houseDetail2" data-id="{{item.sdid}}">
                 <view class="item">
                     <view class="image">
                         <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
@@ -45,7 +45,7 @@
                             </view>
                         </view>
                 </view>
-            </navigator>
+            </view>
         </view>
         <view wx:if="{{flagTwoHouse}}">
             <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{houseDetail}}">

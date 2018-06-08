@@ -23,49 +23,45 @@
  </view>
 
 <view class="section section1">
-  <!-- 小区找房详情 -->
-  <block wx:if="{{detailType==33}}">
-      <view class="title">{{houseDetail.buildName}}</view>      
-      <view class="descriptions" style="margin:0;padding:0 24rpx">
-          <view>
-                <view>参考均价</view>
-                <view>{{houseDetail.avgSalePrice}}元/月</view>
-          </view>
-          <view>
-                <view>小区类型</view>
-                <view>{{houseDetail.buildType}}</view>
-          </view>
-          <view>
-                <view>建筑时间</view>
-                <view>{{houseDetail.buildAge}}</view>
-          </view>
-      </view>
-      <view class="title" style="padding:40rpx 0;border-bottom:1px solid #e6e6e6;">小区房源</view>     
-  </block> 
+    <!-- 小区找房详情 -->
+    <view class="title">{{houseDetail.buildName}}</view>      
+    <view class="descriptions" style="margin:0;padding:0 24rpx">
+        <view>
+              <view>参考均价</view>
+              <view>{{houseDetail.avgSalePrice}}元/月</view>
+        </view>
+        <view>
+              <view>小区类型</view>
+              <view>{{houseDetail.buildType}}</view>
+        </view>
+        <view>
+              <view>建筑时间</view>
+              <view>{{houseDetail.buildAge}}</view>
+        </view>
+    </view>
+    <view class="title" style="padding:40rpx 0;border-bottom:1px solid #e6e6e6;">小区房源</view>     
 </view>
 
-  <!-- 小区找房 -->
-  <block wx:if="{{detailType==33}}">
-      <view class="estate">
-            <view bindtap="xiaoquTwoHouse">
-                <image src="../../images/estate1.png"></image>
-                <view>二手房</view>
-            </view>
-
-            <view bindtap="xiaoquRentHouse">
-                <image src="../../images/estate2.png"></image>
-                <view>租房</view>
-            </view>
+<!-- 小区找房 -->
+<view class="estate">
+      <view bindtap="xiaoquTwoHouse">
+          <image src="../../images/estate1.png"></image>
+          <view>二手房</view>
       </view>
-  </block>
+
+      <view bindtap="xiaoquRentHouse">
+          <image src="../../images/estate2.png"></image>
+          <view>租房</view>
+      </view>
+</view>
+
 
 <view class="section section2">
   <view class="title">
-    <text wx:if="{{detailType!==33}}">房源信息</text>
-    <text wx:if="{{detailType==33}}">小区信息</text>
+    <text>小区信息</text>
   </view>
     <!-- 小区 -->
-  <view class="labelgroup" wx:if="{{detailType==33}}">
+  <view class="labelgroup">
       <view>建筑年代: <text>{{houseDetail.buildAge}}年</text></view>
       <view>小区类型：<text>{{houseDetail.buildType}}</text></view>
       <view>栋数：<text>{{houseDetail.totalBuildNum}}栋</text></view>
@@ -81,8 +77,7 @@
 
 <view class="section section3">
   <view class="title">
-    <text wx:if="{{detailType!==33}}">房源位置</text>
-    <text wx:if="{{detailType==33}}">小区位置</text>
+    <text>小区位置</text>
   </view>
   <view class="map" bindtap="mapJump">
       <!-- 百度 静态图 -->
@@ -99,44 +94,20 @@
 </view>
 
 <view class="sectoin section4">
-  <block wx:if="{{detailType!==33}}">
-      <view class="title">房源动态</view>
-      <view class="descriptions noborder">
-         <view>
-                <view>近7日带看 (次)</view>
-                <view>{{houseDetail.day7Num}}</view>
-          </view>
-          <view>
-                <view>近30日带看 (次)</view>
-                <view>{{houseDetail.day30Num}}</view>
-          </view>
-          <view>
-                <view>收藏房源 (人)</view>
-                <view>{{houseDetail.collectNum}}</view>
-          </view>
-      </view>
-      <view class="title seehouse">带看记录 
-        <navigator url="../houseDetail/seehouseList?id={{houseDetail.id}}&totalSeeNum={{houseDetail.totalSeeNum}}&day7Num={{houseDetail.day7Num}}" hover-class="none">
-            最近带看{{houseDetail.recentlySee}}<image src="../../images/rightMore.png"/>
-        </navigator>
-  </view>
-  </block>
-  <block wx:if="{{detailType==33}}">
-       <!-- 小区找房详情 -->
-      <view class="title">周边设施</view>
-      <view class="facilityLabel">
-          <view>交通: <text>{{houseDetail.transportInfo}}</text></view>
-          <view>学校: <text>{{houseDetail.schoolInfo}}</text></view>
-          <view>医院: <text>{{houseDetail.hospitalInfo}}</text></view>
-          <view>银行: <text>{{houseDetail.bankInfo}}</text></view>
-          <view>超市: <text>{{houseDetail.supermarketInfo}}</text></view> 
-      </view>  
-  </block>
+  <!-- 小区找房详情 -->
+  <view class="title">周边设施</view>
+  <view class="facilityLabel">
+      <view>交通: <text>{{houseDetail.transportInfo}}</text></view>
+      <view>学校: <text>{{houseDetail.schoolInfo}}</text></view>
+      <view>医院: <text>{{houseDetail.hospitalInfo}}</text></view>
+      <view>银行: <text>{{houseDetail.bankInfo}}</text></view>
+      <view>超市: <text>{{houseDetail.supermarketInfo}}</text></view> 
+  </view>  
 </view>
 
 <view class="footer">
     <!-- 小区 -->
-    <view class="type2" wx:if="{{detailType==33}}">
+    <view class="type2">
       <view class="addCollection" bindtap="toggleSelectLike">
           <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
           <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
@@ -145,7 +116,7 @@
 </view> 
 
 <!-- 小区详情 -->
-<view class="section goodList" wx:if="{{detailType==33}}">
+<view class="section goodList">
   <view class="title">小区房源
         <view class="lookmore">
             <text style="font-weight:normal;font-size:30rpx;" 
@@ -159,7 +130,7 @@
 
   <!-- 猜你喜欢 -->
   <block wx:for="{{guessYoulikeHouse}}" wx:key="index" wx:for-item="item">
-      <view class="item" data-id="{{item.sdid}}" bindtap="onLoad">
+      <view class="item" data-id="{{item.sdid}}" bindtap="jumpHouseDetail">
             <view class="image">
               <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
             <view class="item-content">
