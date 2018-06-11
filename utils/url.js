@@ -1,7 +1,7 @@
 'use strict';
 const SERVERINDEX = 1;
-// const SERVER_IPS = ["https://custapis.shyj.cn/custAppApi"];//生产api接口
-const SERVER_IPS = ["http://112.74.181.229:7031/custAppApi"];//测试api接口
+const SERVER_IPS = ["https://custapis.shyj.cn/custAppApi"];//生产api接口
+// const SERVER_IPS = ["http://112.74.181.229:7031/custAppApi"];//测试api接口
 const SERVER_IP = SERVER_IPS[SERVERINDEX];
 
 //首页 接口
@@ -93,8 +93,8 @@ export const IP_SMSCODELOGIN = SERVER_IPS + "/member/smsCodelogin";//手机验�
 export const IP_GETSMSCODE= SERVER_IPS + "/member/fetchSmsCode";//获取验证码
 export const IP_MYBROKERSLIST = SERVER_IPS + "/my/collectionList";//我的经纪人列表
 export const IP_MYBROKERSCOLLECTIONLIST = SERVER_IPS + "/brokerCollection/collectionList";//经纪人收藏列表
-
 export const IP_ADVICE= SERVER_IPS + "/feedback/advice";//意见反馈
+export const IP_MYINFO = SERVER_IPS + "/member/myinfo"; //我的
 
 
 

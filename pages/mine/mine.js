@@ -7,9 +7,11 @@ Page(filter.loginCheck({
   data: {
     showLogout: false,
     nickName: null,
-    avatarUrl: null
+    avatarUrl: null,
+    myInfo: null
   },
   onLoad() {
+    this.getMyInfo();
     try {
       let value = wx.getStorageSync('userInfo2');
       if (value) {
@@ -21,12 +23,11 @@ Page(filter.loginCheck({
         })
       }
     } catch (e) {
-      return false;
     }
   },
   //拨打电话
   telphone() {
-    wx.makePhoneCall({phoneNumber: '13212361223'})
+    wx.makePhoneCall({phoneNumber: this.data.myInfo.custServerPhone});
   },
   //登录
   login() {
@@ -62,8 +63,17 @@ Page(filter.loginCheck({
     }
   },
   //二手房收藏数量
-  
   //租房收藏数量
   //经纪人收藏数量
   //小区收藏数量
+  getMyInfo() {
+    let params = {
+      "unicode": wx.getStorageSync("userToken")
+    }
+    utils.get(Api.IP_MYINFO,params)
+    .then(data=>{
+      data.data.custServerPhone = data.data.custServerPhone.slice(0,4)+"-"+data.data.custServerPhone.slice(4);
+      this.setData({myInfo: data.data});
+    })
+  }
 }))
