@@ -5,7 +5,7 @@ const filter = require("../../utils/filter");
 Page(filter.loginCheck({
   data: {
     isOriginHouse: true,//是否原始房源
-    houseList: [],
+    brokers: [],
     showload: false,
     num: 0,
     currentCity: null,
@@ -25,11 +25,9 @@ Page(filter.loginCheck({
       data.data.forEach((item) => {
         try{
           item.houseTag = item.houseTag.split(',');
-        }catch(err){
-          console.log(err);
-        }
+        }catch(err){}
       })
-      this.setData({houseList: this.data.houseList.concat(data.data)});
+      this.setData({brokers: this.data.brokers.concat(data.data)});
     })
   },
   //状态检测
@@ -45,13 +43,9 @@ Page(filter.loginCheck({
       pageNo: this.data.page++,
       unicode: wx.getStorageSync("userToken")
     }
-    utils.get(this.data.IPS[this.data.num], params)
+    utils.get(Api.IP_MYBROKERSCOLLECTIONLIST, params)
     .then(data => {
-      //修正数据
-      data.data.forEach((item) => {
-        item.houseTag = item.houseTag.split(',');
-      })
-      this.setData({ houseList: this.data.houseList.concat(data.data)})
+      this.setData({ brokers: this.data.brokers.concat(data.data)})
     })
   }
 }));

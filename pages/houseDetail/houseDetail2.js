@@ -27,16 +27,11 @@ Page({
     //小区详情 猜你喜欢
     guessYouLike: ['二手房', '租房'],
     guessYoulikeHouse: [],//猜你喜欢的
-    guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
+    guessLikeIP: [Api.IP_SAMEUSED, Api.IP_SAMEUSEDRENT],
     num: 0,
-    IPS: [Api.IP_TWOHANDHOUSEDETAIL, Api.IP_RENTHOUSEDETAIL, Api.IP_BUILDINFO],//二手房 租房 小区详情等
-    IPS2: [Api.IP_HOUSECOLLECTION, Api.IP_RENTCOLLECTION, Api.IP_COLLECTIONADD],//二手房 租房 小区添加收藏 
-    IPS3: [Api.IP_HOUSECOLLECTIONCANCEL, Api.IP_RENTCOLLECTIONCANCEL, Api.IP_COLLECTIONCANCEL],//二手房 租房 小区取消收藏 
-    IpsNum: 0,
     currentCity: null,//城市
     page: 1,
     flagPrice: '',
-    contentType: 11, //热门小区11， 小区二手房22
     count: 0,//待看房源列表计数
     token: null,
     title: null,
@@ -53,8 +48,6 @@ Page({
           case '热门小区':
           this.setData({
               houseDetailId: options.id,
-              IpsNum: 2,
-              contentType: 11
           });
           break;
         }
@@ -74,9 +67,9 @@ Page({
       }
     })
   },
-  //小区找房详情
+  //小区详情
   buyRentRequest(city, sdid) {
-    utils.get(this.data.IPS[this.data.IpsNum] + city + '/' + sdid, { scity: city })
+    utils.get(Api.IP_BUILDINFO + city + '/' + sdid, { scity: city })
       .then(data => {
         try {
           this.setData({
@@ -85,14 +78,11 @@ Page({
             likeFlag: data.data.isCollect
           });
         }
-        catch(err) {
-          console.log(err)
-        }
+        catch(err) {}
         this.setData({houseDetail: data.data});
+        let IP = this.data.guessLikeIP[this.data.num] + city + '/'+ data.data.sdid;
+        this.getDataFromServer(IP, { pageNo: 1 });
       })
-    //猜你喜欢(默认二手房 首页第1页数据)
-    let IP = this.data.guessLikeIP[this.data.num] + '/' + city;
-    this.getDataFromServer(IP, { pageNo: 1 });
   },
   //待看房源列表
   seeHouseRequest(city) {
@@ -150,30 +140,21 @@ Page({
   toggleSelectLike() {
     if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
     this.setData({likeFlag: !this.data.likeFlag});
-    let num = this.data.detailType;
     if(!this.data.likeFlag) {
-        switch(num) {
-          case 11: this.colletionRequest(true, 0);break;//二手房收藏
-          case 22: this.colletionRequest(true, 1);break;//租房收藏
-          case 33: this.colletionRequest(true, 2);break;//小区收藏
-        }
+      this.colletionRequest(true);//小区收藏
     }else{
-        switch(num) {
-          case 11: this.colletionRequest(false, 0);break;//二手房收藏取消
-          case 22: this.colletionRequest(false, 1);break;//租房收藏取消
-          case 33: this.colletionRequest(false, 2);break;//小区收藏取消
-        }
+      this.colletionRequest(false);//小区收藏
     }
   },
   //收藏 请求
-  colletionRequest(bool, num) {
+  colletionRequest(bool) {
     if(bool) {
       let params = {"title": "收藏","unicode": wx.getStorageSync("userToken")};
-      utils.post(this.data.IPS2[num] + this.data.currentCity + '/' + this.data.houseDetailId, params)
+      utils.post(Api.IP_COLLECTIONADD + this.data.currentCity + '/' + this.data.houseDetailId, params)
       .then(data => {wx.hideLoading()});
     }else{
       let params = { "title": "取消", "unicode": wx.getStorageSync("userToken")}
-      utils.post(this.data.IPS3[num] + this.data.currentCity + '/' + this.data.houseDetailId, params)
+      utils.post(Api.IP_COLLECTIONCANCEL + this.data.currentCity + '/' + this.data.houseDetailId, params)
       .then(data => {wx.hideLoading()});
     }
   },
@@ -214,10 +195,10 @@ Page({
     return shareObj
   },
 
-  //小区详情 猜你喜欢
-  selectYouLike(e) {//猜你喜欢 二手房 租房
+  //小区详情 
+  selectYouLike(e) {//同小区二手房 租房
     this.setData({ num: e.target.dataset.index })
-    let IP = this.data.guessLikeIP[this.data.num] +'/'+ this.data.currentCity;
+    let IP = this.data.guessLikeIP[this.data.num] + this.data.currentCity+'/'+this.data.houseDetailId;
     let params = {pageNo: this.data.page}
     this.getDataFromServer(IP, params);
   },

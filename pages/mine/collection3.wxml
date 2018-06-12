@@ -1,37 +1,21 @@
 <view class="weui-panel__bd">
-    <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-    <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=小区" 
-        hover-class="none">
-    <view class="item">
-        <view class="image">
-            <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
-            <view class="originHouse {{item.status=='正常'?'':'lose'}}">{{item.status}}</view>
-            <view class="shadow" wx:if="{{item.status=='正常'?false:true}}"></view>
-        </view>
-        <view class="item-content">
-            <view class="item-title {{item.status=='正常'?'':'changecolor'}}">{{item.houseTitle}}</view>
-            <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
-            <view  class="houseTypeInfo">
-            <text>{{item.houseType}}</text>{{item.builtArea}}m²
-            </view>
-
-        <view class="houseLabel">
-            <text wx:for="{{item.houseTag}}" 
-                wx:key="{{index2}}"
-                wx:for-item="item2" 
-                wx:for-index="index2">{{item2}}</text>
+    <!-- 经纪人 -->
+    <view class="list"
+            wx:for="{{brokers}}"
+            data-item="{{item}}"
+            bindtap="goBackSet">
+        <image src="{{item.photo?item.photo:'../../images/avatar.png'}}"></image>
+        <view class="content">
+                <view>
+                    <view class="name"><text>{{item.emplName}}</text><text>{{item.positionName}}</text></view>
+                    <view class="score">{{item.grade+'.0'}} <text>评分</text></view>    
                 </view>
-
-                <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
-                    <text>{{item.salePrice}}元/平米</text>
+                <view class="location">所在门店</view>
+                <view class="tag">
+                        <text wx:for="{{item.emplFlag}}"   wx:for-item="item2" >{{item2}}</text>
                 </view>
-                <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
-                    <text>元/月</text>
-                </view>     
-            </view>
         </view>
-    </navigator>
-    </block>
+    </view>
 </view>
 
 <view class="tips">
@@ -39,6 +23,5 @@
         <image src="../../images/loading.gif" mode="aspectFill"/>
         <text>玩了命的加载中...</text>
     </view>
-    <view wx:elif="{{!houseList.length}}"><text>没有更多内容</text></view>
 </view> 
 

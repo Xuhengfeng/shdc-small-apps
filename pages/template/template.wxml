@@ -1,75 +1,3 @@
-<!--导航菜单-->
-<template name="navBar">
-  <!-- 遮罩层 -->
-  <view data-statu="close" 
-        wx:if="{{showModalStatus}}"
-        bindtap="cancelModal" 
-        data-statu="close"
-        style="position:fixed;width:100%;height:100%;top:0px;left:0px;z-index:-1;background-color:rgba(0,0,0,0.5);"        ></view>
-  <view class="{{percent < 0.5? 'labelgroup' : 'labelgroup fixed'}}">
-    <view class="navbar" catchtap="selectItem" data-statu="open">
-          <view class="nav" wx:for="{{label}}" data-index="{{index}}">
-          {{item}}<image src="../../images/drop.png"/>
-          </view>
-    </view>
-    <view class="content" animation="{{animationData}}">
-        <view wx:if="{{num == 0}}" class="area">
-          <scroll-view scroll-y class="one">
-              <view>宝安区</view>
-              <view>宝安区</view>
-          </scroll-view>
-          <scroll-view scroll-y class="two">
-              <view>xx片区</view>
-              <view>xx片区</view>
-          </scroll-view>
-        </view>
-        <view wx:if="{{num == 1}}" class="housetype">
-          <text>单间</text>
-          <text>一房</text>
-          <text>两房</text>
-          <text>三房</text>
-          <text>三房以上</text>
-          <view style="width:100%">
-            <button type="primary" class="globalBtnColor">确定</button>
-          </view>
-        </view>
-        <view wx:if="{{num == 2}}" class="price">
-          <view class="price-hd">
-            <text wx:for="{{[1,1,1]}}">50万元以下</text>
-          </view>
-          <view class="price-bd">
-            <view class="title">自定义区间(万)</view>
-            <view>
-              <input placeholder="最小金额" type="number" maxlength="888"/>
-              <view class="line"></view>
-              <input placeholder="最大金额" type="number"/>
-            </view>
-          </view>
-          <view class="price-ft">
-              <button type="primary" class="globalBtnColor">条件不限</button>
-              <button type="primary" class="globalBtnColor">确定</button>
-          </view>
-        </view>
-        <view wx:if="{{num == 3}}" class="area2">
-          <text>0-100m²</text>
-          <text>0-100m²</text>
-          <text>0-100m²</text>
-          <text>0-100m²</text>
-          <view style="width:100%">
-            <button type="primary" class="globalBtnColor">确定</button>
-          </view>
-        </view>
-        <view wx:if="{{num==4}}" class="type">
-          <text>普通住宅</text>
-          <text>别墅</text>
-          <text>商业类</text>
-          <view style="width:100%">
-            <button type="primary" class="globalBtnColor">确定</button>
-          </view>
-        </view>
-    </view>
-  </view>
-</template>
 
 <!--联系人-->
 <template name="linkman" >
@@ -85,7 +13,7 @@
               <view style="font-size:30rpx;color:#333333;white-space:normal;margin-top:20rpx">{{houseDetail.broker.emplFlag}}</view>
             </view>
           </view>
-          <view class="dialog-body" data-phone="{{houseDetail.broker.phone}}">电话</view>
+          <view class="dialog-body" data-phone="{{houseDetail.broker.phone}}"  bindtap="telphone">电话</view>
           <image src="../../images/close2.png" bindtap="cancelLinkman"></image>
       </view>
   </view>

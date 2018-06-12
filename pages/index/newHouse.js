@@ -41,6 +41,11 @@ Page({
   newHouseListRequest(num, page) {
     utils.get(Api.IP_NEWBUILDING+'/'+ this.data.city[num].cityCode,{pageNo: page})
     .then(data=>{
+      data.data.forEach((item) => {
+        try{
+          item.tag = item.tag.split(',');
+        }catch(error){};
+      })
       this.setData({houseList:data.data});
     })
   },
@@ -51,26 +56,6 @@ Page({
       this.setData({imgUrls: data.data});
     })
     
-  },
-  //滑动切换tab
-  bindChange(e) {
-      let that = this;
-      let num = e.detail.current;
-      that.setData({currentTab: num, num: num, page: 1});
-      this.newHouseListRequest(num, 1);
-      if(num>7){
-        let a = num;
-        let query = wx.createSelectorQuery();
-        query.select('.scrollBox').boundingClientRect((res)=>{
-          let b = res.width;
-          that.setData({scrollLeft: (a-6)*75})
-        })
-        query.selectViewport().scrollOffset();
-        query.exec((res)=>{})
-      }else{
-        let a = num;
-        this.setData({scrollLeft: 0})
-      }
   },
   //点击切换tab
   swichNav(e) {  
@@ -90,8 +75,13 @@ Page({
   },
   //h5页面跳转 轮播图 数量统计 热门推荐
   h5page(e) {
-    let http = e.currentTarget.dataset.http?e.currentTarget.dataset.http:"https://www.baidu.com";
-    wx.navigateTo({url: "../h5Pages/h5Pages?redirect="+http});
+    if(e.currentTarget.dataset.http){
+      wx.navigateTo({url: "../h5Pages/h5Pages?redirect="+e.currentTarget.dataset.http});
+    }else{
+      wx.showModal({
+        content: '链接不存在',
+      })
+    }
   },
   //获取用户输入关键字
   userSearch(e) {

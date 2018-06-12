@@ -6,7 +6,6 @@
              bindconfirm="startsearch"
              bindinput="userSearch"/>
     </view>
-     <!-- <button class="search-button" catchtap="searchMt">搜索</button>  -->
   </view>  
 </view>
 <view style="height:100rpx;background:#fffff;width:100%"></view>
@@ -25,10 +24,9 @@
       </view>
 </view>
 <view class="tips">
-  <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/>
+  <view wx:if="{{shopRent.length}}"><image src="../../images/loading.gif" mode="aspectFill"/>
       <text>玩了命的加载中...</text>
   </view>
-  <view wx:elif="{{shopRent.length}}"><text>上拉加载更多</text></view>
   <view wx:elif="{{!shopRent.length}}"><text>没有更多内容</text></view>
 </view>
 

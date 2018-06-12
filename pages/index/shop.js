@@ -1,5 +1,5 @@
-var Api = require("../../utils/url");
-const app = getApp();
+const Api = require("../../utils/url");
+const utils = require("../../utils/util");
 
 Page({
   data: {
@@ -20,19 +20,23 @@ Page({
       success: (res) => {
           this.setData({lat1: res.latitude,lng1: res.longitude});
           //门店信息
-          wx.getStorage({
-            key: 'selectCity',
-            success: (res2)=> {
-              this.setData({city: res2.data.value});
-              let params = {pageNo: 1, scity: res2.data.value};
-              this.lookShopsRequest(params);
-            }
-          });
+          utils.storage('selectCity')
+          .then(res2=>{
+            this.setData({city: res2.data.value});
+            let params = {pageNo: 1, scity: res2.data.value};
+            this.lookShopsRequest(params);
+          })
       }
     })
   },
   telphone(e) {//拨打电话
-    wx.makePhoneCall({phoneNumber: e.target.dataset.tel})
+    if(e.target.dataset.tel){
+      wx.makePhoneCall({phoneNumber: e.target.dataset.tel})
+    }else{
+        wx.showModal({
+          content: '号码不存在',
+        })
+    }
   },
   purpose(e) {
     wx.getLocation({
@@ -64,7 +68,8 @@ Page({
   lookShopsRequest(params) {
     let lat1 = this.data.lat1;
     let lng1 = this.data.lng1;
-    app.httpRequest(Api.IP_SHOPS, params, (error, data) => {
+    utils.post(Api.IP_SHOPS, params)
+    .then(data=> {
       if(!data.data.length) this.setData({hasMore: false});
       data.data.forEach((item)=> {
         let lat2 = item.py;
@@ -72,7 +77,7 @@ Page({
         item.distance = (this.getFlatternDistance(lat1,lng1,lat2,lng2) / 1000).toFixed(2);
       })
       this.setData({shops: this.data.shops.concat(data.data)});
-    }, 'POST')
+    })
   },
   //计算两点距离
   getFlatternDistance(lat1,lng1,lat2,lng2){

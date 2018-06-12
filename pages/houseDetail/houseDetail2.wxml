@@ -109,8 +109,8 @@
     <!-- 小区 -->
     <view class="type2">
       <view class="addCollection" bindtap="toggleSelectLike">
-          <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
-          <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
+          <image src="../../images/like-off.png" wx:if="{!likeFlag}}"/>
+          <image src="../../images/like-on.png" wx:if="{{likeFlag}}"/>
       </view>
     </view>
 </view> 
@@ -128,7 +128,6 @@
         </view>
        </view>
 
-  <!-- 猜你喜欢 -->
   <block wx:for="{{guessYoulikeHouse}}" wx:key="index" wx:for-item="item">
       <view class="item" data-id="{{item.sdid}}" bindtap="jumpHouseDetail">
             <view class="image">

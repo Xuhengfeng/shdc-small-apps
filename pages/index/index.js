@@ -43,9 +43,9 @@ Page({
     //轮播图 二手房指南资讯 获取成交量统计 热门小区 新盘推荐 四个栏目四张图片 默认城市 所有的h5链接
     IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING, Api.IP_NEWINFO, Api.IP_PLATE, Api.IP_DEFAULTCITY, Api.IP_ALLH5PAGEURL],
     allH5url: null,
-    scity: null
   },
   onLoad(){
+
     // 查看是否授权
     utils.storage('userInfo')
     .then(()=>{
@@ -55,21 +55,20 @@ Page({
       wx.hideTabBar();
       this.setData({canIUse:true});
     })
+    
     //默认城市定位 和 百度城市定位
     utils.get(this.data.IPS[6])
     .then((data)=>{
-      if(data.data != undefined){
-        wx.setStorage({
-          key: 'selectCity',
-          data: {
-            name: data.data.name,
-            value: data.data.value
-          }
-        });
-        this.setData({scity: data.data.value});
-        this.setData({myLocation: data.data.name});
-        this.oneBigRequest(data.data.value);
-      }
+      wx.setStorage({
+        key: 'selectCity',
+        data: {
+          name: data.data.name,
+          value: data.data.value
+        }
+      });
+      this.setData({currentCity: data.data.value});
+      this.setData({myLocation: data.data.name});
+      this.oneBigRequest(data.data.value);
     })
     .catch(error=>{
       wx.getLocation({
@@ -138,30 +137,30 @@ Page({
     })
 
     //四个栏目四个图片
-    utils.get(this.data.IPS[5] + "/INDEX_PLATE",{
-      scity: city
-    })
+    utils.get(this.data.IPS[5] + "/INDEX_PLATE",{scity: city})
     .then((data) => {
-      console.log(data.data)
-      if(data.data.length) this.setData({ plate: data.data });
+      try{
+        this.setData({ plate: data.data })
+      }catch(error){};
     })  
+    
     //热门推荐
-    utils.get(this.data.IPS[4] + "1001", {
-      pageNo: 1,
-      scity: city
-    })
+    utils.get(this.data.IPS[4] + "1001", {pageNo: 1,scity: city})
     .then((data) => {
       if(data.data.length) this.setData({ hotrecommend: data.data });
     })
+
     //获取主页二手房指南资讯
     utils.get(this.data.IPS[1] + city + "/PURCHASE_GUIDE", {scity: city})
     .then((data) => {
       this.setData({ purchase_guide: data.data });
     })    
+    
     //获取成交量统计
     utils.get(this.data.IPS[2] + city, {scity: city}).then((data) => {
       this.setData({ houseUsed: data.data });
     })
+    
     //热门小区
     utils.get(this.data.IPS[3] + city, {
       pageNo: 1,
@@ -169,8 +168,11 @@ Page({
       scity: city
     })
     .then((data) => {
-      if(data.data.length) this.setData({ hotbuilding: data.data });
+      try{
+        this.setData({ hotbuilding: data.data });
+      }catch(error){};
     })
+    
     //新盘推荐
     utils.get(this.data.IPS[4] + "1002", {
       pageNo: 1,
@@ -182,10 +184,7 @@ Page({
 
     //猜你喜欢(默认二手房 首页第1页数据)
     var IP = this.data.guessLikeIP[0] + '/' + city;
-    this.getDataFromServer(IP, { 
-      pageNo: 1,
-      scity: city
-    });
+    this.getDataFromServer(IP, {pageNo: 1,scity: city});
   },
   selectYouLike(e) {//猜你喜欢 二手房 租房
     this.setData({ num: e.target.dataset.index })
@@ -199,11 +198,13 @@ Page({
     utils.get(IP, params)
     .then((data) => {
       data.data.forEach((item) => {
-        item.houseTag = item.houseTag.split(',');
+        try{
+          item.houseTag = item.houseTag.split(',');
+        }catch(error){};
       })
       let flagpc =  this.data.num == 0 ? true : false;
-      this.setData({flagPrice: flagpc})
-      this.setData({houseList: data.data})
+      this.setData({flagPrice: flagpc});
+      this.setData({houseList: data.data});
     })
   },
   onPullDownRefresh() {
@@ -242,18 +243,30 @@ Page({
       case '5': wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[3].value}`});break;//购房指南
     }
   },
-  //h5页面跳转 轮播图 数量统计 热门推荐
-  h5page(e) {
-    let num = e.currentTarget.dataset.num;   
+  //热门推荐
+  hottuj(e) {
     let http = e.currentTarget.dataset.http;   
-    let urlArr = this.data.allH5url;
-    let scity = this.data.scity;
-    let scityName = this.data.myLocation;
-    switch(num) {
-      case '1': wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[0].value}&scityname=北海&scity=${scity}`});break;//数量统计  
-      default: wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${http}`});break;//默认地址
-    }
+    wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${http}`});
   },
+  //轮播图
+  lunbo(e){
+    let http = e.currentTarget.dataset.http;   
+    wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${http}`});
+  },
+  //数量统计
+  suliang(e){
+    let urlArr = this.data.allH5url;
+    let scityName = this.data.myLocation;
+    let currentCity = this.data.currentCity;
+    wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[0].value}&scityname=${scityName}&scity=${currentCity}`})
+  },
+  //新盘推荐
+  newhouse(e){
+    let http = e.currentTarget.dataset.http;
+    console.log(http)   
+    wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${http}`});
+  },
+
   //热门小区
   hotxiaoqu(e) {
     let http;

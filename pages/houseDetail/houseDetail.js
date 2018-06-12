@@ -30,9 +30,9 @@ Page({
     guessYoulikeHouse: [],//猜你喜欢的
     guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
     num: 0,
-    IPS: [Api.IP_TWOHANDHOUSEDETAIL, Api.IP_RENTHOUSEDETAIL, Api.IP_BUILDINFO],//二手房 租房 小区详情等
-    IPS2: [Api.IP_HOUSECOLLECTION, Api.IP_RENTCOLLECTION, Api.IP_COLLECTIONADD],//二手房 租房 小区添加收藏 
-    IPS3: [Api.IP_HOUSECOLLECTIONCANCEL, Api.IP_RENTCOLLECTIONCANCEL, Api.IP_COLLECTIONCANCEL],//二手房 租房 小区取消收藏 
+    IPS: [Api.IP_TWOHANDHOUSEDETAIL, Api.IP_RENTHOUSEDETAIL],//二手房 租房
+    IPS2: [Api.IP_HOUSECOLLECTION, Api.IP_RENTCOLLECTION],//二手房 租房
+    IPS3: [Api.IP_HOUSECOLLECTIONCANCEL, Api.IP_RENTCOLLECTIONCANCEL],//二手房 租房
     IpsNum: 0,
     currentCity: null,//城市
     page: 1,
@@ -176,6 +176,7 @@ Page({
   },
   //拨打电话
   telphone(e) {
+    console.log(e.target.dataset.phone)
     wx.makePhoneCall({phoneNumber: e.target.dataset.phone});
   },
   //通讯录
@@ -232,7 +233,7 @@ Page({
   },
   //收藏
   toggleSelectLike() {
-    if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
+    if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
     this.setData({likeFlag: !this.data.likeFlag});
     let num = this.data.detailType;
     if(!this.data.likeFlag) {
@@ -250,11 +251,11 @@ Page({
   //收藏 请求
   colletionRequest(bool, num) {
     if(bool) {
-      let params = {"title": "收藏","unicode": wx.getStorageSync("userToken")};
+      let params = {"title": "收藏","unicode": wx.getStorageSync("userToken"),"scity": this.data.currentCity};
       utils.post(this.data.IPS2[num] + this.data.currentCity + '/' + this.data.houseDetailId, params)
       .then(data => {wx.hideLoading()});
     }else{
-      let params = { "title": "取消", "unicode": wx.getStorageSync("userToken")}
+      let params = {"title": "取消","unicode": wx.getStorageSync("userToken"),"scity": this.data.currentCity};
       utils.post(this.data.IPS3[num] + this.data.currentCity + '/' + this.data.houseDetailId, params)
       .then(data => {wx.hideLoading()});
     }

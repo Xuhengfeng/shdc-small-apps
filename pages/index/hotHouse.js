@@ -1,7 +1,5 @@
-// pages/index/hotHouse.js
 const Api = require("../../utils/url");
-const app = getApp();
-
+const utils = require("../../utils/util");
 Page({
   data: {
     houseList: [],
@@ -59,16 +57,20 @@ Page({
   },
   //同小区房源 小区二手房
   getServerData(IP, params) {
-    app.httpRequest(IP, params, (error, data) => {
+    utils.get(IP, params)
+    .then(data=> {
       data.data.forEach((item) => {
-        item.houseTag = item.houseTag.split(',');
+        try{
+          item.houseTag = item.houseTag.split(',');
+        }catch(error){}
       })
       this.setData({houseList: this.data.houseList.concat(data.data)});
     })
   },
   //热门小区
   getServerData2(IP, params) {
-    app.httpRequest(IP, params, (error, data) => {
+    utils.get(IP, params)
+    .then(data=> {
       this.setData({ houseList: this.data.houseList.concat(data.data) });
     })
   },

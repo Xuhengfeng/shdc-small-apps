@@ -1,12 +1,13 @@
 const Api = require("../../utils/url");
-const app = getApp();
+const utils = require("../../utils/util");
 Page({
   data: {
     guideData: [],//购房指南
     windowHeight: null
   },
   onLoad() {
-    app.httpRequest(Api.IP_INDEXCONSULT+"beihai"+"/PURCHASE_GUIDE", {}, (error, data) => {//获取主页资讯Banner
+    utils.get(Api.IP_INDEXCONSULT+"beihai"+"/PURCHASE_GUIDE", {})
+    .then(data=> {//获取主页资讯Banner
       data.data.forEach((item)=> {
         let diff = (new Date().getTime() - item.pubTime)/1000;
         let h = diff/3600;//小时
@@ -23,7 +24,6 @@ Page({
         }
       })
       this.setData({guideData: data.data })
-      console.log(data.data)
     })
   },
   onPullDownRefresh() {

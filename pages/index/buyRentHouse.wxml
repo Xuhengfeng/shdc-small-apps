@@ -50,7 +50,7 @@
                 wx:key="index"
                 data-id="{{item.sdid}}" 
                 bindtap="commendForYou"
-                style="background:rgba(0,0,0,1)">
+                style="background:rgba(0,0,0,0.1)">
               <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
               <view class="content">
                   <view class="item-title" style="color:#ffffff">{{item.houseTitle}}</view>

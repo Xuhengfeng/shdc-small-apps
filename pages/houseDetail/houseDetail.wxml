@@ -103,8 +103,7 @@
 
 <view class="section section3">
   <view class="title">
-    <text wx:if="{{detailType!==33}}">房源位置</text>
-    <text wx:if="{{detailType==33}}">小区位置</text>
+    <text>房源位置</text>
   </view>
   <view class="map" bindtap="mapJump">
       <!-- 百度 静态图 -->
@@ -121,7 +120,6 @@
 </view>
 
 <view class="sectoin section4">
-  <block wx:if="{{detailType!==33}}">
       <view class="title">房源动态</view>
       <view class="descriptions noborder">
          <view>
@@ -142,11 +140,10 @@
             最近带看{{houseDetail.recentlySee}}<image src="../../images/rightMore.png"/>
         </navigator>
       </view>
-  </block>
 </view>
 
 
-<view class="section section5" wx:if="{{detailType!==33}}">
+<view class="section section5">
   <view class="title">关联小区</view>
     <view bindtap="guanlianxiaoqu">
       <view class="item addbottomborder">
@@ -164,7 +161,7 @@
     </view>
 </view>
 
-<view class="section" wx:if="{{detailType!==33}}">
+<view class="section">
   <view class="title">同小区房源 
       <view class="tongxiaoqu" bindtap="tongyuanxiaoqu">
           更多小区房源<image src="../../images/rightMore.png"/>
@@ -183,7 +180,7 @@
   </block>
 </view>
 
-<view class="section section6" wx:if="{{detailType!==33}}">
+<view class="section section6">
   <view class="title">周边房源</view>
   <block wx:for="{{nearbyHouse}}">
       <view class="item" data-id="{{item.sdid}}" bindtap="RefreshHouseDetail">
@@ -199,7 +196,7 @@
 </view>
 
 
-<view class="footer-placeholder" wx:if="{{detailType!==33}}">
+<view class="footer-placeholder">
   <!--填充盒补齐底部高度-->
 </view>
 
@@ -209,8 +206,8 @@
         <view class="type1">
           <view>
               <view bindtap="toggleSelectLike">
-                <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
-                <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
+                <image src="../../images/like-off.png" wx:if="{{!likeFlag}}"/>
+                <image src="../../images/like-on.png" wx:if="{{likeFlag}}"/>
               </view>
               <view class="daiKanList" bindtap="goSeeList">
                 <image src="../../images/see.png" style="width:49rpx;height:49rpx"/>
@@ -227,8 +224,8 @@
       <view class="type1">
         <view style="flex: 100rpx 0 0">
             <view bindtap="toggleSelectLike" style="text-align:center">
-              <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
-              <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
+              <image src="../../images/like-off.png" wx:if="{{!likeFlag}}"/>
+              <image src="../../images/like-on.png" wx:if="{{likeFlag}}"/>
             </view>
         </view>
         <view bindtap="linkman">联系经纪人</view>
@@ -237,7 +234,24 @@
 </view> 
 
 <!-- 联系人 -->
-<template is="linkman" data="{{isLinkman,cancelLinkman,houseDetail}}"/> 
+<view class="shadowLay2" wx:if="{{isLinkman}}">
+    <view class="dialog">
+        <view class="dialog-header">
+          <view class="avator">
+              <image  src="{{houseDetail.broker.photo? houseDetail.broker.photo:'../../images/avatar.png'}}"/>
+          </view>
+          <view class="discription">
+            <view class="name" style="font-size:40rpx;color:#000000">{{houseDetail.broker.emplName}}</view>
+            <view style="font-size:30rpx;color:#333333;margin-top:20rpx">电话: {{houseDetail.broker.phone}}</view>
+            <view style="font-size:30rpx;color:#333333;white-space:normal;margin-top:20rpx">{{houseDetail.broker.emplFlag}}</view>
+          </view>
+        </view>
+        <view class="dialog-body" data-phone="{{houseDetail.broker.phone}}" bindtap="telphone">电话</view>
+        <image src="../../images/close2.png" bindtap="cancelLinkman"></image>
+    </view>
+</view>
+
+
 
 
 <!-- 预约看房 -->

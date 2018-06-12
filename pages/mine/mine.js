@@ -40,7 +40,8 @@ Page(filter.loginCheck({
     this.setData({
       showLogout: false,
       nickName: null,
-      avatarUrl: null
+      avatarUrl: null,
+      myInfo: null
     })
     wx.removeStorageSync('userToken');
     wx.removeStorageSync('userInfo2');

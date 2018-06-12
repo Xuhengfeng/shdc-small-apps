@@ -443,7 +443,7 @@ page{
   float: left;
   width: 160rpx;
   height: 160rpx;
-  background: #cacaca;
+  background: #ffffff;
   margin-right: 30rpx;
   border-radius: 15rpx;
   overflow: hidden;
