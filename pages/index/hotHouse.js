@@ -44,7 +44,7 @@ Page({
       success: (res)=> {
         this.setData({currentCity: res.data.value});
         if (this.data.contentType == 11) {//热门小区
-              let IP = this.data.IPS[this.data.num] + this.data.currentCity;
+              let IP = Api.IP_HOTBUILDING + this.data.currentCity;
               let params = { 'scity': this.data.currentCity, 'pageNo': 1 };
               this.getServerData2(IP, params);
         } else {//同小区房源 小区二手房
@@ -94,8 +94,13 @@ Page({
       'scity': this.data.currentCity,
       'pageNo': page
     }
-    let IP = this.data.IPS[this.data.num] + this.data.currentCity + '/'+ this.data.sdid;
-    this.getServerData(IP, params);
+    if (this.data.contentType == 11) {//热门小区
+      let IP = Api.IP_HOTBUILDING + this.data.currentCity;
+      this.getServerData2(IP, params);   
+    }else{
+      let IP = this.data.IPS[this.data.num] + this.data.currentCity + '/'+ this.data.sdid;      
+      this.getServerData(IP, params);
+    }
   },
   //缓存房源类型
   cacheHouseType(value) {
@@ -109,5 +114,5 @@ Page({
   houseDetail1(e) {
     let sdid = e.currentTarget.dataset.id;
     wx.navigateTo({url: '../houseDetail/houseDetail?title=房源详情&id='+sdid});
-  },
+  }
 })

@@ -8,32 +8,21 @@ Page(filter.loginCheck({
     showLogout: false,
     nickName: null,
     avatarUrl: null,
-    myInfo: null
+    myInfo: null,
+    pageShowNum: 0,//用来计数页面onload周期
   },
   onLoad() {
+    this.setData({pageShowNum: 1});
     this.getMyInfo();
-    try {
-      let value = wx.getStorageSync('userInfo2');
-      if (value) {
-        let data = JSON.parse(value);
-        this.setData({
-          showLogout: data.showLogout,
-          nickName: data.nickName,
-          avatarUrl: data.avatarUrl
-        })
-      }
-    } catch (e) {
+    if(!wx.getStorageSync('userToken')) {
+      this.setData({showLogout: false});
+    }else{
+      this.setData({showLogout: true});
     }
   },
   //拨打电话
   telphone() {
     wx.makePhoneCall({phoneNumber: this.data.myInfo.custServerPhone});
-  },
-  //登录
-  login() {
-    if(!wx.getStorageSync('userToken')) {
-      wx.navigateTo({url: 'login'})
-    }
   },
   //退出
   logout() {
@@ -76,5 +65,16 @@ Page(filter.loginCheck({
       data.data.custServerPhone = data.data.custServerPhone.slice(0,4)+"-"+data.data.custServerPhone.slice(4);
       this.setData({myInfo: data.data});
     })
+  },
+  onShow() {
+    if(this.data.pageShowNum!=0){
+      //这里说明是第二次进入该页面 页面数据要刷新
+      this.getMyInfo();
+      if(!wx.getStorageSync('userToken')) {
+        this.setData({showLogout: false});
+      }else{
+        this.setData({showLogout: true});
+      }
+    }
   }
 }))

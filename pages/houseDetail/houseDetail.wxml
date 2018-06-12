@@ -64,8 +64,7 @@
 
 <view class="section section2">
   <view class="title">
-    <text wx:if="{{detailType!==33}}">房源信息</text>
-    <text wx:if="{{detailType==33}}">小区信息</text>
+    <text>房源信息</text>
   </view>
   <!-- 二手房 -->
   <view class="labelgroup" wx:if="{{detailType==11}}">
@@ -153,9 +152,9 @@
           </view>
           <view>
             <!-- 二手房 -->
-            <template is="houseContent1" data="{{guanlianList}}" wx:if="{{detailType==11}}"/>
+            <template is="houseContent1" data="{{guanlianList,detailType}}"/>
             <!-- 租房 -->
-            <template is="houseContent2" data="{{guanlianList}}" wx:if="{{detailType==22}}"/>
+            <template is="houseContent2" data="{{guanlianList,detailType}}"/>
           </view>
       </view>
     </view>

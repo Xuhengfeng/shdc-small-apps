@@ -147,7 +147,20 @@ Page({
       this.setData({nearbyHouse: data.data});
     });
   },
-
+  //二手房关联小区
+  guanlianListRequest(px, py, currentCity, buildSdid) {
+    utils.get(Api.IP_BUILDINFO + currentCity + '/' + buildSdid)
+    .then(data => {
+      this.setData({guanlianList: data.data});
+    })
+  },
+  //租房关联小区 
+  guanlianListRequest2(px, py, currentCity, buildSdid) {
+    utils.get(Api.IP_BUILDINFO + currentCity + '/' + buildSdid)
+    .then(data => {
+      this.setData({guanlianList: data.data});
+    })
+  },
   //租房同小区房源
   communityRequest2(city, buildSdid) {
     let params = {scity: city,unicode: this.data.token};
@@ -173,7 +186,6 @@ Page({
       this.setData({nearbyHouse: data.data});
     });
   },
-
   //待看房源列表
   seeHouseRequest(city) {
     let params = {
@@ -184,13 +196,8 @@ Page({
     utils.get(Api.IP_DETAILLIST,params)
     .then(data=>{this.setData({count: data.data.length})});
   },
-  //当前页的关联小区内容 
-  guanlianListRequest(px, py, currentCity, buildSdid) {
-    utils.get(Api.IP_BUILDINFO + currentCity + '/' + buildSdid)
-    .then(data => {
-      this.setData({guanlianList: data.data});
-    })
-  },
+
+
   //点击关联小区进入关联小区详情 
   guanlianxiaoqu() {
     this.cacheHouseType('小区');
@@ -339,5 +346,8 @@ Page({
       // shareObj.path = '/pages/btnname/btnname?btn_name=' + eData.name;
     }
     return shareObj
+  },
+  onShow() {
+    this.seeHouseRequest(this.data.currentCity);
   }
 })

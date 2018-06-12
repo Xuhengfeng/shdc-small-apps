@@ -28,7 +28,7 @@
     <view class="descriptions" style="margin:0;padding:0 24rpx">
         <view>
               <view>参考均价</view>
-              <view>{{houseDetail.avgSalePrice}}元/月</view>
+              <view>{{houseDetail.avgSalePrice}}元/平</view>
         </view>
         <view>
               <view>小区类型</view>

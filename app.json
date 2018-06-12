@@ -1,13 +1,13 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/mine/collection4",
+    "pages/mine/collection3",
+    "pages/mine/collection2",
+    "pages/mine/collection1",
     "pages/mine/mine",
     "pages/mine/mybroker",
     "pages/index/broker",    
-    "pages/mine/collection1",
-    "pages/mine/collection2",
-    "pages/mine/collection3",
-    "pages/mine/collection4",
     "pages/index/lookHouseList",
     "pages/see/seeone",
     "pages/mine/delegation",

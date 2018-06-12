@@ -133,8 +133,7 @@
                           </view>
                           <view class="house-info-title">{{item.buildName}}</view>
                           <view class="house-info-description">在售{{item.saleCount}}套/在租{{item.rentCount}}套</view>
-                          <view class="house-info-description" style="color:#ff4343">{{item.avgSalePrice}}
-                            <text style="font-size:22rpx;">元/平米</text>
+                          <view class="house-info-description" style="color:#ff4343">{{item.avgSalePrice}}<text style="font-size:22rpx;">元/平</text>
                           </view>
           </view>
         </block>
@@ -193,9 +192,7 @@
                     <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
                         <text>{{item.salePrice}}元/平</text>
                     </view>
-                    <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
-                        <text>元/月</text>
-                    </view>
+                    <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}元/月</view>
                 </view>
           </view>
         </block>

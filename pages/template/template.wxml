@@ -78,38 +78,17 @@
   </view>
 </template>
 
-
-<!-- 二手房的关联小区 -->
+<!-- 关联小区 -->
 <template name="houseContent1">
   <view class="item-title">{{guanlianList.buildName}}</view>
   <view class="description">
         {{guanlianList.areaName}} {{guanlianList.districtName}} {{guanlianList.buildAge}}建成  {{guanlianList.buildType}}
   </view>
   <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
-        在售{{guanlianList.saleCount}}套<text style="margin: 0 10rpx;">/</text>在租{{guanlianList.rentCount}}套
+        在售{{guanlianList.saleCount}}套/在租{{guanlianList.rentCount}}套
   </view>
-  <view  class="housePrice">{{guanlianList.avgSalePrice}}<text>元/平米</text></view>
-</template>
-
-<!-- 租房的关联小区 -->
-<template name="houseContent2">
-  <view class="item-title">{{guanlianList.buildName}}</view>
-  <view class="description">
-        {{guanlianList.areaName}} {{guanlianList.districtName}} {{guanlianList.buildAge}}建成  {{guanlianList.buildType}}
-  </view>
-  <view style="font-size:26rpx;color:#666666;margin-top:10rpx;">
-    <text style="margin-right:20rpx">{{guanlianList.roomsNum}}房{{guanlianList.livingRoomNum}}厅</text>
-    <text>{{guanlianList.builtArea}}m²</text>
-  </view>
-  <view class="houseLabel">
-      <text wx:for="{{guanlianList.houseTag}}" 
-            wx:key="{{index2}}"
-            wx:for-item="item2" 
-            wx:for-index="index2">{{item2}}</text>
-    </view>
-  <view  class="housePrice">
-      <text>{{guanlianList.salePrice}}元/平米</text>
-  </view>
+  <view class="housePrice" wx:if="{{detailType==11}}">{{guanlianList.avgSalePrice}}元/平</view>
+  <view class="housePrice" wx:if="{{detailType==22}}">{{guanlianList.avgRentPrice }}元/月</view>
 </template>
 
 <!-- 同小区房源更多 -->
@@ -126,10 +105,8 @@
           wx:for-index="index2">{{item2}}</text>
   </view>
   <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
-      <text>{{item.salePrice}}元/平米</text>
+      <text>{{item.salePrice}}元/平</text>
   </view>
-  <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
-      <text>元/月</text>
-  </view>
+  <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}元/月</view>
 </template>
 

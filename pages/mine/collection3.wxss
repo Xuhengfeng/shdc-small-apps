@@ -16,12 +16,15 @@
 }
 .content{
   padding: 20rpx 20rpx 20rpx 0;
+  display: flex;
+  flex-flow: column nowrap; 
+  flex-direction: column;
+  justify-content: space-between; 
 }
-.content view:first-child{
+.content>view:first-child{
   overflow: hidden;
 }
 .content .name{
-  
   float: left;
 }
 .content .name text:nth-of-type(1){ 

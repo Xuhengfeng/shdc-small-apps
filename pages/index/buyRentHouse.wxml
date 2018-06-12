@@ -59,11 +59,9 @@
                           <text>{{item.houseType}}</text>{{item.builtArea}}m²
                     </view>
                     <view wx:if="{{flagPrice}}" class="housePrice" style="color:#ffc001">{{item.saleTotal}}万
-                          <text style="color:#ffffff">{{item.salePrice}}元/平米</text>
+                        <text style="color:#ffffff">{{item.salePrice}}元/平米</text>
                     </view>
-                    <view wx:if="{{!flagPrice}}" class="housePrice" style="color:#ffc001">{{item.rentPrice}}
-                          <text style="color:#ffffff">元/月</text>
-                    </view>
+                    <view wx:if="{{!flagPrice}}" class="housePrice" style="color:#ff4343">{{item.rentPrice}}元/月</view>
                 </view> 
           </view> 
         </scroll-view>
@@ -103,10 +101,7 @@
                         <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
                           <text>{{item.salePrice}}元/平米</text>
                         </view>
-                        <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
-                          <text>元/月</text>
-                        </view>
-
+                        <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}元/月</view>
                       </view>
                 </view>
             </navigator>

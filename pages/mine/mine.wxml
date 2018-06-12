@@ -1,5 +1,5 @@
 <view>
-  <view class="header" bindtap="login">
+  <view class="header">
       <view class="headImage">
           <image src="{{myInfo.headImage? myInfo.headImage : '../../images/avatar.png'}}"/> 
       </view>

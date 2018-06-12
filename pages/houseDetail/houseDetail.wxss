@@ -424,6 +424,10 @@ page{
   flex: 1;
   line-height: 70rpx;
 }
+.dialog-hd view:first-child{
+  height: 70rpx;
+  line-height: 100rpx;
+}
 .dialog-bd{
   flex: 1;
   display: flex;

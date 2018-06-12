@@ -82,7 +82,7 @@ export const IP_RENTHOUSE = SERVER_IPS + "/rentHouse/query";//租房所有数据
 export const IP_RENTHOUSEDETAIL = SERVER_IPS + "/rentHouse/getDetailInFo/";//租房详情
 export const IP_HOTBUILDING = SERVER_IPS + "/build/hotBuilding/";//热门小区
 export const IP_BUILDLIST = SERVER_IPS + "/build/buildList/";//查询小区列表(小区找房) 
-export const IP_BUILDINFO = SERVER_IPS + "/build/buildInfo/";//获取小区详情(包括关联小区)
+export const IP_BUILDINFO = SERVER_IPS + "/build/buildInfo/";//获取小区详情(二手房关联小区)
 export const IP_RIMHOUSING = SERVER_IPS + "/house/rimHousing";//二手房周边房源
 export const IP_RENTRIMHOUSING = SERVER_IPS + "/rentHouse/rimHousing";//租房周边房源
 
@@ -97,8 +97,6 @@ export const IP_MYBROKERSLIST = SERVER_IPS + "/my/collectionList";//我的经纪
 export const IP_MYBROKERSCOLLECTIONLIST = SERVER_IPS + "/brokerCollection/collectionList";//经纪人收藏列表
 export const IP_ADVICE= SERVER_IPS + "/feedback/advice";//意见反馈
 export const IP_MYINFO = SERVER_IPS + "/member/myinfo"; //我的
-
-
 
 //微信登录
 export const weChatLogin = SERVER_IPS + "/member/loginWeixin";//微信手机号码和openid第三方登录

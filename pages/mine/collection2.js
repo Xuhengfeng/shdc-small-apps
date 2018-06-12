@@ -1,10 +1,8 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-const filter = require("../../utils/filter");
 
-Page(filter.loginCheck({
+Page({
   data: {
-    isOriginHouse: true,//是否原始房源
     houseList: [],
     showload: false,
     num: 0,
@@ -58,4 +56,4 @@ Page(filter.loginCheck({
       this.setData({ houseList: this.data.houseList.concat(data.data)})
     })
   }
-}));
+});

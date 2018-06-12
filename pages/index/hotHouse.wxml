@@ -24,7 +24,7 @@
                 <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
                     在售{{item.saleCount}}套<text style="margin: 0 10rpx;">/</text>在租{{item.rentCount}}套
                 </view>
-                <view  class="housePrice">{{item.avgSalePrice}}<text>元/平米</text></view>
+                <view class="housePrice">{{item.avgSalePrice}}元/平</view>
               </view>
             </view>
         </view>
@@ -47,7 +47,7 @@
                             wx:for-index="index2">{{item2}}</text>
                     </view>
                     <view  class="housePrice">{{item.saleTotal}}万
-                        <text>{{item.salePrice}}元/平米</text>
+                        <text>{{item.salePrice}}元/平</text>
                     </view>
                 </view>
             </view>
@@ -70,9 +70,7 @@
                             wx:for-item="item2" 
                             wx:for-index="index2">{{item2}}</text>
                     </view>
-                    <view class="housePrice">{{item.rentPrice}}
-                        <text>元/月</text>
-                    </view>
+                    <view class="housePrice">{{item.rentPrice}}元/月</view>
                 </view>
             </view>
         </view>

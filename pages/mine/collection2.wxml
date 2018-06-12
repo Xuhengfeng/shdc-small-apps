@@ -6,8 +6,8 @@
     <view class="item">
         <view class="image">
             <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
-            <view class="originHouse {{item.status=='正常'?'':'lose'}}">{{item.status}}</view>
-            <view class="shadow" wx:if="{{!isOriginHouse}}"></view>
+            <view class="originHouse {{item.status=='正常'?'':'lose'}}" wx:if="{{item.status!=='正常'}}">{{item.status}}</view>
+            <view class="shadow" wx:if="{{item.status!=='正常'}}"></view>
         </view>
         <view class="item-content">
             <view class="item-title {{item.status=='正常'?'':'changecolor'}}">{{item.houseTitle}}</view>
@@ -22,10 +22,7 @@
                 wx:for-item="item2" 
                 wx:for-index="index2">{{item2}}</text>
                 </view>
-
-                <view class="housePrice">{{item.rentPrice}}
-                    <text>元/月</text>
-                </view>     
+                <view class="housePrice">{{item.rentPrice}}元/月</view>     
             </view>
         </view>
     </navigator>

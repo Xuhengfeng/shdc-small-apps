@@ -5,11 +5,11 @@
     <view class="item">
         <view class="image">
             <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
-            <view class="originHouse {{item.status=='正常'?'':'lose'}}">{{item.status}}</view>
-            <view class="shadow" wx:if="{{!isOriginHouse}}"></view>
+            <view class="originHouse {{item.status=='正常'?'':'lose'}}" wx:if="{{item.status!=='正常'}}">{{item.status}}</view>
+            <view class="shadow" wx:if="{{item.status!=='正常'}}"></view>
         </view>
         <view class="item-content">
-            <view class="item-title {{!isOriginHouse?'changecolor':''}}">{{item.houseTitle}}</view>
+            <view class="item-title {{item.status=='正常'?'':'changecolor'}}">{{item.houseTitle}}</view>
             <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
             <view  class="houseTypeInfo">
             <text>{{item.houseType}}</text>{{item.builtArea}}m²
@@ -23,7 +23,7 @@
                 </view>
 
                 <view class="housePrice">{{item.saleTotal}}万
-                    <text>{{item.salePrice}}元/平米</text>
+                    <text>{{item.salePrice}}元/平</text>
                 </view>
             </view>
         </view>

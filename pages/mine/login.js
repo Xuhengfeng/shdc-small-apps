@@ -127,7 +127,6 @@ Page({
           break;
     }
     wx.setStorageSync('userInfo2', JSON.stringify(newobj));
-    
     setTimeout(() => {
       wx.switchTab({ 
       url: '../index/index', 
