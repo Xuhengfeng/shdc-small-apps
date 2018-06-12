@@ -26,8 +26,8 @@
                     <view  class="houseTypeInfo">
                         <text>{{item.houseType}}</text>{{item.builtArea}}m²
                     </view>
-                    <view class="housePrice">{{item.rentPrice}}11
-                        <text>元/平米</text>
+                    <view  class="housePrice">{{item.saleTotal}}万
+                        <text>{{item.salePrice}}元/平米</text>
                     </view>
                 </view>
            </view>

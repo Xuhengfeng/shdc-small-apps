@@ -214,7 +214,7 @@
                 <view class="numCount" wx:if="{{count>0?true:false}}">{{count}}</view>  
               </view>
           </view>
-          <view bindtap="lookHouse" wx:if="{{!isAppoint}}">预约看房</view>
+          <view bindtap="lookHouse" wx:if="{{!isAppoint}}" style="background:#ff4343">预约看房</view>
           <view bindtap="lookHouse" wx:if="{{isAppoint}}" style="background:#cacaca;">已经加入待看</view>
           <view bindtap="linkman">联系经纪人</view>
         </view>
@@ -228,7 +228,7 @@
               <image src="../../images/like-on.png" wx:if="{{likeFlag}}"/>
             </view>
         </view>
-        <view bindtap="linkman">联系经纪人</view>
+        <view bindtap="linkman" style="background:#00b969">联系经纪人</view>
       </view>
     </view>
 </view> 

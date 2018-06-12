@@ -140,10 +140,10 @@ Page({
   toggleSelectLike() {
     if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
     this.setData({likeFlag: !this.data.likeFlag});
-    if(!this.data.likeFlag) {
-      this.colletionRequest(true);//小区收藏
+    if(this.data.likeFlag) {
+      this.colletionRequest(true);
     }else{
-      this.colletionRequest(false);//小区收藏
+      this.colletionRequest(false);
     }
   },
   //收藏 请求

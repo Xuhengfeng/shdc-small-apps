@@ -31,8 +31,8 @@ Page({
     guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
     num: 0,
     IPS: [Api.IP_TWOHANDHOUSEDETAIL, Api.IP_RENTHOUSEDETAIL],//二手房 租房
-    IPS2: [Api.IP_HOUSECOLLECTION, Api.IP_RENTCOLLECTION],//二手房 租房
-    IPS3: [Api.IP_HOUSECOLLECTIONCANCEL, Api.IP_RENTCOLLECTIONCANCEL],//二手房 租房
+    IPS2: [Api.IP_HOUSECOLLECTION, Api.IP_RENTCOLLECTION],//二手房 租房收藏添加
+    IPS3: [Api.IP_HOUSECOLLECTIONCANCEL, Api.IP_RENTCOLLECTIONCANCEL],//二手房 租房收藏取消
     IpsNum: 0,
     currentCity: null,//城市
     page: 1,
@@ -83,11 +83,10 @@ Page({
       this.buyRentRequest(res.data.value, this.data.houseDetailId); 
     })
   },
-  //二手房详情 租房详情 小区找房详情
   buyRentRequest(city, sdid) {
-    if (this.data.detailType == 11 || this.data.detailType == 22) {
+    if (this.data.detailType == 11){
       let params = {scity: city,unicode: this.data.token};
-      //二手房  租房详情
+      //二手房 
       utils.get(this.data.IPS[this.data.IpsNum] + city + '/' + sdid,params)
       .then(data => {
         //关联小区详情 附近房源详情 同小区房源 待看房源列表
@@ -103,9 +102,27 @@ Page({
           isAppoint: data.data.isAppoint
         })
       })
+    }else{
+      let params = {scity: city,unicode: this.data.token};
+      //租房详情
+      utils.get(this.data.IPS[this.data.IpsNum] + city + '/' + sdid,params)
+      .then(data => {
+        //关联小区详情 附近房源详情 同小区房源 待看房源列表
+        this.guanlianListRequest(data.data.px, data.data.py, city, data.data.buildSdid);
+        this.nearbyHouseRequest2(data.data.px, data.data.py, city, data.data.buildSdid);
+        this.communityRequest2(city, data.data.buildSdid);
+        this.seeHouseRequest(city);
+        this.setData({
+          latitude: data.data.py,
+          longitude: data.data.px,
+          houseDetail: data.data,
+          likeFlag: data.data.isCollect,
+          isAppoint: data.data.isAppoint
+        })
+      })
     }
   },
-  //同小区房源
+  //二手房同小区房源
   communityRequest(city, buildSdid) {
     let params = {scity: city,unicode: this.data.token};
     utils.get(Api.IP_SAMEUSED+city+'/'+buildSdid+'?pageNo='+1,params)
@@ -114,7 +131,7 @@ Page({
       this.setData({community: data.data});
     })
   },
-  //附近房源详情
+  //二手房周边房源详情
   nearbyHouseRequest(px, py, city, buildSdid) {
     let params = {
       "buildSdid": parseInt(buildSdid),
@@ -130,6 +147,33 @@ Page({
       this.setData({nearbyHouse: data.data});
     });
   },
+
+  //租房同小区房源
+  communityRequest2(city, buildSdid) {
+    let params = {scity: city,unicode: this.data.token};
+    utils.get(Api.IP_SAMEUSEDRENT+city+'/'+buildSdid+'?pageNo='+1,params)
+    .then(data => {
+      data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
+      this.setData({community: data.data});
+    })
+  },
+  //租房周边房源详情
+  nearbyHouseRequest2(px, py, city, buildSdid) {
+    let params = {
+      "buildSdid": parseInt(buildSdid),
+      "px": px,
+      "py": py,
+      'pageNo': 1,
+      'pageSize': 10,
+      'scity': city
+    }
+    utils.post(Api.IP_RENTRIMHOUSING, params)
+    .then(data => {
+      data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
+      this.setData({nearbyHouse: data.data});
+    });
+  },
+
   //待看房源列表
   seeHouseRequest(city) {
     let params = {
@@ -236,7 +280,7 @@ Page({
     if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
     this.setData({likeFlag: !this.data.likeFlag});
     let num = this.data.detailType;
-    if(!this.data.likeFlag) {
+    if(this.data.likeFlag) {
         switch(num) {
           case 11: this.colletionRequest(true, 0);break;//二手房收藏
           case 22: this.colletionRequest(true, 1);break;//租房收藏

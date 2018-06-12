@@ -83,7 +83,9 @@ export const IP_RENTHOUSEDETAIL = SERVER_IPS + "/rentHouse/getDetailInFo/";//租
 export const IP_HOTBUILDING = SERVER_IPS + "/build/hotBuilding/";//热门小区
 export const IP_BUILDLIST = SERVER_IPS + "/build/buildList/";//查询小区列表(小区找房) 
 export const IP_BUILDINFO = SERVER_IPS + "/build/buildInfo/";//获取小区详情(包括关联小区)
-export const IP_RIMHOUSING = SERVER_IPS + "/house/rimHousing";//获取房屋详情 二手房附近房源
+export const IP_RIMHOUSING = SERVER_IPS + "/house/rimHousing";//二手房周边房源
+export const IP_RENTRIMHOUSING = SERVER_IPS + "/rentHouse/rimHousing";//租房周边房源
+
 
 //字典
 export const IP_DICTIONARYCONDITION = SERVER_IPS + "/dictionary/";//价格 面积 经纪人评价...
