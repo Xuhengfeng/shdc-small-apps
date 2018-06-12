@@ -23,7 +23,6 @@ Page({
     flagPrice: true,
     flagTwoHouse: true,
     togglelabel: true,
-   
 
     //区域  (户型 类型 面积)  价格标签
     IPS: [Api.IP_AREADISTRICTS, Api.IP_DICTIONARY, Api.IP_DICTIONARYCONDITION],
@@ -124,13 +123,16 @@ Page({
   },
   //请求数据
   getDataFromServer(IP, params) {
+    this.setData({hasMore: true});
     utils.post(IP, params)
     .then(data => {
       //修正数据
       data.data.forEach((item) => {
         if (item.houseTag) {item.houseTag = item.houseTag.split(',')}
       })
-      this.setData({houseList: this.data.houseList.concat(data.data), dataList: data.data})
+      this.setData({hasMore: false});
+      this.setData({houseList: this.data.houseList.concat(data.data)});
+      this.setData({dataList: data.data});
       this.data.ipNum == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
     })
   },

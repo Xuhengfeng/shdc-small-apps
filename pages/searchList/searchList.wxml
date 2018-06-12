@@ -73,9 +73,7 @@
                         <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
                             <text>{{item.salePrice}}元/平</text>
                         </view>
-                        <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}
-                            <text>元/月</text>
-                        </view>
+                        <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}元/月</view>
                     </view>
                 </view>
             </navigator>
@@ -85,8 +83,6 @@
       <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/>
           <text>玩了命的加载中...</text>
       </view>
-      <view wx:elif="{{!hasMore}}"><text>上拉加载更多</text></view>
-      <view wx:elif="{{dataList.length}}"><text>上拉加载更多</text></view>
-      <view wx:elif="{{!dataList.length}}"><text>没有更多</text></view>
+      <!-- <view wx:elif="{{!hasMore}}"><text>上拉加载更多</text></view> -->
   </view> 
 </view>
