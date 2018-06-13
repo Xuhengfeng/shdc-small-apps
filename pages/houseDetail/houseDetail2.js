@@ -81,7 +81,12 @@ Page({
         catch(err) {}
         this.setData({houseDetail: data.data});
         let IP = this.data.guessLikeIP[this.data.num] + city + '/'+ data.data.sdid;
-        this.getDataFromServer(IP, { pageNo: 1 });
+        let params = {
+          'pageNo': 1,
+          'scity': this.data.currentCity,
+          "unicode": wx.getStorageSync("userToken")
+        }
+        this.getDataFromServer(IP, params);
       })
   },
   //待看房源列表
@@ -199,7 +204,11 @@ Page({
   selectYouLike(e) {//同小区二手房 租房
     this.setData({ num: e.target.dataset.index })
     let IP = this.data.guessLikeIP[this.data.num] + this.data.currentCity+'/'+this.data.houseDetailId;
-    let params = {pageNo: this.data.page}
+    let params = {
+      'pageNo': 1,
+      'scity': this.data.currentCity,
+      "unicode": wx.getStorageSync("userToken")
+    }
     this.getDataFromServer(IP, params);
   },
   getDataFromServer(IP, params) {

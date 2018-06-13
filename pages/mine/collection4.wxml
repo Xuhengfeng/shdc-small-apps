@@ -1,32 +1,29 @@
 <view class="weui-panel__bd">
     <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-    <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=小区" 
-        hover-class="none">
-            <view class="item">
-                <view class="image">
-                    <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
-                </view>
-                <view class="item-content">
-                    <!-- 小区 -->
-                    <view class="item-title">{{item.buildName}}</view>
-                    <view class="description">
-                            {{item.areaName}} {{item.districtName}} {{item.buildAge}}建成  {{item.buildType}}
-                    </view>
-                    <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1">
-                        在售{{item.saleCount}}套/在租{{item.rentCount}}套
-                    </view>
-                    <view style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">{{item.avgSalePrice}}元/平</view>
-                </view>
+    <view data-id="{{item.sdid}}" bindtap="xiaoqu">
+        <view class="item">
+            <view class="image">
+                <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
             </view>
-    </navigator>
+            <view class="item-content">
+                <!-- 小区 -->
+                <view class="item-title">{{item.buildName}}</view>
+                <view class="description">
+                        {{item.areaName}} {{item.districtName}} {{item.buildAge}}建成  {{item.buildType}}
+                </view>
+                <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1">
+                    在售{{item.saleCount}}套/在租{{item.rentCount}}套
+                </view>
+                <view style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">{{item.avgSalePrice}}元/平</view>
+            </view>
+        </view>
+        </view>
     </block>
 </view>
 
 <view class="tips">
-    <view wx:if="{{houseList.length}}">
-        <image src="../../images/loading.gif" mode="aspectFill"/>
+    <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/>
         <text>玩了命的加载中...</text>
     </view>
-    <view wx:elif="{{!houseList.length}}"><text>没有更多内容</text></view>
 </view> 
 

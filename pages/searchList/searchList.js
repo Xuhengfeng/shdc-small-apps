@@ -17,7 +17,7 @@ Page({
 
     num: null,//控制nav菜单
     modalFlag: false,
-    page: 1,//首页数据
+    page: 2,//上拉开始 第1次已经在navBar.js里面做搜索了
     showModalStatus: false,//遮罩层
     scrollTop: 0,
     flagPrice: true,
@@ -35,7 +35,7 @@ Page({
     hasMore: false,
     currentCity: '',
     keyword: '', //关键词
-    params: {},
+    params: {},//第一次请求的参数体
   },
   onLoad(options) {
     // 修正title
@@ -121,21 +121,6 @@ Page({
       this.setData({ price: data.data });
     })
   },
-  //请求数据
-  getDataFromServer(IP, params) {
-    this.setData({hasMore: true});
-    utils.post(IP, params)
-    .then(data => {
-      //修正数据
-      data.data.forEach((item) => {
-        if (item.houseTag) {item.houseTag = item.houseTag.split(',')}
-      })
-      this.setData({hasMore: false});
-      this.setData({houseList: this.data.houseList.concat(data.data)});
-      this.setData({dataList: data.data});
-      this.data.ipNum == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
-    })
-  },
   //监听事件 拿到首次 或 点击筛选条件的第一页数据
   onMyEventHouseList(item) {
     setTimeout(() => {
@@ -176,6 +161,7 @@ Page({
         this.setData({houseList: data.data});
     })
   },
+  //
   houseDetail2(e) {
     this.cacheHouseType('小区');
     let sdid = e.currentTarget.dataset.id;
@@ -186,11 +172,26 @@ Page({
     let page = this.data.page++;
     let IP = this.data.IPS2[this.data.ipNum];
     let params = {
-      pageNo: page,
-      keyword: '',
-      scity: this.data.currentCity
+      'pageNo': page,
+      'scity': this.data.currentCity  
     }
-    this.getDataFromServer(IP, params);
+    let newParams = Object.assign(this.data.params, params);
+    this.getDataFromServer(IP, newParams);
+  },
+  //请求数据
+  getDataFromServer(IP, params) {
+    this.setData({hasMore: true});
+    utils.post(IP, params)
+    .then(data => {
+      //修正数据
+      data.data.forEach((item) => {
+        if (item.houseTag) {item.houseTag = item.houseTag.split(',')}
+      })
+      this.setData({hasMore: false});
+      this.setData({houseList: this.data.houseList.concat(data.data)});
+      this.setData({dataList: data.data});
+      this.data.ipNum == 0 ? this.setData({ flagPrice: true }) : this.setData({ flagPrice: false });
+    })
   },
   //缓存房源类型
   cacheHouseType(value) {

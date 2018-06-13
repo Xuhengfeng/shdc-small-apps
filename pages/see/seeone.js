@@ -1,9 +1,8 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-const filter = require("../../utils/filter");
 const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
-Page(filter.loginCheck({
+Page({
   data: {
     tabs: ["待看日程", "已看记录", "看房报告"],
     activeIndex: 0,
@@ -23,6 +22,7 @@ Page(filter.loginCheck({
     isShadow: false,
   },
   onLoad() {
+    if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
     wx.setNavigationBarTitle({title: "待看日程"});
     //待看日程
     wx.getSystemInfo({
@@ -59,13 +59,12 @@ Page(filter.loginCheck({
           item2.houseTag = item2.houseTag.split(',');
         })
       })
-      console.log(data.data)
       this.setData({borkerItems: data.data});
     })
   },
   //看房报告
   seeHouseReportRequest() {
-    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken")}
+    let params = { pageNo: 1, unicode: wx.getStorageSync("userToken")};
     utils.get(Api.IP_REPORTLIST,params)
     .then(data=>{
       console.log(data)
@@ -152,5 +151,8 @@ Page(filter.loginCheck({
   cacheHouseType2(value) {
     wx.setStorageSync('onceHouseType', value)
   },
-}));
+  onShow() {
+    this.onLoad();
+  }
+});
 

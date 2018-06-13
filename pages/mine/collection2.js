@@ -8,32 +8,17 @@ Page({
     num: 0,
     currentCity: null,
     page: 1,
+    hasMore: false,
   },
   onLoad() {
     utils.storage('selectCity')
     .then((res)=>{
       this.setData({currentCity: res.data.value})
-    })
-    this.getDataFromServer(0);    
-  },
-  getDataFromServer(num) {
-    let params = {pageNo: 1,unicode: wx.getStorageSync("userToken")}
-    utils.get(Api.IP_RENTCOLLECTIONLIST, params)
-    .then(data => {
-      data.data.forEach((item) => {
-        try{
-          item.houseTag = item.houseTag.split(',');
-          this.statusParse(item, item.status);
-        }catch(err){
-          console.log(err);
-        }
-      })
-      this.setData({houseList: this.data.houseList.concat(data.data)});
+      this.onReachBottom();    
     })
   },
   //状态检测
   statusParse(item, num) {
-    console.log(item, num)
     switch(num){
       case 0:item.status="正常";break;//正常
       case 1:item.status="已售";break;//已售
@@ -42,18 +27,30 @@ Page({
     }
   },
   onReachBottom() {
+    this.setData({hasMore: true});
     let params = {
       scity: this.data.currentCity,
       pageNo: this.data.page++,
       unicode: wx.getStorageSync("userToken")
     }
-    utils.get(this.data.IPS[this.data.num], params)
+    utils.get(Api.IP_RENTCOLLECTIONLIST, params)
     .then(data => {
-      //修正数据
       data.data.forEach((item) => {
-        item.houseTag = item.houseTag.split(',');
+        try{
+          item.houseTag = item.houseTag.split(',');
+          this.statusParse(item, item.status);
+        }catch(err){}
       })
+      this.setData({hasMore: false});
       this.setData({ houseList: this.data.houseList.concat(data.data)})
     })
-  }
+  },
+  //缓存房源类型 可以改变的 
+  cacheHouseType(value) {
+    wx.setStorageSync('houseTypeSelect', value)
+  },
+  zufang(e) {
+    this.cacheHouseType('租房');
+    wx.navigateTo({url: "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id});
+  },
 });

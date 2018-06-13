@@ -14,6 +14,7 @@ Page({
     currentCity: null
   },
   onLoad() {
+    console.log('onload')
     this.cacheHouseType('二手房');
     utils.storage('selectCity')
     .then(res=>{
@@ -87,7 +88,7 @@ Page({
         key: 'history',
         data: this.data.history,
         success: ()=> {
-          wx.navigateTo({
+          wx.redirectTo({
             url: `../../pages/searchList/searchList?keywords=${this.data.keyword}&houseType=${this.data.selectItem[this.data.num]}`
           })
         }
@@ -114,7 +115,7 @@ Page({
       duration: 1000,
       mask: true
     })
-    wx.navigateTo({
+    wx.redirectTo({
       url: "../../pages/searchList/searchList?keywords=" + e.target.dataset.item+"&houseType=" + this.data.selectItem[this.data.num]
     })
   },

@@ -1,9 +1,8 @@
 
 <view class="weui-panel__bd">
     <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-    <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=租房" 
-        hover-class="none">
-    <view class="item">
+    <view data-id="{{item.sdid}}" bindtap="zufang">
+        <view class="item">
         <view class="image">
             <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
             <view class="originHouse {{item.status=='正常'?'':'lose'}}" wx:if="{{item.status!=='正常'}}">{{item.status}}</view>
@@ -25,12 +24,12 @@
                 <view class="housePrice">{{item.rentPrice}}元/月</view>     
             </view>
         </view>
-    </navigator>
+    </view>
     </block>
 </view>
 
 <view class="tips">
-    <view wx:if="{{houseList.length}}">
+    <view wx:if="{{hasMore}}">
         <image src="../../images/loading.gif" mode="aspectFill"/>
         <text>玩了命的加载中...</text>
     </view>

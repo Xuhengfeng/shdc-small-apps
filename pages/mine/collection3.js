@@ -13,8 +13,8 @@ Page({
     utils.storage('selectCity')
     .then((res)=>{
       this.setData({currentCity: res.data.value})
+      this.onReachBottom();    
     })
-    this.onReachBottom();    
   },
   //状态检测
   statusParse(item, num) {
@@ -24,6 +24,7 @@ Page({
     }
   },
   onReachBottom() {
+    this.setData({hasMore: true});    
     let params = {
       scity: this.data.currentCity,
       pageNo: this.data.page++,
@@ -36,6 +37,7 @@ Page({
           item.houseTag = item.houseTag.split(',');
         }catch(err){}
       })
+      this.setData({hasMore: false});
       this.setData({brokers: this.data.brokers.concat(data.data)});
     })
   }

@@ -178,7 +178,8 @@ Component({
       let params = {
           'pageNo': 1,
           'scity': res.data.value,
-          'keyword': this.data.keyword
+          'keyword': this.data.keyword,
+          'unicode': wx.getStorageSync("userToken")    
       }
       let newParams = Object.assign(this.data.params, params);
       //修正 当前城市

@@ -3,16 +3,15 @@ const utils = require("../../utils/util");
 const filter = require("../../utils/filter");
 
 
-Page(filter.loginCheck({
+Page({
   data: {
     showLogout: false,
     nickName: null,
     avatarUrl: null,
-    myInfo: null,
-    pageShowNum: 0,//用来计数页面onload周期
+    myInfo: null
   },
   onLoad() {
-    this.setData({pageShowNum: 1});
+    if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
     this.getMyInfo();
     if(!wx.getStorageSync('userToken')) {
       this.setData({showLogout: false});
@@ -67,14 +66,13 @@ Page(filter.loginCheck({
     })
   },
   onShow() {
-    if(this.data.pageShowNum!=0){
-      //这里说明是第二次进入该页面 页面数据要刷新
-      this.getMyInfo();
-      if(!wx.getStorageSync('userToken')) {
-        this.setData({showLogout: false});
-      }else{
-        this.setData({showLogout: true});
-      }
+    if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
+    //这里说明是第二次进入该页面 页面数据要刷新
+    this.getMyInfo();
+    if(!wx.getStorageSync('userToken')) {
+      this.setData({showLogout: false});
+    }else{
+      this.setData({showLogout: true});
     }
   }
-}))
+})

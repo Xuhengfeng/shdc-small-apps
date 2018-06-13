@@ -2,7 +2,7 @@ const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const filter = require("../../utils/filter");
 
-Page(filter.loginCheck({
+Page({
   data: {
     houseList: [],
     showload: false,
@@ -13,21 +13,7 @@ Page(filter.loginCheck({
     utils.storage('selectCity')
     .then((res)=>{
       this.setData({currentCity: res.data.value});
-      this.getDataFromServer();    
-    })
-  },
-  getDataFromServer() {
-    let params = {pageNo: 1,unicode: wx.getStorageSync("userToken")}
-    utils.get(Api.IP_COLLECTIONLIST, params)
-    .then(data => {
-      data.data.forEach((item) => {
-        try{
-          item.houseTag = item.houseTag.split(',');
-        }catch(err){
-          console.log(err);
-        }
-      })
-      this.setData({houseList: this.data.houseList.concat(data.data)});
+      this.onReachBottom();    
     })
   },
   onReachBottom() {
@@ -38,9 +24,20 @@ Page(filter.loginCheck({
     }
     utils.get(Api.IP_COLLECTIONLIST, params)
     .then(data => {
-      //修正数据
-      data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
-      this.setData({ houseList: this.data.houseList.concat(data.data)});
+      data.data.forEach((item) => {
+        try{
+          item.houseTag = item.houseTag.split(',');
+        }catch(err){}
+      })
+      this.setData({houseList: this.data.houseList.concat(data.data)});
     })
-  }
-}));
+  },
+  //缓存房源类型 可以改变的 
+  cacheHouseType(value) {
+    wx.setStorageSync('houseTypeSelect', value)
+  },
+  xiaoqu(e) {
+    this.cacheHouseType('小区');
+    wx.navigateTo({url: "../houseDetail/houseDetail2?id="+e.currentTarget.dataset.id});
+  },
+});
