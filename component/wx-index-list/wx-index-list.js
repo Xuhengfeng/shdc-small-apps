@@ -84,24 +84,29 @@ Component({
       let pages = getCurrentPages();//当前页面
       let prevPage = pages[pages.length - 2];//上一页面
       if (this.data.origin == "index") {
-        prevPage.setData({
-          myLocation: e.target.dataset.detail.name,
-          scity: e.target.dataset.detail.value,
-          currentCity: e.target.dataset.detail.value
-        })
-        prevPage.oneBigRequest(e.target.dataset.detail.value);//上一页重新加载数据
         wx.setStorage({key: 'houseTypeSelect',data: '二手房'})
         wx.setStorage({
           key: 'selectCity',
           data: {name: e.target.dataset.detail.name,value: e.target.dataset.detail.value},
-          success: ()=> {wx.navigateBack()}
+          success: ()=> {
+            prevPage.setData({
+              myLocation: e.target.dataset.detail.name,
+              scity: e.target.dataset.detail.value,
+              currentCity: e.target.dataset.detail.value
+            })
+            prevPage.oneBigRequest(e.target.dataset.detail.value);//上一页重新加载数据
+            wx.navigateBack();
+          }
         });
       }else if (this.data.origin == "sellRent") {
-        prevPage.setData({city: e.target.dataset.detail.name,phcolorFlag: false});
         wx.setStorage({
           key: 'selectCity2',
           data: {name: e.target.dataset.detail.name,value: e.target.dataset.detail.value},
-          success: ()=> {wx.navigateBack()}
+          success: ()=> {
+            prevPage.setData({city: e.target.dataset.detail.name,phcolorFlag: false});
+            prevPage.cancelback();
+            wx.navigateBack();
+          }
         });
       }
     },
@@ -139,15 +144,16 @@ Component({
           let prevPage = pages[pages.length - 2];//上一页面
           let lowCase = pinyin.Pinyin.getFullChars(e.target.dataset.detail);
           let currentCity = lowCase.toLowerCase();
+
           if(this.data.origin == "index") {
+            utils.storage('currentCity')
+            .then(res=>{
               prevPage.setData({
                 num: 0,
                 myLocation: e.target.dataset.detail,
                 currentCity: currentCity
               });
-              utils.storage('currentCity')
-              .then(res=>{
-                prevPage.oneBigRequest(res.data.value);
+              prevPage.oneBigRequest(res.data.value);
                 wx.setStorage({key: 'houseTypeSelect',data: '二手房'});
                 wx.setStorage({
                   key: 'selectCity',
@@ -156,13 +162,16 @@ Component({
                 });
               })
           }else if(this.data.origin == "sellRent") {
-              prevPage.setData({city: e.target.dataset.detail,phcolorFlag: false});
-              utils.storage('currentCity')
-              .then(res=>{
-                wx.setStorage({
-                  key: 'selectCity2',
-                  data: {name: e.target.dataset.detail,value: res.data.value},
-                  success: ()=> {wx.navigateBack()}
+            utils.storage('currentCity')
+            .then(res=>{
+              wx.setStorage({
+                key: 'selectCity2',
+                data: {name: e.target.dataset.detail,value: res.data.value},
+                success: ()=> {
+                    prevPage.setData({city: e.target.dataset.detail});
+                    prevPage.cancelback();
+                    wx.navigateBack()
+                  }
                 });
               })
           }

@@ -11,26 +11,24 @@ Page(filter.loginCheck({
     phcolorFlag3: true,//小区
     phcolorFlag4: true,//房源信息 
     phcolorFlag5: true,//具体地址 
-    city: '请选择您房源所在城市',
-    broker: '请选择跟进联系人',
+    phcolorFlag6: true,//申请人
+    city: '选择您房源所在城市',
+    broker: '选择跟进联系人',
     houseRimName: '房源所在的小区',
     houseInfoContent: '房源信息',
-    address:"请输入您的房源具体地址",
+    address:"输入您的房源具体地址",
+    useself: "业主/推荐人",
+    useselfTypes: "OWNER",//默认业主
     houseRimId: '',//房源小区id
     brokerId: '',
     selectCity: '',//当前的定位城市
-
     requestType: ['RENT', 'SELL'],
+    isSheet: false,//是否显示操作表
     //出售 出租
     IPS: [Api.IP_APPLYSELLHOUSE, Api.IP_APPLYRENTHOUSE],
     num: 0,
     inputValue1: '',//姓名
     inputValue2: '',//电话
-    // inputValue3: '',//小区
-    // inputValue4: '',//栋座
-    // inputValue5: '',//单元号
-    // inputValue6: '',//房号
-    // inputValue7: '',//具体地址
     banner: ''
   },
   onLoad() {
@@ -72,15 +70,33 @@ Page(filter.loginCheck({
   },
   //经纪人
   jumpBrokerList() {
-    wx.navigateTo({url: 'broker'});
+    if(this.data.city == "选择您房源所在城市"){
+      wx.showModal({
+        content: '请先选着城市'
+      })
+    }else{
+      wx.navigateTo({url: 'broker'});
+    }
   },
   //房源所在的小区
   houseRim() {
-    wx.navigateTo({url: `sellRentArea?houseTypes=${this.data.num}`});
+    if(this.data.city == "选择您房源所在城市"){
+      wx.showModal({
+        content: '请先选着城市'
+      })
+    }else{
+      wx.navigateTo({url: `sellRentArea?houseTypes=${this.data.num}`});
+    }
   },
   //房源信息
   houseInfo() {
-    wx.navigateTo({url: `sellRentArea1?houseRimId=${this.data.houseRimId}`});
+    if(this.data.city == "选择您房源所在城市"){
+      wx.showModal({
+        content: '请先选着城市'
+      })
+    }else{
+      wx.navigateTo({url: `sellRentArea1?houseRimId=${this.data.houseRimId}`});
+    }
   },
   //提交
   commit(IP) {
@@ -94,16 +110,48 @@ Page(filter.loginCheck({
         "unitNum": this.data.houseInfoContent.split(' ')[1],//单元号
         "roomNum": this.data.houseInfoContent.split(' ')[2],//房号
         "address": this.data.address,//详细地址
-        "unicode": wx.getStorageSync("userToken")
+        "unicode": wx.getStorageSync("userToken"),
+        "applicantType": this.data.useselfTypes//我是
       }
       if (this.data.inputValue1 == '' || this.data.inputValue2 == '' ){
           wx.showModal({title: '信息填写不完整!'})
       }else{
         utils.post(this.data.IPS[this.data.num], params)
         .then(data=>{
-          console.log(params)
           wx.navigateBack()
         });
       }
+  },
+  // 操作表
+  showSheet() {
+    this.setData({isSheet: true});    
+  },
+  // 业主 推荐人
+  selectName(e) {
+    this.setData({
+      useself: e.currentTarget.dataset.name,
+      useselfTypes: e.currentTarget.dataset.type,
+      phcolorFlag6: true
+    });
+    this.cancelSheet();
+  },
+  // 取消申请
+  cancelSheet() {
+    this.setData({isSheet: false});
+  },
+  //清空还原
+  cancelback() {
+    this.setData({
+      phcolorFlag: false,
+      broker: '选择跟进联系人',
+      houseRimName: '房源所在的小区',
+      houseInfoContent: '房源信息',
+      address:"输入您的房源具体地址",
+      useself: "业主/推荐人",
+      phcolorFlag2: true,//经纪人
+      phcolorFlag3: true,//小区
+      phcolorFlag4: true,//房源信息 
+      phcolorFlag5: true,//具体地址 
+    })
   }
 }))

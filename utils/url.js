@@ -97,6 +97,10 @@ export const IP_MYBROKERSLIST = SERVER_IPS + "/my/collectionList";//我的经纪
 export const IP_MYBROKERSCOLLECTIONLIST = SERVER_IPS + "/brokerCollection/collectionList";//经纪人收藏列表
 export const IP_ADVICE= SERVER_IPS + "/feedback/advice";//意见反馈
 export const IP_MYINFO = SERVER_IPS + "/member/myinfo"; //我的
+export const IP_MYCOMMENT = SERVER_IPS + "/my/comment"; //我的评论
+
+
+
 
 //登录退出
 export const weChatLogin = SERVER_IPS + "/member/loginWeixin";//微信手机号码和openid第三方登录

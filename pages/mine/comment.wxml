@@ -1,20 +1,26 @@
-<view class="main" wx:for="{{[1,1,1,11,1]}}">
+<view class="main" wx:for="{{commentInfo}}">
     <view class="commentItem">
         <view class="commentItem-hd">
-            <image></image>
+            <image src="{{item.headImage? item.headImage : '../../images/avatar.png'}}"/> 
             <view>
-                我的用户名<text>03.26</text>
+                {{item.memberName}}<text>{{item.commentTime}}</text>
             </view>
         </view>
         <view class="commentItem-bd">
-            <view class="content">高级经纪人高级经纪人高级经纪人高级经纪人高级经纪人高级经纪人高级经纪人高级经纪人</view>
+            <view class="content">{{item.content}}</view>
             <view class="tags">
-                <text wx:for="{{[1,1,1,1]}}">{{item}}</text>
+                <text wx:for="{{item.tag}}" wx:for-item="item2">{{item2}}</text>
             </view>
             <view class="brokerInfo">
-                <image></image>
-                <view><text class="brokerName">刘小妹</text>高级经纪人</view>
+                <image src="{{item.brokerPhoto? item.brokerPhoto: '../../images/avatar.png'}}"/> 
+                <view><text class="brokerName">{{item.emplName}}</text>{{item.positionName}}</view>
             </view>
         </view>
     </view>
 </view>
+
+<view class="tips">
+    <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/>
+        <text>玩了命的加载中...</text>
+    </view>
+</view> 

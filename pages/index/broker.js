@@ -7,7 +7,7 @@ Page({
     page: 1
   },
   onLoad() {
-    utils.storage('selectCity')
+    utils.storage('selectCity2')
     .then((res)=>{
       let params = {"scity": res.data.value,"pageNo": 1};
       this.brokerRequest(params);

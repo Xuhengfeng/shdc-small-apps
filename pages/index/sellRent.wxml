@@ -21,7 +21,7 @@
         <view class="weui-cell__bd">
             <input class="weui-input" 
                         placeholder-class="phcolor"  
-                        placeholder="请输入您的姓名"
+                        placeholder="输入您的姓名"
                         bindinput="bindKeyInput1"/>
         </view>
     </view>
@@ -35,7 +35,7 @@
                         type="number" 
                         maxlength="11" 
                         placeholder-class="phcolor"  
-                        placeholder="请输入您的手机号" 
+                        placeholder="输入您的手机号" 
                         bindinput="bindKeyInput2"/>
         </view>
     </view>
@@ -91,6 +91,19 @@
         </view>
     </view>
  
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label">申请人</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input {{phcolorFlag6? 'phcolor': ''}}"  
+                    disabled = "{{true}}"
+                    placeholder="{{useself}}" 
+                    bindtap="showSheet"/>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+
   </view>
 </view>
 
@@ -109,9 +122,16 @@
 </view>
 </view>
 
-
 <view class="section3">我们将在最短的时间内与您联系</view>
 <view class="section4">
   <button class="weui-btn" type="warn" bindtap="commit">提交</button>
 </view>
 
+<!-- 操作表 -->
+<view class="actionSheet" wx:if="{{isSheet}}">
+    <view class="sheet">
+        <view class="one" data-name="业主" data-type="OWNER" bindtap="selectName">业主</view>
+        <view class="two" data-name="推荐人" data-type="RECMD_MAN" bindtap="selectName">推荐人</view>
+        <view class="cancel" bindtap="cancelSheet">取消</view>
+    </view>
+</view>

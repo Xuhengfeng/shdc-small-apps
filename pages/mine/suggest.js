@@ -18,7 +18,6 @@ Page({
   },
   commitBtn() {
     let params = {
-      scity: this.data.city,
       unicode: wx.getStorageSync("userToken"),
       content: this.data.inputVal
     }

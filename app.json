@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/sellRent",
+    "pages/mine/comment",
     "pages/mine/collection4",
     "pages/mine/collection3",
     "pages/mine/collection2",
@@ -12,14 +14,12 @@
     "pages/see/seeone",
     "pages/mine/delegation",
     "pages/mine/mybuyhouse",
-    "pages/index/sellRent",
     "pages/index/sellRentArea",
     "pages/index/sellRentArea1",
     "pages/index/sellRentArea2",
     "pages/index/sellRentArea3",
     "pages/mine/moreComment",
     "pages/mine/brokterInfo",
-    "pages/mine/comment",
     "pages/see/apprasieBroker",
     "pages/see/seeoneDetail",
     "pages/see/remark",
