@@ -25,14 +25,24 @@ Page({
   },
   //退出
   logout() {
-    this.setData({
-      showLogout: false,
-      nickName: null,
-      avatarUrl: null,
-      myInfo: null
+    let params = {
+      "unicode": wx.getStorageSync("userToken")
+    }
+    utils.post(Api.logout,params)
+    .then(data=>{
+      this.setData({
+        showLogout: false,
+        nickName: null,
+        avatarUrl: null,
+        myInfo: null
+      })
+      wx.removeStorageSync('userToken');
+      wx.removeStorageSync('userInfo2');
     })
-    wx.removeStorageSync('userToken');
-    wx.removeStorageSync('userInfo2');
+  },
+  //登录
+  login() {
+    !wx.getStorageSync('userToken')&&wx.redirectTo({url: "/pages/mine/login"});
   },
   //跳转
   active(e) {

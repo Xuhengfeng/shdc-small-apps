@@ -98,10 +98,11 @@ export const IP_MYBROKERSCOLLECTIONLIST = SERVER_IPS + "/brokerCollection/collec
 export const IP_ADVICE= SERVER_IPS + "/feedback/advice";//意见反馈
 export const IP_MYINFO = SERVER_IPS + "/member/myinfo"; //我的
 
-//微信登录
+//登录退出
 export const weChatLogin = SERVER_IPS + "/member/loginWeixin";//微信手机号码和openid第三方登录
 export const weChatRegister = SERVER_IPS + "/member/registerWeixin";//微信注册
 export const weChat = SERVER_IPS + "/member/authWeixin";//微信登录
+export const logout = SERVER_IPS + "/member/logout";//退出
 
 
 

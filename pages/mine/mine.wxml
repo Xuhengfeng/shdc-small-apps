@@ -3,7 +3,7 @@
       <view class="headImage">
           <image src="{{myInfo.headImage? myInfo.headImage : '../../images/avatar.png'}}"/> 
       </view>
-    <view class="login">{{myInfo.mobile?myInfo.mobile:'点击注册/登录'}}</view>
+    <view class="login" bindtap="login">{{myInfo.mobile?myInfo.mobile:'点击注册/登录'}}</view>
   </view>
   <view class="body">
       <view class="weui-cells weui-cells_after-title">
