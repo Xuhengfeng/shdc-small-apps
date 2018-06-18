@@ -1,3 +1,4 @@
+@import "../template/template.wxss";
 .list{
   background: #ffffff;
   margin-top: 20rpx;
