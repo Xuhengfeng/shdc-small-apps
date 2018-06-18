@@ -34,7 +34,8 @@
                     </view>
                 </view>
                 <image class="nodata" wx:if="{{!houseList.length}}" src="../../images/nodata.png"/>
-                <view class="nodataContent" wx:if="{{!houseList.length}}">暂无待看记录!</view>
+                <view class="nodataContent" wx:if="{{!houseList.length}}">暂无待看记录~~~</view>
+                <view class="addhouse" wx:if="{{!houseList.length}}" bindtap="addhouse">去预约</view>
           </view>
           <view class="weui-tab__content twoContent" hidden="{{activeIndex != 1}}">
               <!-- 已看记录 -->
@@ -75,7 +76,7 @@
                             </view>
                     </view>
                     <image class="nodata" wx:if="{{!borkerItems.length}}" src="../../images/nodata.png"/>
-                    <view class="nodataContent" wx:if="{{!borkerItems.length}}">暂无已看记录!</view>
+                    <view class="nodataContent" wx:if="{{!borkerItems.length}}">暂无已看记录~~~</view>
               </view>
           </view>
           <view class="weui-tab__content threeContent" hidden="{{activeIndex != 2}}">
@@ -88,7 +89,7 @@
                         </view>
                     </view>
                     <image class="nodata" wx:if="{{!report.length}}" src="../../images/nodata.png"/>
-                    <view class="nodataContent" wx:if="{{!report.length}}">暂无看房报告!</view>                    
+                    <view class="nodataContent" wx:if="{{!report.length}}">暂无看房报告~~~</view>                    
               </view>
           </view>
       </view>

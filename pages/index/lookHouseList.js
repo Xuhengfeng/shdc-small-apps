@@ -8,14 +8,6 @@ Page({
     delBtnWidth: 110,
     list: [],
     select: [],//用户选中的房源 isMove是否移动  isSelect是否选着
-    // list: [
-    //   {isMove: false, isSelect: true},
-    //   {isMove: false, isSelect: true},
-    //   {isMove: false, isSelect: true},
-    //   {isMove: false, isSelect: true},
-    //   {isMove: false, isSelect: true},
-    //   {isMove: false, isSelect: true},
-    // ],
     currentCity: '',
     token: '',
     winHeight: ''
@@ -43,6 +35,15 @@ Page({
     .then(data2=>{
       this.setData({list: data2.data});
     })
+  },
+  //添加房源
+  addorder() {
+    this.cacheHouseType('二手房');
+    wx.navigateTo({url: "../searchList/searchList"});
+  },
+  //缓存房源类型 可以改变的 
+  cacheHouseType(value) {
+    wx.setStorageSync('houseTypeSelect', value)
   },
   selectItem(e) {
     let index = e.currentTarget.dataset.index;
@@ -176,5 +177,5 @@ Page({
     }else{
       wx.showModal({content: '至少添加一个房源信息'});
     }
-  }   
+  }
 })

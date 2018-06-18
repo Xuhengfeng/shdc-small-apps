@@ -35,7 +35,8 @@
 </block>
 <!-- </scroll-view> -->
 <image class="nodata" wx:if="{{!list.length}}" src="../../images/nodata.png"/>
-<view class="nodataContent" wx:if="{{!list.length}}">暂无添加待看房源记录!</view>                
+<view class="nodataContent" wx:if="{{!list.length}}">暂无添加待看房源记录~~~</view>                
+<view class="addhouse" wx:if="{{!list.length}}" bindtap="addorder">添加房源</view>
 
 <view class="footer">
     <view class="numHouse">已经<text>{{count}}</text>套房源</view>

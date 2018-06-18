@@ -121,4 +121,18 @@
   left: 50%;
   transform: translateX(-50%);
   color: #666666;
+  white-space: nowrap;
+}
+.addhouse{
+  position: fixed;
+  text-align: center;
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ff4343;
+  width: 50%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 10rpx;
+  border: 1px solid #ff4343;
 }

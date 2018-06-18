@@ -95,7 +95,7 @@ page{
 .btnGroup view:first-child{
   border-right: 1px solid #e6e6e6;
   font-size: 34rpx;
-  color: #ff4343;
+  color: #666;
 }
 .btnGroup view:last-child{
   font-size: 34rpx;

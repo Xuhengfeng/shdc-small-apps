@@ -151,6 +151,10 @@ Page({
   cacheHouseType2(value) {
     wx.setStorageSync('onceHouseType', value)
   },
+  //去预约
+  addhouse() {
+    wx.navigateTo({url: "../index/lookHouseList"});
+  },
   onShow() {
     this.onLoad();
   }
