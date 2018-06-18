@@ -38,6 +38,6 @@ Page({
   },
   xiaoqu(e) {
     this.cacheHouseType('小区');
-    wx.navigateTo({url: "../houseDetail/houseDetail2?id="+e.currentTarget.dataset.id});
+    wx.navigateTo({url: "../houseDetail/houseDetail2?id="+e.currentTarget.dataset.id+"&scity="+e.currentTarget.dataset.scity});
   },
 });

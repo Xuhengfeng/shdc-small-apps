@@ -45,6 +45,7 @@ Page({
   onLoad(options) {
     wx.setStorage({key:"houseDetailId",data: options.id});
     wx.setNavigationBarTitle({title: "房源详情"});
+    this.setData({houseDetailId: options.id});
     wx.getStorage({
       key: 'houseTypeSelect',
       success: (res) => {
@@ -54,7 +55,6 @@ Page({
           case '小区二手房':
           this.setData({
               detailType: 11,
-              houseDetailId: options.id,
               IpsNum: 0,
               contentType: 22,
               flagPrice: true
@@ -65,7 +65,6 @@ Page({
           case '小区租房':
           this.setData({
               detailType: 22,
-              houseDetailId: options.id,
               IpsNum: 1,
               flagPrice: false              
           });
@@ -77,11 +76,16 @@ Page({
     let token = wx.getStorageSync("userToken");
     this.setData({token: token});
 
-    utils.storage('selectCity')
-    .then(res=>{
-      this.setData({currentCity: res.data.value});
-      this.buyRentRequest(res.data.value, this.data.houseDetailId); 
-    })
+    if(options.scity){
+      this.setData({currentCity: options.scity});
+      this.buyRentRequest(options.scity, this.data.houseDetailId); 
+    }else{
+      utils.storage('selectCity')
+      .then(res=>{
+        this.setData({currentCity: res.data.value});
+        this.buyRentRequest(res.data.value, this.data.houseDetailId); 
+      })
+    }
   },
   buyRentRequest(city, sdid) {
     if (this.data.detailType == 11){

@@ -39,6 +39,7 @@ Page({
   },
   onLoad(options) {
     wx.setStorage({key:"houseDetailId",data: options.id});
+    this.setData({houseDetailId: options.id});
     wx.getStorage({
       key: 'houseTypeSelect',
       success: (res) => {
@@ -53,13 +54,16 @@ Page({
         }
       }
     })
-    wx.getStorage({
-      key: 'selectCity',
-      success: (res)=> {
-        this.setData({currentCity:  res.data.value});
+    if(options.scity){
+      this.setData({currentCity: options.scity});
+      this.buyRentRequest(options.scity, this.data.houseDetailId); 
+    }else{
+      utils.storage('selectCity')
+      .then(res=>{
+        this.setData({currentCity: res.data.value});
         this.buyRentRequest(res.data.value, this.data.houseDetailId); 
-      }    
-    })
+      })
+    }
     wx.getStorage({
       key: 'userToken',
       success: (res)=>{

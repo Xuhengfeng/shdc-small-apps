@@ -1,6 +1,6 @@
 <view class="weui-panel__bd">
     <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-    <view data-id="{{item.sdid}}" bindtap="twohouse">
+    <view data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="twohouse">
         <view class="item">
             <view class="image">
                 <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
