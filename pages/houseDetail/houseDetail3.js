@@ -17,23 +17,22 @@ Page({
     latitude: 38.76623,
     longitude: 116.43213,
 
-    //二手房(买房)详情11，租房详情22, 小区详情33 
     detailType: '',//详情类型
     houseDetailId: '',//房屋的sdid编码
     houseDetail: null,//房屋详情 
     guanlianList: null,//关联小区
     community: null,//同小区房源
     nearbyHouse: null,//附近房源
-
     currentCity: null,//城市
     page: 1,
-    flagPrice: true,
+    flagPrice: '',
     count: 0,//待看房源列表计数
     token: null,
    
   },
   onLoad(options) {
     this.setData({houseDetailId: options.id});
+   
     //用户登录标识
     let token = wx.getStorageSync("userToken");
     this.setData({token: token});
@@ -52,49 +51,43 @@ Page({
 
   },
   buyRentRequest(city, sdid) {
-      //二手房 
-      let params = {scity: city,unicode: this.data.token};
-      utils.get(Api.IP_TWOHANDHOUSEDETAIL + city + '/' + sdid,params)
-      .then(data => {
-        //关联小区详情 附近房源详情 同小区房源 待看房源列表
-        let newData = data.data;
-        this.guanlianListRequest(newData.px, newData.py, city, newData.buildSdid);
-        this.communityRequest(city, newData.buildSdid);
-        this.nearbyHouseRequest(newData.px, newData.py, city, newData.buildSdid);
-        this.seeHouseRequest(city);
-        this.setData({
-          latitude: newData.py,
-          longitude: newData.px,
-          houseDetail: newData,
-          likeFlag: newData.isCollect,
-          isAppoint: newData.isAppoint
-        })
+    //租房详情
+    let params = {scity: city,unicode: this.data.token};
+    utils.get(Api.IP_RENTHOUSEDETAIL + city + '/' + sdid,params)
+    .then(data => {
+      //关联小区详情 附近房源详情 同小区房源 待看房源列表
+      let newData = data.data;
+      this.guanlianListRequest2(newData.px, newData.py, city, newData.buildSdid);
+      this.nearbyHouseRequest2(newData.px, newData.py, city, newData.buildSdid);
+      this.communityRequest2(city, newData.buildSdid);
+      this.seeHouseRequest(city);
+      this.setData({
+        latitude: newData.py,
+        longitude: newData.px,
+        houseDetail: newData,
+        likeFlag: newData.isCollect,
+        isAppoint: newData.isAppoint
       })
-   
+    })
   },
-
-  //二手房关联小区
-  guanlianListRequest(px, py, currentCity, buildSdid) {
+  //租房关联小区 
+  guanlianListRequest2(px, py, currentCity, buildSdid) {
     utils.get(Api.IP_BUILDINFO + currentCity + '/' + buildSdid)
     .then(data => {
       this.setData({guanlianList: data.data});
     })
   },
-  //二手房同小区房源
-  communityRequest(city, buildSdid) {
+  //租房同小区房源
+  communityRequest2(city, buildSdid) {
     let params = {scity: city,unicode: this.data.token};
-    utils.get(Api.IP_SAMEUSED+city+'/'+buildSdid+'?pageNo='+1,params)
+    utils.get(Api.IP_SAMEUSEDRENT+city+'/'+buildSdid+'?pageNo='+1,params)
     .then(data => {
-      try{
-        data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
-      }catch(e){
-        console.log('二手房同小区房源error');
-      }
+      data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
       this.setData({community: data.data});
     })
   },
-  //二手房周边房源
-  nearbyHouseRequest(px, py, city, buildSdid) {
+  //租房周边房源详情
+  nearbyHouseRequest2(px, py, city, buildSdid) {
     let params = {
       "buildSdid": parseInt(buildSdid),
       "px": px,
@@ -103,17 +96,13 @@ Page({
       'pageSize': 10,
       'scity': city
     }
-    utils.post(Api.IP_RIMHOUSING, params)
+    utils.post(Api.IP_RENTRIMHOUSING, params)
     .then(data => {
-      try{
-        data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
-      }catch(e){
-        console.log('二手房周边房源error');
-      }
+      data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
       this.setData({nearbyHouse: data.data});
     });
   },
-  
+
   //待看房源列表
   seeHouseRequest(city) {
     let params = {
@@ -124,6 +113,7 @@ Page({
     utils.get(Api.IP_DETAILLIST,params)
     .then(data=>{this.setData({count: data.data.length})});
   },
+
 
   //点击关联小区进入关联小区详情 
   guanlianxiaoqu() {
@@ -163,35 +153,6 @@ Page({
     let sdid = e.currentTarget.dataset.id;
     this.buyRentRequest(this.data.currentCity, sdid); 
   },
-  //预约看房
-  lookHouse() {
-    if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
-    if(!this.data.isAppoint){
-      this.isLookHouse();
-    }
-  },
-  //预约看房弹窗
-  isLookHouse() {
-    this.setData({isAppointment: true});
-  },
-  //取消预约看房弹窗
-  cancelLookHouse() {
-    this.setData({isAppointment: false});
-  },
-  //确定预约看房
-  confirmLookHouse() {
-    this.cancelLookHouse();
-    let count = this.data.count;
-        count = count + 1;
-    this.setData({count: count,isAppoint: true});
-    let params = {
-      scity: this.data.currentCity,
-      unicode: this.data.token,
-      sdid: this.data.houseDetailId
-    }
-    utils.post(Api.IP_APPOINTADD, params)
-    .then(()=>{});
-  },
   //联系人弹窗
   linkman() {
     this.setData({isLinkman: true});
@@ -208,25 +169,25 @@ Page({
   toggleSelectLike() {
     if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
     this.setData({likeFlag: !this.data.likeFlag});
-    let num = this.data.detailType;
     if(this.data.likeFlag) {
-      this.colletionRequest(true);
+      this.colletionRequest(true, 1);//租房收藏添加
     }else{
-      this.colletionRequest(false);
+      this.colletionRequest(false, 1);//租房收藏取消
     }
   },
   //收藏 请求
-  colletionRequest(bool) {
+  colletionRequest(bool, num) {
     if(bool) {
       let params = {"title": "收藏","unicode": wx.getStorageSync("userToken"),"scity": this.data.currentCity};
-      utils.post(Api.IP_HOUSECOLLECTION + this.data.currentCity + '/' + this.data.houseDetailId, params)
+      utils.post(Api.IP_RENTCOLLECTION + this.data.currentCity + '/' + this.data.houseDetailId, params)
       .then(data => {wx.hideLoading()});
     }else{
       let params = {"title": "取消","unicode": wx.getStorageSync("userToken"),"scity": this.data.currentCity};
-      utils.post(Api.IP_HOUSECOLLECTIONCANCEL + this.data.currentCity + '/' + this.data.houseDetailId, params)
+      utils.post(Api.IP_RENTCOLLECTIONCANCEL + this.data.currentCity + '/' + this.data.houseDetailId, params)
       .then(data => {wx.hideLoading()});
     }
   },
+
   //图片预览
   previewIamge(e) {
     var current = e.target.dataset.src;

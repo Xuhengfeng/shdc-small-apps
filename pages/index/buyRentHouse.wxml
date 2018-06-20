@@ -81,7 +81,7 @@
     
     <view class="section goodList">
       <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-          <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{houseDetail}}" hover-class="none">
+          <view data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="gotoseeHouse">
               <view class="item">
                     <view class="image">
                       <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
@@ -104,7 +104,7 @@
                       <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}元/月</view>
                     </view>
               </view>
-          </navigator>
+          </view>
       </block>
       <view class="tips">
           <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>

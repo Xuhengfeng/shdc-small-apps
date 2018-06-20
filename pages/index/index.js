@@ -282,7 +282,14 @@ Page({
   guesslike(e) {
     this.cacheHouseType(this.data.guessYouLike[this.data.num]);
     this.cacheHouseType2(this.data.guessYouLike[this.data.num]);
-    wx.navigateTo({url: "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id});
+    utils.storage('houseTypeSelect')
+    .then(res=>{
+      if(res.data=='二手房'){
+        wx.navigateTo({url: "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id+"&scity="+e.currentTarget.dataset.scity});
+      }else if(res.data=='租房'){
+        wx.navigateTo({url: "../houseDetail/houseDetail3?id="+e.currentTarget.dataset.id+"&scity="+e.currentTarget.dataset.scity});
+      }
+    })
   },
   //缓存房源类型 可以改变的 
   cacheHouseType(value) {
@@ -307,5 +314,4 @@ Page({
       )}
     })
   }
-
 })

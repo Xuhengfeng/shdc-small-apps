@@ -1,4 +1,4 @@
-<!-- 二手房页面 -->
+<!-- 租房页面 -->
 <import src="../template/template.wxml"/>
 
 <view class="header">
@@ -24,21 +24,20 @@
  </view>
 
 <view class="section section1">
-  <!-- 二手房详情 -->
   <view class="title" style="line-height:1.2">{{houseDetail.houseTitle}}</view>
   <view class="descriptions">
-        <view>
-              <view>售价</view>
-              <view>{{houseDetail.saleTotal}}万</view>
-        </view>
-        <view>
-              <view>房型</view>
-              <view>{{houseDetail.houseType}}</view>
-        </view>
-        <view>
-              <view>建筑面积</view>
-              <view>{{houseDetail.builtArea}}m²</view>
-        </view>
+      <view>
+            <view>租金</view>
+            <view>{{houseDetail.rentPrice}}元/月</view>
+      </view>
+      <view>
+            <view>房型</view>
+            <view>{{houseDetail.houseType}}</view>
+      </view>
+      <view>
+            <view>家具</view>
+            <view>{{houseDetail.houseElec}}</view>
+      </view>
   </view>
 </view>
 
@@ -46,22 +45,18 @@
   <view class="title">
     <text>房源信息</text>
   </view>
-  <!-- 二手房 -->
   <view class="labelgroup">
-      <view>单价：<text>{{houseDetail.saleprice}}元/平</text></view>
+      <view>方式：<text>{{houseDetail.rentPayType}}</text></view>
       <view>朝向：<text>{{houseDetail.houseDirection}}</text></view>
       <view>装修：<text>{{houseDetail.houseDecoration}}</text></view>
-      <view>年代：<text>{{houseDetail.buildAge}}年</text></view>
+      <view>年代：<text>{{houseDetail.buildAge}}年建</text></view>
       <view>车位：<text>{{houseDetail.carNum}}位</text></view>
-      <view>产权：<text>{{houseDetail.houseRight}}年</text></view>
+      <view>租期：<text>{{houseDetail.rentLowestPeriod}}年</text></view>
       <view>物业费：<text>{{houseDetail.houseManageFee}}元/平</text></view>
-      <view>类型：<text>{{houseDetail.houseForm}}</text></view>
-      <view>楼层：<text>{{houseDetail.floor}}</text></view>
-      <!-- <view>总楼层：<text>{{houseDetail.totalFloorNum}}</text></view> -->
-      <view>所在楼层：<text>{{houseDetail.floorNum}}</text></view>
+      <view>面积：<text>{{houseDetail.builtArea}}m²</text></view>
       <view>电梯：<text>{{houseDetail.elevator}}</text></view>
-      <view>建筑结构：<text>{{houseDetail.houseStruc}}</text></view>
-      <view>首付预算：<text>{{houseDetail.paymentBudget}}</text></view>      
+      <view>房屋类型：<text>{{houseDetail.houseForm}}</text></view>
+      <view>家具：<text>{{houseDetail.houseElec}}</text></view>      
   </view>
 </view> 
 
@@ -116,8 +111,15 @@
             </image>
           </view>
           <view>
-            <!-- 二手房 -->
-            <template is="houseContent1" data="{{guanlianList,detailType}}"/>
+            <!-- 关联小区 -->
+            <view class="item-title">{{guanlianList.buildName}}</view>
+            <view class="description">
+                  {{guanlianList.areaName}} {{guanlianList.districtName}} {{guanlianList.buildAge}}建成  {{guanlianList.buildType}}
+            </view>
+            <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
+                  在售{{guanlianList.saleCount}}套/在租{{guanlianList.rentCount}}套
+            </view>
+            <view class="housePrice">{{guanlianList.avgRentPrice }}元/月</view>
           </view>
       </view>
     </view>
@@ -135,7 +137,7 @@
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
           <view class="item-content">
-              <!-- 二手房详情 -->
+              <!-- 二手房详情 租房详情 -->
               <template is="houseContent3" data="{{item, flagPrice}}"/>
           </view>
       </view>
@@ -150,7 +152,7 @@
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
           <view class="item-content">
-              <!-- 二手房详情 -->
+              <!-- 二手房详情 租房详情 -->
               <template is="houseContent3" data="{{item, flagPrice}}"/>
           </view>
       </view>
@@ -163,21 +165,15 @@
 </view>
 
 <view class="footer">
-  <!-- 二手房 -->
+    <!-- 租房  -->
     <view class="type1">
-      <view>
-          <view bindtap="toggleSelectLike">
+      <view style="flex: 100rpx 0 0">
+          <view bindtap="toggleSelectLike" style="text-align:center">
             <image src="../../images/like-off.png" wx:if="{{!likeFlag}}"/>
             <image src="../../images/like-on.png" wx:if="{{likeFlag}}"/>
           </view>
-          <view class="daiKanList" bindtap="goSeeList">
-            <image src="../../images/see.png" style="width:49rpx;height:49rpx"/>
-            <view class="numCount" wx:if="{{count>0?true:false}}">{{count}}</view>  
-          </view>
       </view>
-      <view bindtap="lookHouse" wx:if="{{!isAppoint}}" style="background:#ff4343">预约看房</view>
-      <view bindtap="lookHouse" wx:if="{{isAppoint}}" style="background:#cacaca;">已经加入待看</view>
-      <view bindtap="linkman">联系经纪人</view>
+      <view bindtap="linkman" style="background:#00b969">联系经纪人</view>
     </view>
 </view> 
 
@@ -198,6 +194,9 @@
         <image src="../../images/close2.png" bindtap="cancelLinkman"></image>
     </view>
 </view>
+
+
+
 
 <!-- 预约看房 -->
 <template is="appointment" data="{{isAppointment,cancelLookHouse}}"/> 

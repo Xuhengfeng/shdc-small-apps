@@ -198,5 +198,16 @@ Page({
   //为你推荐跳转
   commendForYou(e) {
     wx.navigateTo({url: "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id});
+  },
+  //房源详情
+  gotoseeHouse(e) {
+    utils.storage('houseTypeSelect')
+    .then(res=>{
+      if(res.data=='二手房'){
+        wx.navigateTo({url: "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id+"&scity="+e.currentTarget.dataset.scity});
+      }else if(res.data=='租房'){
+        wx.navigateTo({url: "../houseDetail/houseDetail3?id="+e.currentTarget.dataset.id+"&scity="+e.currentTarget.dataset.scity});
+      }
+    })
   }
 })
