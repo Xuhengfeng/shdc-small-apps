@@ -17,7 +17,7 @@ Page(filter.loginCheck({
     houseRimName: '房源所在的小区',
     houseInfoContent: '房源信息',
     address:"输入您的房源具体地址",
-    useself: "业主/推荐人",
+    useself: "选择业主/推荐人",
     useselfTypes: "OWNER",//默认业主
     houseRimId: '',//房源小区id
     brokerId: '',
@@ -142,16 +142,11 @@ Page(filter.loginCheck({
   //清空还原
   cancelback() {
     this.setData({
-      phcolorFlag: false,
       broker: '选择跟进联系人',
       houseRimName: '房源所在的小区',
       houseInfoContent: '房源信息',
       address:"输入您的房源具体地址",
       useself: "业主/推荐人",
-      phcolorFlag2: true,//经纪人
-      phcolorFlag3: true,//小区
-      phcolorFlag4: true,//房源信息 
-      phcolorFlag5: true,//具体地址 
     })
   }
 }))

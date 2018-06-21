@@ -26,7 +26,7 @@ Component({
     search: {
       type: String,
       value: "",
-      observer: function (newVal, oldVal) {
+      observer: (newVal, oldVal)=> {
         this.value = newVal;
         this.searchMt();
       }
@@ -90,6 +90,7 @@ Component({
           data: {name: e.target.dataset.detail.name,value: e.target.dataset.detail.value},
           success: ()=> {
             prevPage.setData({
+              num: 0,
               myLocation: e.target.dataset.detail.name,
               scity: e.target.dataset.detail.value,
               currentCity: e.target.dataset.detail.value
@@ -148,11 +149,7 @@ Component({
           if(this.data.origin == "index") {
             utils.storage('currentCity')
             .then(res=>{
-              prevPage.setData({
-                num: 0,
-                myLocation: e.target.dataset.detail,
-                currentCity: currentCity
-              });
+              prevPage.setData({num: 0,myLocation: e.target.dataset.detail,currentCity: currentCity});
               prevPage.oneBigRequest(res.data.value);
                 wx.setStorage({key: 'houseTypeSelect',data: '二手房'});
                 wx.setStorage({

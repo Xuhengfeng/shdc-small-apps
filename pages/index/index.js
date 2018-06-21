@@ -56,8 +56,8 @@ Page({
       this.setData({canIUse:true});
     })
     
-    //默认城市定位 和 百度城市定位
-    utils.get(this.data.IPS[6])
+    //默认城市定位  
+    utils.get(Api.IP_DEFAULTCITY)
     .then((data)=>{
       wx.setStorage({
         key: 'selectCity',
@@ -71,6 +71,7 @@ Page({
       this.oneBigRequest(data.data.value);
     })
     .catch(error=>{
+      //百度城市定位
       wx.getLocation({
         type: 'gcj02',
         success: (res) => {this.BMapRegeoCode(res)},

@@ -17,7 +17,7 @@ Page({
     latitude: 38.76623,
     longitude: 116.43213,
 
-    //二手房(买房)详情11，租房详情22, 小区详情33 
+    //二手房
     detailType: '',//详情类型
     houseDetailId: '',//房屋的sdid编码
     houseDetail: null,//房屋详情 
@@ -35,8 +35,7 @@ Page({
   onLoad(options) {
     this.setData({houseDetailId: options.id});
     //用户登录标识
-    let token = wx.getStorageSync("userToken");
-    this.setData({token: token});
+    this.setData({token: wx.getStorageSync("userToken")});
 
     //当前房源对应的城市
     if(options.scity){
@@ -107,20 +106,15 @@ Page({
     .then(data => {
       try{
         data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
-      }catch(e){
-        console.log('二手房周边房源error');
-      }
+      }catch(e){}
       this.setData({nearbyHouse: data.data});
     });
   },
   
   //待看房源列表
   seeHouseRequest(city) {
-    let params = {
-      scity: city,
-      pageNo: 1,
-      unicode: this.data.token
-    }
+    if(!this.data.token) return;
+    let params = {scity: city,pageNo: 1, unicode: this.data.token};
     utils.get(Api.IP_DETAILLIST,params)
     .then(data=>{this.setData({count: data.data.length})});
   },
@@ -128,7 +122,7 @@ Page({
   //点击关联小区进入关联小区详情 
   guanlianxiaoqu() {
     this.cacheHouseType('小区');
-    wx.navigateTo({url: '../houseDetail/houseDetail2?title=房源详情&id='+this.data.guanlianList.sdid});
+    wx.navigateTo({url: '../houseDetail/houseDetail2?id='+this.data.guanlianList.sdid});
   },
   //同小区房源更多
   tongyuanxiaoqu() {
@@ -140,6 +134,7 @@ Page({
   cacheHouseType(value) {
     wx.setStorageSync('houseTypeSelect', value);
   },
+  //地图
   mapJump() {
     let obj = {
       longitude: this.data.longitude,
@@ -154,21 +149,18 @@ Page({
   },
   //拨打电话
   telphone(e) {
-    console.log(e.target.dataset.phone)
     wx.makePhoneCall({phoneNumber: e.target.dataset.phone});
   },
   //回到顶部 重新请求数据
   RefreshHouseDetail(e){
-    wx.pageScrollTo({scrollTop: 0,duration: 0});
     let sdid = e.currentTarget.dataset.id;
+    wx.pageScrollTo({scrollTop: 0,duration: 0});
     this.buyRentRequest(this.data.currentCity, sdid); 
   },
   //预约看房
   lookHouse() {
     if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
-    if(!this.data.isAppoint){
-      this.isLookHouse();
-    }
+    if (!this.data.isAppoint) this.isLookHouse();
   },
   //预约看房弹窗
   isLookHouse() {
@@ -208,21 +200,17 @@ Page({
   toggleSelectLike() {
     if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
     this.setData({likeFlag: !this.data.likeFlag});
-    let num = this.data.detailType;
-    if(this.data.likeFlag) {
-      this.colletionRequest(true);
-    }else{
-      this.colletionRequest(false);
-    }
+    this.data.likeFlag?this.colletionRequest(true):this.colletionRequest(false);
   },
   //收藏 请求
   colletionRequest(bool) {
+    let params = {"unicode": wx.getStorageSync("userToken"),"scity": this.data.currentCity};
     if(bool) {
-      let params = {"title": "收藏","unicode": wx.getStorageSync("userToken"),"scity": this.data.currentCity};
+      params.title = "收藏";
       utils.post(Api.IP_HOUSECOLLECTION + this.data.currentCity + '/' + this.data.houseDetailId, params)
       .then(data => {wx.hideLoading()});
     }else{
-      let params = {"title": "取消","unicode": wx.getStorageSync("userToken"),"scity": this.data.currentCity};
+      params.title = "取消";
       utils.post(Api.IP_HOUSECOLLECTIONCANCEL + this.data.currentCity + '/' + this.data.houseDetailId, params)
       .then(data => {wx.hideLoading()});
     }
@@ -231,7 +219,7 @@ Page({
   previewIamge(e) {
     var current = e.target.dataset.src;
     wx.previewImage({
-      current: current, // 当前显示图片的http链接  
+      current: current, //当前显示图片的http链接  
       urls: this.data.houseDetail ? this.data.houseDetail.housePicList : this.data.imgUrls //需要预览的图片http链接列表  
     })
   },
@@ -241,9 +229,8 @@ Page({
     var that = this;
     var shareObj = {
       title: "世华地产",
-      // desc: '世华地产全球遥遥领先',
       path: '/pages/houseDetail/houseDetail',    //默认是当前页面，必须是以‘/’开头的完整路径
-      imgUrl: '',     //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
+      imgUrl: '', //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
       success: (res)=> {
         if(res.errMsg == 'shareAppMessage:ok') {}
       },

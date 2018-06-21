@@ -27,6 +27,13 @@
 .own .weui-cell__hd{
   width: 275rpx;
 }
+.section2{
+  background: #ffffff;
+}
+.section22{
+  margin-top:20rpx;
+  background: #ffffff;
+}
 .section3{
   padding: 20rpx 0 0 30rpx;
   font-size: 29rpx;
@@ -42,12 +49,8 @@
 
 .phcolor{
   font-size: 30rpx;
-  color: #cacaca;
 }
-.section{
-  margin-top:20rpx;
-  background: #ffffff;
-}
+
 
 /* 业主 推荐人 */
 .actionSheet{

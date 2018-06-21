@@ -117,7 +117,14 @@
           </view>
           <view>
             <!-- 二手房 -->
-            <template is="houseContent1" data="{{guanlianList,detailType}}"/>
+            <view class="item-title">{{guanlianList.buildName}}</view>
+            <view class="description">
+                  {{guanlianList.areaName}} {{guanlianList.districtName}} {{guanlianList.buildAge}}建成  {{guanlianList.buildType}}
+            </view>
+            <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
+                  在售{{guanlianList.saleCount}}套/在租{{guanlianList.rentCount}}套
+            </view>
+            <view class="housePrice">{{guanlianList.avgSalePrice}}元/平</view>
           </view>
       </view>
     </view>

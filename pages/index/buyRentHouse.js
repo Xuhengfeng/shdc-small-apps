@@ -197,10 +197,14 @@ Page({
   },
   //为你推荐跳转
   commendForYou(e) {
-    wx.navigateTo({url: "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id});
+    this.linkMethods(e);
   },
   //房源详情
-  gotoseeHouse(e) {
+  gotoseeHouse() {
+    this.linkMethods(e);
+  },
+  //跳转方式
+  linkMethods(e) {
     utils.storage('houseTypeSelect')
     .then(res=>{
       if(res.data=='二手房'){

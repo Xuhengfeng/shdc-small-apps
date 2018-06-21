@@ -49,6 +49,7 @@
                 wx:for="{{recommend}}" 
                 wx:key="index"
                 data-id="{{item.sdid}}" 
+                data-scity="{{item.scity}}" 
                 bindtap="commendForYou"
                 style="background:rgba(0,0,0,0.1)">
               <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
@@ -59,7 +60,7 @@
                           <text>{{item.houseType}}</text>{{item.builtArea}}m²
                     </view>
                     <view wx:if="{{flagPrice}}" class="housePrice" style="color:#ffc001">{{item.saleTotal}}万
-                        <text style="color:#ffffff">{{item.salePrice}}元/平米</text>
+                        <text style="color:#ffffff">{{item.salePrice}}元/平</text>
                     </view>
                     <view wx:if="{{!flagPrice}}" class="housePrice" style="color:#ff4343">{{item.rentPrice}}元/月</view>
                 </view> 
@@ -99,7 +100,7 @@
                       </view>
 
                       <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
-                        <text>{{item.salePrice}}元/平米</text>
+                        <text>{{item.salePrice}}元/平</text>
                       </view>
                       <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}元/月</view>
                     </view>

@@ -10,7 +10,7 @@
             <view class="discription">
               <view class="name" style="font-size:40rpx;color:#000000">{{houseDetail.broker.emplName}}</view>
               <view style="font-size:30rpx;color:#333333;margin-top:20rpx">电话: {{houseDetail.broker.phone}}</view>
-              <view style="font-size:30rpx;color:#333333;white-space:normal;margin-top:20rpx">{{houseDetail.broker.emplFlag}}</view>
+              <view style="font-size:30rpx;color:#333333;white-space:normal;margin-top:20rpx">房东信赖{{houseDetail.broker.emplFlag}}</view>
             </view>
           </view>
           <view class="dialog-body" data-phone="{{houseDetail.broker.phone}}"  bindtap="telphone">电话</view>
@@ -87,8 +87,7 @@
   <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
         在售{{guanlianList.saleCount}}套/在租{{guanlianList.rentCount}}套
   </view>
-  <view class="housePrice" wx:if="{{detailType==11}}">{{guanlianList.avgSalePrice}}元/平</view>
-  <view class="housePrice" wx:if="{{detailType==22}}">{{guanlianList.avgRentPrice }}元/月</view>
+  <view class="housePrice">{{guanlianList.avgSalePrice}}元/平</view>
 </template>
 
 <!-- 同小区房源更多 -->
