@@ -45,16 +45,6 @@ Page({
     allH5url: null,
   },
   onLoad(){
-
-    // 查看是否授权
-    utils.storage('userInfo')
-    .then(()=>{
-      this.setData({canIUse:false});
-    })
-    .catch(()=>{
-      wx.hideTabBar();
-      this.setData({canIUse:true});
-    })
     
     //默认城市定位  
     utils.get(Api.IP_DEFAULTCITY)
@@ -313,6 +303,17 @@ Page({
         wx.showTabBar();
         this.setData({canIUse: false}
       )}
+    })
+  },
+  onShow() {
+    // 查看是否授权
+    utils.storage('userInfo')
+    .then(()=>{
+      this.setData({canIUse:false});
+    })
+    .catch(()=>{
+      wx.hideTabBar();
+      this.setData({canIUse:true});
     })
   }
 })

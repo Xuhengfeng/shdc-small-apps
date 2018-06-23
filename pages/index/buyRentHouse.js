@@ -200,7 +200,7 @@ Page({
     this.linkMethods(e);
   },
   //房源详情
-  gotoseeHouse() {
+  gotoseeHouse(e) {
     this.linkMethods(e);
   },
   //跳转方式
