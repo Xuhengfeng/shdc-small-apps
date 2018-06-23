@@ -197,7 +197,7 @@
 /* 列表项 */
 .house-info-item{
   width: 320rpx;
-  margin-left: 20rpx;
+  margin-right: 20rpx;
   display: inline-block;
 }
 .house-info-item image{
@@ -292,4 +292,6 @@
   border: none;
 }
 
-
+.oSlider{
+  margin-left:24rpx;
+}

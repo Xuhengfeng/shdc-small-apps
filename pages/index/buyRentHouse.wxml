@@ -44,7 +44,7 @@
     <view class="section recommend">
       <view class="title" style="padding:100rpx 0 40rpx">为你推荐</view>
       <view>
-        <scroll-view scroll-x style="white-space:nowrap;display:flex;height:100%">
+        <scroll-view scroll-x="true" class="oSlider" style="white-space:nowrap;display:flex;height:100%">
           <view class="goods-item"
                 wx:for="{{recommend}}" 
                 wx:key="index"

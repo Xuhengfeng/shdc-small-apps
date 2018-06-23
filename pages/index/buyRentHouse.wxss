@@ -113,7 +113,7 @@ navigator{
 .recommend .goods-item{
   width: 380rpx;
   height: 100%;
-  margin-left: 20rpx;
+  margin-right: 20rpx;
   display: inline-block;
   position: relative;
   border-radius: 10rpx;
@@ -153,4 +153,6 @@ navigator{
   background: #fface5;
 }
 
-
+.oSlider{
+  margin-left:24rpx;
+}
