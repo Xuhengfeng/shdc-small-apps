@@ -253,12 +253,24 @@ Page({
     let currentCity = this.data.currentCity;
     wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[0].value}&scityname=${scityName}&scity=${currentCity}`})
   },
-  //新盘推荐
-  newhouse(e){
-    let http = e.currentTarget.dataset.http;
-    wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${http}`});
-  },
 
+  //新盘推荐
+  newhouseRecommend(e){
+    let http = e.currentTarget.dataset.http;
+    let num = this.parseUrl(e.currentTarget.dataset.http).id;
+    wx.navigateTo({url: `../h5Pages/h5Pages?newHouseId=${num}&redirect=${http}`});
+  },
+  parseUrl(url) {
+    var urlparams = {};
+    try{
+        var urlStr=url.split("?")[1].split("&");
+        for( let i=0;i<urlStr.length;i++){
+            var item = urlStr[i].split("=")
+            urlparams[item[0]]=item[1]
+        }
+    }catch(error){};
+    return urlparams;
+  },
   //热门小区
   hotxiaoqu(e) {
     let http;
