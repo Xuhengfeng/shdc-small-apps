@@ -236,6 +236,11 @@ Page({
       case '5': wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[3].value}`});break;//购房指南
     }
   },
+  //四个模块
+  fourPic(e){
+    let http = e.currentTarget.dataset.http;   
+    wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${http}`});
+  },
   //热门推荐
   hottuj(e) {
     let http = e.currentTarget.dataset.http;   
