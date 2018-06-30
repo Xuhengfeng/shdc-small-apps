@@ -239,7 +239,7 @@ Page({
   //四个模块
   fourPic(e){
     let http = e.currentTarget.dataset.http;   
-    wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${http}`});
+    wx.navigateTo({url: `../h5Pages/h5Pages?type=wx&redirect=${http}`});
   },
   //热门推荐
   hottuj(e) {
