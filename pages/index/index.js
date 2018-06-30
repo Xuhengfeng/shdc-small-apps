@@ -48,7 +48,7 @@ Page({
     
     //默认城市定位  
     utils.get(Api.IP_DEFAULTCITY)
-    .then((data)=>{
+    .then(data=>{
       wx.setStorage({
         key: 'selectCity',
         data: {
@@ -96,7 +96,7 @@ Page({
     // 发起regeocoding检索请求 
     BMap.regeocoding({
       location: res.latitude + ',' + res.longitude,//这是根据之前定位出的经纬度
-      success: (data) => {
+      success: data => {
               let citytoPinyin = data.originalData.result.addressComponent.city.slice(0, -1);
               let lowCase = pinyin.Pinyin.getFullChars(citytoPinyin);
               let currentCity = lowCase.toLowerCase();
@@ -117,7 +117,7 @@ Page({
   oneBigRequest(city) {
     //获取主页banner资讯
     utils.get(this.data.IPS[0] + city + "/INDEX_BANNER", {scity: city})
-    .then((data) => {
+    .then(data => {
       this.setData({ imgUrls: data.data });
     })
 
@@ -129,7 +129,7 @@ Page({
 
     //四个栏目四个图片
     utils.get(this.data.IPS[5] + "/INDEX_PLATE",{scity: city})
-    .then((data) => {
+    .then(data => {
       try{
         this.setData({ plate: data.data })
       }catch(error){};
@@ -137,18 +137,18 @@ Page({
     
     //热门推荐
     utils.get(this.data.IPS[4] + "1001", {pageNo: 1,scity: city})
-    .then((data) => {
+    .then(data => {
       if(data.data.length) this.setData({ hotrecommend: data.data });
     })
 
     //获取主页二手房指南资讯
     utils.get(this.data.IPS[1] + city + "/PURCHASE_GUIDE", {scity: city})
-    .then((data) => {
+    .then(data => {
       this.setData({ purchase_guide: data.data });
     })    
     
     //获取成交量统计
-    utils.get(this.data.IPS[2] + city, {scity: city}).then((data) => {
+    utils.get(this.data.IPS[2] + city, {scity: city}).then(data => {
       this.setData({ houseUsed: data.data });
     })
     
@@ -158,10 +158,8 @@ Page({
       pageSize: 10,
       scity: city
     })
-    .then((data) => {
-      try{
-        this.setData({ hotbuilding: data.data });
-      }catch(error){};
+    .then(data => {
+      try{this.setData({ hotbuilding: data.data })}catch(error){};
     })
     
     //新盘推荐
@@ -169,7 +167,7 @@ Page({
       pageNo: 1,
       scity: city
     })
-    .then((data) => {
+    .then(data => {
       if(data.data.length) this.setData({ newinfohouse: data.data });
     })
 
@@ -177,7 +175,8 @@ Page({
     var IP = this.data.guessLikeIP[0] + '/' + city;
     this.getDataFromServer(IP, {pageNo: 1,scity: city});
   },
-  selectYouLike(e) {//猜你喜欢 二手房 租房
+  //猜你喜欢 二手房 租房
+  selectYouLike(e) {
     this.setData({ num: e.target.dataset.index })
     this.cacheHouseType(this.data.guessYouLike[this.data.num]);
     this.cacheHouseType2(this.data.guessYouLike[this.data.num]);
@@ -185,9 +184,11 @@ Page({
     let params = { pageNo: 1,scity: this.data.currentCity};
     this.getDataFromServer(IP, params);
   },
-  getDataFromServer(IP, params) {//猜你喜欢
+  //猜你喜欢
+  getDataFromServer(IP, params) {
+    this.setData({hasMore: true});
     utils.get(IP, params)
-    .then((data) => {
+    .then(data => {
       data.data.forEach((item) => {
         try{
           item.houseTag = item.houseTag.split(',');
@@ -196,6 +197,7 @@ Page({
       let flagpc =  this.data.num == 0 ? true : false;
       this.setData({flagPrice: flagpc});
       this.setData({houseList: data.data});
+      this.setData({hasMore: false});
     })
   },
   onPullDownRefresh() {
@@ -254,7 +256,6 @@ Page({
   //新盘推荐
   newhouse(e){
     let http = e.currentTarget.dataset.http;
-    console.log(http)   
     wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${http}`});
   },
 

@@ -292,6 +292,3 @@
   border: none;
 }
 
-.oSlider{
-  margin-left:24rpx;
-}

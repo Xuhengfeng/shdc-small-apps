@@ -47,7 +47,8 @@ Component({
       for (let i in data) {
         rightArr.push(data[i].title.substr(0, 1));
       }
-      this.setData({list: data,rightArr})
+      this.setData({list: data});
+      this.setData({rightArr: rightArr});
     },
     getCity() {//定位
       wx.getLocation({

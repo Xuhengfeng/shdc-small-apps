@@ -68,7 +68,7 @@ Page({
   },
   oneBigRequest(city) {
     // banner图片
-    utils.get(Api.IP_INDEXCONSULT + city + this.data.banner[this.data.num], { scity: city })
+    utils.get(Api.IP_INDEXCONSULT + city + this.data.banner[this.data.num], {scity: city })
     .then(data => {
       this.setData({ imgUrls: data.data })
     });

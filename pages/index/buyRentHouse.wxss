@@ -152,7 +152,3 @@ navigator{
 .houseTag text:nth-of-type(3){
   background: #fface5;
 }
-
-.oSlider{
-  margin-left:24rpx;
-}

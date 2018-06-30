@@ -45,9 +45,7 @@ App({
               confirmText: '去设置',  
               success:res => {  
                   if(res.confirm){  
-                      wx.openSetting({  
-                            
-                      })  
+                      wx.openSetting({});  
                   }  
               }  
           })  
@@ -64,7 +62,7 @@ App({
                 confirmText: '去设置',  
                 success: res => {  
                     if (res.confirm) {  
-                        wx.openSetting({})  
+                        wx.openSetting({});  
                     }  
                 }  
             })  

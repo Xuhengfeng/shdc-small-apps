@@ -3,6 +3,16 @@
 view,text{
   line-height: 1;
 }
+.house-info{
+    margin-left: 25rpx;
+}
+
+::-webkit-scrollbar
+{
+    width: 0;
+    height: 0;
+    color: transparent;
+}
 .container {
   height: 100%;
   display: flex;
@@ -15,6 +25,7 @@ view,text{
 page{
     background-color: #F8F8F8;
     height: 100%;
+    width: 100%;
     font-size: 16px;
     font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif,Microsoft Yahei;
 }

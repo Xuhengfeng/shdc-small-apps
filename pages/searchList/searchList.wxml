@@ -83,6 +83,5 @@
       <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/>
           <text>玩了命的加载中...</text>
       </view>
-      <!-- <view wx:elif="{{!hasMore}}"><text>上拉加载更多</text></view> -->
   </view> 
 </view>
