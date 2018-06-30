@@ -466,7 +466,7 @@ Component({
       let label = 'label[' + 2 + ']';
       let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.setData({[label]: this.data.mode[e.target.dataset.num].name});
+      this.setData({[label]: this.data.mode[this.data.mode2Categories].name});
       this.getDataFromServer(this.data.url, newParams);
     },
  
