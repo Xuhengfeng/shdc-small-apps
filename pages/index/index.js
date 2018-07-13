@@ -256,7 +256,7 @@ Page({
     let urlArr = this.data.allH5url;
     let scityName = this.data.myLocation;
     let currentCity = this.data.currentCity;
-    wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[0].value}&scityname=${scityName}&scity=${currentCity}`})
+    wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${urlArr[0].value}&scityname=${scityName}&scity=${currentCity}&id=1&type=web&static=tongji`})
   },
 
   //新盘推荐
