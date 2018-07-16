@@ -149,9 +149,8 @@ Page({
   },
   //回到顶部 重新请求数据
   RefreshHouseDetail(e){
-    wx.pageScrollTo({scrollTop: 0,duration: 0});
     let sdid = e.currentTarget.dataset.id;
-    this.buyRentRequest(this.data.currentCity, sdid); 
+    wx.redirectTo({url: '../houseDetail/houseDetail3?id='+sdid});
   },
   //联系人弹窗
   linkman() {
