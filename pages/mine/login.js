@@ -171,7 +171,7 @@ Page({
           'Content-Type': 'application/json',
           'scity': this.data.currentCity,
         },
-        methods: "POST",
+        method: "POST",
         success: res=>{
           wx.hideLoading();
           if(res.data.status == 500){
@@ -187,22 +187,6 @@ Page({
         }
 
       })
-      // utils.post(Api.IP_GETSMSCODE,params)
-      // .then(data=>{
-      //       console.log(data)
-      //       if(data.data.status == 500){
-      //         let params2 = {
-      //           mobile: mobilePhone,
-      //           sign: md5(key.toUpperCase()),
-      //           operateType: "LOGIN",
-      //           scity: this.data.currentCity
-      //         }
-      //         return utils.post(Api.IP_GETSMSCODE,params2)
-      //       }
-      // })
-      // .then(data2=>{
-      //       console.log(data2)
-      // })
     }
   }
 })
