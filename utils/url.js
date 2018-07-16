@@ -1,5 +1,6 @@
 'use strict';
 const SERVER_IPS = ["https://custapis.shyj.cn/custAppApi"];//生产api接口
+// const SERVER_IPS = ["http://112.74.181.229:7031/custAppApi"];//测试api接口
 const SERVERINDEX = 0;
 const SERVER_IP = SERVER_IPS[SERVERINDEX];
 

@@ -154,10 +154,9 @@ Page({
   //回到顶部 重新请求数据
   RefreshHouseDetail(e){
     let sdid = e.currentTarget.dataset.id;
-    //重新跳转到当前页面
-    wx.redirectTo({ url: '../houseDetail/houseDetail?id=' + sdid });
     // wx.pageScrollTo({scrollTop: 0,duration: 0});
     // this.buyRentRequest(this.data.currentCity, sdid); 
+    wx.redirectTo({url: '../houseDetail/houseDetail?id='+sdid});
   },
   //预约看房
   lookHouse() {
