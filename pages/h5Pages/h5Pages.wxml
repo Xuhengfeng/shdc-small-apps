@@ -1,1 +1,1 @@
-<web-view src="{{redirect}}"></web-view>
+<web-view src="{{redirect}}?cityName={{currentCity}}&type=wx"></web-view>
