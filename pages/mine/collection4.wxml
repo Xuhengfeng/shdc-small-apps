@@ -21,6 +21,9 @@
     </block>
 </view>
 
+<image class="nodata" wx:if="{{!houseList.length}}" src="../../images/nodata.png"/>
+<view class="nodataContent" wx:if="{{!houseList.length}}">暂无收藏的小区~~~</view>
+
 <view class="tips">
     <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/>
         <text>玩了命的加载中...</text>

@@ -103,12 +103,12 @@
   </view>
 
   <view class="section statistics">
-    <view class="title">平台二手房成交量统计</view>
+    <view class="title">上月成交量统计</view>
     <view class="section3-content" bindtap="suliang">
       <image src="../../images/shihua.png" style="width:100%;height:240rpx;" />
       <view class="section3-content-one">
         <view style="color:#cacaca;">全市{{houseUsed.month}}月均价</view>
-        <view style="color:#ffffff;margin-top:40rpx;">{{houseUsed.avgPrice}}<text style="font-size:24rpx">元/平米</text>
+        <view style="color:#ffffff;margin-top:40rpx;">{{houseUsed.avgPrice}}<text style="font-size:24rpx">元/平</text>
         </view>
       </view>
       <view class="section3-content-two">
@@ -201,6 +201,9 @@
           <image src="../../images/loading.gif" mode="aspectFill"/>
           <text>玩了命的加载中...</text>
         </view> 
+        <view class="tips" wx:if="{{!houseList.length}}">
+          <text>暂无数据</text>
+        </view>
     </view>
 
 <!-- 用户授权弹窗 -->

@@ -5,7 +5,7 @@ Page({
   data: {
     keyword: null,//获取用户输入值
     shops: [],
-    hasMore: true,
+    hasMore: false,
     page: 1,
     //当前选定的城市
     city: '',
@@ -66,11 +66,14 @@ Page({
   },
   //门店
   lookShopsRequest(params) {
+    this.setData({hasMore: true});
     let lat1 = this.data.lat1;
     let lng1 = this.data.lng1;
     utils.post(Api.IP_SHOPS, params)
     .then(data=> {
-      if(!data.data.length) this.setData({hasMore: false});
+      setTimeout(()=>{
+        this.setData({hasMore: false});
+      },1000);
       data.data.forEach((item)=> {
         let lat2 = item.py;
         let lng2 = item.px;

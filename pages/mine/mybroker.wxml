@@ -16,3 +16,6 @@
               </view>
       </view>
 </view>
+
+<image class="nodata" wx:if="{{!brokers.length}}" src="../../images/nodata.png"/>
+<view class="nodataContent" wx:if="{{!brokers.length}}">暂无我的经纪人~~~</view>

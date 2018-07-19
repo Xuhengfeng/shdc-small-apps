@@ -18,10 +18,15 @@
     </view>
 </view>
 
+<image class="nodata" wx:if="{{!brokers.length}}" src="../../images/nodata.png"/>
+<view class="nodataContent" wx:if="{{!brokers.length}}">暂无收藏的经纪人~~~</view>
+
 <view class="tips">
     <view wx:if="{{hasMore}}">
         <image src="../../images/loading.gif" mode="aspectFill"/>
         <text>玩了命的加载中...</text>
     </view>
 </view> 
+
+
 

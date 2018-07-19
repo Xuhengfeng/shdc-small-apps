@@ -30,7 +30,7 @@
       </view>
     </scroll-view>
     <view class='list-right-wrapper'>
-      <view class='right-item' wx:for="{{rightArr}}" wx:key="rightArr" data-id="{{'index'+index}}" catchtap='jumpMt'>
+      <view class="right-item {{('index'+index) == jumpNum?'colorRed':''}}" wx:for="{{rightArr}}" wx:key="rightArr" data-id="{{'index'+index}}" catchtap='jumpMt'>
         {{rightArr[index]}}
       </view>
     </view>

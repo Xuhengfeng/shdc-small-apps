@@ -12,5 +12,7 @@
     </view>
   </view>
 </block>
-
 </scroll-view>
+
+<image class="nodata" wx:if="{{!houseRequestList.length}}" src="../../images/nodata.png"/>
+<view class="nodataContent" wx:if="{{!houseRequestList.length}}">暂无申请房源~~~</view>

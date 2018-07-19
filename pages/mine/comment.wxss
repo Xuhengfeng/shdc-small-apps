@@ -92,3 +92,20 @@ page{
 .tips text{
     vertical-align: middle;
 }
+  .nodata{
+  position: fixed;
+  width: 186rpx;
+  height: 136rpx;
+  text-align: center;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.nodataContent{
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #666666;
+}
