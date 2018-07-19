@@ -54,7 +54,7 @@ Page({
       case '5':wx.setStorageSync('currentPage', '我的');wx.navigateTo({url:"mybroker"});break;//我的经纪人
       case '6':wx.navigateTo({url:"comment"});break;//我的评论
       case '7':wx.navigateTo({url:"suggest"});break;//意见反馈
-      case '8':wx.navigateTo({url:"../h5Pages/h5Pages?redirect=http://www.baidu.com"});break;//关于我们
+      case '8':wx.navigateTo({url:"../h5Pages/h5Pages?redirect=https://custh5s.shyj.cn/about/aboutus.html"});break;//关于我们
       case '9':wx.navigateTo({url:"collection1"});break;//二手房收藏
       case '10':wx.navigateTo({url:"collection2"});break;//租房收藏
       case '11':wx.navigateTo({url:"collection3"});break;//经纪人收藏
