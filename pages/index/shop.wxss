@@ -62,14 +62,23 @@ page{
   overflow: hidden;
 }
 .content .one{
+  width: 60%;
   font-size: 40rpx;
   color: #222222;
   padding: 40rpx 25rpx 15rpx; 
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 .content .two{
+  width: 60%;
   font-size: 30rpx;
   color: #666; 
+  line-height: 1.2;
   padding: 15rpx 25rpx 40rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 .content .three{
   position: absolute;

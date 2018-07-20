@@ -162,17 +162,20 @@ Page({
   //监听自定义navbar组件事件 首次渲染第1页数据
   onMyEventHouseList(item) {
     setTimeout(() => {
-      //修正数据
-      item.detail.houseList.forEach((item2) => {
-        if (item2.houseTag) {
-          item2.houseTag = item2.houseTag.split(',');
-        }
-      })
+      try{
+        //修正数据
+        item.detail.houseList.forEach((item2) => {
+          if (item2.houseTag) {
+            item2.houseTag = item2.houseTag.split(',');
+          }
+        })
+      }catch(e){};
       //修正参数
       this.setData({
         houseList: item.detail.houseList,
         params: item.detail.params,
-        page:  item.detail.params.pageNo
+        page:  item.detail.params.pageNo,
+        hasMore: false
       })
     }, 500)
   },
@@ -187,9 +190,12 @@ Page({
   getDataFromServer(IP, Params) {//请求数据
     utils.post(IP, Params)
     .then(data => {
-      data.data.forEach((item) => {
-        item.houseTag = item.houseTag.split(',');
-      })
+      try{
+        data.data.forEach((item) => {
+          item.houseTag = item.houseTag.split(',');
+        })
+      }catch(e){};
+      this.setData({hasMore: false});
       this.setData({ houseList: this.data.houseList.concat(data.data) })
       let falgpc = this.data.num == 0 ? true : false;
       this.setData({flagPrice: falgpc})
