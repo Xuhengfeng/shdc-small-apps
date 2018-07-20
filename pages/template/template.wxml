@@ -109,3 +109,7 @@
   <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}元/月</view>
 </template>
 
+<!-- 检索数量 -->
+<template name="queryCount">
+  <view class="houseCount">共为你找到1000房源</view>
+</template>
