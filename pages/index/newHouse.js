@@ -5,6 +5,7 @@ Page({
     imgUrls: [],
     city: [],
     houseList: [],
+    hasMore: false,
     // tabbar  
     winWidth: 0,
     winHeight: 0,
@@ -39,8 +40,12 @@ Page({
   },
   //新房城市列表
   newHouseListRequest(num, page) {
+    this.setData({hasMore: true});
     utils.get(Api.IP_NEWBUILDING+'/'+ this.data.city[num].cityCode,{pageNo: page})
     .then(data=>{
+      setTimeout(()=>{
+        this.setData({hasMore: false});
+      },1000);
       data.data.forEach((item) => {
         try{
           item.tag = item.tag.split(',');

@@ -49,6 +49,12 @@
         <view class="weui-cell weui-cell_access contentHeight" bindtap="telphone">
             <view class="weui-cell__bd">客服电话<text class="phone">{{myInfo.custServerPhone}}</text></view>
         </view>
+        <view class="weui-cell weui-cell_access contentHeight">
+            <view class="weui-cell__bd">在线客服</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            <button open-type="contact" class="oButton">
+            </button>
+        </view>
         <view class="weui-cell weui-cell_access contentHeight" data-num="5" bindtap="active">
             <view class="weui-cell__bd">我的经纪人</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
@@ -71,5 +77,6 @@
             <view class="weui-cell__bd" style="text-align:center">退出登录</view>
         </view>
     </view>
+    <view class="currentVersion">当前版本:v1.0.1</view>
   </view>
 </view>

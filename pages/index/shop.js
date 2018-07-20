@@ -1,6 +1,5 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
 Page({
   data: {
     keyword: null,//获取用户输入值

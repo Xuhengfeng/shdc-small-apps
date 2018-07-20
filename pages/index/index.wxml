@@ -1,5 +1,4 @@
-<!-- <scroll-view> -->
-  <view class="section header">
+<view class="section header">
     <swiper indicator-dots="true" 
             autoplay="true" 
             interval="3000"
@@ -121,9 +120,7 @@
   </view>
 
   <view class="section hotArea">
-    <view class="title">热门小区
-        <view  class="lookmore" bindtap="hotxiaoqu">查看更多</view>
-    </view>
+    <view class="title">热门小区<text class="lookmore" bindtap="hotxiaoqu">查看更多</text></view>
     <view class="house-info">
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
         <block wx:for="{{hotbuilding}}">
@@ -142,9 +139,7 @@
   </view>
 
   <view class="section newEstate">
-     <view class="title">新盘推荐
-        <!-- <navigator url="hotHouse?title=热门小区" hover-class="none" class="lookmore">查看更多</navigator> -->
-    </view>
+    <view class="title">新盘推荐</view>
     <view class="house-info">
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex">
         <block wx:for="{{newinfohouse}}">
@@ -216,4 +211,3 @@
       </view>
     </view>
 </view>
-<!-- </scroll-view> -->

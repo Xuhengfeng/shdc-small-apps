@@ -1,5 +1,5 @@
 <view class="header">
-  <image src="{{banner[0].picUrl}}"/>
+  <image src="{{banner[0].picUrl?banner[0].picUrl:'../../images/default.jpg'}}"/>
 </view>
 
 <view  class="selectItem">

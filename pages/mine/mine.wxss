@@ -80,3 +80,21 @@ page{
 .fontred{
   color: #ff4343;
 }
+.oButton{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  
+}
+.oButton::after{ 
+  border: none;
+} 
+.currentVersion{
+  font-size: 28rpx;
+  text-align: center;
+  padding: 50rpx;
+  color: #ccc;
+}
