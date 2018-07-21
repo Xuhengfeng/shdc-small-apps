@@ -39,13 +39,13 @@ Page({
     guessYouLike: ['二手房', '租房'],//猜你喜欢 查看全部房源
     num: 0,//猜你喜欢哪一个
     guessLikeIP: [Api.IP_RENTHOUSELIKE, Api.IP_RENTHOUSERENTLIKE],
-
+    loadingHidden: true,
     //轮播图 二手房指南资讯 获取成交量统计 热门小区 新盘推荐 四个栏目四张图片 默认城市 所有的h5链接
     IPS: [Api.IP_INDEXCONSULT, Api.IP_INDEXCONSULT, Api.IP_HOUSEUSED, Api.IP_HOTBUILDING, Api.IP_NEWINFO, Api.IP_PLATE, Api.IP_DEFAULTCITY, Api.IP_ALLH5PAGEURL],
     allH5url: null,
   },
   onLoad(){
-    
+    wx.hideTabBar();
     //默认城市定位  
     utils.get(Api.IP_DEFAULTCITY)
     .then(data=>{
@@ -324,14 +324,19 @@ Page({
     })
   },
   onShow() {
+    setTimeout(()=>{
+      this.setData({loadingHidden: false});
+      wx.showTabBar();
+    }, 3000);
+    
     // 查看是否授权
     utils.storage('userInfo')
     .then(()=>{
       this.setData({canIUse:false});
     })
     .catch(()=>{
-      wx.hideTabBar();
       this.setData({canIUse:true});
     })
+    
   }
 })
