@@ -3,34 +3,29 @@ const utils = require("../../utils/util");
 
 Page({
   data: {
-    //轮播图banner
-    imgUrls: ['../../images/banner.png'],//默认图片
+   
+    imgUrls: ['../../images/banner.png'],//轮播图默认图片 
     currentIndex: 1,
-
     likeFlag: false,//喜欢 收藏
     isAppoint: false,//预约看房 已经加入待看
     isAppointment: false,//点击预约看房弹窗
     isLinkman: false,//二手房 租房联系经纪人
     scrollTop: 0,
-
-    //百度地图
     latitude: 38.76623,
     longitude: 116.43213,
-
-    //二手房
     detailType: '',//详情类型
     houseDetailId: '',//房屋的sdid编码
     houseDetail: null,//房屋详情 
-    guanlianList: null,//关联小区
-    community: null,//同小区房源
-    nearbyHouse: null,//附近房源
-
+    guanlianList: [],//关联小区
+    community: [],//同小区房源
+    nearbyHouse: [],//附近房源
     currentCity: null,//城市
     page: 1,
     flagPrice: true,
     count: 0,//待看房源列表计数
     token: null,
-   
+    toastMsg: null,
+    time: null
   },
   onLoad(options) {
     this.setData({houseDetailId: options.id});
@@ -40,34 +35,34 @@ Page({
     //当前房源对应的城市
     if(options.scity){
       this.setData({currentCity: options.scity});
-      this.buyRentRequest(options.scity, this.data.houseDetailId); 
+      this.twoHouseRequest(options.scity, this.data.houseDetailId, 1); 
     }else{
       utils.storage('selectCity')
       .then(res=>{
         this.setData({currentCity: res.data.value});
-        this.buyRentRequest(res.data.value, this.data.houseDetailId); 
+        this.twoHouseRequest(res.data.value, this.data.houseDetailId, 1); 
       })
     }
 
   },
-  buyRentRequest(city, sdid) {
+  twoHouseRequest(city, sdid, page) {
       //二手房 
-      let params = {scity: city,unicode: this.data.token};
+      let params = {scity: city,unicode: this.data.token, pageNo: page};
       utils.get(Api.IP_TWOHANDHOUSEDETAIL + city + '/' + sdid,params)
       .then(data => {
-        //关联小区详情 附近房源详情 同小区房源 待看房源列表
         let newData = data.data;
+        //关联小区详情
         this.guanlianListRequest(newData.px, newData.py, city, newData.buildSdid);
+        //同小区房源 
         this.communityRequest(city, newData.buildSdid);
-        this.nearbyHouseRequest(newData.px, newData.py, city, newData.buildSdid);
+        //附近房源详情
+        this.nearbyHouseRequest(newData.px, newData.py, city, newData.buildSdid, 1);
+        //待看房源列表
         this.seeHouseRequest(city);
-        this.setData({
-          latitude: newData.py,
-          longitude: newData.px,
-          houseDetail: newData,
-          likeFlag: newData.isCollect,
-          isAppoint: newData.isAppoint
-        })
+        //刷新
+        this.setData({houseDetail: newData});
+        this.setData({latitude: newData.py, longitude: newData.px});
+        this.setData({likeFlag: newData.isCollect,isAppoint: newData.isAppoint});
       })
    
   },
@@ -93,21 +88,23 @@ Page({
     })
   },
   //二手房周边房源
-  nearbyHouseRequest(px, py, city, buildSdid) {
+  nearbyHouseRequest(px, py, city, buildSdid, page) {
+    this.data.time =  null;
     let params = {
       "buildSdid": parseInt(buildSdid),
       "px": px,
       "py": py,
-      'pageNo': 1,
-      'pageSize': 10,
+      'pageNo': page,
       'scity': city
     }
     utils.post(Api.IP_RIMHOUSING, params)
     .then(data => {
       try{
-        data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
+        data.data.forEach(item => {item.houseTag = item.houseTag.split(',')});
       }catch(e){}
-      this.setData({nearbyHouse: data.data});
+      this.data.time = setTimeout(()=>{this.setData({toastMsg: null})},300);
+      if (page>1) {this.setData({toastMsg: `加载第${page}页数据...`})};
+      this.setData({nearbyHouse: this.data.nearbyHouse.concat(data.data)});
     });
   },
   
@@ -155,7 +152,6 @@ Page({
   RefreshHouseDetail(e){
     let sdid = e.currentTarget.dataset.id;
     // wx.pageScrollTo({scrollTop: 0,duration: 0});
-    // this.buyRentRequest(this.data.currentCity, sdid); 
     wx.redirectTo({url: '../houseDetail/houseDetail?id='+sdid});
   },
   //预约看房
@@ -250,6 +246,10 @@ Page({
       // shareObj.path = '/pages/btnname/btnname?btn_name=' + eData.name;
     }
     return shareObj
+  },
+  onReachBottom(){
+    let page = this.data.page++;
+    this.nearbyHouseRequest(this.data.longitude, this.data.latitude, this.data.currentCity, this.data.houseDetailId, page); 
   },
   onShow() {
     this.seeHouseRequest(this.data.currentCity);

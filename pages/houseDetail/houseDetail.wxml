@@ -1,6 +1,5 @@
 <!-- 二手房页面 -->
 <import src="../template/template.wxml"/>
-
 <view class="header">
   <swiper bindchange="listenSwiper" 
           indicator-dots="{{false}}" 
@@ -163,12 +162,8 @@
       </view>
   </block>
 </view>
-
-
-<view class="footer-placeholder">
-  <!--填充盒补齐底部高度-->
-</view>
-
+<!--填充盒补齐底部高度-->
+<view class="footer-placeholder"></view>
 <view class="footer">
   <!-- 二手房 -->
     <view class="type1">
@@ -187,7 +182,6 @@
       <view bindtap="linkman">联系经纪人</view>
     </view>
 </view> 
-
 <!-- 联系人 -->
 <view class="shadowLay2" wx:if="{{isLinkman}}">
     <view class="dialog">
@@ -205,6 +199,7 @@
         <image src="../../images/close2.png" bindtap="cancelLinkman"></image>
     </view>
 </view>
-
 <!-- 预约看房 -->
 <template is="appointment" data="{{isAppointment,cancelLookHouse}}"/> 
+<!-- 吐司 -->
+<template is="toast2" data="{{toastMsg}}"></template>

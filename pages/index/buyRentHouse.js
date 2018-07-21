@@ -2,11 +2,9 @@ const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 Page({
   data: {
-    //轮播图
-    imgUrls: [],
-    //为你推荐
-    recommend: [],
-
+    imgUrls: [],//轮播图
+    recommend: [],//为你推荐
+    toastMsg: '为你找到1000房源',
     label: [],
     scrollTop: 0,
     cityCode: null,
@@ -14,11 +12,9 @@ Page({
     houseDetail: null,//房源详情
     flagPrice: true,
     page: 1,
-
     isShow: 0,//nav是否显示
     showModalStatus: false,//遮罩层
     hasMore: true,
-    
     navNum: null, //菜单
     banner: ['/HOUSE_USED_BANNER', '/HOUSE_RENT_BANNER'], //banner图
     recmd: [Api.IP_HOUSERECMDLIST, Api.IP_RENTRECMDLIST], //推荐
@@ -196,7 +192,7 @@ Page({
         })
       }catch(e){};
       this.setData({hasMore: false});
-      this.setData({ houseList: this.data.houseList.concat(data.data) })
+      this.setData({houseList: this.data.houseList.concat(data.data)});
       let falgpc = this.data.num == 0 ? true : false;
       this.setData({flagPrice: falgpc})
     })

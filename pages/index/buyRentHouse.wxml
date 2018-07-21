@@ -114,4 +114,4 @@
       <view style="height:800px;" wx:if="{{!houseList.length||houseList==''}}"></view>
   </view>
 
-<template is="queryCount"></template>
+<template is="toast1" data="{{toastMsg}}"></template>

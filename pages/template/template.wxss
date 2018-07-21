@@ -185,7 +185,7 @@
 } 
 
 /* 检索房源数量 */
-.houseCount{
+.toast1{
   position: fixed;
   top: 50%;
   left: 50%;
@@ -195,6 +195,21 @@
   padding: 0 20rpx;
   font-size: 28rpx;
   color: #ffffff;
-  background: rgba(0,0,0,0.95);
+  background: rgba(0,0,0,0.88);
+  border-radius: 10rpx;
+}
+
+/* 上拉提示 */
+.toast2{
+  position: fixed;
+  bottom: 150rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  color: #ffffff;
+  background: rgba(0,0,0,0.88);
   border-radius: 10rpx;
 }
