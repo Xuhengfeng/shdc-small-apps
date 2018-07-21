@@ -70,21 +70,18 @@
     </view>
     <image src="../../images/shadow.png" style="width:100%;height:20rpx;"></image>
   </view>
-  
-
-  <!-- fourPic start -->
-  <view class="section fourPic">
-    <block wx:for="{{plate}}" wx:if="{{index<4?true:false}}">
-      <view data-http="{{item.phoneContUrl}}" bindtap="fourPic">
-          <view class="image"><image src="{{item.imageUrl}}"/></view>
-          <view class="content">
-            <text>{{item.title}}</text>
-            <text>{{item.subhead}}</text>
-          </view>
-      </view>
-    </block>
-  </view>
-  <!-- fourPic end -->
+<!-- 版块 -->
+<view class="section fourPic">
+  <block wx:for="{{plate}}" wx:if="{{index<4?true:false}}">
+    <view data-http="{{item.phoneContUrl}}" bindtap="fourPic">
+        <view class="image"><image src="{{item.imageUrl}}"/></view>
+        <view class="content">
+          <text>{{item.title}}</text>
+          <text>{{item.subhead}}</text>
+        </view>
+    </view>
+  </block>
+</view>
 
   <view class="section hotRecommend">
     <view class="title">热门推荐</view>
@@ -197,8 +194,7 @@
         <view class="tips" wx:elif="{{!houseList.length}}">
             <view><text>暂无数据</text></view>
         </view>
-    </view>
-
+  </view>
 <!-- 用户授权弹窗 -->
 <view class="wxShadow" wx:if="{{canIUse}}">
     <view class="wechatAuth">
@@ -209,8 +205,6 @@
       </view>
     </view>
 </view>
-
-
 <!-- 启动动画-->
 <view class="container" wx:if="{{loadingHidden}}">
     <view id="loading">

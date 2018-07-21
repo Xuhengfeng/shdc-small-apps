@@ -1,9 +1,7 @@
 'use strict';
 const SERVER_IPS = ["https://custapis.shyj.cn/custAppApi"];//生产api接口
 // const SERVER_IPS = ["http://112.74.181.229:7031/custAppApi"];//测试api接口
-const SERVERINDEX = 0;
-const SERVER_IP = SERVER_IPS[SERVERINDEX];
-
+const SERVER_IP = SERVER_IPS[0];
 //首页 接口
 export const IP_DEFAULTCITY = SERVER_IPS + "/dictionary/defaultCity";//默认城市
 export const IP_INDEXCONSULT = SERVER_IPS + "/information/pubs/";//获取资讯
@@ -24,8 +22,6 @@ export const IP_BUILDINGLIST = SERVER_IPS + "/build/buildList/";//小区列表
 export const IP_BUILDINGLISTDZ = SERVER_IPS + "/build/building/dz/";//栋座号列表
 export const IP_BUILDINGLISTDYFH = SERVER_IPS + "/build/building/dyfh";//单元或房号列表
 export const IP_ALLH5PAGEURL = SERVER_IPS + "/dictionary/";//单元或房号列表
-
-
 //预约看房
 export const IP_APPOINTADD = SERVER_IPS + "/appoint/add";//加入待看列表
 export const IP_APPOINTDELETE = SERVER_IPS + "/appoint/delete/";//取消加入待看列表
@@ -36,12 +32,9 @@ export const IP_ORDERCANCEL = SERVER_IPS + "/appoint/cancel";//取消预约
 export const IP_COMPLETE = SERVER_IPS + "/appoint/complete";//已看记录
 export const IP_REPORTLIST = SERVER_IPS + "/report/list";//看房报告
 export const IP_BROKEREVALUATE = SERVER_IPS + "/brokerEval/brokerEvaluates";//查询经纪人评价信息(我的评论)
-
-
 //首页猜你喜欢
 export const IP_RENTHOUSELIKE = SERVER_IPS + "/house/queryLike";//首页猜你喜欢 二手房列表
 export const IP_RENTHOUSERENTLIKE = SERVER_IPS + "/rentHouse/queryLike";//首页猜你喜欢 租房列表
-
 //租房 售房
 export const IP_APPLYSELLHOUSE= SERVER_IPS + "/houseEntrustApply/sellHouse";//出售申请
 export const IP_APPLYRENTHOUSE = SERVER_IPS + "/houseEntrustApply/rentHouse";//出租申请
@@ -49,7 +42,6 @@ export const IP_SELLAPPLYLIST= SERVER_IPS + "/houseEntrustApply/querySellApplyLi
 export const IP_RENTAPPLYLIST= SERVER_IPS + "/houseEntrustApply/queryRentApplyList";//我的租房申请列表
 export const IP_ENTRUSTSELL= SERVER_IPS + "/houseEntrustApply/sell/";//卖房委托详情
 export const IP_ENTRUSTRENT= SERVER_IPS + "/houseEntrustApply/rent/";//租房委托详情
-
 //经纪人
 export const IP_BROKERSLIST = SERVER_IPS + "/broker/brokers";//经纪人列表
 export const IP_BROKERSDETAIL = SERVER_IPS + "/broker/";//经纪人详情
@@ -57,8 +49,6 @@ export const IP_BROKERADD = SERVER_IPS + "/brokerCollection/add/";//添加收藏
 export const IP_BROKERCANCEL = SERVER_IPS + "/brokerCollection/cancel/";//取消收藏经纪人
 export const IP_FILLBROKEREVALUATE = SERVER_IPS + "/brokerEval/fillBrokerEvaluate";//用户提价经纪人评价
 export const IP_FILLMEMBERMARK = SERVER_IPS + "/appoint/fillMemberRemark";//用户填写看房备注
-
-
 //详情页和收藏
 export const IP_HOUSESEE = SERVER_IPS + "/house/houseSee/";//小区带看房源记录列表
 export const IP_SAMEUSED = SERVER_IPS + "/build/same-used/";//同小区二手房
@@ -85,11 +75,8 @@ export const IP_BUILDLIST = SERVER_IPS + "/build/buildList/";//查询小区列�
 export const IP_BUILDINFO = SERVER_IPS + "/build/buildInfo/";//获取小区详情(二手房关联小区)
 export const IP_RIMHOUSING = SERVER_IPS + "/house/rimHousing";//二手房周边房源
 export const IP_RENTRIMHOUSING = SERVER_IPS + "/rentHouse/rimHousing";//租房周边房源
-
-
 //字典
 export const IP_DICTIONARYCONDITION = SERVER_IPS + "/dictionary/";//价格 面积 经纪人评价...
-
 //我的 接口
 export const IP_SMSCODELOGIN = SERVER_IPS + "/member/smsCodelogin";//手机验证码登录
 export const IP_GETSMSCODE= SERVER_IPS + "/member/fetchSmsCode";//获取验证码
@@ -98,7 +85,6 @@ export const IP_MYBROKERSCOLLECTIONLIST = SERVER_IPS + "/brokerCollection/collec
 export const IP_ADVICE= SERVER_IPS + "/feedback/advice";//意见反馈
 export const IP_MYINFO = SERVER_IPS + "/member/myinfo"; //我的
 export const IP_MYCOMMENT = SERVER_IPS + "/my/comment"; //我的评论
-
 //登录退出
 export const weChatLogin = SERVER_IPS + "/member/loginWeixin";//微信手机号码和openid第三方登录
 export const weChatRegister = SERVER_IPS + "/member/registerWeixin";//微信注册

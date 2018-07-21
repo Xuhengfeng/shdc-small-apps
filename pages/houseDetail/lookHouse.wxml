@@ -52,4 +52,4 @@
 <view class="section3">
   <button class="weui-btn" type="warn" bindtap="commit">提交</button>
 </view>
-<template is="ownPicker2" data="{{hiddenPicker,dateArr,dateText}}"/>
+<template is="ownPicker" data="{{hiddenPicker,dateArr,dateText}}"/>
