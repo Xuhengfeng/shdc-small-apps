@@ -133,8 +133,6 @@
     vertical-align: middle;
 }
 
-
-
 /*弹出层modal*/
 .shadowLay{
   overflow: hidden;
@@ -158,7 +156,17 @@
   padding: 60rpx 30rpx 0;
   overflow: hidden;
 }
-
+.dialog-header .one{
+  font-size:30rpx;
+  color:#333333;
+  margin-top:20rpx;
+}
+.dialog-header .two{
+  font-size:30rpx;
+  color:#333333;
+  white-space:normal;
+  margin-top:20rpx;
+}
 /* 筛选背景高亮 */
 .bgColor{
   background: #ffeeee;

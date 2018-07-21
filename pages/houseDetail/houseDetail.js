@@ -8,7 +8,6 @@ Page({
     isAppoint: false,//预约看房 已经加入待看
     isAppointment: false,//点击预约看房弹窗
     isLinkman: false,//二手房 租房联系经纪人
-    scrollTop: 0,
     latitude: 38.76623,
     longitude: 116.43213,
     detailType: '',//详情类型
@@ -79,7 +78,7 @@ Page({
       try{
         data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
       }catch(e){}
-      this.setData({community: data.data});
+      this.setData({community: data.data.slice(0, 2)});
     })
   },
   //二手房周边房源
@@ -141,7 +140,7 @@ Page({
   telphone(e) {
     wx.makePhoneCall({phoneNumber: e.target.dataset.phone});
   },
-  //回到顶部 重新请求数据
+  //重新请求数据
   RefreshHouseDetail(e){
     wx.redirectTo({url: '../houseDetail/houseDetail?id='+e.currentTarget.dataset.id+'&scity='+e.currentTarget.dataset.scity});
   },

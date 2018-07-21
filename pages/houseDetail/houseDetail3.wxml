@@ -132,12 +132,12 @@
       </view>
   </view>
   <block wx:for="{{community}}">
-      <view class="item" data-id="{{item.sdid}}" bindtap="RefreshHouseDetail">
+      <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
           <view class="item-content">
-              <!-- 二手房详情 租房详情 -->
+              <!-- 租房详情 -->
               <template is="houseContent3" data="{{item, flagPrice}}"/>
           </view>
       </view>
@@ -147,12 +147,12 @@
 <view class="section section6">
   <view class="title">周边房源</view>
   <block wx:for="{{nearbyHouse}}">
-      <view class="item" data-id="{{item.sdid}}" bindtap="RefreshHouseDetail">
+      <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
           <view class="item-content">
-              <!-- 二手房详情 租房详情 -->
+              <!-- 租房详情 -->
               <template is="houseContent3" data="{{item, flagPrice}}"/>
           </view>
       </view>
@@ -160,10 +160,8 @@
 </view>
 
 
-<view class="footer-placeholder">
-  <!--填充盒补齐底部高度-->
-</view>
-
+<!--填充盒补齐底部高度-->
+<view class="footer-placeholder"></view>
 <view class="footer">
     <!-- 租房  -->
     <view class="type1">
@@ -176,7 +174,6 @@
       <view bindtap="linkman" style="background:#00b969">联系经纪人</view>
     </view>
 </view> 
-
 <!-- 联系人 -->
 <view class="shadowLay2" wx:if="{{isLinkman}}">
     <view class="dialog">
@@ -185,18 +182,14 @@
               <image  src="{{houseDetail.broker.photo? houseDetail.broker.photo:'../../images/avatar.png'}}"/>
           </view>
           <view class="discription">
-            <view class="name" style="font-size:40rpx;color:#000000">{{houseDetail.broker.emplName}}</view>
-            <view style="font-size:30rpx;color:#333333;margin-top:20rpx">电话: {{houseDetail.broker.phone}}</view>
-            <view style="font-size:30rpx;color:#333333;white-space:normal;margin-top:20rpx">{{houseDetail.broker.emplFlag}}</view>
+              <view class="name" style="font-size:40rpx;color:#000000">{{houseDetail.broker.emplName}}</view>
+              <view class="one">电话: {{houseDetail.broker.phone}}</view>
+              <view class="two">{{houseDetail.broker.emplFlag?houseDetail.broker.emplFlag:'房东信赖'}}</view>
           </view>
         </view>
         <view class="dialog-body" data-phone="{{houseDetail.broker.phone}}" bindtap="telphone">电话</view>
         <image src="../../images/close2.png" bindtap="cancelLinkman"></image>
     </view>
 </view>
-
-
-
-
-<!-- 预约看房 -->
-<template is="appointment" data="{{isAppointment,cancelLookHouse}}"/> 
+<!-- 吐司 -->
+<template is="toast2" data="{{toastMsg}}"></template>

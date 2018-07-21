@@ -404,13 +404,16 @@ page{
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
+  margin-left: -260rpx;
+  margin-top: -60rpx;
   background: #ffffff;
   width: 520rpx;
   border-radius: 10rpx;
   text-align: center;
   display: flex;
   flex-flow: column nowrap;
+  -webkit-animation: pulse 0.5s both;
+  animation: pulse 0.5s both;
 }
 .dialog-hd{
   height:140rpx;
@@ -479,4 +482,10 @@ page{
   width:60rpx;
   height:60rpx;
   transform: translateX(-50%);
+}
+@keyframes pulse{
+  50% { 
+    transform: scale(1.1) ;
+    -webkit-transform: scale(1.1) ;
+  } 
 }

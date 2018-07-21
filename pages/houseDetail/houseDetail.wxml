@@ -182,6 +182,7 @@
       <view bindtap="linkman">联系经纪人</view>
     </view>
 </view> 
+
 <!-- 联系人 -->
 <view class="shadowLay2" wx:if="{{isLinkman}}">
     <view class="dialog">
@@ -190,9 +191,9 @@
               <image  src="{{houseDetail.broker.photo? houseDetail.broker.photo:'../../images/avatar.png'}}"/>
           </view>
           <view class="discription">
-            <view class="name" style="font-size:40rpx;color:#000000">{{houseDetail.broker.emplName}}</view>
-            <view style="font-size:30rpx;color:#333333;margin-top:20rpx">电话: {{houseDetail.broker.phone}}</view>
-            <view style="font-size:30rpx;color:#333333;white-space:normal;margin-top:20rpx">{{houseDetail.broker.emplFlag}}</view>
+              <view class="name" style="font-size:40rpx;color:#000000">{{houseDetail.broker.emplName}}</view>
+              <view class="one">电话: {{houseDetail.broker.phone}}</view>
+              <view class="two">{{houseDetail.broker.emplFlag?houseDetail.broker.emplFlag:'房东信赖'}}</view>
           </view>
         </view>
         <view class="dialog-body" data-phone="{{houseDetail.broker.phone}}" bindtap="telphone">电话</view>

@@ -1,5 +1,5 @@
 <!--联系人-->
-<template name="linkman" >
+<!-- <template name="linkman" >
   <view class="shadowLay2" wx:if="{{isLinkman}}">
       <view class="dialog">
           <view class="dialog-header">
@@ -8,15 +8,15 @@
             </view>
             <view class="discription">
               <view class="name" style="font-size:40rpx;color:#000000">{{houseDetail.broker.emplName}}</view>
-              <view style="font-size:30rpx;color:#333333;margin-top:20rpx">电话: {{houseDetail.broker.phone}}</view>
-              <view style="font-size:30rpx;color:#333333;white-space:normal;margin-top:20rpx">房东信赖{{houseDetail.broker.emplFlag}}</view>
+              <view class="one">电话: {{houseDetail.broker.phone}}</view>
+              <view class="two">{{houseDetail.broker.emplFlag?houseDetail.broker.emplFlag:'房东信赖'}}</view>
             </view>
           </view>
           <view class="dialog-body" data-phone="{{houseDetail.broker.phone}}"  bindtap="telphone">电话</view>
           <image src="../../images/close2.png" bindtap="cancelLinkman"></image>
       </view>
   </view>
-</template> 
+</template>  -->
 
 <!-- 预约看房 -->
 <template name="appointment">
@@ -54,19 +54,7 @@
   </view>
 </template>
 
-<!-- 关联小区 -->
-<template name="houseContent1">
-  <view class="item-title">{{guanlianList.buildName}}</view>
-  <view class="description">
-        {{guanlianList.areaName}} {{guanlianList.districtName}} {{guanlianList.buildAge}}建成  {{guanlianList.buildType}}
-  </view>
-  <view style="font-size:26rpx;color:#666666;margin-top:20rpx">
-        在售{{guanlianList.saleCount}}套/在租{{guanlianList.rentCount}}套
-  </view>
-  <view class="housePrice">{{guanlianList.avgSalePrice}}元/平</view>
-</template>
-
-<!-- 同小区房源更多 -->
+<!-- 同小区房源 同小区房源更多 周边房源 -->
 <template name="houseContent3">
   <view class="item-title">{{item.houseTitle}}</view>
   <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
