@@ -61,7 +61,6 @@ Page({
         this.setData({latitude: newData.py, longitude: newData.px});
         this.setData({likeFlag: newData.isCollect,isAppoint: newData.isAppoint});
       })
-   
   },
   //二手房关联小区
   guanlianListRequest(px, py, currentCity, buildSdid) {

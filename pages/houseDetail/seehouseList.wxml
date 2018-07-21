@@ -15,11 +15,15 @@
     <text>带看人</text>
     <text>联系经纪人</text>
 </view>
+<scroll-view scroll-y="true" bindscrolltolower="pullUpLoad" style="height: 70%;" class="content-wrap">
 <block wx:for="{{seelist}}">
     <view class="seehouselist">
         <view>{{item.seeDate}}</view> 
         <view><text>{{item.emplName}}</text></view>
-        <view bindtap="call" data-phone="{{item.phone}}"><image src="../../images/phone.png"></image></view>  
+        <view bindtap="telphone" data-phone="{{item.phone}}"><image src="../../images/phone.png"></image></view>  
     </view>
 </block>
- <view wx:if="{{!seehouselist.length}}" class="nothing"><text>没有记录！</text></view>
+<view class="tips" wx:if="{{!seelist.length}}">
+    <view><text>暂无数据</text></view>
+</view>
+</scroll-view>

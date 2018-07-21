@@ -98,7 +98,6 @@ Page({
       this.setData({nearbyHouse: this.data.nearbyHouse.concat(data.data)});
     });
   },
-
   //待看房源列表
   seeHouseRequest(city) {
     let params = {
@@ -179,7 +178,6 @@ Page({
       .then(data => {wx.hideLoading()});
     }
   },
-
   //图片预览
   previewIamge(e) {
     var current = e.target.dataset.src;
@@ -188,7 +186,6 @@ Page({
       urls: this.data.houseDetail ? this.data.houseDetail.housePicList : this.data.imgUrls //需要预览的图片http链接列表  
     })
   },
-
   //分享
   onShareAppMessage(options) {
     var that = this;
