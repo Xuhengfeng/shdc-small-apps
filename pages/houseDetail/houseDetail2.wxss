@@ -136,19 +136,13 @@ page{
 }
 .section2 .xiaoquinfo{
   width: 100%!important;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-.section2 .xiaoquinfo view:nth-of-type(2){
-  width: 80%;
-  line-height: 1.2;
+  line-height: 1.5!important;
   text-align: justify;
-  white-space: normal;
+  word-wrap:break-word; 
+  white-space: normal!important;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 6;
   overflow: hidden;
 }
 /* 房源位置 */

@@ -69,8 +69,7 @@
       <view>车位数：<text>{{houseDetail.carDownNum+houseDetail.carUpNum}}位</text></view>
       <view>绿化率：<text>{{houseDetail.greenRatio}}%</text></view>
       <view class="xiaoquinfo">
-            <view>小区简介：</view>
-            <view>{{houseDetail.buildSynop}}</view>
+          小区简介：{{houseDetail.buildSynop}}
       </view>
   </view>
 </view> 
@@ -129,7 +128,7 @@
        </view>
 
   <block wx:for="{{guessYoulikeHouse}}" wx:key="index" wx:for-item="item">
-      <view class="item" data-id="{{item.sdid}}" bindtap="jumpHouseDetail">
+      <view class="item" data-id="{{item.sdid}}" data-id="{{item.scity}}" bindtap="jumpHouseDetail">
             <view class="image">
               <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
             <view class="item-content">
@@ -154,12 +153,12 @@
           </view>
       </view>
   </block>
-  <view class="tips">
-      <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
-      <view wx:elif="{{twohandhouse.length}}"><text>上拉加载更多</text></view>
-      <navigator wx:elif="{{!twohandhouse.length}}">没有更多内容</navigator> 
+  <view class="tips" wx:if="{{hasMore}}">
+      <view><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
   </view>
-  <loading wx:if="{{showload}}">加载中...</loading>
+  <view class="tips" wx:elif="{{!guessYoulikeHouse.length}}">
+      <view><text>暂无数据</text></view>
+  </view>
 </view>
 <!-- 吐司 -->
 <template is="toast2" data="{{toastMsg}}"></template>

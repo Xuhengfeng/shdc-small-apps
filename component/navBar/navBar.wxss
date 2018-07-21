@@ -76,8 +76,8 @@
   height: 9rpx;
   vertical-align: middle;
   position: absolute;
-  right: 5px;
-  top: 15px;
+  right: 30rpx;
+  top: 30rpx;
 }
 
 .labelgroup .content{
