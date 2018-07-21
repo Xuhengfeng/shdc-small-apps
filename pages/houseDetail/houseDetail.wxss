@@ -489,9 +489,3 @@ page{
     -webkit-transform: scale(1.1) ;
   } 
 }
-
-@keyframes fadeIn{
-  100% { 
-    background: rgba(0,0,0,0.5);
-  } 
-}
