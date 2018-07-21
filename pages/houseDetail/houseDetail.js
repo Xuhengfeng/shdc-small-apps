@@ -1,9 +1,7 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
 Page({
   data: {
-   
     imgUrls: ['../../images/banner.png'],//轮播图默认图片 
     currentIndex: 1,
     likeFlag: false,//喜欢 收藏
@@ -28,10 +26,10 @@ Page({
     time: null
   },
   onLoad(options) {
+    //房源sdid
     this.setData({houseDetailId: options.id});
     //用户登录标识
     this.setData({token: wx.getStorageSync("userToken")});
-
     //当前房源对应的城市
     if(options.scity){
       this.setData({currentCity: options.scity});
@@ -45,8 +43,8 @@ Page({
     }
 
   },
+  //二手房 
   twoHouseRequest(city, sdid, page) {
-      //二手房 
       let params = {scity: city,unicode: this.data.token, pageNo: page};
       utils.get(Api.IP_TWOHANDHOUSEDETAIL + city + '/' + sdid,params)
       .then(data => {
@@ -66,7 +64,6 @@ Page({
       })
    
   },
-
   //二手房关联小区
   guanlianListRequest(px, py, currentCity, buildSdid) {
     utils.get(Api.IP_BUILDINFO + currentCity + '/' + buildSdid)
@@ -81,9 +78,7 @@ Page({
     .then(data => {
       try{
         data.data.forEach((item) => {item.houseTag = item.houseTag.split(',')});
-      }catch(e){
-        console.log('二手房同小区房源error');
-      }
+      }catch(e){}
       this.setData({community: data.data});
     })
   },
@@ -107,7 +102,6 @@ Page({
       this.setData({nearbyHouse: this.data.nearbyHouse.concat(data.data)});
     });
   },
-  
   //待看房源列表
   seeHouseRequest(city) {
     if(!this.data.token) return;
@@ -115,17 +109,16 @@ Page({
     utils.get(Api.IP_DETAILLIST,params)
     .then(data=>{this.setData({count: data.data.length})});
   },
-
   //点击关联小区进入关联小区详情 
   guanlianxiaoqu() {
     this.cacheHouseType('小区');
-    wx.navigateTo({url: '../houseDetail/houseDetail2?id='+this.data.guanlianList.sdid});
+    wx.navigateTo({url: '../houseDetail/houseDetail2?id='+this.data.guanlianList.sdid+'&scity='+this.data.guanlianList.scity});
   },
   //同小区房源更多
-  tongyuanxiaoqu() {
+  tongyuanxiaoqu(e) {
     let once = wx.getStorageSync('onceHouseType');
     this.cacheHouseType(once);
-    wx.redirectTo({url: '../index/hotHouse?title=同小区房源&id='+this.data.guanlianList.sdid});
+    wx.redirectTo({url: '../index/hotHouse?title=同小区房源&id='+this.data.guanlianList.sdid+'&scity='+this.data.guanlianList.scity});
   },
   //缓存房源类型
   cacheHouseType(value) {
@@ -150,9 +143,7 @@ Page({
   },
   //回到顶部 重新请求数据
   RefreshHouseDetail(e){
-    let sdid = e.currentTarget.dataset.id;
-    // wx.pageScrollTo({scrollTop: 0,duration: 0});
-    wx.redirectTo({url: '../houseDetail/houseDetail?id='+sdid});
+    wx.redirectTo({url: '../houseDetail/houseDetail?id='+e.currentTarget.dataset.id+'&scity='+e.currentTarget.dataset.scity});
   },
   //预约看房
   lookHouse() {
@@ -241,7 +232,6 @@ Page({
     }
     if(options.from == 'button') {
       var eData = options.target.dataset;
-      console.log(eData)
       // 此处可以修改 shareObj 中的内容
       // shareObj.path = '/pages/btnname/btnname?btn_name=' + eData.name;
     }

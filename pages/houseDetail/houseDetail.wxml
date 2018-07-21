@@ -136,7 +136,7 @@
       </view>
   </view>
   <block wx:for="{{community}}">
-      <view class="item" data-id="{{item.sdid}}" bindtap="RefreshHouseDetail">
+      <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
@@ -151,7 +151,7 @@
 <view class="section section6">
   <view class="title">周边房源</view>
   <block wx:for="{{nearbyHouse}}">
-      <view class="item" data-id="{{item.sdid}}" bindtap="RefreshHouseDetail">
+      <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
           </view>
