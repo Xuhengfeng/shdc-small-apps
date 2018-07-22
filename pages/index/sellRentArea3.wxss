@@ -1,3 +1,4 @@
+@import "../template/template.wxss";
 .search-box{
     padding: 40rpx 35rpx 25rpx;
     background: #f9f9f9;

@@ -1,3 +1,4 @@
+@import "../template/template.wxss";
 .search-box{
     position: fixed;
     top: 0;
@@ -41,24 +42,24 @@ image{
     line-height: 90rpx;
     background: #e6e6e6;
 }
-.title{
+.otitle{
     height: 100rpx;
     line-height: 100rpx;
     background: #f9f9f9;
     font-size: 30rpx;
     color: #999999;
 }
-.section{
+.osection{
     padding-top: 250rpx;
     background: #ffffff;
 }
-.section>view>view{
+.osection>view>view{
     height: 100rpx;
     line-height: 100rpx;
     border-bottom: 1px solid #e6e6e6;
     margin: 0 35rpx;
 }
-.section>view>view>text{
+.osection>view>view>text{
     float: right;
     height: 100rpx;
     line-height: 100rpx;

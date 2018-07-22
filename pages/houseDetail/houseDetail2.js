@@ -26,7 +26,6 @@ Page({
     token: null,
     toastMsg: null,
     time: null,
-    currentIp: null,
     arr1: [],//二手房
     arr2: []//租房
   },

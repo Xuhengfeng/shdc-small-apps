@@ -1,13 +1,14 @@
+<import src="../template/template.wxml"/>
 <!-- 小区名称 -->
 <view class="search-box">
     <view class="search"> 
       <view class="img" bindtap="startsearch"><image src="../../images/search.png"/></view>
       <input confirm-type="搜索" bindinput="userSearch" bindconfirm="searchSubmit" placeholder="请输入小区名称"/>
-      <view class="confirmBtn {{keyword?'fontColor':''}}" bindtap="startsearch">确定</view>
+      <view class="confirmBtn {{keyword?'fontColor':''}}" bindtap="confirmSearch">确定</view>
     </view> 
-    <view class="title">快速选择</view>
+    <view class="otitle">快速选择</view>
 </view>   
-<view class="section">
+<view class="osection">
     <!-- 在售 -->
     <view wx:for="{{estate}}" wx:if="{{houseTypes==0}}" data-item="{{item}}" catchtap="selectItem">
         <view>{{item.buildName}}<text>{{item.saleCount}}套</text></view>
@@ -17,3 +18,5 @@
         <view>{{item.buildName}}<text>{{item.rentCount}}套</text></view>
     </view>
 </view>
+<!-- 吐司 -->
+<template is="toast2" data="{{toastMsg}}"></template>
