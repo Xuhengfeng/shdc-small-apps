@@ -57,7 +57,7 @@ Page({
     this.setData({keyword: e.detail.value});
     this.searchSubmit();
   },
-  //点击icon搜索 或 确定按钮
+  //点击icon搜索
   startsearch() {
     this.searchSubmit();
   },

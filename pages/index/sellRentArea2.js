@@ -5,22 +5,25 @@ Page({
     unit: [],//单元
     keyword: null,
     currentCity: null,
+    page: 1,
     //栋座号名称 栋座号id 小区id 这个要传递给门牌号  
     roomItem: null,
+    toastMsg: null,
+    time: null
   },
   onLoad(options) {
     this.setData({roomItem: options});    
     utils.storage('selectCity2')
     .then(res=>{
       this.setData({currentCity: res.data.value});
-      this.unitRequest();
+      this.onReachBottom();
     })
   },
   //单元号请求
-  unitRequest() {
+  unitRequest(page) {
     let params = {
       keyword: this.data.keyword,
-      pageNo: 1,
+      pageNo: page,
       dyname: null,
       scity: this.data.currentCity,
       buildId: this.data.roomItem.houseRimId,//小区id
@@ -29,7 +32,14 @@ Page({
     utils.post(Api.IP_BUILDINGLISTDYFH, params)
     .then(data=>{
       data.data.unshift('无单元号');
-      this.setData({unit: data.data});
+      if (page>1) {
+        if (!data.data.length) {
+          this.setData({toastMsg: `数据已加载全部`});
+        }else{
+          this.setData({toastMsg: `加载第${page}页数据...`});
+        }
+      };
+      this.setData({unit: this.data.unit.concat(data.data)});
     })
   },
   //选着单元号
@@ -43,18 +53,34 @@ Page({
   },
   //获取用户输入关键字
   userSearch(e) {
-    this.setData({ keyword: e.detail.value })
+    this.setData({keyword: e.detail.value});
+    this.searchSubmit();
   },
-  //点击icon搜索 或 确定按钮
+  //点击icon搜索
   startsearch() {
     this.searchSubmit();
   },
   //键盘回车搜索
   searchSubmit() {
-    if (!this.data.keyword) {
-      wx.showModal({ content: '请输入关键词' });
-    } else {
-      this.unitRequest(this.data.houseRimId);
+    this.data.unit = [];
+    this.unitRequest(1);
+  },  
+  //确定按钮
+  confirmSearch() {
+    if(this.data.keyword!=''&&!this.data.buildingBlock.length){
+      wx.setStorage({key:'buildingBlockName',data: this.data.keyword});
+      let buildingBlockName = this.data.keyword;
+      let buildingBlockId = null;
+      let houseRimId = this.data.houseRimId;
+      //栋座号名称 栋座号id 小区id ------------------------------------->>>>>>>单元号页面 
+      wx.navigateTo({url: 
+        `sellRentArea3?buildingBlockName=${buildingBlockName}&buildingBlockId=${buildingBlockId}&houseRimId=${houseRimId}`
+      });
     }
-  }, 
+  },
+  //上拉加载更多
+  onReachBottom() {
+    let page = this.data.page++;
+    this.unitRequest(page);
+  }
 })

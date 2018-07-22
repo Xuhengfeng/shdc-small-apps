@@ -6,8 +6,11 @@ Page({
     keyword: null,
     currentCity: null,//当前城市拼音
     cityName: null,
+    page: 1,
     //栋座号名称 栋座号id 小区id 单元号  
     tempData: null,
+    toastMsg: null,
+    time: null
   },
   onLoad(options) {
     console.log(options);
@@ -15,14 +18,14 @@ Page({
     utils.storage('selectCity2')
     .then(res=>{
       this.setData({currentCity: res.data.value,cityName:res.data.name});
-      this.unitRequest(options.unitName);
+      this.onReachBottom();
     })
   },
   //门牌号请求
-  unitRequest(dyname) {
+  unitRequest(page, dyname) {
     let params = {
       keyword: this.data.keyword,
-      pageNo: 1,
+      pageNo: page,
       dyname: dyname,
       scity: this.data.currentCity,
       buildId: this.data.tempData.houseRimId,//小区id
@@ -43,7 +46,7 @@ Page({
     let str = '';//房源信息
     let str2 = '';//具体地址信息
     let pages = getCurrentPages();//当前页面
-    let prevPage = pages[pages.length - 4];//sellRent页面
+    let prevPage = pages[pages.length - 5];//sellRent页面
 
     // if(buildingBlockName=='无栋座号') buildingBlockName = '';
     // if(unitName=='无单元号') unitName = '';
@@ -53,8 +56,8 @@ Page({
     utils.storage('sellRentXiaoQu')
     .then(res=>{
       str2 = this.data.cityName + res.data +  str;
-      prevPage.setData({houseInfoContent: str,phcolorFlag4:false,address:str2,phcolorFlag5:false});
-      wx.navigateBack({delta: 3});//页面返回三级
+      prevPage.setData({houseInfoContent: str,address:str2});
+      wx.navigateBack({delta: 4});//页面返回4级
     })
   },
   //获取用户输入关键字
@@ -67,10 +70,12 @@ Page({
   },
   //键盘回车搜索
   searchSubmit() {
-    if (!this.data.keyword) {
-      wx.showModal({ content: '请输入关键词' });
-    } else {
-      this.unitRequest(this.data.tempData.dyname);
-    }
+    this.data.roomNum = [];
+    this.unitRequest(1, this.data.tempData.dyname);
   }, 
+  //上拉加载更多
+  onReachBottom() {
+    let page = this.data.page++;
+    this.unitRequest(page, this.data.tempData.dyname);
+  }
 })

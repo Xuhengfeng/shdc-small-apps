@@ -35,16 +35,16 @@ image{
     line-height: 90rpx;
     background: #e6e6e6;
 }
-.section{
+.osection{
     background: #ffffff;
 }
-.section>view>view{
+.osection>view>view{
     height: 100rpx;
     line-height: 100rpx;
     border-bottom: 1px solid #e6e6e6;
     margin: 0 35rpx;
 }
-.title{
+.otitle{
     height: 100rpx;
     line-height: 100rpx;
     background: #f9f9f9;
