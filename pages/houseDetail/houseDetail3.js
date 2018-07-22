@@ -54,8 +54,6 @@ Page({
       this.communityRequest(city, newData.buildSdid);
       //附近房源详情
       this.nearbyHouseRequest(newData.px, newData.py, city, newData.buildSdid, 1);
-      //待看房源列表
-      this.seeHouseRequest(city);
       //刷新
       this.setData({houseDetail: newData});
       this.setData({latitude: newData.py, longitude: newData.px});
@@ -152,10 +150,6 @@ Page({
   cancelLinkman() {
     this.setData({isLinkman: false});
   },
-  //带看列表
-  goSeeList() {
-    wx.navigateTo({url: "../index/lookHouseList"});
-  },
   //收藏
   toggleSelectLike() {
     if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
@@ -216,8 +210,5 @@ Page({
   onReachBottom(){
     let page = this.data.page++;
     this.nearbyHouseRequest(this.data.longitude, this.data.latitude, this.data.currentCity, this.data.houseDetailId, page); 
-  },
-  onShow() {
-    this.seeHouseRequest(this.data.currentCity);
   }
 })

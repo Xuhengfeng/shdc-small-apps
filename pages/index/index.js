@@ -196,8 +196,10 @@ Page({
       })
       let flagpc =  this.data.num == 0 ? true : false;
       this.setData({flagPrice: flagpc});
-      this.setData({houseList: data.data});
       this.setData({hasMore: false});
+      data.data.forEach(item=>{item.show = false});
+      this.setData({houseList: data.data});
+      this.onPageScroll();
     })
   },
   onPullDownRefresh() {
@@ -322,6 +324,22 @@ Page({
         this.setData({canIUse: false}
       )}
     })
+  },
+  onPageScroll() {
+    let height = wx.getSystemInfoSync().windowHeight;
+    let houseList = this.data.houseList;
+    let node = '.goodList .item';     
+    //图片懒加载
+    wx.createSelectorQuery().selectAll(node).boundingClientRect(ret => {
+      ret.forEach((item, index) => {
+        //判断是否在显示范围内
+        if (item.top <= height) { 
+          houseList[index].show = true // 根据下标改变状态
+        }
+      })
+      //刷新
+      this.setData({houseList: houseList});
+    }).exec();
   },
   onShow() {
     setTimeout(()=>{

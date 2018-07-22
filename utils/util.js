@@ -29,7 +29,6 @@ const storage = (key)=> {
     })
   })
 }
-
 //用户登录
 const login = ()=> {
   return new Promise((resolve,reject) => wx.login({
@@ -37,7 +36,6 @@ const login = ()=> {
     fail:reject
   }))
 }
-
 //获取用户信息
 const getUserInfo = ()=> {
   return login().then(res => new Promise((resolve,reject) => 
@@ -47,7 +45,6 @@ const getUserInfo = ()=> {
     })
   ))
 }
-
 //封装Request请求方法
 const requst = (url,method,data = {})=> {
   let title = data.title ? data.title : '加载中...';
@@ -82,14 +79,13 @@ const requst = (url,method,data = {})=> {
     })
   })
 }
-
-const requstGet = (url, data)=> {
+const requstGet = (url, data) => {
   return requst(url,'GET',data);
 }
-const requstPost = (url, data)=> {
+const requstPost = (url, data) => {
   return requst(url,'POST',data);
 }
-const requstDelete = (url, data)=> {
+const requstDelete = (url, data) => {
   return requst(url,'DELETE',data);
 }
 
