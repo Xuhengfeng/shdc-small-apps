@@ -53,4 +53,10 @@ Page({
     this.cacheHouseType('租房');
     wx.navigateTo({url: "../houseDetail/houseDetail3?id="+e.currentTarget.dataset.id+"&scity="+e.currentTarget.dataset.scity});
   },
+  onShow() {
+    //修正
+    this.data.houseList=[];
+    this.data.page = 1;
+    this.onReachBottom();
+  }
 });

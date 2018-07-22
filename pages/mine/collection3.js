@@ -40,5 +40,11 @@ Page({
       this.setData({hasMore: false});
       this.setData({brokers: this.data.brokers.concat(data.data)});
     })
+  },
+  onShow() {
+    //修正
+    this.data.brokers=[];
+    this.data.page = 1;
+    this.onReachBottom();
   }
 });

@@ -40,4 +40,10 @@ Page({
     this.cacheHouseType('小区');
     wx.navigateTo({url: "../houseDetail/houseDetail2?id="+e.currentTarget.dataset.id+"&scity="+e.currentTarget.dataset.scity});
   },
+  onShow() {
+    //修正
+    this.data.houseList=[];
+    this.data.page = 1;
+    this.onReachBottom();
+  }
 });

@@ -1,6 +1,5 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
 Page({
   data: {
     houseList: [],
@@ -53,4 +52,10 @@ Page({
     this.cacheHouseType('二手房');
     wx.navigateTo({url: "../houseDetail/houseDetail?id="+e.currentTarget.dataset.id+"&scity="+e.currentTarget.dataset.scity});
   },
+  onShow() {
+    //修正
+    this.data.houseList=[];
+    this.data.page = 1;
+    this.onReachBottom();
+  }
 });

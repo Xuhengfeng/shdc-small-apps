@@ -64,10 +64,12 @@
 }
 .sheet{
   position: fixed;
-  bottom: 0;
+  bottom: -100%;
   width: 100%;
   background: #f8f8f8;
   text-align: center;
+  -webkit-animation: move 0.5s both;
+  animation: move 0.5s both;
 }
 .sheet view{
   height: 100rpx;
@@ -83,4 +85,9 @@
 .weui-input{
   height: 100rpx;
   line-height: 100rpx;
+}
+@keyframes move{
+  100% { 
+    bottom: 0;
+  } 
 }
