@@ -166,7 +166,7 @@
         <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
           <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="guesslike">
                 <view class="image">
-                  <image class="{{item.show ? 'active': ''}}" src="{{item.show?item.housePic: '../../images/astate.png'}}"></image></view>
+                  <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
                 <view class="item-content">
                     <view class="item-title">{{item.houseTitle}}</view>
                     <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        

@@ -291,15 +291,6 @@
 .wxFooter button::after{
   border: none;
 }
-
-.goodList image{
-	transition: all .3s ease;
-	opacity: 0;
-}
-.active{
-	opacity: 1!important;
-}
-
 /* 动画 */
 #loading{
   background-color: #db9e36;

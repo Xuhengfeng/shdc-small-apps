@@ -397,8 +397,6 @@ page{
 .houseTag text:nth-of-type(3){
   background: #fface5;
 }
-
-
 /* 预约看房 */
 .dialog{
   position: absolute;

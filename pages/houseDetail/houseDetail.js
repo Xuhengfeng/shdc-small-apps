@@ -93,12 +93,22 @@ Page({
     utils.post(Api.IP_RIMHOUSING, params)
     .then(data => {
       try{
-        data.data.forEach(item => {item.houseTag = item.houseTag.split(',')});
+        data.data.forEach(item => {
+          item.show = false;
+          item.houseTag = item.houseTag.split(',')
+        });
       }catch(e){}
       this.data.time = setTimeout(()=>{this.setData({toastMsg: null})},300);
-      if (page>1) {this.setData({toastMsg: `加载第${page}页数据...`})};
+      if (page>1) {
+        if (!data.data.length) {
+          this.setData({toastMsg: `数据已加载全部`});
+        }else{
+          this.setData({toastMsg: `加载第${page}页数据...`});
+        }
+      };
+      //刷新
       this.setData({nearbyHouse: this.data.nearbyHouse.concat(data.data)});
-    });
+     });
   },
   //待看房源列表
   seeHouseRequest(city) {
