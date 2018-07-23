@@ -81,22 +81,14 @@ Page(filter.loginCheck({
   //房源所在的小区
   houseRim() {
     if(this.data.city == "选择您房源所在城市"){
-      wx.showModal({
-        content: '请先选着城市'
-      })
+      wx.showModal({content: '请先选着城市'});
     }else{
       wx.navigateTo({url: `sellRentArea?houseTypes=${this.data.num}`});
     }
   },
   //房源信息
   houseInfo() {
-    if(this.data.city == "选择您房源所在城市"){
-      wx.showModal({
-        content: '请先选着城市'
-      })
-    }else{
-      wx.navigateTo({url: `sellRentArea1?houseRimId=${this.data.houseRimId}`});
-    }
+    if(this.data.city == "选择您房源所在城市") wx.showModal({content: '请先选着小区'});
   },
   //提交
   commit(IP) {

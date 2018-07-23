@@ -3,13 +3,12 @@ const utils = require("../../utils/util");
 Page({
   data: {
     estate: [],//小区
-    keyword: null,//关键词
+    keyword: '',//关键词
     page: 1,
     currentCity: null,//当前城市
     houseTypes: 0,//租房 或 售房
     toastMsg: null,
     time: null,
-    buildingName: null,//小区名称
     buildingId: null//小区id
   },
   onLoad(options) {
@@ -45,8 +44,8 @@ Page({
   //选着小区
   selectItem(e){
     let target = e.currentTarget.dataset.item;
-    this.setData({buildingName: target.buildName,buildingId:target.id})
-    wx.setStorage({key:'sellRentXiaoQu',data: target.buildName});
+    this.setData({buildingId: target.id});
+    wx.setStorageSync('xiaoqu', target.buildName);
     wx.navigateTo({url:`sellRentArea1?houseRimId=${target.id}`});
   },
   //获取用户输入关键字
@@ -65,8 +64,8 @@ Page({
   },
   //确定按钮
   confirmSearch() {
-    if(this.data.keyword!=''&&!this.data.estate.length){
-      wx.setStorage({key:'sellRentXiaoQu',data: this.data.keyword});
+    if(this.data.keyword!=''){
+      wx.setStorageSync('xiaoqu', this.data.keyword);
       let buildingId = this.data.buildingId;
       wx.navigateTo({url:`sellRentArea1?houseRimId=${buildingId}`});
     }

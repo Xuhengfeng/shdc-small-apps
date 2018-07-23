@@ -44,7 +44,7 @@ Page({
     //单元号
     let unitName = this.data.tempData.unitName;
     //门牌号
-    let target = e.currentTarget.dataset.item;
+    let target = e.currentTarget.dataset.item || this.data.keyword ;
     //房源信息
     let str = '';
     //具体地址信息
@@ -75,6 +75,12 @@ Page({
     this.data.roomNum = [];
     this.unitRequest(1, this.data.tempData.dyname);
   }, 
+  //确定按钮
+  confirmSearch(e) {
+    if (this.data.keyword != '') {
+      this.selectItem(e);
+    }
+  },
   //上拉加载更多
   onReachBottom() {
     let page = this.data.page++;

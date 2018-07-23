@@ -9,7 +9,8 @@ Page({
     currentCity: null,
     houseRimId: null,//小区id
     toastMsg: null,
-    time: null
+    time: null,
+    nodata: {id: '',name:'无栋座号'},//无栋座号
   },
   onLoad(options) {
     utils.storage('selectCity2')
@@ -32,7 +33,6 @@ Page({
     };
     utils.get(Api.IP_BUILDINGLISTDZ+this.data.houseRimId, params)
     .then(data=>{
-      data.data.unshift({id: '',name:'无栋座号'});
       if (page>1) {
         if (!data.data.length) {
           this.setData({toastMsg: `数据已加载全部`});
@@ -47,10 +47,9 @@ Page({
   selectItem(e) {
     let target = e.currentTarget.dataset.item;
     let houseRimId = this.data.houseRimId;
-    //栋座号名称 栋座号id 小区id ------------------------------------->>>>>>>单元号页面 
-    wx.navigateTo({url: 
-      `sellRentArea2?buildingBlockName=${target.name}&buildingBlockId=${target.id}&houseRimId=${houseRimId}`
-    });
+    wx.setStorageSync('dongzuo', target.name);
+    //小区id 栋座号id >>>>>>>单元号页面 
+    wx.navigateTo({url:`sellRentArea2?houseRimId=${houseRimId}&buildingBlockId=${target.id}`});
   },
   //获取用户输入关键字
   userSearch(e) {
@@ -68,15 +67,11 @@ Page({
   }, 
   //确定按钮
   confirmSearch() {
-    if(this.data.keyword!=''&&!this.data.buildingBlock.length){
-      wx.setStorage({key:'buildingBlockName',data: this.data.keyword});
-      let buildingBlockName = this.data.keyword;
-      let buildingBlockId = null;
+    if(this.data.keyword!=''){
+      wx.setStorageSync('dongzuo', this.data.keyword);
       let houseRimId = this.data.houseRimId;
-      //栋座号名称 栋座号id 小区id ------------------------------------->>>>>>>单元号页面 
-      wx.navigateTo({url: 
-        `sellRentArea2?buildingBlockName=${buildingBlockName}&buildingBlockId=${buildingBlockId}&houseRimId=${houseRimId}`
-      });
+      //小区id 栋座号id >>>>>>>单元号页面 
+      wx.navigateTo({url:`sellRentArea2?houseRimId=${houseRimId}&buildingBlockId=null`});
     }
   },
   //上拉加载更多

@@ -48,7 +48,7 @@ Page({
     let room = this.data.roomItem;
     //栋座号名称 栋座号id 小区id 单元号----------------------------->>>>>>>>>门牌号页面
     wx.navigateTo({url: 
-      `sellRentArea3?buildingBlockName=${room.buildingBlockName}&buildingBlockId=${room.buildingBlockId}&houseRimId=${room.houseRimId}&unitName=${target}`
+      `sellRentArea3?buildingBlockName=${room.buildingBlockName}&buildingBlockId=${room.buildingBlockId}&houseRimId=${room.houseRimId}&unitName=${target}&dyname=${target}`
     });
   },
   //获取用户输入关键字
@@ -67,14 +67,13 @@ Page({
   },  
   //确定按钮
   confirmSearch() {
-    if(this.data.keyword!=''&&!this.data.buildingBlock.length){
+    if(this.data.keyword!=''){
       wx.setStorage({key:'buildingBlockName',data: this.data.keyword});
       let buildingBlockName = this.data.keyword;
       let buildingBlockId = null;
-      let houseRimId = this.data.houseRimId;
       //栋座号名称 栋座号id 小区id ------------------------------------->>>>>>>单元号页面 
       wx.navigateTo({url: 
-        `sellRentArea3?buildingBlockName=${buildingBlockName}&buildingBlockId=${buildingBlockId}&houseRimId=${houseRimId}`
+        `sellRentArea3?buildingBlockName=${buildingBlockName}&buildingBlockId=${buildingBlockId}&dyname=null`
       });
     }
   },
