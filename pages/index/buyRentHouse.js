@@ -27,7 +27,10 @@ Page({
     proportion: [],//面积
     mode: [],//类型
     keyword: null,//获取用户输入值
-    params: {}//请求参数
+    params: {},//请求参数
+    toastMsg1: null,
+    toastMsg: null,
+    time: null
   },
   onLoad(options) {
     //初始化
@@ -179,12 +182,17 @@ Page({
   onReachBottom() {
     let page = this.data.page++;
     let IP = this.data.IPS[this.data.num];
-        this.data.params.pageNo = page;
-        this.getDataFromServer(IP, this.data.params);
+    console.log(page);
+        this.getDataFromServer(IP, page);
   },
   //请求数据
-  getDataFromServer(IP, Params) {//请求数据
-    utils.post(IP, Params)
+  getDataFromServer(IP, page) {//请求数据
+    let params = {
+      'pageNo': page,
+      'scity': this.data.cityCode
+    }
+    this.data.time =  null;
+    utils.post(IP, params)
     .then(data => {
       try{
         data.data.forEach((item) => {
@@ -192,9 +200,18 @@ Page({
         })
       }catch(e){};
       this.setData({hasMore: false});
-      this.setData({houseList: this.data.houseList.concat(data.data)});
+      this.data.time = setTimeout(()=>{this.setData({toastMsg: null})},300);
       let falgpc = this.data.num == 0 ? true : false;
       this.setData({flagPrice: falgpc})
+      if (page>1) {
+        if (!data.data.length) {
+          this.setData({toastMsg: `数据已加载全部`});
+        }else{
+          this.setData({toastMsg: `加载第${page}页数据...`});
+        }
+      };
+      //刷新
+      this.setData({houseList: this.data.houseList.concat(data.data)});
     })
   },
   //为你推荐跳转

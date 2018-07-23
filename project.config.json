@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.8",
-	"appid": "wxce209331358eecd8",
+	"appid": "wx2f29dfd350dc78d8",
 	"projectname": "%E4%B8%96%E5%8D%8E%E6%98%93%E5%B1%85",
 	"isGameTourist": false,
 	"condition": {

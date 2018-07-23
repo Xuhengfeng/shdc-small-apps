@@ -107,11 +107,17 @@
               </view>
           </view>
       </block>
-      <view class="tips">
-          <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
-          <view wx:elif="{{!houseList.length}}"><text>暂无数据</text></view>
+      <view class="tips" wx:if="{{hasMore}}">
+          <view><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
+      </view>
+      <view class="tips" wx:elif="{{!houseList.length}}">
+          <view><text>暂无数据</text></view>
       </view>
       <view style="height:800px;" wx:if="{{!houseList.length||houseList==''}}"></view>
   </view>
 
-<template is="toast1" data="{{toastMsg}}"></template>
+
+<template is="toast1" data="{{toastMsg1}}"></template>
+
+
+<template is="toast2" data="{{toastMsg}}"></template>

@@ -75,7 +75,7 @@
 
 <!-- 吐司1 -->
 <template name="toast1">
-  <view class="toast1">{{toastMsg}}</view>
+  <view class="toast1" wx:if="{{toastMsg1!==null}}">{{toastMsg1}}</view>
 </template>
 
 <!-- 吐司2 -->
