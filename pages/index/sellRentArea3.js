@@ -39,24 +39,26 @@ Page({
   },
   //选着门牌号 回到 sellRent 页面
   selectItem(e) {
-    //栋座号名称 单元号 门牌号 
+    //栋座号名称 
     let buildingBlockName = this.data.tempData.buildingBlockName;
+    //单元号
     let unitName = this.data.tempData.unitName;
+    //门牌号
     let target = e.currentTarget.dataset.item;
-    let str = '';//房源信息
-    let str2 = '';//具体地址信息
-    let pages = getCurrentPages();//当前页面
+    //房源信息
+    let str = '';
+    //具体地址信息
+    let str2 = '';
+    //页面栈
+    let pages = getCurrentPages();
     let prevPage = pages[pages.length - 5];//sellRent页面
-
-    // if(buildingBlockName=='无栋座号') buildingBlockName = '';
-    // if(unitName=='无单元号') unitName = '';
-    // if(target=='无门牌号') target = '';
     
     str = buildingBlockName + ' '+unitName+' '+target;
+
     utils.storage('sellRentXiaoQu')
     .then(res=>{
       str2 = this.data.cityName + res.data +  str;
-      prevPage.setData({houseInfoContent: str,address:str2});
+      prevPage.setData({houseRimName: res.data, houseInfoContent: str,address:str2});
       wx.navigateBack({delta: 4});//页面返回4级
     })
   },

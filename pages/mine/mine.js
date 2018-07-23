@@ -7,7 +7,6 @@ Page({
   data: {
     showLogout: false,
     nickName: null,
-    avatarUrl: null,
     myInfo: null
   },
   onLoad() {
@@ -25,18 +24,18 @@ Page({
   },
   //退出
   logout() {
-    let params = {
-      "unicode": wx.getStorageSync("userToken")
-    }
+    let params = {"unicode": wx.getStorageSync("userToken")};
     utils.post(Api.logout,params)
     .then(data=>{
       this.setData({
         showLogout: false,
         nickName: null,
-        avatarUrl: null,
         myInfo: null
       })
+      wx.removeStorageSync('ciphertext');
+      wx.removeStorageSync('userPhone');
       wx.removeStorageSync('userToken');
+      wx.removeStorageSync('userInfo');
       wx.removeStorageSync('userInfo2');
     })
   },
@@ -66,13 +65,16 @@ Page({
   //经纪人收藏数量
   //小区收藏数量
   getMyInfo() {
-    let params = {
-      "unicode": wx.getStorageSync("userToken")
-    }
+    let params = {"unicode": wx.getStorageSync("userToken")};
     utils.get(Api.IP_MYINFO,params)
     .then(data=>{
       data.data.custServerPhone = data.data.custServerPhone.slice(0,4)+"-"+data.data.custServerPhone.slice(4);
-      this.setData({myInfo: data.data});
+      let userInfo2 = wx.getStorageSync('userInfo2');
+      if(userInfo2) {
+        data.data.headImage = JSON.parse(userInfo2).avatarUrl;
+        data.data.mobile = JSON.parse(userInfo2).nickName;
+      }
+      this.setData({myInfo: data.data});  
     })
   },
   onShow() {

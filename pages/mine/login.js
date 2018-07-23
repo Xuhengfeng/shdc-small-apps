@@ -15,52 +15,57 @@ Page({
     code: '', //验证码
     currentCity: null
   }, 
-  getPhoneNumber(e) {//这个方法后面 如果是企业号 就可以获取用户手机号
-  console.log(e.detail)
-  if (e.detail.errMsg == 'getPhoneNumber:fail user deny' || e.detail.errMsg =='getPhoneNumber:fail:cancel to confirm login') {
-      //切换到用户手机号登录
-      this.setData({isphoneLogin: false});
-    }else{
-      //判断是否有appid--------->>>>
-      let ciphertext = JSON.parse(wx.getStorageSync('ciphertext'));
-      let userInfo = JSON.parse(wx.getStorageSync('userInfo'));
-
-      let appId = 'wxce209331358eecd8';
-      let Key = ciphertext.sessionKey;
-      let iv = e.detail.iv;
-      let encryptedData = e.detail.encryptedData;
-      let pc = new WXBizDataCrypt(appId, Key)
-      let data = pc.decryptData(encryptedData, iv)
-      console.log('解密后 data: ', data)
-      
-      wx.setStorage({ key: 'userPhone', data: data});
-      let params = {
-        "authKey": ciphertext.authKey,
-        "headImage": userInfo.avatarUrl,
-        "nickname":  userInfo.nickName,
-        "openid": ciphertext.openid,
-        "phone": data.phoneNumber,
-        "sex": userInfo.gender
-      }
-      utils.post(Api.weChatRegister, params)
-      .then((data) => {
-        let newParams = {
-            "openid": ciphertext.openid,
-            "phone": data.phoneNumber
-        }
-        return utils.get(Api.weChatLogin, newParams);
-      })
-      .then((data)=>{
-        wx.setStorage({ key: 'userToken', data: data.data });
-        this.goBackSet(params,2);
-      })
-    }
-  },  
   onLoad(options) {
     this.getUseInfo();
     utils.storage('selectCity')
     .then(res=>{
       this.setData({currentCity: res.data.value});
+    })
+  },
+  getPhoneNumber(e) {//这个方法后面 如果是企业号 就可以获取用户手机号
+  if (e.detail.errMsg == 'getPhoneNumber:fail user deny' || e.detail.errMsg =='getPhoneNumber:fail:cancel to confirm login') {
+      //切换到用户手机号登录
+      this.setData({isphoneLogin: false});
+    }else{
+      //判断是否有凭证--------->>>>
+      let ciphertext, userInfo = JSON.parse(wx.getStorageSync('userInfo'));
+      try{
+        ciphertext = JSON.parse(wx.getStorageSync('ciphertext'));
+        this.loginRequest(e, ciphertext, userInfo);
+      }catch(error){
+        app.oLogin().then(res=>{
+          this.loginRequest(e, res, userInfo);
+        })
+      }
+    }
+  },  
+  loginRequest(e, ciphertext, userInfo) {
+    let appId = 'wxce209331358eecd8';
+    let Key = ciphertext.sessionKey;
+    let iv = e.detail.iv;
+    let encryptedData = e.detail.encryptedData;
+    let pc = new WXBizDataCrypt(appId, Key)
+    let parseData = pc.decryptData(encryptedData, iv)
+    wx.setStorage({ key: 'userPhone', data: parseData});     
+    let params = {
+      "authKey": ciphertext.authKey,
+      "headImage": userInfo.avatarUrl,
+      "nickname":  userInfo.nickName,
+      "openid": ciphertext.openid,
+      "phone": parseData.phoneNumber,
+      "sex": userInfo.gender
+    }
+    utils.post(Api.weChatRegister, params)
+    .then(data => {
+      let newParams = {
+          "openid": ciphertext.openid,
+          "phone": parseData.phoneNumber
+      }
+      return utils.get(Api.weChatLogin, newParams);
+    })
+    .then(data=>{
+      wx.setStorage({ key: 'userToken', data: data.data });
+      this.goBackSet(params,2);
     })
   },
   //用户基本信息
@@ -107,7 +112,6 @@ Page({
   },
   //返回刷新设置
   goBackSet(data,num) {
-    console.log(data)
     wx.showToast({title: '登录成功',icon: 'success',duration: 1000});
     let newobj;
     switch(num){
@@ -124,9 +128,9 @@ Page({
             avatarUrl:  data.headImage,
             showLogout: true
           }
+          wx.setStorageSync('userInfo2', JSON.stringify(newobj));
           break;
     }
-    wx.setStorageSync('userInfo2', JSON.stringify(newobj));
     setTimeout(() => {
       wx.switchTab({ 
       url: '../index/index', 

@@ -1,21 +1,7 @@
 const Api = require("utils/url");
 App({
   onLaunch() {
-    //登录
-    wx.login({
-      success: res => {
-        if (res.code) {
-          wx.request({
-            url: Api.weChat,
-            data: {"code": res.code},
-            method: 'GET',
-            success: response => {
-              wx.setStorageSync('ciphertext', JSON.stringify(response.data.data));
-            }
-          })
-        }
-      }
-    })
+    this.oLogin();
     // 获取用户信息  
     wx.getSetting({  
       success: res => {  
@@ -25,6 +11,26 @@ App({
       }  
     }) 
   },
+  //登录
+  oLogin() {
+    return new Promise(resolve=>{
+        wx.login({
+          success: res => {
+            if (res.code) {
+              wx.request({
+                url: Api.weChat,
+                data: {"code": res.code},
+                method: 'GET',
+                success: response => {
+                  resolve(response.data.data);
+                  wx.setStorageSync('ciphertext', JSON.stringify(response.data.data));
+                }
+              })
+            }
+          }
+        })
+    })
+  }, 
   getuserInfo() {
     wx.getUserInfo({  
       success: res => {  
