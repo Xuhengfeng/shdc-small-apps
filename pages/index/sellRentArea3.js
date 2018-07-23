@@ -51,9 +51,19 @@ Page({
     let target = e.currentTarget.dataset.item || this.data.keyword ;//门牌号
     let str = buildingBlockName + ' '+unitName+' '+target;//房源信息
     let str2 = this.data.cityName + xiaoqu +  str;//具体地址信息
+    
     //页面栈
-    let pages = getCurrentPages();
-    let prevPage = pages[pages.length - 5];//sellRent页面
+    let pages = getCurrentPages(), prevPage;
+    try {
+      if(wx.getStorageSync('xiaoquFlag')){
+        let prevPage = pages[pages.length - 4];//sellRent页面
+      }else{
+        let prevPage = pages[pages.length - 5];//sellRent页面
+      }
+    }catch(error){
+        let prevPage = pages[pages.length - 5];//sellRent页面
+    }
+    
     prevPage.setData({houseRimName: xiaoqu, houseInfoContent: str,address: str2});
     wx.navigateBack({delta: 4});//页面返回4级
   },

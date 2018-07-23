@@ -88,7 +88,17 @@ Page(filter.loginCheck({
   },
   //房源信息
   houseInfo() {
-    if(this.data.city == "选择您房源所在城市") wx.showModal({content: '请先选着小区'});
+    try{
+      if(wx.getStorageSync('xiaoqu')){
+        let houseRimId = wx.getStorageSync('xiaoquId');
+        wx.setStorageSync('xiaoquFlag', true);//标志是房源信息处点击进入到栋座号的
+        wx.navigateTo({url:`sellRentArea1?houseRimId=${houseRimId}`});
+      }else{
+        wx.showModal({content: '请先选着小区'});
+      }
+    }catch(error){
+      wx.showModal({content: '请先选着小区'});
+    }
   },
   //提交
   commit(IP) {

@@ -47,6 +47,7 @@ Page({
     let target = e.currentTarget.dataset.item;
     this.setData({buildingId: target.id});
     wx.setStorageSync('xiaoqu', target.buildName);
+    wx.setStorageSync('xiaoquId', target.id);
     wx.navigateTo({url:`sellRentArea1?houseRimId=${target.id}`});
   },
   //获取用户输入关键字
