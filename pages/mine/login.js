@@ -46,7 +46,7 @@ Page({
     let encryptedData = e.detail.encryptedData;
     let pc = new WXBizDataCrypt(appId, Key)
     let parseData = pc.decryptData(encryptedData, iv)
-    wx.setStorage({ key: 'userPhone', data: parseData});     
+    wx.setStorage({ key: 'userPhone', data: parseData.phoneNumber});     
     let params = {
       "authKey": ciphertext.authKey,
       "headImage": userInfo.avatarUrl,
