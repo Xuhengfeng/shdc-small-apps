@@ -83,6 +83,7 @@ Page(filter.loginCheck({
     if(this.data.city == "选择您房源所在城市"){
       wx.showModal({content: '请先选着城市'});
     }else{
+      wx.setStorageSync('xiaoquFlag', true);//标志是小区处点击进入到栋座号的
       wx.navigateTo({url: `sellRentArea?houseTypes=${this.data.num}`});
     }
   },
@@ -91,7 +92,7 @@ Page(filter.loginCheck({
     try{
       if(wx.getStorageSync('xiaoqu')){
         let houseRimId = wx.getStorageSync('xiaoquId');
-        wx.setStorageSync('xiaoquFlag', true);//标志是房源信息处点击进入到栋座号的
+        wx.setStorageSync('xiaoquFlag', false);//标志是房源信息处点击进入到栋座号的
         wx.navigateTo({url:`sellRentArea1?houseRimId=${houseRimId}`});
       }else{
         wx.showModal({content: '请先选着小区'});

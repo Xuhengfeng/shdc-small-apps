@@ -56,16 +56,19 @@ Page({
     let pages = getCurrentPages(), prevPage;
     try {
       if(wx.getStorageSync('xiaoquFlag')){
-        let prevPage = pages[pages.length - 4];//sellRent页面
+        prevPage = pages[pages.length - 5];//sellRent页面
+        prevPage.setData({houseRimName: xiaoqu, houseInfoContent: str,address: str2});
+        wx.navigateBack({delta: 4});//页面返回4级
       }else{
-        let prevPage = pages[pages.length - 5];//sellRent页面
+        prevPage = pages[pages.length - 4];//sellRent页面
+        prevPage.setData({houseRimName: xiaoqu, houseInfoContent: str,address: str2});
+        wx.navigateBack({delta: 3});//页面返回3级
       }
     }catch(error){
-        let prevPage = pages[pages.length - 5];//sellRent页面
+        prevPage = pages[pages.length - 5];//sellRent页面
+        prevPage.setData({houseRimName: xiaoqu, houseInfoContent: str,address: str2});
+        wx.navigateBack({delta: 4});//页面返回4级
     }
-    
-    prevPage.setData({houseRimName: xiaoqu, houseInfoContent: str,address: str2});
-    wx.navigateBack({delta: 4});//页面返回4级
   },
   //获取用户输入关键字
   userSearch(e) {
