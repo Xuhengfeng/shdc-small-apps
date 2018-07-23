@@ -1,12 +1,12 @@
+//栋座号
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
 Page({
   data: {
     buildingBlock: [],//栋座
     keyword: '',
-    page: 1,
     currentCity: null,
+    page: 1,
     houseRimId: null,//小区id
     toastMsg: null,
     time: null,

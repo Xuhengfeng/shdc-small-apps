@@ -1,11 +1,12 @@
+//小区
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 Page({
   data: {
     estate: [],//小区
     keyword: '',//关键词
-    page: 1,
     currentCity: null,//当前城市
+    page: 1,
     houseTypes: 0,//租房 或 售房
     toastMsg: null,
     time: null,

@@ -1,3 +1,4 @@
+//单元号
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 Page({
@@ -6,10 +7,10 @@ Page({
     keyword: null,
     currentCity: null,
     page: 1,
-    //栋座号名称 栋座号id 小区id 这个要传递给门牌号  
-    roomItem: null,
+    roomItem: null,//小区id 栋座号id 
     toastMsg: null,
-    time: null
+    time: null,
+    nodata: {id: '',name:'无单元号'},//无单元号
   },
   onLoad(options) {
     this.setData({roomItem: options});    
@@ -31,7 +32,6 @@ Page({
     };
     utils.post(Api.IP_BUILDINGLISTDYFH, params)
     .then(data=>{
-      data.data.unshift('无单元号');
       if (page>1) {
         if (!data.data.length) {
           this.setData({toastMsg: `数据已加载全部`});
@@ -46,9 +46,10 @@ Page({
   selectItem(e) {
     let target = e.currentTarget.dataset.item;
     let room = this.data.roomItem;
-    //栋座号名称 栋座号id 小区id 单元号----------------------------->>>>>>>>>门牌号页面
+    wx.setStorageSync('unitName', target);
+    //小区id 栋座号id 单元号>>>>>>>>>门牌号页面
     wx.navigateTo({url: 
-      `sellRentArea3?buildingBlockName=${room.buildingBlockName}&buildingBlockId=${room.buildingBlockId}&houseRimId=${room.houseRimId}&unitName=${target}&dyname=${target}`
+      `sellRentArea3?houseRimId=${room.houseRimId}&buildingBlockId=${room.buildingBlockId}&unitName=${target}&dyname=${target}`
     });
   },
   //获取用户输入关键字
@@ -68,12 +69,12 @@ Page({
   //确定按钮
   confirmSearch() {
     if(this.data.keyword!=''){
-      wx.setStorage({key:'buildingBlockName',data: this.data.keyword});
-      let buildingBlockName = this.data.keyword;
-      let buildingBlockId = null;
-      //栋座号名称 栋座号id 小区id ------------------------------------->>>>>>>单元号页面 
+      let unitName = this.data.keyword;
+      let houseRimId = this.data.roomItem.houseRimId;
+      wx.setStorageSync('unitName', unitName);
+      //小区id 栋座号id 单元号>>>>>>>>>门牌号页面
       wx.navigateTo({url: 
-        `sellRentArea3?buildingBlockName=${buildingBlockName}&buildingBlockId=${buildingBlockId}&dyname=null`
+        `sellRentArea3?houseRimId=${houseRimId}&buildingBlockId=null&unitName=${unitName}&dyname=${unitName}`
       });
     }
   },

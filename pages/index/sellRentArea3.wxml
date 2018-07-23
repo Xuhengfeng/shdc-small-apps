@@ -9,6 +9,9 @@
     <view class="otitle">快速选择</view>
 </view>   
 <view class="osection">
+    <view data-item="{{nodata}}" catchtap="selectItem">
+        <view>{{nodata.name}}</view>
+    </view>
     <view wx:for="{{roomNum}}" data-item="{{item}}" catchtap="selectItem">
         <view>{{item}}</view>
     </view>
