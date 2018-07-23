@@ -6,9 +6,9 @@
       <input confirm-type="搜索"  bindconfirm="searchSubmit" placeholder="请输入栋座号"  bindinput="userSearch" value="{{inputTxt}}" />
       <view class="confirmBtn {{keyword?'fontColor':''}}" bindtap="confirmSearch">确定</view>
     </view> 
+    <view class="otitle">快速选择</view>
 </view>   
 <view class="osection">
-    <view class="otitle">快速选择</view>
     <view data-item="{{nodata}}" catchtap="selectItem">
         <view>{{nodata.name}}</view>
     </view>
