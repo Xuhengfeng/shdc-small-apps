@@ -184,7 +184,7 @@ Component({
       let newParams = Object.assign(this.data.params, params);
       //修正 当前城市
       this.setData({currentCity: res.data.value})
-      this.getDataFromServer(this.data.url, newParams);
+      this.getDataFromServer(this.data.url, newParams, true);
     })
   },
   methods: {
@@ -196,11 +196,18 @@ Component({
     },
 
     //请求二手房列表  租房列表 小区列表
-    getDataFromServer(url, params) {
+    getDataFromServer(url, params, flag) {
       utils.post(url, params)
       .then(data =>{
+        let denominator;
+        if(flag){
+          denominator = null;
+        }else{
+          //滚动距离
+          denominator = wx.getSystemInfoSync().windowWidth / 375 * 350;
+        }
         let List = data.data.length?data.data:"";
-        let obj = {params: params, houseList: List}
+        let obj = {params: params, houseList: List, denominator: denominator}
         this.setData({houseList: List})
         this.triggerEvent('myevent', obj);
       })

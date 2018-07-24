@@ -162,23 +162,24 @@ Page({
   onMyEventHouseList(item) {
     //先清空
     this.setData({houseList: []});
-    setTimeout(() => {
-      try{
-        //修正数据
-        item.detail.houseList.forEach((item2) => {
-          if (item2.houseTag) {
-            item2.houseTag = item2.houseTag.split(',');
-          }
-        })
-      }catch(e){};
-      //刷新
-      this.setData({
-        houseList: item.detail.houseList,
-        params: item.detail.params,
-        page:  item.detail.params.pageNo,
-        hasMore: false
+    if(item.detail.denominator){
+      wx.pageScrollTo({scrollTop: item.detail.denominator, duration: 0});
+    }
+    try{
+      //修正数据
+      item.detail.houseList.forEach(item2 => {
+        if (item2.houseTag) {
+          item2.houseTag = item2.houseTag.split(',');
+        }
       })
-    }, 500)
+    }catch(e){};
+    //刷新
+    this.setData({
+      houseList: item.detail.houseList,
+      params: item.detail.params,
+      page:  item.detail.params.pageNo,
+      hasMore: false
+    })
   },
   //上拉加载
   onReachBottom() {
