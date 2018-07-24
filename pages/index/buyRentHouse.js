@@ -160,6 +160,8 @@ Page({
   },
   //监听自定义navbar组件事件 首次渲染第1页数据
   onMyEventHouseList(item) {
+    //先清空
+    this.setData({houseList: []});
     setTimeout(() => {
       try{
         //修正数据
@@ -169,7 +171,7 @@ Page({
           }
         })
       }catch(e){};
-      //修正参数
+      //刷新
       this.setData({
         houseList: item.detail.houseList,
         params: item.detail.params,
@@ -182,8 +184,7 @@ Page({
   onReachBottom() {
     let page = this.data.page++;
     let IP = this.data.IPS[this.data.num];
-    console.log(page);
-        this.getDataFromServer(IP, page);
+    this.getDataFromServer(IP, page);
   },
   //请求数据
   getDataFromServer(IP, page) {//请求数据

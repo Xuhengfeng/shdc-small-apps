@@ -2,14 +2,7 @@ const Api = require("utils/url");
 App({
   onLaunch() {
     this.oLogin();
-    // 获取用户信息  
-    wx.getSetting({  
-      success: res => {  
-        // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框  
-        this.getuserInfo();  
-        this.getlocalinfo();  
-      }  
-    }) 
+    this.getSet();
   },
   //登录
   oLogin() {
@@ -31,6 +24,15 @@ App({
         })
     })
   }, 
+  getSet() {
+    // 获取用户信息  
+    wx.getSetting({  
+      success: res => {  
+        this.getuserInfo();
+        this.getlocalinfo();  
+      }  
+    }) 
+  },
   getuserInfo() {
     wx.getUserInfo({  
       success: res => {  

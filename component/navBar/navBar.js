@@ -201,7 +201,6 @@ Component({
       .then(data =>{
         let List = data.data.length?data.data:"";
         let obj = {params: params, houseList: List}
-        console.log(obj)
         this.setData({houseList: List})
         this.triggerEvent('myevent', obj);
       })
@@ -216,27 +215,23 @@ Component({
         scrollTop: 0
       })
       if (e.target.dataset.num == 0) {//第一列 不限
-        let params = {
-          'pageNo': 1,
-          'scity': this.data.currentCity
-        }
+        let params = {'pageNo': 1,'scity': this.data.currentCity};
         let newParams = Object.assign(this.data.params, params);
         this.cancelModal();
+        this.setData({['label[0]']: '不限'});
         this.getDataFromServer(this.data.url, newParams);
       }
-      
     },
 
     //切换城区子分类 进行请求
     changeSubCategories(e) {
       let id = e.target.dataset.num;
-      let label = 'label['+0+']';
       this.setData({
         areaSubCategories: e.target.dataset.num,
         areaSubCategoriesId: e.target.dataset.id,
         highSelectItem: true,
         num: 0,
-        [label]: this.data.area[this.data.areaCategories].districts[id].name
+        ['label[0]']: this.data.area[this.data.areaCategories].districts[id].name
       })
       let params;
       if (e.target.dataset.num == 0) {//第二列 不限
@@ -272,10 +267,9 @@ Component({
           'scity': this.data.currentCity,
           'roomsNum': ''
       }
-      let label = 'label[' +1 + ']';
       let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.setData({[label]: '户型'});
+      this.setData({['label[1]']: '户型'});
       this.getDataFromServer(this.data.url, newParams);
     },
     changeHouseTypeTrue() {
@@ -285,10 +279,9 @@ Component({
           'scity': this.data.currentCity,
           'roomsNum': this.data.roomsNum
       }
-      let label = 'label[' +1 + ']';
       let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.setData({[label]: this.data.houseTy[this.data.houseTypeCategories].name});
+      this.setData({['label[1]']: this.data.houseTy[this.data.houseTypeCategories].name});
       this.getDataFromServer(this.data.url, newParams);
     },
 

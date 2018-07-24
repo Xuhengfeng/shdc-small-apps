@@ -40,7 +40,7 @@ Page({
     }
   },  
   loginRequest(e, ciphertext, userInfo) {
-    let appId = 'wxce209331358eecd8';
+    let appId = 'wx2f29dfd350dc78d8';
     let Key = ciphertext.sessionKey;
     let iv = e.detail.iv;
     let encryptedData = e.detail.encryptedData;

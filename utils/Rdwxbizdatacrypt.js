@@ -34,6 +34,8 @@ RdWXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
   }
 
   if (decryptResult.watermark.appid !== this.appId) {
+    console.log(decryptResult.watermark.appid)
+    console.log(this.appid)
     console.log(err)
   }
 

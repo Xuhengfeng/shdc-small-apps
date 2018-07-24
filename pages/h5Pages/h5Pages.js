@@ -21,8 +21,13 @@ Page({
             redirect: options.redirect + "?scity=" + options.scity + "&scityname=" + options.scityname +"&type=wx"
           })
         }
+        //微信页面
+        else if(options.redirect ==  'https://mp.weixin.qq.com/s'){
+          this.setData({redirect: wx.getStorageSync('weiXinUrl')});
+        }
         //其他页面
         else{
+          console.log(options)
           this.setData({
             redirect: options.redirect +"?cityName="+this.data.currentCity+"&type=wx"
           })

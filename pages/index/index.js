@@ -2,7 +2,7 @@ const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
 const pinyin = require("../../libs/toPinyin.js"); //汉字转拼音
-
+const app = getApp();
 Page({
   data: {
     imgUrls: [],//轮播图
@@ -46,6 +46,7 @@ Page({
   },
   onLoad(){
     wx.hideTabBar();
+
     //默认城市定位  
     utils.get(Api.IP_DEFAULTCITY)
     .then(data=>{
@@ -89,6 +90,7 @@ Page({
         }
       })
     })
+
   },
   //逆解析
   BMapRegeoCode(res) {
@@ -244,7 +246,8 @@ Page({
   },
   //热门推荐
   hottuj(e) {
-    let http = e.currentTarget.dataset.http;   
+    let http = e.currentTarget.dataset.http;
+    wx.setStorageSync('weiXinUrl', http);
     wx.navigateTo({url: `../h5Pages/h5Pages?redirect=${http}`});
   },
   //轮播图
@@ -313,23 +316,32 @@ Page({
   cancelAuth() {
     this.setData({isAuth: false});
   },
-  //去授权
+  //弹窗 拒绝授权和确定授权
   userInfoHandle(e) {
-    wx.setStorage({
-      key:'userInfo',
-      data: JSON.stringify(e.detail.userInfo),
-      success:()=>{
-        wx.showTabBar();
-        this.setData({canIUse: false}
-      )}
-    })
+    //拒绝授权
+    if(e.detail.errMsg=='getUserInfo:fail auth deny'){
+      this.setData({canIUse: true});
+      wx.hideTabBar();
+    }
+    //同意授权
+    else{
+      wx.setStorage({
+        key:'userInfo',
+        data: JSON.stringify(e.detail.userInfo),
+        success:()=>{
+          wx.showTabBar();
+          this.setData({canIUse: false}
+        )}
+      })
+    }
   },
   onShow() {
+    //关闭动画
     setTimeout(()=>{
       this.setData({loadingHidden: false});
       wx.showTabBar();
     }, 3000);
-    
+
     // 查看是否授权
     utils.storage('userInfo')
     .then(()=>{
@@ -338,6 +350,6 @@ Page({
     .catch(()=>{
       this.setData({canIUse:true});
     })
-    
+
   }
 })

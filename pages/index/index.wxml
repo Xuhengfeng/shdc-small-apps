@@ -140,7 +140,7 @@
     <view class="house-info">
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex">
         <block wx:for="{{newinfohouse}}">
-          <view class="house-info-item" data-http="{{item.phoneContentUrl}}" bindtap="newhouseRecommend">
+          <view class="house-info-item" data-name="" data-http="{{item.phoneContentUrl}}" bindtap="newhouseRecommend">
             <view class="imageContainer">
               <image src="{{item.imageUrl?item.imageUrl: '../../images/astate.png'}}" />
             </view>
