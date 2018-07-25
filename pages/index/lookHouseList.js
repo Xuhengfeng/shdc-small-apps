@@ -129,6 +129,7 @@ Page({
     let count = 0;
     let index = e.currentTarget.dataset.index;
     let list = this.data.list;
+    console.log(list)
     list.splice(index,1);
     for (let i=0; i<list.length; i++) {
       //选中的
@@ -139,6 +140,8 @@ Page({
       }
     }
     this.setData({list: list,count: count});
+    console.log(this.data.list[index])
+    console.log(this.data.list[index].id)
     //请求删除
     let params = {
       scity: this.data.currentCity,

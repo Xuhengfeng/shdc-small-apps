@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "navBar-html": "/component/navBar/navBar"
+    "backApp-html": "/component/backApp/backApp"
   }
 }

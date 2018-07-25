@@ -200,7 +200,16 @@
         <image src="../../images/close2.png" bindtap="cancelLinkman"></image>
     </view>
 </view>
+
+
+<!-- 回到首页 -->
+<!-- 跳转app -->
+<backApp-html>
+  
+</backApp-html>
+
 <!-- 预约看房 -->
 <template is="appointment" data="{{isAppointment,cancelLookHouse}}"/> 
 <!-- 吐司 -->
-<template is="toast2" data="{{toastMsg}}"></template>
+<template is="toast2" data="{{toastMsg}}"/>
+

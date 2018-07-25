@@ -225,7 +225,7 @@ Component({
         let params = {'pageNo': 1,'scity': this.data.currentCity};
         let newParams = Object.assign(this.data.params, params);
         this.cancelModal();
-        this.setData({['label[0]']: '不限'});
+        this.setData({['label[0]']: '区域'});
         this.getDataFromServer(this.data.url, newParams);
       }
     },

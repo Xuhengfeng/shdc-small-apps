@@ -1,0 +1,10 @@
+<!-- 回到首页 -->
+<!-- 跳转app -->
+<view class="backHome" bindtap="backHome">
+    <image src="../../images/home.png"></image>
+    <view class="text">首页</view>
+</view>
+<view class="app">
+    <view>APP</view>
+    <view class="text">应用</view>
+</view>

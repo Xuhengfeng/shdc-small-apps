@@ -123,8 +123,9 @@ Page({
     const denominator  = wx.getSystemInfoSync().windowWidth / 375 * 330;
     let percent = res.scrollTop / denominator;
     let changeTone = 'rgba(249,249,249,' + percent + ')';
-    let show = res.scrollTop > denominator ? 1 : 0;
-    this.setData({tone: changeTone})
+    let show = percent>=1 ? 1 : 0;
+
+    this.setData({ tone: changeTone});
     this.setData({isShow: show});
   },
   //控制nav菜单
