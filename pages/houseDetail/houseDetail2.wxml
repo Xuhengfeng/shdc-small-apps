@@ -24,7 +24,7 @@
 
 <view class="section section1">
     <!-- 小区找房详情 -->
-    <view class="title">{{houseDetail.buildName}}</view>      
+    <view class="title">{{houseDetail.buildName}}<view>{{houseDetail.adreessOfficial}}</view></view>      
     <view class="descriptions" style="margin:0;padding:0 24rpx">
         <view>
               <view>参考均价</view>
@@ -108,7 +108,7 @@
     <!-- 小区 -->
     <view class="type2">
       <view class="addCollection" bindtap="toggleSelectLike">
-          <image src="../../images/like-off.png" wx:if="{!likeFlag}}"/>
+          <image src="../../images/like-off2.png" wx:if="{!likeFlag}}"/>
           <image src="../../images/like-on.png" wx:if="{{likeFlag}}"/>
       </view>
     </view>
@@ -160,5 +160,10 @@
       <view><text>暂无数据</text></view>
   </view>
 </view>
+
+<!-- 回到首页 -->
+<!-- 跳转app -->
+<backApp-html  bind:myevent="onMyEventBackHome"></backApp-html>
+
 <!-- 吐司 -->
 <template is="toast2" data="{{toastMsg}}"></template>

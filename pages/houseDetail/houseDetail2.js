@@ -173,6 +173,10 @@ Page({
     }
     this.getDataFromServer(IP, 1);
   },
+  //跳回首页
+  onMyEventBackHome() {
+    wx.switchTab({url: '../index/index'});
+  },
   getDataFromServer(IP, page) {
     this.data.time =  null;
     let params = {

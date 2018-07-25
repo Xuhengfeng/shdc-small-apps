@@ -14,7 +14,7 @@ Page({
     mode: [],//类型
     use: [],//用途
     houseAge: [],//楼龄
-
+    hasMore: true,
     num: null,//控制nav菜单
     modalFlag: false,
     page: 2,//上拉开始 第1次已经在navBar.js里面做搜索了
@@ -123,16 +123,26 @@ Page({
   },
   //监听事件 拿到首次 或 点击筛选条件的第一页数据
   onMyEventHouseList(item) {
-    setTimeout(() => {
+    //先清空
+    this.setData({houseList: []});
+    if(item.detail.denominator){
+      wx.pageScrollTo({scrollTop: item.detail.denominator, duration: 0});
+    }
+    try{
       //修正数据
-      item.detail.houseList.forEach((item2) => {
-        if (item2.houseTag) {item2.houseTag = item2.houseTag.split(',')}
+      item.detail.houseList.forEach(item2 => {
+        if (item2.houseTag) {
+          item2.houseTag = item2.houseTag.split(',');
+        }
       })
-      this.setData({
-        houseList: item.detail.houseList,
-        params: item.detail.params
-      })
-    }, 500)
+    }catch(e){};
+    //刷新
+    this.setData({
+      houseList: item.detail.houseList,
+      params: item.detail.params,
+      page:  item.detail.params.pageNo,
+      hasMore: false
+    })
   },
   //获取用户输入关键字
   userSearch(e) {
@@ -143,12 +153,8 @@ Page({
   },
   //开始检索
   startsearch() {
-    if (!this.data.keyword) {
-      wx.showModal({content: '请输入关键词'})
-    }
     let params = {
         'pageNo': 1,
-        'pageSize': 10,
         'keyword': this.data.keyword,
         'scity': this.data.currentCity
     }

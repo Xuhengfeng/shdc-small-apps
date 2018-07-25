@@ -79,9 +79,14 @@
             </navigator>
         </view>
   </block>
-  <view class="tips">
-      <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/>
-          <text>玩了命的加载中...</text>
-      </view>
-  </view> 
+
+<view class="tips" wx:if="{{hasMore}}">
+    <view><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
+</view>
+<view class="tips" wx:elif="{{!houseList.length}}">
+    <view><text>暂无数据</text></view>
+</view>
+
+
+
 </view>

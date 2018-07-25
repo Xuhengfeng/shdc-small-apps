@@ -56,13 +56,21 @@ page{
 
 /* 光明小区 */
 .section1 .title{
-  padding: 60rpx 0;
+  padding: 50rpx 0;
 }
 .section1 .weui-cells{
   margin: 50rpx 0 50rpx 25rpx;
   font-size: 48rpx;
   color: #333333;
 }
+.section1 .title view{
+  margin-top: 28rpx;
+  font-size: 28rpx;
+  color: #999999;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+} 
 /* 小区找房 */
 .estate{
   display: -webkit-flex;
@@ -317,18 +325,16 @@ page{
 .footer .type1>view:nth-of-type(3){
   background: #00b969;
 }
-
-
 .footer .addCollection{
-  position: fixed;
-  bottom:  180rpx;
-  right: 20rpx;
-  background: #ffffff;
-  box-shadow: 0 0 2px rgba(0,0,0,.4);
-  width: 100rpx;
-  height: 100rpx;
-  font-size: 25rpx;
-  border-radius: 50%;
+position:fixed;
+right:50rpx;
+width:120rpx;
+height:120rpx;
+border-radius:50%;
+background:#00b969;
+text-align:center;
+color:#ffffff;
+bottom: 450rpx;
 }
 
 .addCollection image{

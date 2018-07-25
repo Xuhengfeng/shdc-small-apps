@@ -219,7 +219,10 @@ Page({
       urls: this.data.houseDetail ? this.data.houseDetail.housePicList : this.data.imgUrls //需要预览的图片http链接列表  
     })
   },
-
+  //跳回首页
+  onMyEventBackHome() {
+    wx.switchTab({url: '../index/index'});
+  },
   //分享
   onShareAppMessage(options) {
     var that = this;

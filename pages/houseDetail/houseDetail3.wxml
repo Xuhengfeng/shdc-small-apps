@@ -191,5 +191,10 @@
         <image src="../../images/close2.png" bindtap="cancelLinkman"></image>
     </view>
 </view>
+
+<!-- 回到首页 -->
+<!-- 跳转app -->
+<backApp-html  bind:myevent="onMyEventBackHome"></backApp-html>
+
 <!-- 吐司 -->
 <template is="toast2" data="{{toastMsg}}"></template>

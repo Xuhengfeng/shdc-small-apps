@@ -204,9 +204,7 @@
 
 <!-- 回到首页 -->
 <!-- 跳转app -->
-<backApp-html>
-  
-</backApp-html>
+<backApp-html  bind:myevent="onMyEventBackHome"></backApp-html>
 
 <!-- 预约看房 -->
 <template is="appointment" data="{{isAppointment,cancelLookHouse}}"/> 
