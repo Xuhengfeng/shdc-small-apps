@@ -11,7 +11,7 @@ Page({
     tempData: null,//小区id 栋座号id 单元号  
     toastMsg: null,
     time: null,
-    nodata: {id: '',name:'无门牌号'},//无门牌号
+    nodata: '无门牌号',//无门牌号
   },
   onLoad(options) {
     this.setData({tempData: options});    

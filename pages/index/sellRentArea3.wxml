@@ -10,7 +10,7 @@
 </view>   
 <view class="osection">
     <view data-item="{{nodata}}" catchtap="selectItem">
-        <view>{{nodata.name}}</view>
+        <view>{{nodata}}</view>
     </view>
     <view wx:for="{{roomNum}}" data-item="{{item}}" catchtap="selectItem">
         <view>{{item}}</view>

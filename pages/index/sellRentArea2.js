@@ -10,7 +10,7 @@ Page({
     roomItem: null,//小区id 栋座号id 
     toastMsg: null,
     time: null,
-    nodata: {id: '',name:'无单元号'},//无单元号
+    nodata: '无单元号',//无单元号
   },
   onLoad(options) {
     this.setData({roomItem: options});    
