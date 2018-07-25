@@ -129,10 +129,9 @@ Page({
     let count = 0;
     let index = e.currentTarget.dataset.index;
     let list = this.data.list;
-    console.log(list)
-    list.splice(index,1);
+    
+    //选中的
     for (let i=0; i<list.length; i++) {
-      //选中的
       if(list[i].isSelect == true){
         count++;
       }else{
@@ -140,19 +139,18 @@ Page({
       }
     }
     this.setData({list: list,count: count});
-    console.log(this.data.list[index])
-    console.log(this.data.list[index].id)
+
     //请求删除
     let params = {
-      scity: this.data.currentCity,
-      unicode: this.data.token
+        scity: this.data.currentCity,
+        unicode: this.data.token
     }
     utils.delete(Api.IP_APPOINTDELETE+"/"+this.data.list[index].id, params)
-    .then(data =>{wx.showModal({content: data.data})});
-    //刷新上一个页面
-    let pages = getCurrentPages();//当前页面
-    let prevPage = pages[pages.length - 2];//上一页面
-    prevPage.seeHouseRequest(this.data.currentCity);
+    .then(data =>{
+      list.splice(index,1);
+      this.setData({list: list,count: count});
+      wx.showModal({content: data.data})}
+    );
   },
   //预约
   yuyue() {

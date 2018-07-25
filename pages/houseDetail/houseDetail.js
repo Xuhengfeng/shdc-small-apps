@@ -225,17 +225,23 @@ Page({
   },
   //分享
   onShareAppMessage(options) {
-    var that = this;
+
+    let  that = this;
+    let sdid = this.data.houseDetailId;
+    let scity = this.data.currentCity;
     var shareObj = {
-      title: "世华地产",
-      path: '/pages/houseDetail/houseDetail',    //默认是当前页面，必须是以‘/’开头的完整路径
+      title: "世华易居",
+      path: `/pages/houseDetail/houseDetail?id=${sdid}&scity=${scity}`,//默认是当前页面，必须是以‘/’开头的完整路径
       imgUrl: '', //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
       success: (res)=> {
-        if(res.errMsg == 'shareAppMessage:ok') {}
+        if(res.errMsg == 'shareAppMessage:ok') {
+          console.log('发送成功')
+        }
       },
       fail: ()=> {
         if (res.errMsg == 'shareAppMessage:fail cancel') {
           // 用户取消转发
+
         }else if (res.errMsg == 'shareAppMessage:fail') {
           // 转发失败，其中 detail message 为详细失败信息
         }
@@ -244,7 +250,6 @@ Page({
     if(options.from == 'button') {
       var eData = options.target.dataset;
       // 此处可以修改 shareObj 中的内容
-      // shareObj.path = '/pages/btnname/btnname?btn_name=' + eData.name;
     }
     return shareObj
   },
@@ -253,6 +258,12 @@ Page({
     this.nearbyHouseRequest(this.data.longitude, this.data.latitude, this.data.currentCity, this.data.houseDetailId, page); 
   },
   onShow() {
+    //更新待看列表的数字和约看房源状态
     this.seeHouseRequest(this.data.currentCity);
+    let params = {scity: this.data.currentCity,unicode: this.data.token, pageNo: 1};
+    utils.get(Api.IP_TWOHANDHOUSEDETAIL + this.data.currentCity + '/' + this.data.houseDetailId,params)
+      .then(data => {
+          this.setData({isAppoint: data.data.isAppoint});
+      })
   }
 })

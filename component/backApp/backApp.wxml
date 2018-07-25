@@ -4,7 +4,7 @@
     <image src="../../images/home.png"></image>
     <view class="text">首页</view>
 </view>
-<view class="app">
+<button  class="app" open-type="launchApp" app-parameter="wechat" binderror="launchAppError">
     <view>APP</view>
     <view class="text">应用</view>
-</view>
+</button>

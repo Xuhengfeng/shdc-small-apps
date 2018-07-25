@@ -13,7 +13,10 @@ Component({
   methods: {
     backHome() {
       this.triggerEvent('myevent');
-    }
+    },
+    launchAppError: function(e) { 
+      console.log(e.detail.errMsg) 
+    } 
   }
 })
 
