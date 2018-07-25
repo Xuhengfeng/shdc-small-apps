@@ -341,7 +341,6 @@ Page({
       this.setData({loadingHidden: false});
       wx.showTabBar();
     }, 3000);
-
     // 查看是否授权
     utils.storage('userInfo')
     .then(()=>{
@@ -350,6 +349,10 @@ Page({
     .catch(()=>{
       this.setData({canIUse:true});
     })
-
+    
+  },
+  onHide() {
+    //回到顶部
+    wx.pageScrollTo({scrollTop: 0, duration: 0});
   }
 })

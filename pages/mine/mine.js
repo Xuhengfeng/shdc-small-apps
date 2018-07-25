@@ -86,5 +86,9 @@ Page({
     }else{
       this.setData({showLogout: true});
     }
+  },
+  onHide() {
+    //回到顶部
+    wx.pageScrollTo({scrollTop: 0, duration: 0});
   }
 })
