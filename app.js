@@ -1,7 +1,7 @@
 const Api = require("utils/url");
 App({
   onLaunch(options) {
-    this.data.globalData = options.scene;
+    this.globalData.scene = options.scene;
     this.oLogin();
     this.getSet();
   },
@@ -79,7 +79,7 @@ App({
     })  
   },
   onShow(options) {
-    this.data.globalData = options.scene;
+    this.globalData.scene = options.scene;
     console.log('场景值',options);
   },
   globalData: {

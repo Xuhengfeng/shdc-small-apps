@@ -1,5 +1,6 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const app = getApp();
 Page({
   data: {
     imgUrls: ['../../images/banner.png'],//轮播图默认图片 
@@ -22,7 +23,8 @@ Page({
     count: 0,//待看房源列表计数
     token: null,
     toastMsg: null,
-    time: null
+    time: null,
+    isApp: false,//是否正确的应用场景值
   },
   onLoad(options) {
     //房源sdid
@@ -223,5 +225,14 @@ Page({
   onReachBottom(){
     let page = this.data.page++;
     this.nearbyHouseRequest(this.data.longitude, this.data.latitude, this.data.currentCity, this.data.houseDetailId, page); 
+  },
+  onShow() {
+    //判断场景值scene
+    let scene = app.globalData.scene;
+    if(scene==1036||scene==1069||scene==1089||scene==1090){
+      this.setData({isApp: true});
+    }else{
+      this.setData({isApp: false});
+    }
   }
 })

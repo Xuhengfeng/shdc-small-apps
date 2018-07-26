@@ -9,7 +9,7 @@
             open-type="launchApp" 
             app-parameter="wechat" 
             binderror="launchAppError"
-            wx:if="{{!isXiaoqu}}">
+            wx:if="{{isFlag}}">
         <view>APP</view>
         <view class="text">应用</view>
     </button>

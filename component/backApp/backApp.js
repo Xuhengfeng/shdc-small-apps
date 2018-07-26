@@ -2,7 +2,7 @@ const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 Component({
   properties: {
-    isXiaoqu: {//是否是小区详情
+    isFlag: {//是否是小区详情或者对应的应用场景
       type: Boolean,
       value: false
     }
