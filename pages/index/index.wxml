@@ -177,6 +177,7 @@
                         <text wx:for="{{item.houseTag}}" 
                               wx:key="{{index2}}"
                               wx:for-item="item2" 
+                              wx:if="{{index2<=2}}"
                               wx:for-index="index2">{{item2}}</text>
                       </view>
 

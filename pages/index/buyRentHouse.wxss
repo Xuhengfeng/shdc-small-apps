@@ -136,7 +136,6 @@ navigator{
 .item .item-title{
   font-size:30rpx;
   line-height: 1.2;
-  text-align: justify;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;

@@ -44,63 +44,38 @@ Component({
     }
    },
   data: {
-    //房源列表
-    houseList: [],
-    currentCity: '',
-
-    page: 1,
+    houseList: [],//房源列表
+    currentCity: '',//当前城市
+    page: 1,//默认第一页
     isScroll: true,
     scrollTop: 0,
     highSelectItem: false,//打开高亮
-    
-    //内部筛选条件
     areaCategories: 0,//区域分类
     areaCategoriesId: 0,//区域分类id(给后台的id）
     areaSubCategories: 0,//区域子分类
     areaSubCategoriesId: 0,//区域子分类id(给后台的id）
-
-    //户型
-    houseTypeCategories: 0,
+    houseTypeCategories: null,//户型
     roomsNum: null,
-
-    //价格 租金
-    priceCategories: 0,
+    priceCategories: null,//价格 租金
     minPrice: null,
     maxPrice: null,
-
-    //类型1 二手房 租房 
-    modeCategories: 0,
+    modeCategories: null,//类型1 二手房 租房 
     modeCategoriesValue: null,
-
-    //类型2 小区
-    mode2Categories: 0,
+    mode2Categories: null, //类型2 小区
     mode2CategoriesValue: null,
-
-    //面积
-    proportionCategories: 0,
+    proportionCategories: 0,//面积
     minBuildArea: null,
-    maxBuildArea: null,
-    
-    //用途
-    useCategories: 0,
+    maxBuildArea: null,    
+    useCategories: 0,//用途
     useCategoriesValue: null,
-    
-    //楼龄
-    houseAgeCategories: 0,
+    houseAgeCategories: 0,//楼龄
     houseAgeCategoriesValue: null,
-
-    //请求地址
-    //二手房列表 租房列表 小区找房列表
-    IPS: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE, Api.IP_BUILDLIST],  
+    IPS: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE, Api.IP_BUILDLIST],//二手房列表 租房列表 小区找房列表
     url: null,
-
-    //显示 小区label 或  二手房 租房
-    label: [], 
+    label: [], //显示 小区label 或  二手房 租房
     twoHouseOrArea: true,
-    params: {},
-
-    //二手房查询请求参数
-    params1: {
+    params: {},//临时请求体
+    params1: {//二手房查询请求体
       "areaId": null,
       "districtId": null,
       "houseDecor": "",
@@ -116,8 +91,7 @@ Component({
       "roomsNum": null,
       "scity": ""
     },
-    //租房查询请求参数
-    params2: {
+    params2: {//租房查询请求体
       "areaId": null,
       "districtId": null,
       "keyword": "",
@@ -130,8 +104,7 @@ Component({
       "roomsNum": null,
       "scity": ""
     },
-    //小区查询请求参数
-    params3: {
+    params3: {//小区查询请求体
       "areaId": null,
       "businessType": "",
       "districtId": null,
@@ -143,36 +116,39 @@ Component({
       "useYear": ""
     }
   },
-  
   attached() {
     // 修正显示
     // 修正url
-    this.setData({num: 5});
+    this.setData({num: null});
     let name = wx.getStorageSync('houseTypeSelect');
-    if(name == '二手房') {
+    if(name == '二手房') 
+    {
       this.setData({
-        url: this.data.IPS[0],
         label: ["区域", "户型", "价格", "面积", "类型"],
+        url: Api.IP_TWOHANDHOUSE,
         twoHouseOrArea: true, 
         params: this.data.params1       
       });
-    } else if (name == '租房') {
+    } 
+    else if (name == '租房') 
+    {
       this.setData({
-        url: this.data.IPS[1],
         label: ["区域", "户型", "租金", "面积"],       
+        url: Api.IP_RENTHOUSE,
         twoHouseOrArea: true, 
         params: this.data.params2       
       })
-    }else if(name == '小区') {
+    }
+    else if(name == '小区') 
+    {
       this.setData({
-        url: this.data.IPS[2],
         label: ['区域', '用途', '类型', '楼龄'],
+        url: Api.IP_BUILDLIST,
         twoHouseOrArea: false,
         params: this.data.params3            
       })
     }    
-
-    //第一页数据 首次请求
+    //第一页数据
     utils.storage('selectCity')
     .then(res=>{
       let params = {
@@ -188,13 +164,14 @@ Component({
     })
   },
   methods: {
-    selectItem(e) {//控制nav菜单
+    //控制nav菜单
+    selectItem(e) {
       this.setData({num: e.target.dataset.index,showModalStatus: true});
     },
-    cancelModal(e) {//取消
+    //取消
+    cancelModal(e) {
       this.setData({num: 5,showModalStatus: false})
     },
-
     //请求二手房列表  租房列表 小区列表
     getDataFromServer(url, params, flag) {
       utils.post(url, params)
@@ -206,13 +183,12 @@ Component({
           //滚动距离
           denominator = wx.getSystemInfoSync().windowWidth / 375 * 350;
         }
-        let List = data.data.length?data.data:"";
+        let List = data.data.length ? data.data : "";
         let obj = {params: params, houseList: List, denominator: denominator}
         this.setData({houseList: List})
         this.triggerEvent('myevent', obj);
       })
     },
-
     //切换城区分类
     changeCategories(e) {
       this.setData({
@@ -229,7 +205,6 @@ Component({
         this.getDataFromServer(this.data.url, newParams);
       }
     },
-
     //切换城区子分类 进行请求
     changeSubCategories(e) {
       let id = e.target.dataset.num;
@@ -255,11 +230,10 @@ Component({
           'areaId': this.data.areaCategoriesId
         }
       }
-      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
+      let newParams = Object.assign(this.data.params, params);
       this.getDataFromServer(this.data.url, newParams);
     },
-
     //户型
     changeHouseType(e) {
       this.setData({
@@ -268,6 +242,7 @@ Component({
       })
     },
     changeHouseTypeUnlimit() {
+      this.cancelModal();
       let params = {
           'pageNo': 1,
           'pageSize': 10,
@@ -275,11 +250,11 @@ Component({
           'roomsNum': ''
       }
       let newParams = Object.assign(this.data.params, params);
-      this.cancelModal();
-      this.setData({['label[1]']: '户型'});
+      this.setData({['label[1]']: '户型', houseTypeCategories: null});
       this.getDataFromServer(this.data.url, newParams);
     },
     changeHouseTypeTrue() {
+      this.cancelModal();
       let params = {
           'pageNo': 1,
           'pageSize': 10,
@@ -287,11 +262,9 @@ Component({
           'roomsNum': this.data.roomsNum
       }
       let newParams = Object.assign(this.data.params, params);
-      this.cancelModal();
       this.setData({['label[1]']: this.data.houseTy[this.data.houseTypeCategories].name});
       this.getDataFromServer(this.data.url, newParams);
     },
-
     //价格
     pricelabel(e) {
       this.setData({
@@ -301,6 +274,7 @@ Component({
       })
     },
     pricelabelUnlimit() {
+      this.cancelModal();
       let params = {
           'pageNo': 1,
           'pageSize': 10,
@@ -308,10 +282,8 @@ Component({
           'minPrice': '',
           'maxPrice': ''
       }
-      let label = 'label[' + 2 + ']';
       let newParams = Object.assign(this.data.params, params);
-      this.cancelModal();
-      this.setData({[label]: '价格'});
+      this.setData({['label[2]']: '价格',priceCategories: null});
       this.getDataFromServer(this.data.url, newParams);
     },
     pricelabelTrue() {
@@ -322,15 +294,13 @@ Component({
         'minPrice': this.data.minPrice,
         'maxPrice': this.data.maxPrice
       }
-      let label = 'label[' + 2 + ']';
       let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.setData({[label]: this.data.price[this.data.priceCategories].name})
+      this.setData({['label[2]']: this.data.price[this.data.priceCategories].name})
       this.getDataFromServer(this.data.url, newParams);
     },
     minPrice(e) {this.setData({minPrice: e.detail.value})},
     maxPrice(e) {this.setData({maxPrice: e.detail.value})},
-
     //面积
     proportionlabel(e) {
       this.setData({
@@ -347,10 +317,9 @@ Component({
           'minBuildArea': '',
           'maxBuildArea': ''
       }
-      let label = 'label[' + 3 + ']';
-      let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.setData({[label]: '面积'});
+      let newParams = Object.assign(this.data.params, params);
+      this.setData({['label[3]']: '面积',proportionCategories: null});
       this.getDataFromServer(this.data.url, newParams);
     },
     proportionlabelTrue(e) {
@@ -361,13 +330,11 @@ Component({
           'minBuildArea': this.data.minBuildArea,
           'maxBuildArea': this.data.maxBuildArea
       }
-      let label = 'label[' + 3 + ']';
       let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.setData({[label]: this.data.proportion[this.data.proportionCategories].name});
+      this.setData({['label[3]']: this.data.proportion[this.data.proportionCategories].name});
       this.getDataFromServer(this.data.url, newParams);
     },
-
     //类型 二手房 租房
     modelabel(e) {
       this.setData({
@@ -376,29 +343,27 @@ Component({
       })
     },
     modelabeUnlimit() {
+      this.cancelModal();
       let params = {
         'pageNo': 1,
         'pageSize': 10,
         'scity': this.data.currentCity,
         'houseForm': ''
       }
-      let label = 'label[' + 4 + ']';
       let newParams = Object.assign(this.data.params, params);
-      this.cancelModal();
-      this.setData({[label]: '类型'});
+      this.setData({['label[4]']: '类型',modeCategories: null});
       this.getDataFromServer(this.data.url, newParams);
     },
     modelabelTrue() {
+      this.cancelModal();
       let params = {
           'pageNo': 1,
           'pageSize': 10,
           'scity': this.data.currentCity,
           'houseForm': this.data.modeCategoriesValue
       }
-      let label = 'label[' + 4 + ']';
       let newParams = Object.assign(this.data.params, params);
-      this.cancelModal();
-      this.setData({[label]: this.data.mode[this.data.modeCategories].name});
+      this.setData({['label[4]']: this.data.mode[this.data.modeCategories].name});
       this.getDataFromServer(this.data.url, newParams);
     },
 
@@ -410,32 +375,29 @@ Component({
       })
     },
     uselabelUnlimit() {
+      this.cancelModal();
       let params = {
           'pageNo': 1,
           'pageSize': 10,
           'scity': this.data.currentCity,
           'businessType': ''
       }
-      let label = 'label[' + 1+ ']';
       let newParams = Object.assign(this.data.params, params);
-      this.cancelModal();
-      this.setData({[label]: '用途'});
+      this.setData({['label[1]']: '用途',useCategories: null});
       this.getDataFromServer(this.data.url, newParams);
     },
     uselabelTrue() {
+      this.cancelModal();
       let params = {
           'pageNo': 1,
           'pageSize': 10,
           'scity': this.data.currentCity,
           'businessType': this.data.useCategoriesValue
       }
-      let label = 'label[' + 1+ ']';
       let newParams = Object.assign(this.data.params, params);
-      this.cancelModal();
-      this.setData({[label]: this.data.use[this.data.useCategories].name});
+      this.setData({['label[1]']: this.data.use[this.data.useCategories].name});
       this.getDataFromServer(this.data.url, newParams);
     },
-
     //类型2 小区
     modelabel2(e) {
       this.setData({
@@ -453,23 +415,21 @@ Component({
       let label = 'label[' + 2 + ']';
       let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.setData({[label]: '类型'});
+      this.setData({[label]: '类型',mode2Categories: null});
       this.getDataFromServer(this.data.url, newParams);
     },
     modelabel2True() {
+      this.cancelModal();
       let params = {
         'pageNo': 1,
         'pageSize': 10,
         'scity': this.data.currentCity,
         'houseType': this.data.mode2CategoriesValue
       }
-      let label = 'label[' + 2 + ']';
       let newParams = Object.assign(this.data.params, params);
-      this.cancelModal();
-      this.setData({[label]: this.data.mode[this.data.mode2Categories].name});
+      this.setData({['label[2]']: this.data.mode[this.data.mode2Categories].name});
       this.getDataFromServer(this.data.url, newParams);
     },
- 
     //楼龄
     houseAgelabel(e) {
       this.setData({
@@ -484,23 +444,21 @@ Component({
           'scity': this.data.currentCity,
           'useYear': ''
       }
-      let label = 'label[' + 3 + ']';
       let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.setData({[label]: '楼龄'});
+      this.setData({['label[3]']: '楼龄',houseAgeCategories: null});
       this.getDataFromServer(this.data.url, newParams);
     },
     houseAgelabelTrue() {
+      this.cancelModal();
       let params = {
         'pageNo': 1,
         'pageSize': 10,
         'scity': this.data.currentCity,
         'useYear': this.data.houseAgeCategoriesValue
       }
-      let label = 'label[' + 3 + ']';
       let newParams = Object.assign(this.data.params, params);
-      this.cancelModal();
-      this.setData({[label]: this.data.houseAge[this.data.houseAgeCategories].name});      
+      this.setData({['label[3]']: this.data.houseAge[this.data.houseAgeCategories].name});      
       this.getDataFromServer(this.data.url, newParams);
     }
   }

@@ -69,6 +69,7 @@
   overflow:hidden;
   text-overflow:ellipsis; 
   box-sizing: border-box;
+  text-align: center;
 }
 /* tranigle 三角形 */
 .labelgroup .navbar .tranigle{

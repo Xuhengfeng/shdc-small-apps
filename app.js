@@ -1,7 +1,7 @@
 const Api = require("utils/url");
 App({
   onLaunch(options) {
-    console.log('场景值',options);
+    this.data.globalData = options.scene;
     this.oLogin();
     this.getSet();
   },
@@ -79,13 +79,15 @@ App({
     })  
   },
   onShow(options) {
+    this.data.globalData = options.scene;
     console.log('场景值',options);
   },
   globalData: {
-    userInfo: null,
-    ciphertext: null,
-    hasUserInfo: false,  
-    userAddress:null  
+    userInfo: null,//用户信息
+    ciphertext: null,//鉴权信息
+    hasUserInfo: false,//用户是否授权获取用户信息  
+    userAddress:null,//用户位置
+    scene:null //用户使用场景值
   }
 })
 

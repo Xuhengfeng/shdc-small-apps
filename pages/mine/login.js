@@ -186,7 +186,7 @@ Page({
               scity: this.data.currentCity
             }
             utils.post(Api.IP_GETSMSCODE,params2)
-                  .then(res=>{})
+            .then(res=>{})
           }
         }
       })

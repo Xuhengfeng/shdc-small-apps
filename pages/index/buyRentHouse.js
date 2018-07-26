@@ -190,32 +190,31 @@ Page({
   },
   //请求数据
   getDataFromServer(IP, page) {//请求数据
-    let params = {
-      'pageNo': page,
-      'scity': this.data.cityCode
-    }
     this.data.time =  null;
-    utils.post(IP, params)
-    .then(data => {
-      try{
-        data.data.forEach((item) => {
-          item.houseTag = item.houseTag.split(',');
-        })
-      }catch(e){};
-      this.setData({hasMore: false});
-      this.data.time = setTimeout(()=>{this.setData({toastMsg: null})},300);
-      let falgpc = this.data.num == 0 ? true : false;
-      this.setData({flagPrice: falgpc})
-      if (page>1) {
-        if (!data.data.length) {
-          this.setData({toastMsg: `数据已加载全部`});
-        }else{
-          this.setData({toastMsg: `加载第${page}页数据...`});
-        }
-      };
-      //刷新
-      this.setData({houseList: this.data.houseList.concat(data.data)});
-    })
+    let params = {'pageNo': page,'scity': this.data.cityCode};
+        params = Object.assign(this.data.params, params);
+        utils
+          .post(IP, params)
+          .then(data => {
+            try{
+              data.data.forEach((item) => {
+                item.houseTag = item.houseTag.split(',');
+              })
+            }catch(e){};
+            this.setData({hasMore: false});
+            this.data.time = setTimeout(()=>{this.setData({toastMsg: null})},300);
+            let falgpc = this.data.num == 0 ? true : false;
+            this.setData({flagPrice: falgpc})
+            if (page>1) {
+              if (!data.data.length) {
+                this.setData({toastMsg: `数据已加载全部`});
+              }else{
+                this.setData({toastMsg: `加载第${page}页数据...`});
+              }
+            };
+            //刷新
+            this.setData({houseList: this.data.houseList.concat(data.data)});
+          })
   },
   //为你推荐跳转
   commendForYou(e) {
