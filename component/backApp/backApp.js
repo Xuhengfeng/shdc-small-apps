@@ -16,7 +16,7 @@ Component({
     },
     launchAppError: function(e) { 
       console.log(e.detail.errMsg) 
-    } 
+    }
   }
 })
 

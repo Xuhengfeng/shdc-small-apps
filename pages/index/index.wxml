@@ -84,7 +84,7 @@
 </view>
 
   <view class="section hotRecommend">
-    <view class="title">热门推荐</view>
+    <view class="title">热门资讯</view>
     <view class="house-info">
       <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;">
         <block wx:for="{{hotrecommend}}">
@@ -198,7 +198,7 @@
 <!-- 用户授权弹窗 -->
 <view class="wxShadow" wx:if="{{canIUse}}">
     <view class="wechatAuth">
-      <view class="txt">世华地产小程序需获取您的公开信息(昵称、头像等)</view>
+      <view class="txt">世华易居小程序需获取您的公开信息(昵称、头像等)</view>
       <view class="wxFooter">
           <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandle">授权登录</button>
           <view wx:else>请升级微信版本</view>

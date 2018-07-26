@@ -1,6 +1,7 @@
 const Api = require("utils/url");
 App({
-  onLaunch() {
+  onLaunch(options) {
+    console.log('场景值',options);
     this.oLogin();
     this.getSet();
   },
@@ -76,6 +77,9 @@ App({
             })  
         }  
     })  
+  },
+  onShow(options) {
+    console.log('场景值',options);
   },
   globalData: {
     userInfo: null,
