@@ -119,7 +119,7 @@ Component({
   attached() {
     // 修正显示
     // 修正url
-    this.setData({num: null});
+    this.setData({num: 5});
     let name = wx.getStorageSync('houseTypeSelect');
     if(name == '二手房') 
     {

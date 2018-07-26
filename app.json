@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/houseDetail/houseDetail2",
     "pages/index/index",
     "pages/index/sellRent",
     "pages/mine/comment",
@@ -30,8 +31,8 @@
     "pages/index/shop",    
     "pages/index/buyRentHouse",
     "pages/houseDetail/lookHouse",
+    
     "pages/houseDetail/houseDetail",
-    "pages/houseDetail/houseDetail2",
     "pages/houseDetail/houseDetail3", 
     "pages/houseDetail/houseDetailInfo",
     "pages/houseDetail/map",

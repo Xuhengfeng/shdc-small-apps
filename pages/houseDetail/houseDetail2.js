@@ -133,34 +133,6 @@ Page({
       urls: this.data.houseDetail ? this.data.houseDetail.housePicList : this.data.imgUrls //需要预览的图片http链接列表  
     })
   },
-
-  //分享
-  onShareAppMessage(options) {
-    var that = this;
-    var shareObj = {
-      title: "世华地产",
-      // desc: '世华地产全球遥遥领先',
-      path: '/pages/houseDetail/houseDetail',    //默认是当前页面，必须是以‘/’开头的完整路径
-      imgUrl: '',     //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
-      success: (res)=> {
-        if(res.errMsg == 'shareAppMessage:ok') {}
-      },
-      fail: ()=> {
-        if (res.errMsg == 'shareAppMessage:fail cancel') {
-          // 用户取消转发
-        }else if (res.errMsg == 'shareAppMessage:fail') {
-          // 转发失败，其中 detail message 为详细失败信息
-        }
-      }
-    }
-    if(options.from == 'button') {
-      var eData = options.target.dataset;
-      console.log(eData)
-      // 此处可以修改 shareObj 中的内容
-      // shareObj.path = '/pages/btnname/btnname?btn_name=' + eData.name;
-    }
-    return shareObj
-  },
   selectYouLike(e) {//同小区二手房 租房
     this.setData({num: e.target.dataset.index});
     this.setData({arr1: [],arr2:[]});

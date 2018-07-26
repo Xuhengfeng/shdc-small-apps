@@ -1,10 +1,16 @@
 <!-- 回到首页 -->
 <!-- 跳转app -->
-<view class="backHome" bindtap="backHome">
-    <image src="../../images/home.png"></image>
-    <view class="text">首页</view>
+<view class="supernatant">
+    <view class="backHome" bindtap="backHome">
+        <image src="../../images/home.png"></image>
+        <view class="text">首页</view>
+    </view>
+    <button class="app" 
+            open-type="launchApp" 
+            app-parameter="wechat" 
+            binderror="launchAppError"
+            wx:if="{{!isXiaoqu}}">
+        <view>APP</view>
+        <view class="text">应用</view>
+    </button>
 </view>
-<button  class="app" open-type="launchApp" app-parameter="wechat" binderror="launchAppError">
-    <view>APP</view>
-    <view class="text">应用</view>
-</button>

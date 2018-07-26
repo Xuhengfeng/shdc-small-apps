@@ -120,12 +120,3 @@
 <view class="section4">
   <button class="weui-btn" type="warn" bindtap="commit">提交</button>
 </view>
-
-<!-- 操作表 -->
-<view class="actionSheet" wx:if="{{isSheet}}">
-    <view class="sheet">
-        <view class="one" data-name="业主" data-type="OWNER" bindtap="selectName">业主</view>
-        <view class="two" data-name="推荐人" data-type="RECMD_MAN" bindtap="selectName">推荐人</view>
-        <view class="cancel" bindtap="cancelSheet">取消</view>
-    </view>
-</view>

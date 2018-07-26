@@ -45,12 +45,12 @@ page{
   position: absolute;
   bottom: 25rpx;
   right: 25rpx;
-  border-radius: 14rpx;
-  font-size: 18rpx;
+  border-radius: 20rpx;
+  font-size: 30rpx;
   color: #ffffff;
-  height: 28rpx;
-  line-height: 28rpx;
-  width: 50rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  width: 80rpx;
   text-align: center;
 }
 

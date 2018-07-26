@@ -23,7 +23,6 @@ Page(filter.loginCheck({
     brokerId: '',
     selectCity: '',//当前的定位城市
     requestType: ['RENT', 'SELL'],
-    isSheet: false,//是否显示操作表
     //出售 出租
     IPS: [Api.IP_APPLYSELLHOUSE, Api.IP_APPLYRENTHOUSE],
     num: 0,
@@ -127,20 +126,26 @@ Page(filter.loginCheck({
   },
   // 操作表
   showSheet() {
-    this.setData({isSheet: true});    
-  },
-  // 业主 推荐人
-  selectName(e) {
-    this.setData({
-      useself: e.currentTarget.dataset.name,
-      useselfTypes: e.currentTarget.dataset.type,
-      phcolorFlag6: true
-    });
-    this.cancelSheet();
-  },
-  // 取消申请
-  cancelSheet() {
-    this.setData({isSheet: false});
+    wx.showActionSheet({
+      itemList: ['业主', '推荐人'],
+      success: res=> {
+        if(res.tapIndex==0){
+          this.setData({
+            useself: '业主',
+            useselfTypes: 'OWNER'
+          });
+        }
+        else if(res.tapIndex==1){
+          this.setData({
+            useself: '推荐人',
+            useselfTypes: 'RECMD_MAN'
+          });
+        }
+      },
+      fail: res=> {
+        console.log(res.errMsg)
+      }
+    })    
   },
   //清空还原
   cancelback() {

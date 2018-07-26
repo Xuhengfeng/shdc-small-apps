@@ -1,34 +1,37 @@
 /* 回到首页 */
 /* 跳转app */
-.backHome,.app{
+.supernatant{
   position: fixed;
-  right: 50rpx;
-  width: 120rpx;
-  height: 120rpx;
+  right: 24rpx;
+  bottom: 150rpx;
+  text-align: center;
+  color: #ffffff;
+}
+.backHome,.app{
+  width: 100rpx;
+  height: 100rpx;
   border-radius: 50%;
   background: #00b969;
   text-align: center;
   color: #ffffff;
+  box-shadow: 0 0 10rpx 5rpx rgba(0,185,105,0.3);
 }
 .backHome image{
-  width: 50rpx;
-  height: 50rpx;
+  width: 40rpx;
+  height: 40rpx;
   margin-top: 20rpx;
-  margin-bottom: 10rpx;
-}
-.backHome{
-  bottom: 300rpx;
-}
-.app{
-  bottom: 150rpx;
+  margin-bottom: 5rpx;
 }
 .backHome .text,
 .app .text{
-  font-size: 25rpx;
+  font-size: 20rpx;
+}
+.app{
+  margin-top: 20rpx;
 }
 .app>view:first-child{
-  font-size: 35rpx;
+  font-size: 25rpx;
   font-weight: bold;
-  margin-top: 30rpx;
+  margin-top: 25rpx;
   margin-bottom: 10rpx;
 }

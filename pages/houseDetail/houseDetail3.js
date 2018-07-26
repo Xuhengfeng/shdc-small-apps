@@ -192,28 +192,31 @@ Page({
   },
   //分享
   onShareAppMessage(options) {
-    var that = this;
+    let  that = this;
+    let sdid = this.data.houseDetailId;
+    let scity = this.data.currentCity;
     var shareObj = {
-      title: "世华地产",
-      // desc: '世华地产全球遥遥领先',
-      path: '/pages/houseDetail/houseDetail',    //默认是当前页面，必须是以‘/’开头的完整路径
-      imgUrl: '',     //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
+      title: "世华易居",
+      path: `/pages/houseDetail/houseDetail3?id=${sdid}&scity=${scity}`,//默认是当前页面，必须是以‘/’开头的完整路径
+      imgUrl: '', //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
       success: (res)=> {
-        if(res.errMsg == 'shareAppMessage:ok') {}
+        if(res.errMsg == 'shareAppMessage:ok') {
+          wx.showToast({ title: '分享成功', icon: 'success', duration: 1000 });
+        }
       },
       fail: ()=> {
         if (res.errMsg == 'shareAppMessage:fail cancel') {
           // 用户取消转发
+          wx.showToast({ title: '取消分享', icon: 'warn', duration: 1000 });
         }else if (res.errMsg == 'shareAppMessage:fail') {
           // 转发失败，其中 detail message 为详细失败信息
+          wx.showToast({ title: '分享失败', icon: 'warn', duration: 1000 });
         }
       }
     }
     if(options.from == 'button') {
       var eData = options.target.dataset;
-      console.log(eData)
       // 此处可以修改 shareObj 中的内容
-      // shareObj.path = '/pages/btnname/btnname?btn_name=' + eData.name;
     }
     return shareObj
   },

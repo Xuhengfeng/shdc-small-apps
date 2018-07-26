@@ -45,12 +45,12 @@ page{
   position: absolute;
   bottom: 25rpx;
   right: 25rpx;
-  border-radius: 14rpx;
-  font-size: 18rpx;
+  border-radius: 20rpx;
+  font-size: 30rpx;
   color: #ffffff;
-  height: 28rpx;
-  line-height: 28rpx;
-  width: 50rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  width: 80rpx;
   text-align: center;
 }
 
@@ -326,15 +326,16 @@ page{
   background: #00b969;
 }
 .footer .addCollection{
-position:fixed;
-right:50rpx;
-width:120rpx;
-height:120rpx;
-border-radius:50%;
-background:#00b969;
-text-align:center;
-color:#ffffff;
-bottom: 450rpx;
+  position:fixed;
+  right: 24rpx;
+  bottom: 270rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: #00b969;
+  text-align: center;
+  color: #ffffff;
+  box-shadow: 0 0 10rpx 5rpx rgba(0,185,105,0.3);
 }
 
 .addCollection image{
