@@ -1,6 +1,6 @@
 {
   "pages": [
-    
+    "pages/mine/mine",
     "pages/index/index",
     "pages/index/sellRent",
     "pages/mine/comment",
@@ -8,9 +8,11 @@
     "pages/mine/collection3",
     "pages/mine/collection2",
     "pages/mine/collection1",
-    "pages/mine/mine",
+    
     "pages/mine/mybroker",
     "pages/index/broker",    
+    "pages/mine/login",
+    "pages/mine/suggest",
     "pages/index/lookHouseList",
     "pages/mine/delegation",
     "pages/mine/mybuyhouse",
@@ -37,10 +39,6 @@
     "pages/houseDetail/houseDetailInfo",
     "pages/houseDetail/map",
     "pages/houseDetail/seehouseList",
-
-    "pages/mine/login",
-   
-    "pages/mine/suggest",
     "pages/searchList/searchList",
     "pages/search/search",
     "pages/location/location",

@@ -116,11 +116,11 @@ Page(filter.loginCheck({
         "applicantType": this.data.useselfTypes//我是
       }
       if (this.data.inputValue1 == '' || this.data.inputValue2 == '' ){
-          wx.showModal({title: '信息填写不完整!'})
+          wx.showModal({content: '信息填写不完整!'});
       }else{
         utils.post(this.data.IPS[this.data.num], params)
         .then(data=>{
-          wx.navigateBack()
+          wx.navigateBack();
         });
       }
   },

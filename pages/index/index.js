@@ -32,7 +32,6 @@ Page({
     houseUsed: null,//成交量统计
     houseList: [],//房源数据
     currentCity: null, //默认城市
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),//是否授权
     myLocation: "",//默认地址
     pageNo: 1,//默认第1页
     flagPrice: true, //是否有价格  二手房 租房
@@ -46,7 +45,6 @@ Page({
   },
   onLoad(){
     wx.hideTabBar();
-
     //默认城市定位  
     utils.get(Api.IP_DEFAULTCITY)
     .then(data=>{
@@ -312,44 +310,12 @@ Page({
   cacheHouseType2(value) {
     wx.setStorageSync('onceHouseType', value)
   },
-  //用户取消授权
-  cancelAuth() {
-    this.setData({isAuth: false});
-  },
-  //弹窗 拒绝授权和确定授权
-  userInfoHandle(e) {
-    //拒绝授权
-    if(e.detail.errMsg=='getUserInfo:fail auth deny'){
-      this.setData({canIUse: true});
-      wx.hideTabBar();
-    }
-    //同意授权
-    else{
-      wx.setStorage({
-        key:'userInfo',
-        data: JSON.stringify(e.detail.userInfo),
-        success:()=>{
-          wx.showTabBar();
-          this.setData({canIUse: false}
-        )}
-      })
-    }
-  },
   onShow() {
     //关闭动画
     setTimeout(()=>{
       this.setData({loadingHidden: false});
       wx.showTabBar();
-    }, 3000);
-    // 查看是否授权
-    utils.storage('userInfo')
-    .then(()=>{
-      this.setData({canIUse:false});
-    })
-    .catch(()=>{
-      this.setData({canIUse:true});
-    })
-    
+    }, 2000);
   },
   onHide() {
     //回到顶部

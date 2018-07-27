@@ -196,16 +196,6 @@
             <view><text>暂无数据</text></view>
         </view>
   </view>
-<!-- 用户授权弹窗 -->
-<view class="wxShadow" wx:if="{{canIUse}}">
-    <view class="wechatAuth">
-      <view class="txt">世华易居小程序需获取您的公开信息(昵称、头像等)</view>
-      <view class="wxFooter">
-          <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="userInfoHandle">授权登录</button>
-          <view wx:else>请升级微信版本</view>
-      </view>
-    </view>
-</view>
 <!-- 启动动画-->
 <view class="container" wx:if="{{loadingHidden}}">
     <view id="loading">

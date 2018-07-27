@@ -1,12 +1,28 @@
 @import "../template/template.wxss";
-page{
-  background: none;
-}
-::-webkit-scrollbar{
-  display: none;
-}
-navigator{
+.header{
   overflow: hidden;
+  position: relative;
+  background: #ffffff;
+  margin-bottom: 40rpx;
+}
+.headImage{
+  width: 120rpx;
+  height: 120rpx;
+  float: left;
+  margin: 50rpx 40rpx;
+  border-radius: 50%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1000;
+}
+.headImage image{
+  width: 100%;
+  height: 100%;
+}
+.header .login{
+  margin: 80rpx 0 20rpx;
+  font-size: 40rpx;
 }
 .headerTab{
   padding-top: 40px!important;

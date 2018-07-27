@@ -1,5 +1,12 @@
-<view class="page_bd">
-  <view class="weui-tab">
+<view class="header" wx:if="{{!islogin}}" bindtap="login">
+    <view class="headImage">
+        <image src="{{myInfo.headImage? myInfo.headImage : '../../images/avatar.png'}}"/> 
+    </view>
+    <view class="login">{{myInfo.mobile?myInfo.mobile:'点击注册/登录'}}</view>
+    <view class="description">登录之后可以查看待看日程记录</view>
+</view>
+<view class="page_bd" wx:if="{{islogin}}">
+    <view class="weui-tab">
       <view class="weui-navbar navbar">
           <block wx:for="{{tabs}}" wx:key="*this">
               <view id="{{index}}" data-index="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
@@ -93,12 +100,13 @@
               </view>
           </view>
       </view>
-  </view>
-</view>
-<view class="tips">
-    <view wx:if="{{hasMore}}">
-        <image src="../../images/loading.gif" mode="aspectFill"/>
-        <text>玩了命的加载中...</text>
     </view>
-</view> 
+    <view class="tips">
+        <view wx:if="{{hasMore}}">
+            <image src="../../images/loading.gif" mode="aspectFill"/>
+            <text>玩了命的加载中...</text>
+        </view>
+    </view> 
+</view>
+
 

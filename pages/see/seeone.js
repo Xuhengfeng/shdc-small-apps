@@ -14,32 +14,37 @@ Page({
     report: [],//看房报告
     hasMore: false,
     showload: false,
-    //待看日程 已看记录 看房报告
-    IPS: [Api.IP_READYLIST, Api.IP_COMPLETE, Api.IP_REPORTLIST],
+    IPS: [Api.IP_READYLIST, Api.IP_COMPLETE, Api.IP_REPORTLIST], //待看日程 已看记录 看房报告
     num: 0,
     currentCity: '',
     page: 2,
     isShadow: false,
+    islogin: false,//默认未登录
   },
   onLoad() {
-    if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
     wx.setNavigationBarTitle({title: "待看日程"});
-    //待看日程
+    if(wx.getStorageSync("userToken")){
+      this.setData({islogin: true});
+    }else{
+      this.setData({islogin: false});
+      return;
+    }
     wx.getSystemInfo({
-      success: (res) => {
+      success: res => {
         this.setData({
           sliderLeft: (res.windowWidth / this.data.tabs.length - sliderWidth) / 2,
           sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
         });
       }
-    });
-    wx.getStorage({
-      key: 'selectCity',
-      success: (res)=>{
-        this.setData({currentCity: res.data.value})
-        this.seeScheduleRequest()
-      }
     })
+    utils.storage('selectCity')
+    .then(res=>{
+      this.setData({currentCity: res.data.value});
+      this.seeScheduleRequest();
+    })
+  },
+  login() {
+    wx.redirectTo({url: "/pages/mine/login"});
   },
   //待看日程
   seeScheduleRequest() {

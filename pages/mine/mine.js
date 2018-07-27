@@ -4,15 +4,34 @@ Page({
   data: {
     showLogout: false,
     nickName: null,
-    myInfo: null
+    myInfo: null,
+    isAuth: '未授权'
   },
   onLoad() {
-    if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
-    this.getMyInfo();
     if(!wx.getStorageSync('userToken')) {
+      //未登录
       this.setData({showLogout: false});
     }else{
-      this.setData({showLogout: true});
+      //登录
+      this.setData({isAuth: '已授权',showLogout: true});
+      this.getMyInfo();
+    }
+  },
+  //授权信息
+  userInfoHandle(e) {
+    //拒绝授权
+    if(e.detail.errMsg=='getUserInfo:fail auth deny'){
+      wx.showModal({title: '授权失败'});
+    }
+    //同意授权
+    else{
+      wx.setStorage({
+        key:'userInfo',
+        data: JSON.stringify(e.detail.userInfo),
+        success:()=>{
+          this.setData({isAuth: '已授权'});
+        }
+      })
     }
   },
   //拨打电话
@@ -27,7 +46,8 @@ Page({
       this.setData({
         showLogout: false,
         nickName: null,
-        myInfo: null
+        myInfo: null,
+        isAuth: '未授权'
       })
       wx.removeStorageSync('ciphertext');
       wx.removeStorageSync('userPhone');
@@ -38,7 +58,13 @@ Page({
   },
   //登录
   login() {
-    !wx.getStorageSync('userToken')&&wx.redirectTo({url: "/pages/mine/login"});
+    if (wx.getStorageSync("userInfo")) {
+      //已授权
+      return wx.redirectTo({url: "/pages/mine/login"});
+    }else{
+      //未授权
+      return wx.showModal({content: '用户信息未授权'});
+    }
   },
   //跳转
   active(e) {
@@ -75,14 +101,14 @@ Page({
     })
   },
   onShow() {
-    if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
+    // if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
     //这里说明是第二次进入该页面 页面数据要刷新
-    this.getMyInfo();
-    if(!wx.getStorageSync('userToken')) {
-      this.setData({showLogout: false});
-    }else{
-      this.setData({showLogout: true});
-    }
+    // this.getMyInfo();
+    // if(!wx.getStorageSync('userToken')) {
+    //   this.setData({showLogout: false});
+    // }else{
+    //   this.setData({showLogout: true});
+    // }
   },
   onHide() {
     //回到顶部
