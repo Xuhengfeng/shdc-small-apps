@@ -36,7 +36,8 @@ Page({
   },
   //拨打电话
   telphone() {
-    wx.makePhoneCall({phoneNumber: this.data.myInfo.custServerPhone});
+    let phone = this.data.myInfo.custServerPhone?this.data.myInfo.custServerPhone:"0755-26411815";
+    wx.makePhoneCall({phoneNumber: phone});
   },
   //退出
   logout() {

@@ -48,7 +48,8 @@
     </view>
     <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_access contentHeight" bindtap="telphone">
-            <view class="weui-cell__bd">客服电话<text class="phone">{{myInfo.custServerPhone}}</text></view>
+            <view class="weui-cell__bd">客服电话<text class="phone">{{myInfo.custServerPhone?myInfo.custServerPhone:"0755-26411815"}}</text></view>
+
         </view>
         <view class="weui-cell weui-cell_access contentHeight">
             <view class="weui-cell__bd">在线客服</view>
