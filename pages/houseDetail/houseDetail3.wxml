@@ -192,7 +192,8 @@
         <image src="../../images/close2.png" bindtap="cancelLinkman"></image>
     </view>
 </view>
-
+<!-- loding白屏 -->
+<view class="whiteScreen" wx:if="{{!houseDetail}}"></view>
 <!-- 回到首页 -->
 <!-- 跳转app -->
 <backApp-html  bind:myevent="onMyEventBackHome" isFlag="{{isApp}}"></backApp-html>

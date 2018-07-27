@@ -150,6 +150,8 @@
       <view><text>暂无数据</text></view>
   </view>
 </view>
+<!-- loding白屏 -->
+<view class="whiteScreen" wx:if="{{!houseDetail}}"></view>
 <!-- 回到首页 -->
 <backApp-html  bind:myevent="onMyEventBackHome" isFlag="{{false}}"></backApp-html>
 <!-- 吐司 -->

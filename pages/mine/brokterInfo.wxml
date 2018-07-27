@@ -51,8 +51,8 @@
             </view>
       </view>
       <view class="nodata" wx:if="{{!brokerComment.length}}">
-        <view><image src="../../images/men.png" style="width:105px;height:143px"></image></view>
-        暂无评价!
+        <image src="../../images/men.png" style="width:105rpx;height:143rpx;margin-right:20rpx"></image>
+          暂无评价!
       </view>
 </view>
 

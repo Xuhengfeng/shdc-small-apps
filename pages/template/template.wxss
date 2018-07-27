@@ -227,3 +227,11 @@
   border-radius: 10rpx;
 }
 
+.whiteScreen{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background: #ffffff;
+  z-index: 1000;
+}
