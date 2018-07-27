@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/mine/mine",
+    "pages/see/seeone",
     "pages/index/index",
     "pages/index/sellRent",
     "pages/mine/comment",
@@ -8,7 +8,7 @@
     "pages/mine/collection3",
     "pages/mine/collection2",
     "pages/mine/collection1",
-    
+    "pages/mine/mine",
     "pages/mine/mybroker",
     "pages/index/broker",    
     "pages/mine/login",
@@ -22,7 +22,7 @@
     "pages/index/sellRentArea3",
     "pages/mine/moreComment",
     "pages/mine/brokterInfo",
-    "pages/see/seeone",
+    
     "pages/see/apprasieBroker",
     "pages/see/seeoneDetail",
     "pages/see/remark",

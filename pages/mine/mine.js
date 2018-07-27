@@ -21,7 +21,7 @@ Page({
   userInfoHandle(e) {
     //拒绝授权
     if(e.detail.errMsg=='getUserInfo:fail auth deny'){
-      wx.showModal({title: '授权失败'});
+      wx.showModal({content: '授权失败'});
     }
     //同意授权
     else{
@@ -49,11 +49,8 @@ Page({
         myInfo: null,
         isAuth: '未授权'
       })
-      wx.removeStorageSync('ciphertext');
-      wx.removeStorageSync('userPhone');
-      wx.removeStorageSync('userToken');
-      wx.removeStorageSync('userInfo');
-      wx.removeStorageSync('userInfo2');
+      //清空缓存
+      wx.clearStorageSync();
     })
   },
   //登录
@@ -63,7 +60,13 @@ Page({
       return wx.redirectTo({url: "/pages/mine/login"});
     }else{
       //未授权
-      return wx.showModal({content: '用户信息未授权'});
+      return wx.showModal({
+        title: '注意',
+        showCancel: true,
+        confirmText:'好去授权',
+        content: '为了您更好的体验,请先同意授权',
+        success: res => { }
+      })  
     }
   },
   //跳转
@@ -71,16 +74,64 @@ Page({
     let num = e.currentTarget.dataset.num;
     switch(num){
       case '1':wx.navigateTo({url:"collection"});break;//委托
-      case '2':wx.navigateTo({url:"mybuyhouse?title=我的卖房&num=0"});break;//卖房
-      case '3':wx.navigateTo({url:"mybuyhouse?title=我的租房&num=1"});break;//租房
-      case '5':wx.setStorageSync('currentPage', '我的');wx.navigateTo({url:"mybroker"});break;//我的经纪人
-      case '6':wx.navigateTo({url:"comment"});break;//我的评论
+      case '2':
+          if(wx.getStorageSync('userToken')) {
+            wx.navigateTo({url:"mybuyhouse?title=我的卖房&num=0"});//卖房
+          }else{
+            wx.showModal({content: '用户未登录'});
+          }
+          break;
+      case '3':
+          if(wx.getStorageSync('userToken')) {
+            wx.navigateTo({url:"mybuyhouse?title=我的租房&num=1"});break;//租房
+          }else{
+            wx.showModal({content: '用户未登录'});
+          }
+          break;
+      case '5':
+          if(wx.getStorageSync('userToken')) {
+            wx.setStorageSync('currentPage', '我的');wx.navigateTo({url:"mybroker"});break;//我的经纪人
+          }else{
+            wx.showModal({content: '用户未登录'});
+          }
+          break;
+      case '6' : 
+          if(wx.getStorageSync('userToken')) {
+            wx.navigateTo({url:"comment"});//我的评论
+          }else{
+            wx.showModal({content: '用户未登录'});
+          }
+          break;
       case '7':wx.navigateTo({url:"suggest"});break;//意见反馈
       case '8':wx.navigateTo({url:"../h5Pages/h5Pages?redirect=https://custh5s.shyj.cn/about/aboutus.html"});break;//关于我们
-      case '9':wx.navigateTo({url:"collection1"});break;//二手房收藏
-      case '10':wx.navigateTo({url:"collection2"});break;//租房收藏
-      case '11':wx.navigateTo({url:"collection3"});break;//经纪人收藏
-      case '12':wx.navigateTo({url:"collection4"});break;//小区收藏
+      case '9':
+          if(wx.getStorageSync('userToken')) {
+            wx.navigateTo({url:"collection1"});break;//二手房收藏
+          }else{
+            wx.showModal({content: '用户未登录'});
+          }
+          break;
+      case '10':
+          if(wx.getStorageSync('userToken')) {
+            wx.navigateTo({url:"collection2"});//租房收藏
+          }else{
+            wx.showModal({content: '用户未登录'});
+          }
+          break;
+      case '11':
+          if(wx.getStorageSync('userToken')) {
+            wx.navigateTo({url:"collection3"});//经纪人收藏
+          }else{
+            wx.showModal({content: '用户未登录'});
+          }
+          break;
+      case '12':
+          if(wx.getStorageSync('userToken')) {
+            wx.navigateTo({url:"collection4"});//小区收藏
+          }else{
+            wx.showModal({content: '用户未登录'});
+          }
+          break;         
     }
   },
   //二手房收藏数量
@@ -101,14 +152,8 @@ Page({
     })
   },
   onShow() {
-    // if (!wx.getStorageSync("userToken")) return wx.redirectTo({url: "/pages/mine/login"});
-    //这里说明是第二次进入该页面 页面数据要刷新
-    // this.getMyInfo();
-    // if(!wx.getStorageSync('userToken')) {
-    //   this.setData({showLogout: false});
-    // }else{
-    //   this.setData({showLogout: true});
-    // }
+    //刷新页面数据
+    if(wx.getStorageSync("userToken")) this.getMyInfo();
   },
   onHide() {
     //回到顶部

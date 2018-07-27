@@ -21,8 +21,20 @@
   height: 100%;
 }
 .header .login{
-  margin: 80rpx 0 20rpx;
+  margin: 45rpx 0 5rpx;
   font-size: 40rpx;
+}
+.header .description{
+  margin: 0;
+}
+.auth{
+  height: 50rpx; 
+  line-height: 50rpx;
+  text-align: left;
+  font-size: 30rpx;
+  display: inline-block;
+  margin:0;
+  color: #000000;
 }
 .headerTab{
   padding-top: 40px!important;

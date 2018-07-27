@@ -20,6 +20,7 @@ Page({
     page: 2,
     isShadow: false,
     islogin: false,//默认未登录
+    isAuth: '未授权'
   },
   onLoad() {
     wx.setNavigationBarTitle({title: "待看日程"});
@@ -43,8 +44,38 @@ Page({
       this.seeScheduleRequest();
     })
   },
+  //授权信息
+  userInfoHandle(e) {
+    //拒绝授权
+    if(e.detail.errMsg=='getUserInfo:fail auth deny'){
+      wx.showModal({content: '授权失败'});
+    }
+    //同意授权
+    else{
+      wx.setStorage({
+        key:'userInfo',
+        data: JSON.stringify(e.detail.userInfo),
+        success:()=>{
+          this.setData({isAuth: '已授权'});
+        }
+      })
+    }
+  },
+  //登录
   login() {
-    wx.redirectTo({url: "/pages/mine/login"});
+    if (wx.getStorageSync("userInfo")) {
+      //已授权
+      return wx.redirectTo({url: "/pages/mine/login"});
+    }else{
+      //未授权
+      return wx.showModal({
+        title: '注意',
+        showCancel: true,
+        confirmText:'好去授权',
+        content: '为了您更好的体验,请先同意授权',
+        success: res => { }
+      }) 
+    }
   },
   //待看日程
   seeScheduleRequest() {
