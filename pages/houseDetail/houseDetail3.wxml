@@ -187,7 +187,8 @@
               <view class="two">{{houseDetail.broker.emplFlag?houseDetail.broker.emplFlag:'房东信赖'}}</view>
           </view>
         </view>
-        <view class="dialog-body" data-phone="{{houseDetail.broker.phone}}" bindtap="telphone">电话</view>
+        <view class="dialog-body" data-phone="{{houseDetail.broker.phone}}" catchtap="telphone">
+          <image src="../../images/phone.png" data-phone="{{houseDetail.broker.phone}}" catchtap="telphone" style="width:40rpx;height:40rpx;margin-right:20rpx;vertical-align:top"></image>电话</view>
         <image src="../../images/close2.png" bindtap="cancelLinkman"></image>
     </view>
 </view>

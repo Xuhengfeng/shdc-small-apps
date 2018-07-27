@@ -42,7 +42,7 @@
       </navBar-html>
     </view>
     <view class="section recommend">
-      <view class="title" style="padding:100rpx 0 40rpx">为你推荐</view>
+      <view class="title" style="padding:50rpx 0 40rpx">为你推荐</view>
       <view class="house-info">
         <scroll-view scroll-x="true" style="white-space:nowrap;display:flex;height:100%">
           <view class="goods-item"
@@ -59,7 +59,7 @@
                     <view  class="houseTypeInfo" style="color:#ffffff">
                           <text>{{item.houseType}}</text>{{item.builtArea}}m²
                     </view>
-                    <view wx:if="{{flagPrice}}" class="housePrice" style="color:#ffc001">{{item.saleTotal}}万
+                    <view wx:if="{{flagPrice}}" class="housePrice" style="color:#ff4343">{{item.saleTotal}}万
                         <text style="color:#ffffff">{{item.salePrice}}元/平</text>
                     </view>
                     <view wx:if="{{!flagPrice}}" class="housePrice" style="color:#ff4343">{{item.rentPrice}}元/月</view>

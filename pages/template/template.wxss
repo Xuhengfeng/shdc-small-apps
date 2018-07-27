@@ -51,6 +51,9 @@
 .section{
   background: #ffffff;
 }
+.recommend{
+  padding-bottom: 40rpx;
+}
 .item-content{
   padding-right: 12rpx;
   overflow: hidden;
