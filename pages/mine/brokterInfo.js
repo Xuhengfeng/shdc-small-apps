@@ -13,26 +13,17 @@ Page({
     brokerComment: [],//经纪人评论
   },
   onLoad(options) {
-    let id = options.id;
-    this.setData({brokerId: id});
-    utils.storage('selectCity')
-    .then((res)=>{
-      let city = res.data.value;
-      let IP = this.data.guessLikeIP[0] + '/' + city;
-      let params = {pageNo: 1, scity: city};
-
-      this.setData({currentCity: city});
-      this.getDataFromServer(IP, params);
-      this.brokerInfoRequest(id);
-    });
-    this.brokerCommentInfo();
+    let item = JSON.parse(options.item);
+    let IP = this.data.guessLikeIP[0] + '/' + item.scity;
+    this.setData({brokerId: item.id, currentCity: item.scity});
+    this.brokerInfoRequest(item);
+    this.brokerCommentInfo(item);
+    let params = {pageNo: 1, scity: item.scity};
+    this.getDataFromServer(IP, params);
   },
   //经纪人评论
   brokerCommentInfo() { 
-    let params = {
-      brokerId: this.data.brokerId,
-      pageNo: 1
-    }
+    let params = {brokerId: this.data.brokerId, pageNo: 1}
     utils.get(Api.IP_BROKEREVALUATE,params)
     .then(data=>{
       data.data.forEach(item=>{
@@ -74,18 +65,18 @@ Page({
   getDataFromServer(IP, params) {
     utils.get(IP, params)
     .then(data => {
-      data.data.forEach((item) => {
+      data.data.forEach(item => {
         item.houseTag = item.houseTag.split(',');
       })
       let flagpc = this.data.num == 0 ? true : false;
-      this.setData({ flagPrice: flagpc })
-      this.setData({ houseList: data.data })
+      this.setData({flagPrice: flagpc, houseList: data.data })
     })
   },
   //经纪人详情
-  brokerInfoRequest(id) {
-    utils.get(Api.IP_BROKERSDETAIL+this.data.currentCity+'/'+id)
+  brokerInfoRequest(item) {
+    utils.get(Api.IP_BROKERSDETAIL+item.scity+'/'+item.id)
     .then(data=>{
+      console.log(data.data)
       this.setData({brokerInfo: data.data});
     })
   },

@@ -3,7 +3,7 @@
     <view class="list"
             wx:for="{{brokers}}"
             data-item="{{item}}"
-            bindtap="goBackSet">
+            bindtap="brokerDetial">
         <image src="{{item.photo?item.photo:'../../images/avatar.png'}}"></image>
         <view class="content">
                 <view>
@@ -12,12 +12,11 @@
                 </view>
                 <view class="location">所在门店</view>
                 <view class="tag">
-                        <text wx:for="{{item.emplFlag}}" wx:for-item="item2" >{{item2}}</text>
+                        <text>{{item.emplFlag?item.emplFlag:'房东信赖'}}</text>
                 </view>
         </view>
     </view>
 </view>
-
 <image class="nodata" wx:if="{{!brokers.length}}" src="../../images/nodata.png"/>
 <view class="nodataContent" wx:if="{{!brokers.length}}">暂无收藏的经纪人~~~</view>
 

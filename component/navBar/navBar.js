@@ -63,12 +63,12 @@ Component({
     modeCategoriesValue: null,
     mode2Categories: null, //类型2 小区
     mode2CategoriesValue: null,
-    proportionCategories: 0,//面积
+    proportionCategories: null,//面积
     minBuildArea: null,
     maxBuildArea: null,    
-    useCategories: 0,//用途
+    useCategories: null,//用途
     useCategoriesValue: null,
-    houseAgeCategories: 0,//楼龄
+    houseAgeCategories: null,//楼龄
     houseAgeCategoriesValue: null,
     IPS: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE, Api.IP_BUILDLIST],//二手房列表 租房列表 小区找房列表
     url: null,
@@ -412,10 +412,9 @@ Component({
         'scity': this.data.currentCity,
         'houseType': ''
       }
-      let label = 'label[' + 2 + ']';
       let newParams = Object.assign(this.data.params, params);
       this.cancelModal();
-      this.setData({[label]: '类型',mode2Categories: null});
+      this.setData({['label[2]']: '类型',mode2Categories: null});
       this.getDataFromServer(this.data.url, newParams);
     },
     modelabel2True() {

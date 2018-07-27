@@ -23,6 +23,11 @@ Page({
       case 1:item.status="已离职";break;//已售
     }
   },
+  brokerDetial(e) {
+    console.log(e.currentTarget.dataset.item)
+    let item = JSON.stringify(e.currentTarget.dataset.item);
+    wx.navigateTo({url: `./brokterInfo?item=${item}`});
+  },
   onReachBottom() {
     this.setData({hasMore: true});    
     let params = {

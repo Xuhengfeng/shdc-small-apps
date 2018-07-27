@@ -1,5 +1,5 @@
  
-<view class="list"bindtap="goBackSet">
+<view class="list" bindtap="goBackSet">
       <image class="avatar" src="{{brokerInfo.photo?brokerInfo.photo:'../../images/avatar.png'}}"></image>
       <view class="content">
             <view>
@@ -11,8 +11,8 @@
             <view class="location">所在门店</view>
             <view class="num">世华工号: <text>{{brokerInfo.emplAccNo}}</text></view>
             <view class="like" bindtap="toggleSelectLike">
-                <image src="../../images/like-off.png" wx:if="{{likeFlag}}"/>
-                <image src="../../images/like-on.png" wx:if="{{!likeFlag}}"/>
+                <image src="../../images/like-off.png" wx:if="{{!likeFlag}}"/>
+                <image src="../../images/like-on.png" wx:if="{{likeFlag}}"/>
             </view>
       </view>
 </view>
@@ -50,7 +50,10 @@
                   </view>
             </view>
       </view>
-      <view class="nodata" wx:if="{{!brokerComment.length}}">暂时没有任何人评价!</view>
+      <view class="nodata" wx:if="{{!brokerComment.length}}">
+        <view><image src="../../images/men.png" style="width:105px;height:143px"></image></view>
+        暂无评价!
+      </view>
 </view>
 
 <view class="section goodList">

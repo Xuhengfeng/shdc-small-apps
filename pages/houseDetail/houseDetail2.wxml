@@ -1,5 +1,4 @@
 <import src="../template/template.wxml"/>
-
 <view class="header">
   <swiper bindchange="listenSwiper" 
           indicator-dots="{{false}}" 
@@ -21,7 +20,6 @@
     <text>{{currentIndex}}/{{houseDetail.housePicList.length}}</text>
   </view>
  </view>
-
 <view class="section section1">
     <!-- 小区找房详情 -->
     <view class="title">{{houseDetail.buildName}}<view>{{houseDetail.adreessOfficial}}</view></view>      
@@ -41,7 +39,6 @@
     </view>
     <view class="title" style="padding:40rpx 0;border-bottom:1px solid #e6e6e6;">小区房源</view>     
 </view>
-
 <!-- 小区找房 -->
 <view class="estate">
       <view bindtap="xiaoquTwoHouse">
@@ -54,8 +51,6 @@
           <view>租房</view>
       </view>
 </view>
-
-
 <view class="section section2">
   <view class="title">
     <text>小区信息</text>
@@ -73,7 +68,6 @@
       </view>
   </view>
 </view> 
-
 <view class="section section3">
   <view class="title">
     <text>小区位置</text>
@@ -91,7 +85,6 @@
       </view>
   </view>
 </view>
-
 <view class="sectoin section4">
   <!-- 小区找房详情 -->
   <view class="title">周边设施</view>
@@ -103,7 +96,6 @@
       <view>超市: <text>{{houseDetail.supermarketInfo}}</text></view> 
   </view>  
 </view>
-
 <view class="footer">
     <!-- 小区 -->
     <view class="type2">
@@ -113,7 +105,6 @@
       </view>
     </view>
 </view> 
-
 <!-- 小区详情 -->
 <view class="section goodList">
   <view class="title">小区房源
@@ -126,7 +117,6 @@
                   class="{{index == num?'red':'gray'}}">{{item}}</text>
         </view>
        </view>
-
   <block wx:for="{{guessYoulikeHouse}}" wx:key="index" wx:for-item="item">
       <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="jumpHouseDetail">
             <view class="image">

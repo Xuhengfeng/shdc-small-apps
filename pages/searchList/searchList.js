@@ -6,7 +6,6 @@ Page({
     label: [],
     houseList: [],//房源列表
     dataList: [],//每一次的数据
-
     area: [],//区域
     houseTypes: [],//户型
     price: [],//价格
@@ -23,25 +22,23 @@ Page({
     flagPrice: true,
     flagTwoHouse: true,
     togglelabel: true,
-
     //区域  (户型 类型 面积)  价格标签
     IPS: [Api.IP_AREADISTRICTS, Api.IP_DICTIONARY, Api.IP_DICTIONARYCONDITION],
-
     //二手房列表 租房列表 小区找房列表
     IPS2: [Api.IP_TWOHANDHOUSE, Api.IP_RENTHOUSE, Api.IP_BUILDLIST], 
     ipNum: 0,
-    
     showload: false,
     hasMore: false,
     currentCity: '',
     keyword: '', //关键词
     params: {},//第一次请求的参数体
+    timer: null,//定时器 节流请求
   },
   onLoad(options) {
+    console.log(options)
     // 修正title
     let name = wx.getStorageSync('houseTypeSelect');
     wx.setNavigationBarTitle({title: name});
-     
     //修正url keyword label 
     if(name == '二手房') {
       this.setData({
@@ -67,7 +64,6 @@ Page({
         flagTwoHouse: false
       });
     }
-
     //获取筛选条件
     utils.storage('selectCity')
     .then((res)=>{
@@ -144,9 +140,13 @@ Page({
       hasMore: false
     })
   },
-  //获取用户输入关键字
+  //获取用户输入关键字 节流请求
   userSearch(e) {
-    this.setData({keyword: e.detail.value})
+    clearTimeout(this.data.timer);
+    this.data.timer = setTimeout(()=>{
+      this.setData({keyword: e.detail.value});
+      this.startsearch();
+    },1000);
   },
   searchSubmit() {
     this.startsearch();
