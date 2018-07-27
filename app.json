@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/see/seeone",
     "pages/index/index",
     "pages/index/sellRent",
     "pages/mine/comment",
@@ -22,7 +21,7 @@
     "pages/index/sellRentArea3",
     "pages/mine/moreComment",
     "pages/mine/brokterInfo",
-    
+    "pages/see/seeone",
     "pages/see/apprasieBroker",
     "pages/see/seeoneDetail",
     "pages/see/remark",
