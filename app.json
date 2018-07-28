@@ -58,20 +58,20 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "images/home-off.png",
-        "selectedIconPath": "images/home-on.png",
+        "iconPath": "images/home-off.jpg",
+        "selectedIconPath": "images/home-on.jpg",
         "text": "主页"
       },
       {
         "pagePath": "pages/see/seeone",
-        "iconPath": "images/see-off.png",
-        "selectedIconPath": "images/see-on.png",
+        "iconPath": "images/see-off.jpg",
+        "selectedIconPath": "images/see-on.jpg",
         "text": "约看"
       },
       {
         "pagePath": "pages/mine/mine",
-        "iconPath": "images/my-off.png",
-        "selectedIconPath": "images/my-on.png",
+        "iconPath": "images/my-off.jpg",
+        "selectedIconPath": "images/my-on.jpg",
         "text": "我的"
       }
     ]
