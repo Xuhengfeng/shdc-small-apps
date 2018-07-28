@@ -92,13 +92,13 @@ Page({
       this.setData({area:  data.data});
     })
   },
-  //用途 面积 户型
+  //类型 面积 户型
   useAreaRequest(city) {
-    let params = ['HOUSE_USE', 'HOUSE_AREA', 'HOUSE_HUXING'];
+    let params = ['HOUSE_TYPE', 'HOUSE_AREA', 'HOUSE_HUXING'];
     utils.post(Api.IP_DICTIONARY, params)
     .then(data => {
       this.setData({
-        mode: data.data.HOUSE_USE,
+        mode: data.data.HOUSE_TYPE,
         proportion: data.data.HOUSE_AREA,
         houseTy: data.data.HOUSE_HUXING
       })
