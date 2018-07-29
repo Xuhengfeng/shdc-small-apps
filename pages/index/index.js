@@ -309,12 +309,6 @@ Page({
   cacheHouseType2(value) {
     wx.setStorageSync('onceHouseType', value)
   },
-  onShow() {
-    //关闭动画
-    // setTimeout(()=>{
-    //   this.setData({loadingHidden: false});
-    // }, 2000);
-  },
   onHide() {
     //回到顶部
     wx.pageScrollTo({scrollTop: 0, duration: 0});
