@@ -197,7 +197,7 @@
         </view>
   </view>
 <!-- 启动动画-->
-<view class="container" wx:if="{{loadingHidden}}">
+<!-- <view class="container" wx:if="{{loadingHidden}}">
     <view id="loading">
         <view id="loading-center">
             <view id="loading-center-absolute">
@@ -213,4 +213,4 @@
             </view>
         </view>
     </view>
-</view>
+</view> -->

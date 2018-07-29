@@ -103,7 +103,13 @@ Page({
             wx.showModal({content: '用户未登录'});
           }
           break;
-      case '7':wx.navigateTo({url:"suggest"});break;//意见反馈
+      case '7':
+          if (wx.getStorageSync('userToken')) {
+            wx.navigateTo({ url: "suggest" });//意见反馈
+          } else {
+            wx.showModal({ content: '用户未登录' });
+          }
+          break;
       case '8':wx.navigateTo({url:"../h5Pages/h5Pages?redirect=https://custh5s.shyj.cn/about/aboutus.html"});break;//关于我们
       case '9':
           if(wx.getStorageSync('userToken')) {

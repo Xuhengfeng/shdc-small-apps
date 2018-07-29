@@ -44,7 +44,6 @@ Page({
     allH5url: null,
   },
   onLoad(){
-    wx.hideTabBar();
     //默认城市定位  
     utils.get(Api.IP_DEFAULTCITY)
     .then(data=>{
@@ -312,10 +311,9 @@ Page({
   },
   onShow() {
     //关闭动画
-    setTimeout(()=>{
-      this.setData({loadingHidden: false});
-      wx.showTabBar();
-    }, 2000);
+    // setTimeout(()=>{
+    //   this.setData({loadingHidden: false});
+    // }, 2000);
   },
   onHide() {
     //回到顶部
