@@ -157,7 +157,26 @@ Page({
   },
   //预约看房
   lookHouse() {
-    if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
+    //未登录
+    if(!wx.getStorageSync("userToken")){
+      if (wx.getStorageSync("userInfo")) {
+        //已授权
+        return wx.redirectTo({url: "/pages/mine/login"});
+      }else{
+        //未授权
+        return wx.showModal({
+          title: '注意',
+          showCancel: true,
+          confirmText:'好去授权',
+          content: '为了您更好的体验,请先同意授权',
+          success: res => { 
+            if(res.confirm){
+              wx.switchTab({url: "/pages/mine/mine"});
+            }
+          }
+        })  
+      }
+    }
     if (!this.data.isAppoint) this.isLookHouse();
   },
   //预约看房弹窗
