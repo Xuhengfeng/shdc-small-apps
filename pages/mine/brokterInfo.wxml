@@ -51,8 +51,8 @@
             </view>
       </view>
       <view class="nodata" wx:if="{{!brokerComment.length}}">
-        <image src="../../images/men.png" style="width:105rpx;height:143rpx;margin-right:20rpx"></image>
-          暂无评价!
+        <image src="../../images/men.png" style="width:105rpx;height:143rpx;margin-left:-30%;"></image>
+        <text>暂无评价!</text>
       </view>
 </view>
 
@@ -68,8 +68,7 @@
       </view>
       </view>
       <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-          <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail=二手房" 
-                      hover-class="none">
+         <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="jumpHouseDetail">
               <view class="item">
                     <view class="image">
                       <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
@@ -94,7 +93,7 @@
                     </view>
                   </view>
               </view>
-          </navigator>
+          </view>
       </block>
 
 

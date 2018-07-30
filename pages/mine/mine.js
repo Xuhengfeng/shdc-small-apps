@@ -57,11 +57,13 @@ Page({
   //登录
   login() {
     if (wx.getStorageSync("userInfo")) {
-      //已授权
-      return wx.redirectTo({url: "/pages/mine/login"});
+      if(!wx.getStorageSync('userToken')){
+        //已授权
+        wx.redirectTo({url: "/pages/mine/login"});
+      }
     }else{
       //未授权
-      return wx.showModal({
+      wx.showModal({
         title: '注意',
         showCancel: true,
         confirmText:'好去授权',

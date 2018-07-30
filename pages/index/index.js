@@ -220,7 +220,28 @@ Page({
         wx.navigateTo({url: "../searchList/searchList"});break;      
       case '4':
         wx.setStorageSync('currentPage', '主页');
-        wx.navigateTo({url: "sellRent"});break;      
+        if (wx.getStorageSync("userInfo")) {
+          if(!wx.getStorageSync('userToken')){
+            //已授权
+            wx.redirectTo({url: "/pages/mine/login"});
+          }else{
+            wx.navigateTo({url: "sellRent"});
+          }
+        }else{
+          //未授权
+          wx.showModal({
+            title: '注意',
+            showCancel: true,
+            confirmText:'好去授权',
+            content: '为了您更好的体验,请先同意授权',
+            success: res => {
+              if(res.confirm){
+                wx.switchTab({url: "/pages/mine/mine"});
+              }
+            }
+          })  
+        }
+        break;      
       case '5':wx.navigateTo({url: "shop"});break;      
     }
   },

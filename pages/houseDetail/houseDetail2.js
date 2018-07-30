@@ -97,11 +97,13 @@ Page({
   },
   //跳转
   jumpHouseDetail(e){
-    this.data.num==0
-    ? this.cacheHouseType('二手房')
-    : this.cacheHouseType('租房');
-
-    wx.navigateTo({url: '../houseDetail/houseDetail?id='+e.currentTarget.dataset.id+'&scity='+e.currentTarget.dataset.scity});
+    if(this.data.num==0){
+      this.cacheHouseType('二手房');
+      wx.navigateTo({url: '../houseDetail/houseDetail?id='+e.currentTarget.dataset.id+'&scity='+e.currentTarget.dataset.scity});
+    }else{
+      this.cacheHouseType('租房');
+      wx.navigateTo({url: '../houseDetail/houseDetail3?id='+e.currentTarget.dataset.id+'&scity='+e.currentTarget.dataset.scity});
+    }
   },
   //收藏
   toggleSelectLike() {

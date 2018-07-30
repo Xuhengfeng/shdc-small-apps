@@ -152,6 +152,7 @@ Page({
     this.setData({ inputValue2: e.detail.value})
   },
   sendCode() {//发送验证码
+    console.log(2323)
     let myreg = /^[1][3,4,5,7,8][0-9]{9}$/;//手机号正则
     if(!myreg.test(this.data.inputValue1)) {
       wx.showModal({content: '请输入正确的手机号'})

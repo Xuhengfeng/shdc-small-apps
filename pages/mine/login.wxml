@@ -5,12 +5,6 @@
       <text>推荐方式登录</text>
       <view class="line"></view> 
     </view>
-    <!-- 微信授权登录 -->
-    <!-- <button type="primary" 
-            bindtap="getUseInfo"
-            class="globalBtnColor">
-             <image src="../../images/wechat.png"></image>账号登录
-    </button>  -->
     <!-- 手机号授权登录 -->
     <button type="primary" 
             open-type="getPhoneNumber" 
@@ -19,21 +13,18 @@
             <image src="../../images/wechat.png"></image>账号登录
     </button> 
   </view>
- 
-  
-  
   <view class="page__bd" wx:if="{{!isphoneLogin}}">
-      <view class="section">
-        <view bindtap="toggleClick"><image src="../../images/close.png" class="close"></image></view>
-        <view style="margin-top:40rpx;font-size:60rpx;">手机快捷登录</view>
+      <view bindtap="toggleClick"><image src="../../images/back.png" class="close"></image></view>
+      <view class="content">
+          <image src="../../images/logo.png" class="logo"/>
+          <view class="inpt">
+            <input placeholder="请输入手机号码" bindinput="bindKeyInput1"/>
+          </view>
+          <view class="inpt">
+            <input placeholder="请输入验证码"  bindinput="bindKeyInput2"  placeholder="请输入验证码"/>
+            <button class="sendBtn" catchtap="sendCode">获取验证码</button>
+          </view>
+          <button bindtap="login" type="primary" class="login globalBtnColor">登录</button>   
       </view>
-      <view class="section">
-        <input placeholder="请输入手机号" bindinput="bindKeyInput1" style="float:left;width:70%"/>
-        <text class="sendBtn" bindtap="sendCode">获取验证码</text>
-      </view>
-      <view class="section">
-        <input placeholder="请输入验证码"  bindinput="bindKeyInput2"  placeholder="请输入验证码"/>
-      </view>
-      <button bindtap="login" type="primary" class="globalBtnColor">登录</button>   
   </view>
 </view>

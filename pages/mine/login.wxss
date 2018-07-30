@@ -1,5 +1,15 @@
+page{
+  background: #ffffff;
+}
 .page{
-  padding: 40rpx;
+  padding: 20rpx;
+}
+.logo{
+  display: block;
+  width: 144rpx;
+  height: 166rpx;
+  margin: 20rpx auto 50rpx;
+  zoom: 1.5;
 }
 .page_hd .flexBox{
   display: flex;
@@ -21,33 +31,41 @@
   color: #c7c7c7;
 }
 .btn_Login{
-    margin-top: 20px
+  margin-top: 20px
 }
-.page__bd{
-  margin-top: 40rpx;
+.content{
+  padding: 0 40rpx;
 }
-.page__bd input{
-    height: 120rpx;
-    line-height: 120rpx;
-    font-size: 40rpx;
-    border-bottom: 1px solid #ccc;
+.inpt{
+  position:  relative;
+  overflow: hidden;
+  height: 120rpx;
+  line-height: 120rpx;
+  border-bottom: 1px solid #ccc;
 }
-.section{
-    overflow: hidden;
+.inpt input{
+  margin-top: 35rpx;
+  font-size: 40rpx;
+  width: 70%;
 }
 .close{
   width: 50rpx;
   height: 50rpx;
 }
 .sendBtn{
-  float: right;
-  display: block;
-  margin-top: 40rpx;
-  font-size: 40rpx;
+  position: absolute;
+  right: 0;
+  top: 40rpx;
+  height: 65rpx;
+  line-height: 65rpx;
+  font-size: 28rpx;
+  background: #f43434;
+  color: #ffffff;
+  margin-top: 0;
+  border-radius: 30rpx;
 }
 button{
   margin-top: 40rpx;
-  border-radius: 0;
   font-size: 30rpx;
   line-height: 80rpx;
 }

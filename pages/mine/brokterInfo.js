@@ -39,7 +39,11 @@ Page({
   },
   //拨打电话
   call(e) {
-    wx.makePhoneCall({phoneNumber: e.currentTarget.dataset.phone});
+    if(e.currentTarget.dataset.phone){
+      wx.makePhoneCall({phoneNumber: e.currentTarget.dataset.phone});
+    }else{
+      wx.showModal({content: '号码不存在'});
+    }
   },
   //生成星星组合
   newStar(num) {
@@ -105,5 +109,15 @@ Page({
   //缓存房源类型
   cacheHouseType(value) {
     wx.setStorageSync('houseTypeSelect', value)
-  }
+  },
+  //跳转
+  jumpHouseDetail(e){
+    if(this.data.num==0){
+      this.cacheHouseType('二手房');
+      wx.navigateTo({url: '../houseDetail/houseDetail?id='+e.currentTarget.dataset.id+'&scity='+e.currentTarget.dataset.scity});
+    }else{
+      this.cacheHouseType('租房');
+      wx.navigateTo({url: '../houseDetail/houseDetail3?id='+e.currentTarget.dataset.id+'&scity='+e.currentTarget.dataset.scity});
+    }
+  },
 })
