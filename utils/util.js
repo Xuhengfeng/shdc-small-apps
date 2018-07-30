@@ -88,7 +88,6 @@ const requstPost = (url, data) => {
 const requstDelete = (url, data) => {
   return requst(url,'DELETE',data);
 }
-
 module.exports = {
   formatTime: formatTime,
   checkPhone: checkPhone,
