@@ -3,8 +3,8 @@
   background: #ffffff;
   margin-top: 20rpx;
   overflow: hidden;
+  transition: all 0.3s;
 }
-
 .list image{
   float: left;
   width: 150rpx;
@@ -88,4 +88,22 @@
   left: 50%;
   transform: translateX(-50%);
   color: #666666;
+}
+.bodyItem{
+  position: relative;
+}
+/* 删除 */
+.cancel{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  line-height: 200rpx;
+  width: 219rpx;
+  text-align: center;
+  background: red;
+  color: #ffffff;
+}
+.move{
+  transform: translate3d(-220rpx,0,0);  
 }

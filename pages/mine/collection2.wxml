@@ -1,30 +1,40 @@
 
 <view class="weui-panel__bd">
     <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
-    <view data-id="{{item.sdid}}" data-scity="{{item.scity}}"  bindtap="zufang">
-        <view class="item">
-        <view class="image">
-            <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
-            <view class="originHouse {{item.status=='正常'?'':'lose'}}" wx:if="{{item.status!=='正常'}}">{{item.status}}</view>
-            <view class="shadow" wx:if="{{item.status!=='正常'}}"></view>
-        </view>
-        <view class="item-content">
-            <view class="item-title {{item.status=='正常'?'':'changecolor'}}">{{item.houseTitle}}</view>
-            <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
-            <view  class="houseTypeInfo">
-            <text>{{item.houseType}}</text>{{item.builtArea}}m²
+    <view class="bodyItem" data-id="{{item.sdid}}" data-scity="{{item.scity}}"  bindtap="zufang">
+        <!-- 删除 -->
+        <view data-id="{{item.sdid}}"
+            catchtap="delItem"
+            class="cancel">删除</view>
+        <!-- 内容层 -->
+        <view class="item  {{item.isMove?'move':''}}"
+            data-index="{{index}}"
+            bindtouchstart="touchS"
+            bindtouchmove="touchM"
+            bindtouchend="touchE"
+            >
+            <view class="image">
+                <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
+                <view class="originHouse {{item.status=='正常'?'':'lose'}}" wx:if="{{item.status!=='正常'}}">{{item.status}}</view>
+                <view class="shadow" wx:if="{{item.status!=='正常'}}"></view>
             </view>
-
-        <view class="houseLabel">
-            <text wx:for="{{item.houseTag}}" 
-                wx:key="{{index2}}"
-                wx:for-item="item2" 
-                wx:for-index="index2">{{item2}}</text>
+            <view class="item-content">
+                <view class="item-title {{item.status=='正常'?'':'changecolor'}}">{{item.houseTitle}}</view>
+                <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
+                <view  class="houseTypeInfo">
+                <text>{{item.houseType}}</text>{{item.builtArea}}m²
                 </view>
-                <view class="housePrice">{{item.rentPrice}}元/月</view>     
+
+            <view class="houseLabel">
+                <text wx:for="{{item.houseTag}}" 
+                    wx:key="{{index2}}"
+                    wx:for-item="item2" 
+                    wx:for-index="index2">{{item2}}</text>
+                    </view>
+                    <view class="housePrice">{{item.rentPrice}}元/月</view>     
+                </view>
             </view>
         </view>
-    </view>
     </block>
 </view>
 

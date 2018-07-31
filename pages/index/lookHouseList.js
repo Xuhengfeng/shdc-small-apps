@@ -67,7 +67,7 @@ Page({
     }
   },
   touchM(e) {
-    this.data.list.forEach((item)=>{
+    this.data.list.forEach(item=>{
       item.isMove = false;
     })
     if (e.touches.length == 1) {

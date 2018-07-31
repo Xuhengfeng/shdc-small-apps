@@ -1,10 +1,4 @@
 @import "../template/template.wxss";
-page{
-  background: #ffffff;
-}
-::-webkit-scrollbar{
-  display: none;
-}
 navigator{
   overflow: hidden;
 }
@@ -49,17 +43,13 @@ button{
   top: 0;
   background: #ffffff;
 }
-/* 重写weui的tab样式 */
-.weui-navbar__item.weui-bar__item_on{
-  color: #ff4343;
-}
-.weui-navbar__slider{
-  background-color: #ff4343;
-}
-
 /* 房源失效样式 */
 .item{
   position: relative;
+  margin: 0 0 20rpx 0;
+  background: #ffffff;
+  padding: 30rpx 24rpx;
+  transition: all 0.3s;
 }
 .originHouse,
 .lose{
@@ -106,4 +96,22 @@ button{
   left: 50%;
   transform: translateX(-50%);
   color: #666666;
+}
+.bodyItem{
+  position: relative;
+}
+/* 删除 */
+.cancel{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  line-height: 270rpx;
+  width: 219rpx;
+  text-align: center;
+  background: red;
+  color: #ffffff;
+}
+.move{
+  transform: translate3d(-220rpx,0,0);  
 }

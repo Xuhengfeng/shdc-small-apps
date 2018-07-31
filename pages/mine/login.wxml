@@ -22,7 +22,7 @@
           </view>
           <view class="inpt">
             <input placeholder="请输入验证码"  bindinput="bindKeyInput2"  placeholder="请输入验证码"/>
-            <button class="sendBtn" catchtap="sendCode">获取验证码</button>
+            <button class="sendBtn {{sendText=='获取验证码'?'':'grey'}}" catchtap="sendCode">{{sendText}}</button>
           </view>
           <button bindtap="login" type="primary" class="login globalBtnColor">登录</button>   
       </view>

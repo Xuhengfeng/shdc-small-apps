@@ -8,6 +8,7 @@ Page({
     currentCity: null,
     page: 1,
     hasMore: false,
+    startX: 0,//手指起始位置
   },
   onLoad() {
     utils.storage('selectCity')
@@ -34,7 +35,7 @@ Page({
     }
     utils.get(Api.IP_HOUSECOLLECTIONLIST, params)
     .then(data => {
-      data.data.forEach((item) => {
+      data.data.forEach(item => {
         try{
           item.houseTag = item.houseTag.split(',');
           this.statusParse(item, item.status);
@@ -43,6 +44,46 @@ Page({
       this.setData({hasMore: false});      
       this.setData({houseList: this.data.houseList.concat(data.data)});
     })
+  },
+  touchS(e){
+    if (e.touches.length == 1) {
+      this.setData({startX: e.touches[0].clientX});
+    }
+  },
+  touchM(e) {
+    this.data.houseList.forEach(item =>{
+      item.isMove = false;
+    })
+    if (e.touches.length == 1) {
+        //手指移动时水平方向位置
+        let moveX = e.touches[0].clientX;
+        //手指起始点位置与移动期间的差值
+        let disX = this.data.startX - moveX;
+        let delBtnWidth = this.data.delBtnWidth;
+        let flag = false;
+        if (disX == 0 || disX < 0) { //如果移动距离小于等于0，文本层位置不变
+          flag = false;
+        }
+        else if (disX > 0) { //移动距离大于0，文本层left值等于手指移动距离
+          flag = true;
+        }
+        //获取手指触摸的是哪一项
+        let index = e.currentTarget.dataset.index;
+        let houseList = this.data.houseList;
+        houseList[index].isMove = flag;
+        //更新列表的状态
+        this.setData({houseList: houseList});
+    }
+  },
+  touchE(e){
+    this.touchM(e);
+  },
+  delItem(e){
+    let params = {"unicode": wx.getStorageSync("userToken"),"scity": this.data.currentCity};
+    utils.post(Api.IP_HOUSECOLLECTIONCANCEL + this.data.currentCity + '/' + e.currentTarget.dataset.id, params)
+    .then(data => {
+      this.onShow()
+    });
   },
   //缓存房源类型 可以改变的 
   cacheHouseType(value) {

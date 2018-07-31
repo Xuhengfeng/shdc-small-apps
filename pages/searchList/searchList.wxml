@@ -31,7 +31,8 @@
             <view bindtap="houseDetail2" data-id="{{item.sdid}}">
                 <view class="item">
                     <view class="image">
-                        <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
+                        <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}" lazy-load="true" binderror="imgErrror"/>
+                        <!-- <image src="../../images/banner.png" data-src="{{item.housePic}}" lazy-load="true" bindload="imgLoad"/> -->
                     </view>
                     <view class="item-content">
                             <!-- 小区 -->
@@ -49,7 +50,7 @@
             <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{houseDetail}}">
                 <view class="item">
                     <view class="image">
-                        <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
+                        <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}" lazy-load="true"/>
                     </view>
                     <view class="item-content">
                     <!-- 二手房 租房 -->

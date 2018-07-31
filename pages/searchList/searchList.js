@@ -203,5 +203,12 @@ Page({
   cacheHouseType(value) {
     wx.setStorageSync('houseTypeSelect', value);
   },
+  imgLoad(e){
+    console.log(e)
+
+  },
+  imgErrror() {
+    console.log(this.src)
+  }
 })
 

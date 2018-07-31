@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/mine/mine",
     "pages/start/start",
     "pages/index/index",
     "pages/index/sellRent",
@@ -8,7 +9,6 @@
     "pages/mine/collection3",
     "pages/mine/collection2",
     "pages/mine/collection1",
-    "pages/mine/mine",
     "pages/mine/mybroker",
     "pages/index/broker",    
     "pages/mine/login",

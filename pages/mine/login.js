@@ -13,7 +13,10 @@ Page({
     avatarUrl: null,
     isphoneLogin: true,  //是否登录
     code: '', //验证码
-    currentCity: null
+    currentCity: null,
+    times: 60,
+    sendText: '获取验证码',
+    flagBtn: true
   }, 
   onLoad(options) {
     this.getUseInfo();
@@ -151,47 +154,71 @@ Page({
   bindKeyInput2(e) {
     this.setData({ inputValue2: e.detail.value})
   },
-  sendCode() {//发送验证码
-    console.log(2323)
-    let myreg = /^[1][3,4,5,7,8][0-9]{9}$/;//手机号正则
-    if(!myreg.test(this.data.inputValue1)) {
-      wx.showModal({content: '请输入正确的手机号'})
-      return false;
-    }
-    let key = this.data.inputValue1 + "29e94f94-8664-48f2-a4ff-7a5807e13b68";
-    
-    if(this.data.inputValue1) {
-      let mobilePhone = this.data.inputValue1
-      let params = {
-        mobile: mobilePhone,
-        sign: md5(key.toUpperCase()),
-        operateType: "REGISTER",
-        scity: this.data.currentCity
+  //发送验证码
+  sendCode() {
+    if(this.data.flagBtn){
+      let myreg = /^[1][3,4,5,7,8][0-9]{9}$/;//手机号正则
+      if(!myreg.test(this.data.inputValue1)) {
+        wx.showModal({content: '请输入正确的手机号'})
+        return false;
       }
-      wx.showLoading({title: '验证发送中...'});
-      wx.request({
-        url: Api.IP_GETSMSCODE,
-        data: params,
-        header: { 
-          'Content-Type': 'application/json',
-          'scity': this.data.currentCity,
-        },
-        method: "POST",
-        success: res=>{
-          wx.hideLoading();
-          if(res.data.status == 500){
-            let params2 = {
-              mobile: mobilePhone,
-              sign: md5(key.toUpperCase()),
-              operateType: "LOGIN",
-              scity: this.data.currentCity
-            }
-            utils.post(Api.IP_GETSMSCODE,params2)
-            .then(res=>{})
-          }
+      let key = this.data.inputValue1 + "29e94f94-8664-48f2-a4ff-7a5807e13b68";
+      if(this.data.inputValue1) {
+        let mobilePhone = this.data.inputValue1
+        let params = {
+          mobile: mobilePhone,
+          sign: md5(key.toUpperCase()),
+          operateType: "REGISTER",
+          scity: this.data.currentCity
         }
-      })
+        wx.showLoading({title: '验证发送中...'});
+        wx.request({
+          url: Api.IP_GETSMSCODE,
+          data: params,
+          header: { 
+            'Content-Type': 'application/json',
+            'scity': this.data.currentCity,
+          },
+          method: "POST",
+          success: res=>{
+            //倒计时
+            this.countDown();
+            wx.hideLoading();
+  
+            if(res.data.status == 500){
+              let params2 = {
+                  mobile: mobilePhone,
+                  sign: md5(key.toUpperCase()),
+                  operateType: "LOGIN",
+                  scity: this.data.currentCity
+              }
+              utils.post(Api.IP_GETSMSCODE,params2).then(res=>{})
+            }
+
+          }
+        })
+      }
     }
+  },
+  //倒计时
+  countDown(num) {
+    let timer;
+    timer = setInterval(()=> {
+      this.data.times--;
+      if (this.data.times <= 0) {
+        this.setData({
+          sendText: '获取验证码',
+          times: 60,
+          flagBtn: true
+        });
+        clearInterval(timer);//清空定时器
+      } else {
+        this.setData({
+          sendText: this.data.times+'s重试',
+          flagBtn: false
+        })
+      }
+    }, 1000);
   }
 })
 

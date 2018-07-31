@@ -69,7 +69,6 @@
       </view>
       <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
          <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="jumpHouseDetail">
-              <view class="item">
                     <view class="image">
                       <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
                     <view class="item-content">
@@ -93,7 +92,6 @@
                     </view>
                   </view>
               </view>
-          </view>
       </block>
 
 

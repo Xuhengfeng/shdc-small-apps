@@ -52,7 +52,7 @@
                 data-scity="{{item.scity}}" 
                 bindtap="commendForYou"
                 style="background:rgba(0,0,0,0.1)">
-              <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}"/>
+              <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}" lazy-load="{{true}}"/>
               <view class="content">
                   <view class="item-title" style="color:#ffffff">{{item.houseTitle}}</view>
                     <view class="description" style="color:#ffffff">{{item.districtName}} {{item.houseDirection}} {{item.houseFeature}}</view>
@@ -85,7 +85,7 @@
           <view data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="gotoseeHouse">
               <view class="item">
                     <view class="image">
-                      <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image>
+                      <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" lazy-load="true"></image>
                     </view>
                     <view class="item-content">
                       <view class="item-title">{{item.houseTitle}}</view>

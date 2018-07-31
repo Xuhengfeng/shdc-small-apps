@@ -75,3 +75,6 @@ button image{
   vertical-align: middle;
   margin-right: 10rpx;
 }
+.grey{
+  background: #c7c7c7;
+}

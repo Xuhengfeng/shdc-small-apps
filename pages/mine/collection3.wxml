@@ -1,21 +1,32 @@
 <view class="weui-panel__bd">
     <!-- 经纪人 -->
-    <view class="list"
-            wx:for="{{brokers}}"
-            data-item="{{item}}"
-            bindtap="brokerDetial">
-        <image src="{{item.photo?item.photo:'../../images/avatar.png'}}"></image>
-        <view class="content">
-                <view>
-                    <view class="name"><text>{{item.emplName}}</text><text>{{item.positionName}}</text></view>
-                    <view class="score">{{item.grade+'.0'}} <text>评分</text></view>    
+    <block wx:for="{{brokers}}" wx:key="index" wx:for-item="item">
+        <view class="bodyItem" data-item="{{item}}" bindtap="brokerDetial">
+            <!-- 删除 -->
+            <view data-id="{{item.sdid}}"
+                catchtap="delItem"
+                class="cancel">删除</view>
+            <!-- 内容层 -->
+            <view class="list {{item.isMove?'move':''}}"
+                    data-index="{{index}}"
+                    bindtouchstart="touchS"
+                    bindtouchmove="touchM"
+                    bindtouchend="touchE"
+                    >
+                <image src="{{item.photo?item.photo:'../../images/avatar.png'}}"></image>
+                <view class="content">
+                        <view>
+                            <view class="name"><text>{{item.emplName}}</text><text>{{item.positionName}}</text></view>
+                            <view class="score">{{item.grade+'.0'}} <text>评分</text></view>    
+                        </view>
+                        <view class="location">所在门店</view>
+                        <view class="tag">
+                                <text>{{item.emplFlag?item.emplFlag:'房东信赖'}}</text>
+                        </view>
                 </view>
-                <view class="location">所在门店</view>
-                <view class="tag">
-                        <text>{{item.emplFlag?item.emplFlag:'房东信赖'}}</text>
-                </view>
+            </view>
         </view>
-    </view>
+    </block>
 </view>
 <image class="nodata" wx:if="{{!brokers.length}}" src="../../images/nodata.png"/>
 <view class="nodataContent" wx:if="{{!brokers.length}}">暂无收藏的经纪人~~~</view>

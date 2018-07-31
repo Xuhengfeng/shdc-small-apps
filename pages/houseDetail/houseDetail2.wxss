@@ -148,10 +148,7 @@ page{
   text-align: justify;
   word-wrap:break-word; 
   white-space: normal!important;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 6;
-  overflow: hidden;
+  padding-bottom:0!important;
 }
 /* 房源位置 */
 .section3 .map{
