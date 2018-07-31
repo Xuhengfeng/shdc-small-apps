@@ -138,10 +138,7 @@
   <block wx:for="{{community}}">
       <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
-            <image src="{{item.housePic}}" 
-                data-index="{{index}}" 
-                lazy-load="true" 
-                binderror="imgError"/>
+            <image src="{{item.housePic ? item.housePic:'../../images/banner.png'}}" lazy-load="true"/>
           </view>
           <view class="item-content">
               <!-- 二手房详情 -->

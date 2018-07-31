@@ -296,12 +296,10 @@ Page({
   },
   //图片懒加载完毕
   imgLoding(e) {
-    utils.imgLoaded(e, 'community', this);
     utils.imgLoaded(e, 'nearbyHouse', this);
   },
   //图片加载错误
   imgError(e) {
-    utils.imgError(e, 'community', this);
     utils.imgError(e, 'nearbyHouse', this);
   }
 })

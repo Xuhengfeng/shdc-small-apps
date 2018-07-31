@@ -118,7 +118,11 @@ Page({
   },
   //拨打电话
   call(e) {
-    wx.makePhoneCall({phoneNumber: e.currentTarget.dataset.phone});
+    if (e.target.dataset.phone) {
+      wx.makePhoneCall({ phoneNumber: e.currentTarget.dataset.phone });
+    } else {
+      wx.showModal({content: '号码不存在'});
+    }
   },
   //点击切换
   tabClick(e) {

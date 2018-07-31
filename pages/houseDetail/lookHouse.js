@@ -6,8 +6,8 @@ Page(filter.loginCheck({
     index: '',
     chineseWeek: ['周日', '星期一', '星期二', '星期三', '星期四', '星期五', '周六'],
     dateText: ['全天','上午','下午','晚上'],
-    dateType: [{key:'ALL_DAY',value:'全天'},{key:'FORENOON',value:'上午'},{key:'AFTERNOON',value:'下午'},{key:'NIGHT',value:'晚上'}],
     dateArr: null,//10-10 星期六   这种格式的时间数据;
+    dateList: [],//时间戳对应月日list
     hiddenPicker: true,
     showTime: '',//显示时间
     year: '',//年
@@ -23,8 +23,7 @@ Page(filter.loginCheck({
     userPhone: "",//用户手机号
     houseDetailSdid: '',
     currentCity: '',
-    dateitem:[],//时间戳
-    dateList: [],//时间戳对应月日list
+    dateitem:[]//时间戳
    },
    onLoad(options) {
     //userPhone获取用户手机号
@@ -38,17 +37,14 @@ Page(filter.loginCheck({
     })
     //获取当前的时间
     utils.get(Api.IP_CURRENTDATETIME)
-    .then((data)=>{
+    .then(data=>{
       let result = this.totalDay(data.data.currentDateTime);
       this.setData({
-        dateArr: result,//月 日 
         select: JSON.parse(options.select),
-      });
-      this.setData({
-        showTime: result[0] +" "+ "全天",//默认时间(前台)
-        dataTime: result[0],//默认时间(丢后台)
+        showTime: this.data.dateArr[0] +" "+ "全天",//默认时间(前台)
+        dataTime: this.data.dateList[0],//默认时间(丢后台)
         dayTime: 'ALL_DAY',
-      })
+      });
     })
   },
    //自定义城市控件
@@ -70,35 +66,31 @@ Page(filter.loginCheck({
   commit() {
     let select = this.data.select;
     //城市
-    wx.getStorage({
-      key: 'selectCity',
-      success: (res) => {
-        this.setData({currentCity: res.data.value})
-        //用户token
-        wx.getStorage({
-          key: 'userToken',
-          success: (response)=> {
-            let token = response.data;
-            let params = {
-              appointName: this.data.userName,
-              appointMobile: this.data.userTelphone,
-              appointDate: this.data.dataTime,
-              appointRange: this.data.dayTime,
-              unicode: token,
-              scity: this.data.currentCity,
-              brokerId: this.data.brokerId,
-              houseList: this.data.select
-            };
-            utils.post(Api.IP_APPOINTHOUSE,params).then((data)=>{
-              if(data.data == null){
-                wx.showModal({content: data.msg});
-              }else{
-                wx.navigateBack();
-              } 
-            })
-          }
-        })
-      }
+    utils.storage('selectCity')
+    .then(res=>{
+      this.setData({currentCity: res.data.value})
+      //用户token
+      return utils.storage('userToken');
+    })
+    .then(response=>{
+      let token = response.data;
+      let params = {
+        appointName: this.data.userName,
+        appointMobile: this.data.userTelphone,
+        appointDate: this.data.dataTime,
+        appointRange: this.data.dayTime,
+        unicode: token,
+        scity: this.data.currentCity,
+        brokerId: this.data.brokerId,
+        houseList: this.data.select
+      };
+      utils.post(Api.IP_APPOINTHOUSE,params).then((data)=>{
+        if(data.data == null){
+          wx.showModal({content: data.msg});
+        }else{
+          // wx.navigateBack();
+        } 
+      })
     })
   },
   //改变触发
@@ -127,10 +119,12 @@ Page(filter.loginCheck({
       cache.push(midDate.getFullYear()+"-"+monthDate+"-"+dayDate)
       currentTime = currentTime + 86400*1000;//往后加一天时间戳
     }
+    this.setData({dateList: cache});
     cache[0]="今天";
     cache[1]="明天";
     cache[2]="后天";
-    return cache;
+    this.setData({dateArr: cache});
+    // return cache;
   },
   //获取用户姓名
   bindUserName(e) {
@@ -138,12 +132,11 @@ Page(filter.loginCheck({
   },
   //获取用户手机
   bindUserTelphone(e) {
-    this.setData({ userTelphone: e.detail.value})
+    this.setData({userTelphone: e.detail.value})
   },
   //选着经纪人
   jumpBroker() {
     let select = JSON.stringify(this.data.select);
-    console.log(select);
     wx.navigateTo({url: `../houseDetail/brokerList?select=${select}`});
   }
 }))
