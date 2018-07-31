@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/mine/mine",
     "pages/start/start",
     "pages/index/index",
     "pages/index/sellRent",
@@ -11,6 +10,8 @@
     "pages/mine/collection1",
     "pages/mine/mybroker",
     "pages/index/broker",    
+    "pages/houseDetail/brokerList",
+    "pages/mine/mine",
     "pages/mine/login",
     "pages/mine/suggest",
     "pages/index/lookHouseList",

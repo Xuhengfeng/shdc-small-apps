@@ -254,7 +254,6 @@ Page({
       path: `/pages/houseDetail/houseDetail?id=${sdid}&scity=${scity}`,//默认是当前页面，必须是以‘/’开头的完整路径
       imgUrl: '', //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
       success: (res)=> {
-        console.log(res)
         if(res.errMsg == 'shareAppMessage:ok') {
           wx.showToast({ title: '分享成功', icon: 'success', duration: 3000 });
         }
@@ -273,7 +272,7 @@ Page({
       var eData = options.target.dataset;
       // 此处可以修改 shareObj 中的内容
     }
-    return shareObj
+    return shareObj;
   },
   onReachBottom(){
     let page = this.data.page++;
@@ -290,10 +289,8 @@ Page({
     //判断场景值scene
     let scene = app.globalData.scene;
     if(scene==1036||scene==1069||scene==1089||scene==1090){
-      console.log(1)
       this.setData({isApp: true});
     }else{
-      console.log(2)
       this.setData({isApp: false});
     }
   }

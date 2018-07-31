@@ -44,6 +44,7 @@ export const IP_ENTRUSTSELL= SERVER_IPS + "/houseEntrustApply/sell/";//卖房委
 export const IP_ENTRUSTRENT= SERVER_IPS + "/houseEntrustApply/rent/";//租房委托详情
 //经纪人
 export const IP_BROKERSLIST = SERVER_IPS + "/broker/brokers";//经纪人列表
+export const IP_HOUSEBROKERSLIST = SERVER_IPS + "/broker/house/brokers";//房源带看经纪人列表
 export const IP_BROKERSDETAIL = SERVER_IPS + "/broker/";//经纪人详情
 export const IP_BROKERADD = SERVER_IPS + "/brokerCollection/add/";//添加收藏经纪人
 export const IP_BROKERCANCEL = SERVER_IPS + "/brokerCollection/cancel/";//取消收藏经纪人
