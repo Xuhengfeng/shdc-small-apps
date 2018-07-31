@@ -3,7 +3,7 @@
     <block wx:for="{{brokers}}" wx:key="index" wx:for-item="item">
         <view class="bodyItem" data-item="{{item}}" bindtap="brokerDetial">
             <!-- 删除 -->
-            <view data-id="{{item.sdid}}"
+            <view data-id="{{item.id}}"
                 catchtap="delItem"
                 class="cancel">删除</view>
             <!-- 内容层 -->

@@ -52,9 +52,9 @@ Page({
   },
   delItem(e){
     let params = {"unicode": wx.getStorageSync("userToken"),"scity": this.data.currentCity};
-    utils.post(Api.IP_RENTCOLLECTIONCANCEL + this.data.currentCity + '/' + e.currentTarget.dataset.id, params)
+    utils.post(Api.IP_BROKERCANCEL + this.data.currentCity + '/' + e.currentTarget.dataset.id, params)
     .then(data => {
-      this.onShow()
+      this.onShow();
     });
   },
   //状态检测

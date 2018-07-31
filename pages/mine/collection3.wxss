@@ -4,6 +4,8 @@
   margin-top: 20rpx;
   overflow: hidden;
   transition: all 0.3s;
+  position: relative;
+  z-index: 100
 }
 .list image{
   float: left;
