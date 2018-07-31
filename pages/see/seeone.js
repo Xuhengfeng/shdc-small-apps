@@ -118,7 +118,7 @@ Page({
   },
   //拨打电话
   call(e) {
-    if (e.target.dataset.phone) {
+    if (e.currentTarget.dataset.phone) {
       wx.makePhoneCall({ phoneNumber: e.currentTarget.dataset.phone });
     } else {
       wx.showModal({content: '号码不存在'});
