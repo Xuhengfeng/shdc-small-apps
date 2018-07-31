@@ -20,75 +20,74 @@
                id="navbar">
   </navBar-html>
 </view>
-
 <!--这是填充空盒子-->
 <view style="height:160rpx"></view>
-
 <view class="section goodList">
-  <!--房源列表-->
-  <block wx:for="{{houseList}}">
-        <view wx:if="{{!flagTwoHouse}}">
-            <view bindtap="houseDetail2" data-id="{{item.sdid}}">
-                <view class="item">
-                    <view class="image">
-                        <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}" lazy-load="true" binderror="imgErrror"/>
-                        <!-- <image src="../../images/banner.png" data-src="{{item.housePic}}" lazy-load="true" bindload="imgLoad"/> -->
-                    </view>
-                    <view class="item-content">
-                            <!-- 小区 -->
-                            <view class="item-title">{{item.buildName}}</view>
-                            <view class="description">{{item.areaName}} {{item.districtName}} {{item.buildAge}}建成  {{item.buildType}}</view>
-                            <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1">
-                                在售{{item.saleCount}}套/在租{{item.rentCount}}套
-                            </view>
-                            <view style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">{{item.avgSalePrice}}元/平</view>
+    <!--房源列表-->
+    <block wx:for="{{houseList}}">
+            <view wx:if="{{!flagTwoHouse}}">
+                <view bindtap="houseDetail2" data-id="{{item.sdid}}">
+                    <view class="item">
+                        <view class="image">
+                            <image src="{{item.flag ? item.housePic:'../../images/banner.png'}}" 
+                                    data-index="{{index}}" 
+                                    lazy-load="true" 
+                                    bindload="imgLoding"
+                                    binderror="imgError"/>
                         </view>
+                        <view class="item-content">
+                                <!-- 小区 -->
+                                <view class="item-title">{{item.buildName}}</view>
+                                <view class="description">{{item.areaName}} {{item.districtName}} {{item.buildAge}}建成  {{item.buildType}}</view>
+                                <view style="font-size:26rpx;color:#666666;margin-top:20rpx;line-height:1">
+                                    在售{{item.saleCount}}套/在租{{item.rentCount}}套
+                                </view>
+                                <view style="font-size:34rpx;color:#ff4343;margin-top:20rpx;line-height:1;">{{item.avgSalePrice}}元/平</view>
+                            </view>
+                    </view>
                 </view>
             </view>
-        </view>
-        <view wx:if="{{flagTwoHouse}}">
-            <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{houseDetail}}">
-                <view class="item">
-                    <view class="image">
-                        <image src="{{item.housePic?item.housePic:'../../images/banner.png'}}" lazy-load="true"/>
-                    </view>
-                    <view class="item-content">
-                    <!-- 二手房 租房 -->
-                        <view class="item-title">{{item.houseTitle}}</view>
-                        <view class="description">
-                            {{item.areaName}} {{item.districtName}} {{item.houseDirection}}
+            <view wx:if="{{flagTwoHouse}}">
+                <navigator url="../houseDetail/houseDetail?id={{item.sdid}}&houseDetail={{houseDetail}}">
+                    <view class="item">
+                        <view class="image">
+                            <image src="{{item.flag ? item.housePic:'../../images/banner.png'}}" 
+                                    data-index="{{index}}" 
+                                    lazy-load="true" 
+                                    bindload="imgLoding"
+                                    binderror="imgError"/>
                         </view>
-
-                        <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
-                            <text style="margin-right:20rpx">{{item.houseType}}</text>
-                            <text>{{item.builtArea}}m²</text>
-                        </view>
-
-                        <view class="houseLabel">
-                            <text wx:for="{{item.houseTag}}" 
-                                    wx:key="{{index2}}"
-                                    wx:for-item="item2" 
-                                    wx:if="{{index2<=2}}"
-                                    wx:for-index="index2">{{item2}}</text>
+                        <view class="item-content">
+                        <!-- 二手房 租房 -->
+                            <view class="item-title">{{item.houseTitle}}</view>
+                            <view class="description">
+                                {{item.areaName}} {{item.districtName}} {{item.houseDirection}}
                             </view>
 
-                        <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
-                            <text>{{item.salePrice}}元/平</text>
+                            <view style="font-size:26rpx;color:#666666;margin-top:10rpx;line-height:1;">
+                                <text style="margin-right:20rpx">{{item.houseType}}</text>
+                                <text>{{item.builtArea}}m²</text>
+                            </view>
+
+                            <view class="houseLabel">
+                                <text wx:for="{{item.houseTag}}" 
+                                        wx:key="{{index2}}"
+                                        wx:for-item="item2" 
+                                        wx:if="{{index2<=2}}"
+                                        wx:for-index="index2">{{item2}}</text>
+                                </view>
+
+                            <view wx:if="{{flagPrice}}" class="housePrice">{{item.saleTotal}}万
+                                <text>{{item.salePrice}}元/平</text>
+                            </view>
+                            <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}元/月</view>
                         </view>
-                        <view wx:if="{{!flagPrice}}" class="housePrice">{{item.rentPrice}}元/月</view>
                     </view>
-                </view>
-            </navigator>
-        </view>
-  </block>
-
-<view class="tips" wx:if="{{hasMore}}">
-    <view><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
-</view>
-<view class="tips" wx:elif="{{!houseList.length}}">
-    <view><text>暂无数据</text></view>
-</view>
-
-
-
+                </navigator>
+            </view>
+    </block>
+    <view class="tips" >
+        <view wx:if="{{hasMore}}"><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
+        <view wx:elif="{{!houseList.length}}"><text>暂无数据</text></view>
+    </view>
 </view>

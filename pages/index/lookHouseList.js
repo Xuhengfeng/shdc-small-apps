@@ -154,26 +154,25 @@ Page({
   },
   //预约
   yuyue() {
-    let mid = {};
     let list = this.data.list;
     this.setData({select: []});
-
     for (let i=0; i<list.length; i++) {
       //选中的
       if(list[i].isSelect == true){
-        if(this.data.select.indexOf(list[i]== '-1')){
-          mid.scity = list[i].houseScity;
-          mid.sdid = list[i].houseSdid;
-          this.data.select.push(mid);
+        if(this.data.select.indexOf(list[i])== '-1'){
+          this.data.select.push({
+            scity: list[i].houseScity,
+            sdid: list[i].houseSdid
+          });
         }
       }else{
       //未选中的
         continue;
       }
     }
-
     if (this.data.count>0){
       wx.setStorageSync('currentPage', '待看列表');
+      console.log(this.data.select)
       wx.redirectTo({url: "../houseDetail/lookHouse?select="+JSON.stringify(this.data.select)});
     }else{
       wx.showModal({content: '至少添加一个房源信息'});

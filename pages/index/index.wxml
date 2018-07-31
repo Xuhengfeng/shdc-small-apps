@@ -134,7 +134,6 @@
       </scroll-view>
     </view>
   </view>
-
   <view class="section newEstate">
     <view class="title">新盘推荐</view>
     <view class="house-info">
@@ -151,7 +150,6 @@
       </scroll-view>
     </view>
   </view>
-
   <view class="section goodList">
       <view class="title">猜你喜欢
         <view class="lookmore">
@@ -166,7 +164,12 @@
         <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
           <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="guesslike">
                 <view class="image">
-                  <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
+                  <image src="{{item.flag ? item.housePic:'../../images/banner.png'}}" 
+                          data-index="{{index}}" 
+                          lazy-load="true" 
+                          bindload="imgLoding"
+                          binderror="imgError"/>
+                </view>
                 <view class="item-content">
                     <view class="item-title">{{item.houseTitle}}</view>
                     <view class="description">{{item.areaName}} {{item.districtName}} {{item.houseDirection}}</view>                        
@@ -188,7 +191,6 @@
                 </view>
           </view>
         </block>
-
         <view class="tips" wx:if="{{hasMore}}">
             <view><image src="../../images/loading.gif" mode="aspectFill"/><text>玩了命的加载中...</text></view>
         </view>

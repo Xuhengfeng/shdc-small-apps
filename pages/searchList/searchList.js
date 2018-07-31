@@ -1,6 +1,5 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
 Page({
   data: {
     label: [],
@@ -35,8 +34,6 @@ Page({
     timer: null,//定时器 节流请求
   },
   onLoad(options) {
-    console.log(options)
-    // 修正title
     let name = wx.getStorageSync('houseTypeSelect');
     wx.setNavigationBarTitle({title: name});
     //修正url keyword label 
@@ -66,7 +63,7 @@ Page({
     }
     //获取筛选条件
     utils.storage('selectCity')
-    .then((res)=>{
+    .then(res => {
       //修正 当前的城市
       this.setData({currentCity: res.data.value})
       //区域
@@ -81,19 +78,12 @@ Page({
   areaRequest(currentCity) {
     utils.get(this.data.IPS[0] + currentCity)
     .then(data => {
-      data.data.unshift({
-        name: '不限',
-        districts: []
-      });
+      data.data.unshift({name: '不限',districts: []});
       var newData = data.data;
       newData.forEach((item) => {
-        item.districts.unshift({
-            name: '不限',
-            px: '',
-            py: ''
-        })
+        item.districts.unshift({name: '不限',px: '',py: ''})
       })
-      this.setData({ area: newData });
+      this.setData({area: newData});
     })
   },
   //户型 类型 面积 用途 楼龄
@@ -203,12 +193,13 @@ Page({
   cacheHouseType(value) {
     wx.setStorageSync('houseTypeSelect', value);
   },
-  imgLoad(e){
-    console.log(e)
-
+  //图片懒加载完毕
+  imgLoding(e) {
+    utils.imgLoaded(e, 'houseList', this);
   },
-  imgErrror() {
-    console.log(this.src)
+  //图片加载错误
+  imgError(e) {
+    utils.imgError(e, 'houseList', this);
   }
 })
 

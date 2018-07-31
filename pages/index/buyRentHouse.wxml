@@ -68,7 +68,6 @@
         </scroll-view>
       </view>
     </view>
-
     <view class="labelgroup ">
       <view class="navbar">
             <view class="nav"
@@ -79,13 +78,12 @@
             </view>
       </view>
     </view>
-    
     <view class="section goodList">
       <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
           <view data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="gotoseeHouse">
               <view class="item">
                     <view class="image">
-                      <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" lazy-load="true"></image>
+                      <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}" data-index="{{index}}" lazy-load="true" binderror="imgError"></image>
                     </view>
                     <view class="item-content">
                       <view class="item-title">{{item.houseTitle}}</view>
@@ -116,9 +114,5 @@
       </view>
       <view style="height:800px;" wx:if="{{!houseList.length||houseList==''}}"></view>
   </view>
-
-
 <template is="toast1" data="{{toastMsg1}}"></template>
-
-
 <template is="toast2" data="{{toastMsg}}"></template>

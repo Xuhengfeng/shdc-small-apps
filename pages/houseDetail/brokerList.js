@@ -43,7 +43,9 @@ Page({
   //上拉
   onReachBottom() {
     let params = {
-      houseSdid: this.data.list
+      'houseSdid': this.data.list,
+      "unicode": wx.getStorageSync("userToken"),
+      "scity": this.data.currentCity
     }
     this.brokerRequest(params);
   }

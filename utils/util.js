@@ -66,13 +66,17 @@ const requst = (url,method,data = {})=> {
       success: (res)=> {
         wx.hideLoading();
         if(res.data.status != 1) {
-          wx.showModal({title: res.data.msg});
+          wx.showModal({content: res.data.msg});
         }else{
           resove(res.data);
         }
       },
-      fail:(msg)=> {
-        console.log('reqest error',msg)
+      fail:(error)=> {
+        if(error.errMsg == "request:fail timeout"){
+          wx.showModal({content: '请求超时'});
+        }else{
+          wx.showModal({content: error});
+        }
         wx.hideLoading();  
         reject('fail')
       }
@@ -88,6 +92,16 @@ const requstPost = (url, data) => {
 const requstDelete = (url, data) => {
   return requst(url,'DELETE',data);
 }
+//图片加载错误
+const imgError = (e,item,that) => {
+  let defaultPic = item+"[" + e.target.dataset.index + "].housePic";
+  that.setData({[defaultPic]:'../../images/banner.png'})
+}
+//图片加载完毕(懒加载)
+const imgLoaded = (e,item,that) => {
+  let defaultFlag = item+"[" + e.target.dataset.index + "].flag";
+  that.setData({[defaultFlag]: true})
+}
 module.exports = {
   formatTime: formatTime,
   checkPhone: checkPhone,
@@ -97,5 +111,7 @@ module.exports = {
   requst: requst,
   login: login,
   getUserInfo: getUserInfo,
-  storage: storage
+  storage: storage,
+  imgError: imgError,
+  imgLoaded: imgLoaded
 }

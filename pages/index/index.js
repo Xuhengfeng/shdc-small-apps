@@ -333,5 +333,13 @@ Page({
   onHide() {
     //回到顶部
     wx.pageScrollTo({scrollTop: 0, duration: 0});
+  },
+  //图片懒加载完毕
+  imgLoding(e) {
+    utils.imgLoaded(e, 'houseList', this);
+  },
+  //图片加载错误
+  imgError(e) {
+    utils.imgError(e, 'houseList', this);
   }
 })

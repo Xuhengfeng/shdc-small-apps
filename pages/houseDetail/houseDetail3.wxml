@@ -149,7 +149,11 @@
   <block wx:for="{{nearbyHouse}}">
       <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
-            <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
+            <image src="{{item.flag ? item.housePic:'../../images/banner.png'}}" 
+                data-index="{{index}}" 
+                lazy-load="true" 
+                bindload="imgLoding"
+                binderror="imgError"/>
           </view>
           <view class="item-content">
               <!-- 租房详情 -->
@@ -197,6 +201,5 @@
 <!-- 回到首页 -->
 <!-- 跳转app -->
 <backApp-html  bind:myevent="onMyEventBackHome" isFlag="{{isApp}}"></backApp-html>
-
 <!-- 吐司 -->
 <template is="toast2" data="{{toastMsg}}"></template>

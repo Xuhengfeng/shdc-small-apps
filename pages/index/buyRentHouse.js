@@ -234,5 +234,9 @@ Page({
         wx.navigateTo({url: "../houseDetail/houseDetail3?id="+e.currentTarget.dataset.id+"&scity="+e.currentTarget.dataset.scity});
       }
     })
+  },
+  //图片加载错误
+  imgError(e) {
+    utils.imgError(e, this);
   }
 })

@@ -3,7 +3,7 @@ const utils = require("../../utils/util");
 const app = getApp();
 Page({
   data: {
-    imgUrls: ['../../images/banner.png'],//轮播图默认图片 
+    imgUrls: ['../../images/banner2.png'],//轮播图默认图片 
     currentIndex: 1,
     likeFlag: false,//喜欢 收藏
     isAppoint: false,//预约看房 已经加入待看
@@ -293,5 +293,15 @@ Page({
     }else{
       this.setData({isApp: false});
     }
+  },
+  //图片懒加载完毕
+  imgLoding(e) {
+    utils.imgLoaded(e, 'community', this);
+    utils.imgLoaded(e, 'nearbyHouse', this);
+  },
+  //图片加载错误
+  imgError(e) {
+    utils.imgError(e, 'community', this);
+    utils.imgError(e, 'nearbyHouse', this);
   }
 })
