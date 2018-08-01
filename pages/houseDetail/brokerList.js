@@ -12,10 +12,15 @@ Page({
       this.data.list.push(item.sdid);
     })
     this.setData({list: this.data.list});
-    utils.storage('selectCity2')
+    utils.storage('selectCity')
       .then(res => {
         this.setData({currentCity: res.data.value});
-        this.onReachBottom();
+        let params = {
+          'houseSdid': this.data.list,
+          "unicode": wx.getStorageSync("userToken"),
+          "scity": this.data.currentCity
+        }
+        this.brokerRequest(params);
       })
   },
   brokerRequest(params) {
@@ -39,14 +44,5 @@ Page({
       phcolorFlag2: false
     })
     wx.navigateBack();
-  },
-  //上拉
-  onReachBottom() {
-    let params = {
-      'houseSdid': this.data.list,
-      "unicode": wx.getStorageSync("userToken"),
-      "scity": this.data.currentCity
-    }
-    this.brokerRequest(params);
   }
 })

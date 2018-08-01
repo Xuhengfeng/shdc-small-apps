@@ -179,13 +179,16 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    margin-left: -260rpx;
+    margin-top: -200rpx;
     background: #ffffff;
     width: 520rpx;
     border-radius: 10rpx;
     text-align: center;
     display: flex;
     flex-flow: column nowrap;
+     -webkit-animation: pulse 0.5s both;
+    animation: pulse 0.5s both;
 }
 .dialog-hd{
     padding: 50rpx 0 30rpx;
@@ -218,4 +221,10 @@
 .dialog-ft view:last-child{
     color: #0066eb;
     border-left: 1px solid #e6e6e6;
+}
+@keyframes pulse{
+  50% { 
+    transform: scale(1.1) ;
+    -webkit-transform: scale(1.1) ;
+  } 
 }
