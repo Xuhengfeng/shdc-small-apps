@@ -121,10 +121,8 @@
   <block wx:for="{{guessYoulikeHouse}}" wx:key="{{item.sdid}}" wx:for-item="item">
       <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="jumpHouseDetail">
             <view class="image">
-              <image src="{{item.housePic}}" 
-                data-index="{{index}}" 
-                lazy-load="true" 
-                binderror="imgError"/>
+              <image src="{{item.housePic}}" data-index="{{index}}" lazy-load="true" binderror="imgError"/>
+            </view>
             <view class="item-content">
               <view class="item-title">{{item.houseTitle}}</view>
               <view style="margin-top:20rpx;line-height:1">
