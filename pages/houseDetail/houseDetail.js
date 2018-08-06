@@ -3,7 +3,7 @@ const utils = require("../../utils/util");
 const app = getApp();
 Page({
   data: {
-    imgUrls: ['../../images/banner2.png'],//轮播图默认图片 
+    imgUrls: [],//轮播图默认图片 
     currentIndex: 1,
     likeFlag: false,//喜欢 收藏
     isAppoint: false,//预约看房 已经加入待看
@@ -237,7 +237,7 @@ Page({
     var current = e.target.dataset.src;
     wx.previewImage({
       current: current, //当前显示图片的http链接  
-      urls: this.data.houseDetail ? this.data.houseDetail.housePicList : this.data.imgUrls //需要预览的图片http链接列表  
+      urls: this.data.houseDetail ? this.data.houseDetail.housePicList : '../../images/banner2.png' //需要预览的图片http链接列表  
     })
   },
   //跳回首页
@@ -297,5 +297,8 @@ Page({
   //图片加载错误
   imgError(e) {
     utils.imgError(e, 'nearbyHouse', this);
+  },
+  imgError2(e) {
+    utils.imgError2(e, 'houseDetail.housePicList', this);
   }
 })

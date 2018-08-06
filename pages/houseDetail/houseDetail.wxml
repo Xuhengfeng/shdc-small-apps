@@ -7,12 +7,14 @@
           interval="3000" 
           duration="300"
           circular="true">
-     <block wx:for="{{houseDetail ? houseDetail.housePicList : imgUrls}}"> 
+     <block wx:for="{{houseDetail.housePicList}}"> 
       <swiper-item style="background:#e2e2e2">
         <image bindtap="previewIamge" 
                src="{{item}}" 
+               data-index="{{index}}"
                data-src="{{item}}" 
                class="slide-image" 
+               binderror="imgError2"
                style="width:100%;height:100%;"/>
       </swiper-item>
     </block>
@@ -153,7 +155,7 @@
   <block wx:for="{{nearbyHouse}}" wx:key="{{item.sdid}}">
       <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
-            <image src="{{item.housePic ? item.housePic:'../../images/banner.png'}}" 
+            <image src="{{item.housePic}}" 
                 data-index="{{index}}" 
                 lazy-load="true" 
                 binderror="imgError"/>

@@ -164,7 +164,7 @@
         <block wx:for="{{houseList}}" wx:key="{{item.sdid}}" wx:for-item="item">
           <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="guesslike">
                 <view class="image">
-                 <image src="{{item.housePic ? item.housePic:'../../images/banner.png'}}" 
+                 <image src="{{item.housePic}}" 
                     data-index="{{index}}" 
                     lazy-load="true" 
                     binderror="imgError"/>

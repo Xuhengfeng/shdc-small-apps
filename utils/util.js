@@ -95,7 +95,13 @@ const requstDelete = (url, data) => {
 //图片加载错误
 const imgError = (e,item,that) => {
   let defaultPic = item+"[" + e.target.dataset.index + "].housePic";
+  console.log(defaultPic)
   that.setData({[defaultPic]:'../../images/banner.png'})
+}
+//轮播图图片加载错误
+const imgError2 = (e,item,that) => {
+  let defaultPic = item+"[" + e.target.dataset.index + "]";
+  that.setData({[defaultPic]:'../../images/banner2.png'})
 }
 //图片加载完毕(懒加载)
 const imgLoaded = (e,item,that) => {
@@ -113,5 +119,6 @@ module.exports = {
   getUserInfo: getUserInfo,
   storage: storage,
   imgError: imgError,
+  imgError2: imgError2,
   imgLoaded: imgLoaded
 }

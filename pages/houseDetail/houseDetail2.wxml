@@ -6,12 +6,13 @@
           interval="3000" 
           duration="300"
           circular="true">
-     <block wx:for="{{houseDetail ? houseDetail.housePicList : imgUrls}}"> 
+     <block wx:for="{{houseDetail.housePicList}}"> 
       <swiper-item style="background:#e2e2e2">
         <image bindtap="previewIamge" 
                src="{{item}}" 
                data-src="{{item}}" 
                class="slide-image" 
+               binderror="imgError2"
                style="width:100%;height:100%;"/>
       </swiper-item>
     </block>
@@ -120,7 +121,10 @@
   <block wx:for="{{guessYoulikeHouse}}" wx:key="{{item.sdid}}" wx:for-item="item">
       <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="jumpHouseDetail">
             <view class="image">
-              <image src="{{item.housePic?item.housePic: '../../images/astate.png'}}"></image></view>
+              <image src="{{item.housePic}}" 
+                data-index="{{index}}" 
+                lazy-load="true" 
+                binderror="imgError"/>
             <view class="item-content">
               <view class="item-title">{{item.houseTitle}}</view>
               <view style="margin-top:20rpx;line-height:1">

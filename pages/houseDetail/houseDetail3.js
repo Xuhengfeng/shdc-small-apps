@@ -244,5 +244,8 @@ Page({
   //图片加载错误
   imgError(e) {
     utils.imgError(e, 'nearbyHouse', this);
+  },
+  imgError2(e) {
+    utils.imgError2(e, 'houseDetail.housePicList', this);
   }
 })
