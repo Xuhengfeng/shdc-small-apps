@@ -131,7 +131,7 @@
           更多小区房源<image src="../../images/rightMore.png"/>
       </view>
   </view>
-  <block wx:for="{{community}}" wx:key="index">
+  <block wx:for="{{community}}" wx:key="{{item.sdid}}">
       <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
             <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
@@ -146,7 +146,7 @@
 
 <view class="section section6">
   <view class="title">周边房源</view>
-  <block wx:for="{{nearbyHouse}}" wx:key="index">
+  <block wx:for="{{nearbyHouse}}" wx:key="{{item.sdid}}">
       <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
             <image src="{{item.flag ? item.housePic:'../../images/banner.png'}}" 
