@@ -29,10 +29,9 @@
                 <view bindtap="houseDetail2" data-id="{{item.sdid}}">
                     <view class="item">
                         <view class="image">
-                            <image src="{{item.flag ? item.housePic:'../../images/banner.png'}}" 
+                            <image src="{{item.housePic}}" 
                                     data-index="{{index}}" 
                                     lazy-load="true" 
-                                    bindload="imgLoding"
                                     binderror="imgError"/>
                         </view>
                         <view class="item-content">
