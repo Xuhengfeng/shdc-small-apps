@@ -152,6 +152,7 @@ Page({
     wx.switchTab({url: '../index/index'});
   },
   getDataFromServer(IP, page) {
+    this.data.guessYoulikeHouse = [];
     this.data.time =  null;
     let params = {
       'pageNo': page,
