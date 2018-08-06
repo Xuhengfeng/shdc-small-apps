@@ -5,8 +5,8 @@
   <swiper bindchange="listenSwiper" 
           indicator-dots="{{false}}" 
           autoplay="true" 
-          interval="5000" 
-          duration="1000"
+          interval="3000" 
+          duration="300"
           circular="true">
      <block wx:for="{{houseDetail ? houseDetail.housePicList : imgUrls}}"> 
       <swiper-item style="background:#e2e2e2">
@@ -149,10 +149,9 @@
   <block wx:for="{{nearbyHouse}}" wx:key="{{item.sdid}}">
       <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
-            <image src="{{item.flag ? item.housePic:'../../images/banner.png'}}" 
+            <image src="{{item.housePic ? item.housePic:'../../images/banner.png'}}" 
                 data-index="{{index}}" 
                 lazy-load="true" 
-                bindload="imgLoding"
                 binderror="imgError"/>
           </view>
           <view class="item-content">

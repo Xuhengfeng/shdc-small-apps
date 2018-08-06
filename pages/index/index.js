@@ -197,7 +197,7 @@ Page({
       this.setData({flagPrice: flagpc});
       this.setData({hasMore: false});
       data.data.forEach(item=>{item.show = false});
-      this.setData({houseList: data.data});
+      this.setData({houseList: data.data.slice(0,6)});
     })
   },
   onPullDownRefresh() {
@@ -333,10 +333,6 @@ Page({
   onHide() {
     //回到顶部
     wx.pageScrollTo({scrollTop: 0, duration: 0});
-  },
-  //图片懒加载完毕
-  imgLoding(e) {
-    utils.imgLoaded(e, 'houseList', this);
   },
   //图片加载错误
   imgError(e) {

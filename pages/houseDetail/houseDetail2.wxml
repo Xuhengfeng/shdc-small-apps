@@ -3,8 +3,8 @@
   <swiper bindchange="listenSwiper" 
           indicator-dots="{{false}}" 
           autoplay="true" 
-          interval="5000" 
-          duration="1000"
+          interval="3000" 
+          duration="300"
           circular="true">
      <block wx:for="{{houseDetail ? houseDetail.housePicList : imgUrls}}"> 
       <swiper-item style="background:#e2e2e2">
