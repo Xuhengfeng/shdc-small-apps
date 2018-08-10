@@ -1,3 +1,4 @@
+//时间简单格式化
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -7,6 +8,7 @@ const formatTime = date => {
   const second = date.getSeconds()
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
+//补零
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -95,7 +97,6 @@ const requstDelete = (url, data) => {
 //图片加载错误
 const imgError = (e,item,that) => {
   let defaultPic = item+"[" + e.target.dataset.index + "].housePic";
-  console.log(defaultPic)
   that.setData({[defaultPic]:'../../images/banner.png'})
 }
 //轮播图图片加载错误

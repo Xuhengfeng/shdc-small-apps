@@ -12,8 +12,9 @@
       <swiper-item style="background:#e2e2e2">
         <image bindtap="previewIamge" 
                src="{{item}}" 
-               data-index="{{index}}"
                data-src="{{item}}" 
+               data-index="{{index}}"
+               data-name="houseDetail.housePicList"
                class="slide-image" 
                binderror="imgError2"
                style="width:100%;height:100%;"/>
@@ -109,8 +110,7 @@
     <view bindtap="guanlianxiaoqu">
       <view class="item addbottomborder">
           <view class="image">
-            <image src="{{guanlianList.housePic?guanlianList.housePic:'../../images/astate.png'}}">
-            </image>
+            <image src="{{guanlianList.housePic}}"></image>
           </view>
           <view>
             <!-- 关联小区 -->
@@ -136,7 +136,11 @@
   <block wx:for="{{community}}" wx:key="{{item.sdid}}">
       <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
-            <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
+            <image src="{{item.housePic}}" 
+                data-index="{{index}}" 
+                data-name="community"
+                lazy-load="true" 
+                binderror="imgError"/>
           </view>
           <view class="item-content">
               <!-- 租房详情 -->
@@ -153,6 +157,7 @@
           <view class="image">
             <image src="{{item.housePic}}" 
                 data-index="{{index}}" 
+                data-name="nearbyHouse"
                 lazy-load="true" 
                 binderror="imgError"/>
           </view>

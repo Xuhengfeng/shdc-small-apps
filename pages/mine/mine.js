@@ -157,6 +157,7 @@ Page({
         data.data.headImage = JSON.parse(userInfo2).avatarUrl;
         data.data.mobile = JSON.parse(userInfo2).nickName;
       }
+      wx.setStorageSync('myId', data.data.id);
       this.setData({myInfo: data.data});  
     })
   },

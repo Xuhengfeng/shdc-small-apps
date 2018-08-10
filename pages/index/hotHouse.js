@@ -114,5 +114,9 @@ Page({
   houseDetail1(e) {
     let sdid = e.currentTarget.dataset.id;
     wx.navigateTo({url: '../houseDetail/houseDetail?title=房源详情&id='+sdid});
+  },
+  //图片加载错误
+  imgError(e) {
+    utils.imgError(e, 'houseList', this);
   }
 })

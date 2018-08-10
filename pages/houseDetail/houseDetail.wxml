@@ -11,10 +11,11 @@
       <swiper-item style="background:#e2e2e2">
         <image bindtap="previewIamge" 
                src="{{item}}" 
-               data-index="{{index}}"
                data-src="{{item}}" 
+               data-index="{{index}}"
+               data-name="houseDetail.housePicList"
                class="slide-image" 
-               binderror="imgError2"
+               binderror="imgError"
                style="width:100%;height:100%;"/>
       </swiper-item>
     </block>
@@ -107,14 +108,14 @@
       </view>
 </view>
 
-
 <view class="section section5">
   <view class="title">关联小区</view>
     <view bindtap="guanlianxiaoqu">
       <view class="item addbottomborder">
           <view class="image">
-            <image src="{{guanlianList.housePic?guanlianList.housePic:'../../images/astate.png'}}">
-            </image>
+            <image src="{{guanlianList.housePic}}" 
+                lazy-load="true" 
+                binderror="imgError2"/>
           </view>
           <view>
             <!-- 二手房 -->
@@ -140,7 +141,11 @@
   <block wx:for="{{community}}" wx:key="{{item.sdid}}">
       <view class="item" data-id="{{item.sdid}}" data-scity="{{item.scity}}" bindtap="RefreshHouseDetail">
           <view class="image">
-            <image src="{{item.housePic ? item.housePic:'../../images/banner.png'}}" lazy-load="true"/>
+            <image src="{{item.housePic}}" 
+                data-index="{{index}}" 
+                data-name="community"
+                lazy-load="true" 
+                binderror="imgError"/>
           </view>
           <view class="item-content">
               <!-- 二手房详情 -->
@@ -157,6 +162,7 @@
           <view class="image">
             <image src="{{item.housePic}}" 
                 data-index="{{index}}" 
+                data-name="nearbyHouse"
                 lazy-load="true" 
                 binderror="imgError"/>
           </view>

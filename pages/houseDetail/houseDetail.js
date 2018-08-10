@@ -25,8 +25,35 @@ Page({
     toastMsg: null,
     time: null,
     isApp: false,//是否正确的应用场景值
+    myId: null,//用户id
+    shareId: null,//分享id
+    shareUrl: null,//分享url
   },
   onLoad(options) {
+    try {
+      myId = JSON.parse(wx.getStorageSync('myId'));
+      this.setData({myId: myId});
+    }catch (error) {}
+    
+    //存在分享id
+    if(options.shareId){
+      console.log(options.shareId)
+      let params = {code: this.data.shareId}
+      this.setData({shareId: options.shareId});
+      //阅读量
+      utils.post(Api.IP_SHAREADD,params)
+      .then(data=>{})
+    }
+    let params = {
+        id: this.data.myId,
+        url: this.data.shareUrl,
+        code: this.data.shareId
+    }
+    //分享
+    utils.post(Api.IP_SHAREFETCHCODE,params)
+    .then(data=>{})
+
+
     //房源sdid
     this.setData({houseDetailId: options.id});
     //用户登录标识
@@ -249,9 +276,12 @@ Page({
     let  that = this;
     let sdid = this.data.houseDetailId;
     let scity = this.data.currentCity;
+    let shareId = this.data.shareId;
+    let shareUrl = `/pages/houseDetail/houseDetail?id=${sdid}&scity=${scity}&shareId=${shareId}`;
+    wx.showShareMenu({withShareTicket: true});
     var shareObj = {
       title: this.data.houseDetail.houseTitle,
-      path: `/pages/houseDetail/houseDetail?id=${sdid}&scity=${scity}`,//默认是当前页面，必须是以‘/’开头的完整路径
+      path: shareUrl,//默认是当前页面，必须是以‘/’开头的完整路径
       imgUrl: '', //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
       success: (res)=> {
         if(res.errMsg == 'shareAppMessage:ok') {
@@ -296,9 +326,14 @@ Page({
   },
   //图片加载错误
   imgError(e) {
-    utils.imgError(e, 'nearbyHouse', this);
+    let name = e.currentTarget.dataset.name;
+    utils.imgError(e, name, this);
+    if(name=='houseDetail.housePicList'){
+      utils.imgError2(e, name, this);
+    }
   },
   imgError2(e) {
-    utils.imgError2(e, 'houseDetail.housePicList', this);
+    let all = 'guanlianList.housePic';
+    this.setData({[all]: '../../images/banner.png'});
   }
 })

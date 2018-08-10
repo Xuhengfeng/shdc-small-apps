@@ -14,8 +14,11 @@
         <view bindtap="houseDetail2" data-id="{{item.sdid}}"  wx:if="{{contentType==11}}">
             <view class="item">
               <view class="image">
-                <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
-              </view>
+                 <image src="{{item.housePic}}" 
+                    data-index="{{index}}" 
+                    lazy-load="true" 
+                    binderror="imgError"/>
+                </view>
               <view class="item-content">
                 <view class="item-title">{{item.buildName}}</view>
                 <view class="description">
@@ -33,7 +36,10 @@
         <view bindtap="houseDetail1" data-id="{{item.sdid}}"  wx:if="{{contentType==22}}">
             <view class="item">
                 <view class="image">
-                    <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
+                 <image src="{{item.housePic}}" 
+                    data-index="{{index}}" 
+                    lazy-load="true" 
+                    binderror="imgError"/>
                 </view>
                 <view class="item-content">
                     <view class="item-title">{{item.houseTitle}}</view>
@@ -57,7 +63,10 @@
         <view bindtap="houseDetail1" data-id="{{item.sdid}}"  wx:if="{{contentType==33}}">
             <view class="item">
                 <view class="image">
-                    <image src="{{item.housePic?item.housePic:'../../images/astate.png'}}"></image>
+                 <image src="{{item.housePic}}" 
+                    data-index="{{index}}" 
+                    lazy-load="true" 
+                    binderror="imgError"/>
                 </view>
                 <view class="item-content">
                     <view class="item-title">{{item.houseTitle}}</view>

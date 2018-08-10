@@ -91,7 +91,9 @@ export const weChatLogin = SERVER_IPS + "/member/loginWeixin";//微信手机号�
 export const weChatRegister = SERVER_IPS + "/member/registerWeixin";//微信注册
 export const weChat = SERVER_IPS + "/member/authWeixin";//微信登录
 export const logout = SERVER_IPS + "/member/logout";//退出
-
+//分享
+export const IP_SHAREADD = SERVER_IPS + "/share/add";//增加阅读量
+export const IP_SHAREFETCHCODE = SERVER_IPS + "/share/fetchCode";//获取分享code
 
 
 
