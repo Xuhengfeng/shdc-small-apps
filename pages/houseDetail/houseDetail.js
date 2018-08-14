@@ -25,33 +25,44 @@ Page({
     toastMsg: null,
     time: null,
     isApp: false,//是否正确的应用场景值
-    myId: null,//用户id
+    myid: null,//用户id
     shareId: null,//分享id
     shareUrl: null,//分享url
   },
   onLoad(options) {
+    let myid;
     try {
-      myId = JSON.parse(wx.getStorageSync('myId'));
-      this.setData({myId: myId});
+      if(options.myid){
+        myid = options.myid;
+      }else{
+        myid = JSON.parse(wx.getStorageSync('myId'));
+        this.setData({myid: myid});
+      }
     }catch (error) {}
-    
+      
     //存在分享id
     if(options.shareId){
-      console.log(options.shareId)
-      let params = {code: this.data.shareId}
       this.setData({shareId: options.shareId});
+      let params = {code: this.data.shareId}
       //阅读量
-      utils.post(Api.IP_SHAREADD,params)
+      utils.post(Api.IP_SHAREADD+"?id="+this.data.myid, params)
       .then(data=>{})
     }
+
+    //分享(不管存不存在都调取一次)
     let params = {
-        id: this.data.myId,
+        id: this.data.myid,
         url: this.data.shareUrl,
         code: this.data.shareId
     }
-    //分享
-    utils.post(Api.IP_SHAREFETCHCODE,params)
-    .then(data=>{})
+    wx.showModal({
+      content: JSON.stringify(params),
+    })
+      
+    utils.post(Api.IP_SHAREFETCHCODE +"?id="+this.data.myid+"&url="+this.data.shareUrl+"&code="+this.data.shareId, params)
+    .then(data=>{
+      console.log(data)
+    })
 
 
     //房源sdid
@@ -277,7 +288,8 @@ Page({
     let sdid = this.data.houseDetailId;
     let scity = this.data.currentCity;
     let shareId = this.data.shareId;
-    let shareUrl = `/pages/houseDetail/houseDetail?id=${sdid}&scity=${scity}&shareId=${shareId}`;
+    let myid = this.data.myid;
+    let shareUrl = `/pages/houseDetail/houseDetail?id=${sdid}&scity=${scity}&shareId=${shareId}&myid=${myid}`;
     wx.showShareMenu({withShareTicket: true});
     var shareObj = {
       title: this.data.houseDetail.houseTitle,
