@@ -1,6 +1,8 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const app = getApp();
+import regeneratorRuntime from '../../utils/runtime';
+
 Page({
   data: {
     imgUrls: [],//轮播图默认图片 
@@ -103,11 +105,9 @@ Page({
       })
   },
   //二手房关联小区
-  guanlianListRequest(px, py, currentCity, buildSdid) {
-    utils.get(Api.IP_BUILDINFO + currentCity + '/' + buildSdid)
-    .then(data => {
-      this.setData({guanlianList: data.data});
-    })
+  async guanlianListRequest(px, py, currentCity, buildSdid) {
+      const result = await utils.get(Api.IP_BUILDINFO + currentCity + '/' + buildSdid);
+      this.setData({ guanlianList:  result.data });
   },
   //二手房同小区房源
   communityRequest(city, buildSdid) {
