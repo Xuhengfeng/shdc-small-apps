@@ -1,6 +1,6 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
+import Toast from '../../component/toast/index';
 Page({
   data: {
     imgUrls: [],//轮播图默认图片 
@@ -24,8 +24,6 @@ Page({
     flagPrice: '',
     count: 0,//待看房源列表计数
     token: null,
-    toastMsg: null,
-    time: null,
     arr1: [],//二手房
     arr2: []//租房
   },
@@ -153,7 +151,6 @@ Page({
   },
   getDataFromServer(IP, page) {
     this.data.guessYoulikeHouse = [];
-    this.data.time =  null;
     let params = {
       'pageNo': page,
       'scity': this.data.currentCity,
@@ -164,12 +161,11 @@ Page({
       try{
         data.data.forEach(item => {item.houseTag = item.houseTag.split(',')});
       }catch(e){}
-      this.data.time = setTimeout(()=>{this.setData({toastMsg: null})},300);
       if (page>1) {
         if (!data.data.length) {
-          this.setData({toastMsg: `数据已加载全部`});
+          Toast("数据已加载全部");
         }else{
-          this.setData({toastMsg: `加载第${page}页数据...`});
+          Toast(`加载第${page}页数据...`);
         }
       };
       let flagpc;

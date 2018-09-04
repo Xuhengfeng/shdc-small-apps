@@ -173,6 +173,8 @@
       </view>
   </block>
 </view>
+
+
 <!--填充盒补齐底部高度-->
 <view class="footer-placeholder"></view>
 <view class="footer">
@@ -193,6 +195,8 @@
       <view bindtap="linkman">联系经纪人</view>
     </view>
 </view> 
+
+
 
 <!-- 联系人 -->
 <view class="shadowLay2" wx:if="{{isLinkman}}">
@@ -222,6 +226,9 @@
 
 <!-- 预约看房 -->
 <template is="appointment" data="{{isAppointment,cancelLookHouse}}"/> 
+
+
 <!-- 吐司 -->
-<template is="toast2" data="{{toastMsg}}"/>
+<view class="toast2"><van-toast id="van-toast"/></view>
+
 

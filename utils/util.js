@@ -109,6 +109,16 @@ const imgLoaded = (e,item,that) => {
   let defaultFlag = item+"[" + e.target.dataset.index + "].flag";
   that.setData({[defaultFlag]: true})
 }
+
+function isDef(value) {
+  return value !== undefined && value !== null;
+}
+
+function isObj(x) {
+  const type = typeof x;
+  return x !== null && (type === 'object' || type === 'function');
+}
+
 module.exports = {
   formatTime: formatTime,
   checkPhone: checkPhone,
@@ -121,5 +131,7 @@ module.exports = {
   storage: storage,
   imgError: imgError,
   imgError2: imgError2,
-  imgLoaded: imgLoaded
+  imgLoaded: imgLoaded,
+  isObj,
+  isDef
 }

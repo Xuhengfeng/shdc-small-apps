@@ -1,7 +1,8 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const regeneratorRuntime = require("../../utils/runtime");//es7 运行环境
 const app = getApp();
-import regeneratorRuntime from '../../utils/runtime';
+import Toast from '../../component/toast/index';
 
 Page({
   data: {
@@ -24,8 +25,6 @@ Page({
     flagPrice: true,
     count: 0,//待看房源列表计数
     token: null,
-    toastMsg: null,
-    time: null,
     isApp: false,//是否正确的应用场景值
     myid: null,//用户id
     shareId: null,//分享id
@@ -122,7 +121,6 @@ Page({
   },
   //二手房周边房源
   nearbyHouseRequest(px, py, city, buildSdid, page) {
-    this.data.time =  null;
     let params = {
       "buildSdid": parseInt(buildSdid),
       "px": px,
@@ -138,12 +136,11 @@ Page({
           item.houseTag = item.houseTag.split(',')
         });
       }catch(e){}
-      this.data.time = setTimeout(()=>{this.setData({toastMsg: null})},300);
       if (page>1) {
         if (!data.data.length) {
-          this.setData({toastMsg: `数据已加载全部`});
+          Toast("数据已加载全部");
         }else{
-          this.setData({toastMsg: `加载第${page}页数据...`});
+          Toast(`加载第${page}页数据...`);
         }
       };
       //刷新
@@ -349,3 +346,5 @@ Page({
     this.setData({[all]: '../../images/banner.png'});
   }
 })
+
+

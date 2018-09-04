@@ -1,6 +1,8 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const app = getApp();
+import Toast from '../../component/toast/index';
+
 Page({
   data: {
     imgUrls: ['../../images/banner.png'],//轮播图默认图片 
@@ -22,8 +24,6 @@ Page({
     flagPrice: false,
     count: 0,//待看房源列表计数
     token: null,
-    toastMsg: null,
-    time: null,
     isApp: false,//是否正确的应用场景值myId: null,//用户id
     myid: null,//用户id
     shareId: null,//分享id
@@ -111,7 +111,6 @@ Page({
   },
   //租房周边房源详情
   nearbyHouseRequest(px, py, city, buildSdid, page) {
-    this.data.time =  null;
     let params = {
       "buildSdid": parseInt(buildSdid),
       "px": px,
@@ -124,12 +123,11 @@ Page({
       try{
         data.data.forEach(item => {item.houseTag = item.houseTag.split(',')});
       }catch(e){}
-      this.data.time = setTimeout(()=>{this.setData({toastMsg: null})},300);
       if (page>1) {
         if (!data.data.length) {
-          this.setData({toastMsg: `数据已加载全部`});
+          Toast("数据已加载全部");
         }else{
-          this.setData({toastMsg: `加载第${page}页数据...`});
+          Toast(`加载第${page}页数据...`);
         }
       };
       this.setData({nearbyHouse: this.data.nearbyHouse.concat(data.data)});

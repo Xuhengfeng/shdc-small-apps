@@ -208,4 +208,4 @@
 <!-- 跳转app -->
 <backApp-html  bind:myevent="onMyEventBackHome" isFlag="{{isApp}}"></backApp-html>
 <!-- 吐司 -->
-<template is="toast2" data="{{toastMsg}}"></template>
+<view class="toast2"><van-toast id="van-toast"/></view>

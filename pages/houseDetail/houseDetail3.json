@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "房源详情",
   "usingComponents": {
-    "backApp-html": "/component/backApp/backApp"
+    "backApp-html": "/component/backApp/backApp",
+    "van-toast": "/component/toast/index"
    }
 }
