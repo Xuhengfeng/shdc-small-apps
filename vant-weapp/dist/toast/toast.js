@@ -1,4 +1,5 @@
-import { isObj } from '../../utils/util';
+import { isObj } from '../utils/index';
+
 const defaultOptions = {
   type: 'text',
   mask: false,
@@ -11,7 +12,6 @@ const defaultOptions = {
   selector: '#van-toast'
 };
 const parseOptions = message => isObj(message) ? message : { message };
-
 
 let queue = [];
 let currentOptions = { ...defaultOptions };
