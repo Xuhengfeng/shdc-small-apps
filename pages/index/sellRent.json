@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "我要售租"
+  "navigationBarTitleText": "我要售租",
+  "usingComponents": {
+    "van-cell-group": "/component/cell-group/index",
+    "van-field": "/component/field/index"
+  }
 }

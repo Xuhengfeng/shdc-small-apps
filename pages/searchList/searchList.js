@@ -1,5 +1,7 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+import Toast from '../../component/toast/index';
+
 Page({
   data: {
     label: [],
@@ -183,6 +185,13 @@ Page({
       data.data.forEach((item) => {
         if (item.houseTag) {item.houseTag = item.houseTag.split(',')}
       })
+      if (params.pageNo>1) {
+        if (!data.data.length) {
+          Toast("数据已加载全部");
+        }else{
+          Toast(`加载第${params.pageNo}页数据...`);
+        }
+      };
       this.setData({hasMore: false});
       this.setData({houseList: this.data.houseList.concat(data.data)});
       this.setData({dataList: data.data});
