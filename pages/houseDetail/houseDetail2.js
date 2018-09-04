@@ -1,6 +1,6 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-import Toast from '../../component/toast/index';
+import Toast from '../../vant-weapp/dist/toast/index';
 Page({
   data: {
     imgUrls: [],//轮播图默认图片 

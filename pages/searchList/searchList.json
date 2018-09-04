@@ -3,6 +3,6 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "navBar-html": "/component/navBar/navBar",
-    "van-toast": "/component/toast/index"
+    "van-toast": "/vant-weapp/dist/toast/index"
   }
 }
