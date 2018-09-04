@@ -92,3 +92,7 @@
   } 
 }
 
+.section2 .title-class{
+  max-width: 90rpx!important;
+  min-width: 90rpx!important;
+}
