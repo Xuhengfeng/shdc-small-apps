@@ -96,3 +96,7 @@
   max-width: 90rpx!important;
   min-width: 90rpx!important;
 }
+
+view,text{
+  line-height: auto;
+}

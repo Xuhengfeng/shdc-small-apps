@@ -22,6 +22,7 @@
       clearable
       icon="arrow"
       icon-class="icon"
+      border="{{ true }}"
       bind:click-icon="onClickIcon"
     />
     <van-field
@@ -29,7 +30,42 @@
       type="password"
       label="密码"
       placeholder="请输入密码"
-      border="{{ false }}"
+      border="{{ true }}"
+    />
+    <van-field
+      value="{{ password }}"
+      type="password"
+      label="密码"
+      placeholder="请输入密码"
+      border="{{ true }}"
+    />
+    <van-field
+      value="{{ password }}"
+      type="password"
+      label="密码"
+      placeholder="请输入密码"
+      border="{{ true }}"
+    />
+    <van-field
+      value="{{ password }}"
+      type="password"
+      label="密码"
+      placeholder="请输入密码"
+      border="{{ true }}"
+    />
+    <van-field
+      value="{{ password }}"
+      type="password"
+      label="密码"
+      placeholder="请输入密码"
+      border="{{ true }}"
+    />
+    <van-field
+      value="{{ password }}"
+      type="password"
+      label="密码"
+      placeholder="请输入密码"
+      border="{{ true }}"
     />
   </van-cell-group>
 
