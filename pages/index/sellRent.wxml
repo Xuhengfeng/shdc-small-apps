@@ -12,65 +12,6 @@
 </view>
 
 <view class="section2">
-
-
-  <van-cell-group>
-    <van-field
-      value="{{ username }}"
-      label="用户名"
-      placeholder="请输入用户名"
-      clearable
-      icon="arrow"
-      icon-class="icon"
-      border="{{ true }}"
-      bind:click-icon="onClickIcon"
-    />
-    <van-field
-      value="{{ password }}"
-      type="password"
-      label="密码"
-      placeholder="请输入密码"
-      border="{{ true }}"
-    />
-    <van-field
-      value="{{ password }}"
-      type="password"
-      label="密码"
-      placeholder="请输入密码"
-      border="{{ true }}"
-    />
-    <van-field
-      value="{{ password }}"
-      type="password"
-      label="密码"
-      placeholder="请输入密码"
-      border="{{ true }}"
-    />
-    <van-field
-      value="{{ password }}"
-      type="password"
-      label="密码"
-      placeholder="请输入密码"
-      border="{{ true }}"
-    />
-    <van-field
-      value="{{ password }}"
-      type="password"
-      label="密码"
-      placeholder="请输入密码"
-      border="{{ true }}"
-    />
-    <van-field
-      value="{{ password }}"
-      type="password"
-      label="密码"
-      placeholder="请输入密码"
-      border="{{ true }}"
-    />
-  </van-cell-group>
-
-
-
     <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
             <view class="weui-label">姓名</view>

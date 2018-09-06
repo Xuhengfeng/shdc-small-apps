@@ -45,7 +45,6 @@
     "pages/h5Pages/h5Pages"
   ],
   "window": {
-    "navigationStyle": "custom",
     "backgroundTextStyle": "drak",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "世华易居",
