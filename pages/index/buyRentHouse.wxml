@@ -1,5 +1,6 @@
+<backPage statusBarHeight="{{statusBarHeight}}"></backPage>
+<oheader text="{{name}}" statusBarHeight="{{statusBarHeight}}"></oheader>
 <import src="../template/template.wxml"/>
-  <!-- <view style="height:auto;"> -->
     <view class="header">
       <swiper autoplay="true" 
             interval="5000"
@@ -16,7 +17,7 @@
                     </swiper-item>
               </block>
       </swiper>
-      <view id="mysearch" class="serarch-content" style="background:{{tone}}">
+      <view id="mysearch" class="serarch-content" style="top:{{statusBarHeight+50}}px;background:{{tone}}">
         <view class="search-bg">
           <view class="search">
                 <view bindtap="startsearch"><image src="../../images/search.png" /></view>
@@ -28,7 +29,7 @@
         </view>
       </view>
       <!-- navBar组件 -->
-      <navBar-html class="mynav"
+      <navBar class="mynav" 
                   label="{{label}}"
                   area="{{area}}" 
                   houseTy="{{houseTy}}"
@@ -38,8 +39,8 @@
                   num="{{navNum}}"
                   showModalStatus="{{showModalStatus}}"
                   bind:myevent="onMyEventHouseList"
-                  style="opacity:{{isShow}}">
-      </navBar-html>
+                  style="top:{{statusBarHeight+106}}px;opacity:{{isShow}}">
+      </navBar>
     </view>
     <view class="section recommend">
       <view class="title" style="padding:50rpx 0 40rpx">为你推荐</view>
@@ -114,5 +115,3 @@
       </view>
       <view style="height:800px;" wx:if="{{!houseList.length||houseList==''}}"></view>
   </view>
-<template is="toast1" data="{{toastMsg1}}"></template>
-<template is="toast2" data="{{toastMsg}}"></template>

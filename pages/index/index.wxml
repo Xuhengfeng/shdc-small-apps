@@ -1,3 +1,4 @@
+<oheader statusBarHeight="{{statusBarHeight}}"></oheader>
 <view class="section header">
     <swiper indicator-dots="true" 
             autoplay="true" 

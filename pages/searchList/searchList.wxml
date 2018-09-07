@@ -8,7 +8,7 @@
              value="{{keyword}}"/>
     </view>
   </view>  
-  <navBar-html area="{{area}}" 
+  <navBar area="{{area}}" 
                houseTy="{{houseTypes}}"
                mode="{{mode}}"
                price="{{price}}"
@@ -18,7 +18,7 @@
                use="{{use}}"
                houseAge="{{houseAge}}"
                id="navbar">
-  </navBar-html>
+  </navBar>
 </view>
 <!--这是填充空盒子-->
 <view style="height:160rpx"></view>

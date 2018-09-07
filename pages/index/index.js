@@ -7,6 +7,7 @@ Page({
   data: {
     imgUrls: [],//轮播图
     hasMore: false,
+    statusBarHeight: app.globalData.statusBarHeight,
     purchase_guide: null,//二手房购房指南资讯
     plate: [
       {title:"独家好房",subhead:"价格优惠",imageUrl:"../../images/1.png"},

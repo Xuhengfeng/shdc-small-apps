@@ -2,6 +2,8 @@
   "navigationBarTitleText": "",
   "enablePullDownRefresh": false,
   "usingComponents": {
-    "navBar-html": "/component/navBar/navBar"
+    "navBar": "/component/navBar/navBar",
+    "oheader": "/component/oheader/oheader",
+    "backPage": "/component/backPage/backPage"
   }
 }

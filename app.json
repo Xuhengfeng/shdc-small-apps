@@ -48,7 +48,8 @@
     "backgroundTextStyle": "drak",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "世华易居",
-    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "#fff",
     "backgroundColor": "#fff"
   },
   "tabBar": {

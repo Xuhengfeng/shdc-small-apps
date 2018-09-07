@@ -1,0 +1,11 @@
+<!-- 公共的头部 -->
+<!-- 固定的 -->
+<view class="header">
+    <view class="statusBar" style="height:{{statusBarHeight}}px"></view>
+    <view class="publicHeight">{{text}}</view>
+</view>
+<!-- 静态的占位的 -->
+<view class="header2">
+    <view class="statusBar" style="height:{{statusBarHeight}}px"></view>
+    <view class="publicHeight"></view>
+</view>

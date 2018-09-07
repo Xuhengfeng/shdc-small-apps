@@ -1,3 +1,6 @@
+page{
+  padding: 0;
+}
 image{
   float: left;
   width:100%;

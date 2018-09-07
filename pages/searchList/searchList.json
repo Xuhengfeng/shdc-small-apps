@@ -2,7 +2,7 @@
   "navigationBarTitleText": "搜索",
   "enablePullDownRefresh": false,
   "usingComponents": {
-    "navBar-html": "/component/navBar/navBar",
+    "navBar": "/component/navBar/navBar",
     "van-toast": "/vant-weapp/dist/toast/index"
   }
 }

@@ -1,3 +1,4 @@
+<oheader text="待看日程" statusBarHeight="{{statusBarHeight}}"></oheader>
 <view class="header" wx:if="{{!islogin}}">
     <view class="headImage">
         <image src="{{myInfo.headImage? myInfo.headImage : '../../images/avatar.png'}}"/> 
@@ -8,7 +9,7 @@
 </view>
 <view class="page_bd" wx:if="{{islogin}}">
     <view class="weui-tab">
-      <view class="weui-navbar navbar">
+      <view class="weui-navbar navbar" style="top:{{statusBarHeight+50}}px">
           <block wx:for="{{tabs}}" wx:key="*this">
               <view id="{{index}}" data-index="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
                   <view class="weui-navbar__title">{{item}}</view>

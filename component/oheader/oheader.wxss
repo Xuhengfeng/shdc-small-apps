@@ -1,0 +1,25 @@
+/* 回到首页 */
+/* 跳转app */
+.header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: #fff;
+}
+.statusBar{
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+.publicHeight{
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: left;
+  text-indent: 40rpx;
+  background: #fff;
+}
+.header2{
+  width: 100%;
+  background: #fff;
+}

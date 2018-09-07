@@ -1,9 +1,10 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
-
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     tabs: ["待看日程", "已看记录", "看房报告"],
     activeIndex: 0,
     sliderOffset: 0,
@@ -23,7 +24,6 @@ Page({
     isAuth: '未授权'
   },
   onLoad() {
-    wx.setNavigationBarTitle({title: "待看日程"});
     if(wx.getStorageSync("userToken")){
       this.setData({islogin: true});
     }else{

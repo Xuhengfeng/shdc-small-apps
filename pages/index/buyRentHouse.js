@@ -1,7 +1,9 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     imgUrls: [],//轮播图
     recommend: [],//为你推荐
     toastMsg: '为你找到1000房源',
@@ -9,7 +11,6 @@ Page({
     scrollTop: 0,
     cityCode: null,
     tone: 'rgba(249,249,249,0)',//头部渐变色值
-    houseDetail: null,//房源详情
     flagPrice: true,
     page: 1,
     isShow: 0,//nav是否显示
@@ -30,16 +31,16 @@ Page({
     params: {},//请求参数
     toastMsg1: null,
     toastMsg: null,
-    time: null
+    time: null,
+    name: ''
   },
   onLoad(options) {
     //初始化
     let name = wx.getStorageSync('houseTypeSelect');
-    wx.setNavigationBarTitle({ title: name });
     switch(name) {
       case '二手房':
       this.setData({
-        houseDetail: name,
+        name: name,
         flagPrice: true,
         num: 0,
         label: ["区域", "户型", "价格", "面积", "类型"]
@@ -48,7 +49,7 @@ Page({
       // ----------------------------------------------------------
       case '租房':
       this.setData({
-        houseDetail: name,
+        name: name,
         flagPrice: false,
         num: 1,
         label: ["区域", "户型", "租金", "面积"]

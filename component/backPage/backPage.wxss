@@ -1,0 +1,9 @@
+.back{
+  position: fixed;
+  padding-left: 15rpx;
+  z-index: 1100;
+}
+.back image{
+  width: 30rpx;
+  height: 45rpx;
+}

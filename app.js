@@ -80,9 +80,16 @@ App({
   },
   onShow(options) {
     this.globalData.scene = options.scene;
-    console.log('场景值',options);
+    let that = this;
+    wx.getSystemInfo({
+      success: res=>{
+        console.log(res)
+        that.globalData.statusBarHeight = res.statusBarHeight;
+      }
+    })
   },
   globalData: {
+    statusBarHeight: 20,
     userInfo: null,//用户信息
     ciphertext: null,//鉴权信息
     hasUserInfo: false,//用户是否授权获取用户信息  
