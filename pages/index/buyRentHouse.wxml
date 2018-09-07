@@ -1,4 +1,3 @@
-<backPage statusBarHeight="{{statusBarHeight}}"></backPage>
 <oheader text="{{name}}" statusBarHeight="{{statusBarHeight}}"></oheader>
 <import src="../template/template.wxml"/>
     <view class="header">

@@ -13,13 +13,29 @@
   background: rgba(0, 0, 0, 0.3);
 }
 .publicHeight{
+  position: relative;
   height: 100rpx;
   line-height: 100rpx;
   text-align: left;
-  text-indent: 40rpx;
+  padding-left: 25rpx;
   background: #fff;
+}
+.publicHeight>view{
+  display: inline-block;
 }
 .header2{
   width: 100%;
   background: #fff;
+}
+.back{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.back image{
+  width: 30rpx;
+  height: 45rpx;
+}
+.backText{
+ margin-left: 40rpx;
 }

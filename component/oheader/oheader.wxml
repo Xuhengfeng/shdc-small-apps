@@ -2,7 +2,12 @@
 <!-- 固定的 -->
 <view class="header">
     <view class="statusBar" style="height:{{statusBarHeight}}px"></view>
-    <view class="publicHeight">{{text}}</view>
+    <view class="publicHeight">
+        <view wx:if="{{true}}" class="back" bind:tap="backPage">
+            <image class="back" src="../../images/back2.png"/>
+        </view>
+        <view class="backText:{{true}}">{{text}}</view>
+    </view>
 </view>
 <!-- 静态的占位的 -->
 <view class="header2">

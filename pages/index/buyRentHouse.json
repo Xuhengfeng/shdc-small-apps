@@ -3,7 +3,6 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "navBar": "/component/navBar/navBar",
-    "oheader": "/component/oheader/oheader",
-    "backPage": "/component/backPage/backPage"
+    "oheader": "/component/oheader/oheader"
   }
 }
