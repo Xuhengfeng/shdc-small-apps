@@ -45,13 +45,14 @@ page{
   position: absolute;
   bottom: 25rpx;
   right: 25rpx;
-  border-radius: 20rpx;
+  border-radius: 50%;
   font-size: 30rpx;
   color: #ffffff;
-  height: 40rpx;
-  line-height: 40rpx;
-  width: 80rpx;
+  height: 100rpx;
+  width: 100rpx;
   text-align: center;
+  padding-top: 37rpx;
+  box-sizing: border-box;
 }
 /* 光明小区 */
 .section1 .title{
@@ -91,18 +92,14 @@ page{
   display: flex;
   flex-flow: nowrap;
   justify-content: flex-start;
-  align-items: center;
   height: 180rpx;
   border-top: 1rpx solid #e6e6e6;
   border-bottom: 1rpx solid #e6e6e6;  
-  margin: 0 24rpx;
   white-space: nowrap;
 }
 .descriptions>view{
-  padding-left: 40rpx;
-}
-.descriptions>view:first-child{
-  padding-left: 20rpx;
+  padding: 40rpx 0 40rpx 20rpx;
+  line-height: 180rpx;
 }
 .descriptions>view{
   flex: 1;
