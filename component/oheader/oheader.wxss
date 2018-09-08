@@ -1,5 +1,14 @@
-/* 回到首页 */
-/* 跳转app */
+
+/* 悬浮状态栏 */
+.suspensionStatusBar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1100;
+  background: rgba(0, 0, 0, 0.3);
+}
+/* 悬浮头部 */
 .header{
   position: fixed;
   top: 0;
@@ -8,10 +17,12 @@
   z-index: 1000;
   background: #fff;
 }
+/* 静态状态栏 */
 .statusBar{
   width: 100%;
   background: rgba(0, 0, 0, 0.3);
 }
+/* 标题栏 */
 .publicHeight{
   position: relative;
   height: 100rpx;
@@ -23,10 +34,14 @@
 .publicHeight>view{
   display: inline-block;
 }
+
+/* 静态头部 */
 .header2{
   width: 100%;
   background: #fff;
 }
+
+/* 返回上一页 */
 .back{
   position: absolute;
   top: 50%;

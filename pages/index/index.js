@@ -5,6 +5,8 @@ const pinyin = require("../../libs/toPinyin.js"); //汉字转拼音
 const app = getApp();
 Page({
   data: {
+    scrollNum: 0,
+    changeBg: '#fff',
     imgUrls: [],//轮播图
     hasMore: false,
     statusBarHeight: app.globalData.statusBarHeight,
@@ -338,5 +340,17 @@ Page({
   //图片加载错误
   imgError(e) {
     utils.imgError(e, 'houseList', this);
-  }
+  },
+  //页面滚动监听
+  onPageScroll(res) {
+    const denominator  = wx.getSystemInfoSync().windowWidth / 375 * 330;
+    let percent = res.scrollTop / denominator;
+    let scrollNum = percent>=1 ? 1 : percent;
+    let changeBg = 'rgba(250,250,250,'+scrollNum+')';
+    if(scrollNum<=0.4){
+      changeBg = "#fff";
+    }
+    this.setData({ scrollNum: scrollNum, changeBg: changeBg});
+  },
+
 })

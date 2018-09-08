@@ -2,7 +2,6 @@ const utils = require("../../utils/util");
 const bmap = require("../../libs/bmap-wx.min.js");//百度地图sdk
 const pinyin = require("../../libs/toPinyin.js"); //汉字转拼音
 const app = getApp();
-
 Component({
   properties: {
     city: {
@@ -33,6 +32,7 @@ Component({
     }
   },
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     list: [],
     rightArr: [],// 右侧字母展示
     jumpNum: '',//跳转到那个字母
@@ -42,6 +42,9 @@ Component({
     if (this.data.myCity) this.getCity();
   },
   methods: {
+    backPage() {
+      wx.navigateBack();
+    },
     resetRight(data) {// 数据重新渲染 
       let rightArr = []
       for (let i in data) {
@@ -112,10 +115,8 @@ Component({
         });
       }
     },
-    input(e) {// 获取搜索输入内容
+    searchMt(e) {// 基础搜索功能
       this.value = e.detail.value;
-    },
-    searchMt() {// 基础搜索功能
       this._search();
     },
     _search() {
@@ -173,6 +174,6 @@ Component({
                 });
               })
           }
-        }
+    }
   }
 })

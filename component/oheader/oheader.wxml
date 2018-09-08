@@ -1,16 +1,21 @@
 <!-- 公共的头部 -->
-<!-- 固定的 -->
-<view class="header">
+<!-- 只显示状态栏的 -->
+<view class="suspensionStatusBar" wx:if="{{isStatusBar}}" style="height:{{statusBarHeight}}px"></view>
+
+<!-- 悬浮固定的 -->
+<view class="header" wx:if="{{!isStatusBar}}">
     <view class="statusBar" style="height:{{statusBarHeight}}px"></view>
     <view class="publicHeight">
-        <view wx:if="{{true}}" class="back" bind:tap="backPage">
+        <!-- 是否带有箭头的标题栏 -->
+        <view wx:if="{{isBack}}" class="back" bind:tap="backPage">
             <image class="back" src="../../images/back2.png"/>
         </view>
-        <view class="backText:{{true}}">{{text}}</view>
+        <view class="{{isBack?'backText':''}}">{{text}}</view>
     </view>
 </view>
-<!-- 静态的占位的 -->
-<view class="header2">
+
+<!-- 静态占位的 -->
+<view class="header2" wx:if="{{!isStatusBar}}">
     <view class="statusBar" style="height:{{statusBarHeight}}px"></view>
     <view class="publicHeight"></view>
 </view>

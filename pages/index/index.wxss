@@ -1,4 +1,11 @@
 @import "../template/template.wxss";
+.suspension{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
 /* section start */
 .section{
   background: #fff;
@@ -35,7 +42,7 @@
   position: absolute;
   top: 20rpx;
   left: 50%;
-  width: 660rpx;
+  width: 580rpx;
   height: 80rpx;
   line-height: 80rpx;
   transform: translateX(-50%);

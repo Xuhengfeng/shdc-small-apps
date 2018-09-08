@@ -1,4 +1,21 @@
-<oheader statusBarHeight="{{statusBarHeight}}"></oheader>
+<oheader isStatusBar="{{true}}" statusBarHeight="{{statusBarHeight}}"></oheader>
+<view class="suspension" style="height:{{statusBarHeight+60}}px;background:rgba(255, 255, 255, {{scrollNum}});">
+ <view class="serarch-content" style="top:{{statusBarHeight+10}}px;background:{{changeBg}};">
+      <navigator url="../location/location?origin=index" hover-class="none">
+        <text class="location">{{myLocation}}</text>
+        <image src="../../images/drop.png" />
+      </navigator>
+      <navigator url="../search/search" hover-class="none" style="flex:1">
+        <view style="height:80rpx;">
+          <view class="search">
+            <image src="../../images/search.png" />
+            <text>搜索心意住所</text>
+          </view>
+        </view>
+      </navigator>
+    </view>
+</view>
+
 <view class="section header">
     <swiper indicator-dots="true" 
             autoplay="true" 
@@ -17,21 +34,6 @@
         </swiper-item>
       </block>
     </swiper>
- 
-    <view class="serarch-content">
-      <navigator url="../location/location?origin=index" hover-class="none">
-        <text class="location">{{myLocation}}</text>
-        <image src="../../images/drop.png" />
-      </navigator>
-      <navigator url="../search/search" hover-class="none" style="flex:1">
-        <view style="height:80rpx;">
-          <view class="search">
-            <image src="../../images/search.png" />
-            <text>搜索心意住所</text>
-          </view>
-        </view>
-      </navigator>
-    </view>
   </view>
 
   <view class="section menu">

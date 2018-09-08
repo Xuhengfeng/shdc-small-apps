@@ -1,4 +1,4 @@
-<oheader text="个人中心" statusBarHeight="{{statusBarHeight}}"></oheader>
+<oheader isStatusBar="{{true}}" statusBarHeight="{{statusBarHeight}}"></oheader>
 <view>
   <view class="header">
       <view class="headImage">
