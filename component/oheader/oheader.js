@@ -10,6 +10,14 @@ Component({
       type: String,
       value: ''
     },
+    isCancel: {//取消按钮
+      type: Boolean,
+      value: false
+    },
+    cancelText: {//取消文字
+      type: String,
+      value: ''
+    },
     isPublic: {//标题栏
       type: Boolean,
       value: true

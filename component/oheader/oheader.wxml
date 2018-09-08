@@ -37,6 +37,7 @@
                 <image class="back" src="../../images/back2.png"/>
             </view>
             <view class="{{isBack?'backText':''}}">{{text}}</view>
+            <view wx:if="{{isCancel}}">{{cancelText}}</view>
         </view>
     </view>
 

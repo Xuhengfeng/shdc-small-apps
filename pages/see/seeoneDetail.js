@@ -1,8 +1,9 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     isLoding: true,//正在为你安排经纪人
     isCancel: false,//取消中 正常显示样式
     isShadow: false,//取消对话框

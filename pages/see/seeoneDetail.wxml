@@ -1,3 +1,5 @@
+<oheader text="日程详情" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader>
+<view style="height:{{statusBarHeight+50}}px"></view>
 <view class="header">
     <view class="dateTitle">{{seeHouseDetail.appointDate}}</view>
     <view class="countHouse">看房{{seeHouseDetail.houseNum}}套</view>

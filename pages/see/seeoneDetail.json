@@ -1,3 +1,5 @@
 {
-  "navigationBarTitleText": "日程详情"
+  "usingComponents": {
+    "oheader": "/component/oheader/oheader"
+  }
 }
