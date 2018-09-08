@@ -1,4 +1,5 @@
-
+<oheader text="我收藏的租房" isCenter="center" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader> 
+<view style="height:{{statusBarHeight+50}}px"></view>
 <view class="weui-panel__bd">
     <block wx:for="{{houseList}}" wx:key="index" wx:for-item="item">
     <view class="bodyItem" data-id="{{item.sdid}}" data-scity="{{item.scity}}"  bindtap="zufang">

@@ -1,8 +1,9 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     houseList: [],
     showload: false,
     num: 0,

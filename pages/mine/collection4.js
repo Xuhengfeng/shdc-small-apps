@@ -1,9 +1,10 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const filter = require("../../utils/filter");
-
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     houseList: [],
     showload: false,
     currentCity: null,

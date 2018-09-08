@@ -1,4 +1,5 @@
- 
+<oheader text="经纪人详情" isCenter="center" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader> 
+<view style="height:{{statusBarHeight+50}}px"></view>
 <view class="list" bindtap="goBackSet">
       <image class="avatar" src="{{brokerInfo.photo?brokerInfo.photo:'../../images/avatar.png'}}"></image>
       <view class="content">

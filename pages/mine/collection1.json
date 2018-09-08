@@ -1,3 +1,5 @@
 {
-"navigationBarTitleText": "我收藏的二手房"
+    "usingComponents": {
+        "oheader": "/component/oheader/oheader"
+    }
 }
