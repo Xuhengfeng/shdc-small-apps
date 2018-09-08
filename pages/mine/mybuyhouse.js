@@ -1,8 +1,9 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     IPS: [Api.IP_SELLAPPLYLIST,  Api.IP_RENTAPPLYLIST],//我的卖房列表 我的租房列表
     num: 0,
     currentCity: null,

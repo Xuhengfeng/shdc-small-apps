@@ -1,8 +1,9 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     item: '二手房',//显示选中的
     num: 0,//控制item样式
     flag: false,//控制option显隐
