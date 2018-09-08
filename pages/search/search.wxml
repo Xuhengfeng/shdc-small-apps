@@ -1,5 +1,5 @@
 <oheader  styleNum="2" statusBarHeight="{{statusBarHeight}}"></oheader> 
-<view class="list-search" style="top:{{statusBarHeight+10}}px">
+<view class="list-search" style="top:{{statusBarHeight+5}}px">
   <view class='list-search-box'>
     <view class="one" bindtap="isShowItem">
       <view class="selectItem">{{item}}</view>
