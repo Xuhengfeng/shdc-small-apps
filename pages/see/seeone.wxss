@@ -120,8 +120,8 @@ button{
   background: #00b969;
   font-size: 22rpx;
   color: #ffffff;
-  border-top-left-radius: 10rpx; 
-  border-bottom-left-radius: 10rpx; 
+  border-top-left-radius: 20rpx; 
+  border-bottom-left-radius: 20rpx; 
 }
 
 /* 头像 电话*/
@@ -161,10 +161,11 @@ button{
 
 /* 取消状态 */
 .deleteLine{
-  color: #999999;
+  color: #999;
   text-decoration: line-through;
 }
 .cancel{
+  color: #999!important;
   background: #e6e6e6!important;
 }
 

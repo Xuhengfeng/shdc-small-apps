@@ -1,3 +1,4 @@
+<oheader text="评价经纪人" isCenter="center" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader>
 <view class="brokerApprasie">
     <view class="name">{{item.brokerName}}</view>
     <view class="decription"><text>带看</text>{{item.houseContent}}</view>

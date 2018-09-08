@@ -1,3 +1,4 @@
+<oheader text="看房备注" isCenter="center" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader>
 <view class="header">
     <text>{{seeHouseItem.houseList[0].areaName}}</text><text>{{seeHouseItem.houseList[0].houseType}}</text>{{seeHouseItem.houseList[0].saleTotal}}万
 </view>

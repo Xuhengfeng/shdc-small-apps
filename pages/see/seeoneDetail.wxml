@@ -1,4 +1,4 @@
-<oheader text="日程详情" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader>
+<oheader text="日程详情" isCenter="center" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader>
 <view style="height:{{statusBarHeight+50}}px"></view>
 <view class="header">
     <view class="dateTitle">{{seeHouseDetail.appointDate}}</view>
@@ -20,7 +20,7 @@
         </view>
 
         <view class="content content2" wx:if="{{show2}}">
-            <view class="decTitle" wx:if="{{isLoding}}">经纪人安排成功 <view>{{seeHouseDetail.assignBrokerTime}}</view></view>
+            <view class="decTitle" wx:if="{{isLoding}}">经纪人安排成功</view>
             <view class="decTitle loding" wx:if="{{!isLoding}}">正在为您安排经纪人 <view>{{seeHouseDetail.assignBrokerTime}}</view></view>
             <view class="decription">经纪人会电话联系你的</view>
             <view class="brokerInfo">
@@ -29,7 +29,7 @@
                 </view>
                 <view class="brokerName">
                     <view>{{seeHouseDetail.broker.emplName}}<text>{{seeHouseDetail.broker.positionName}}</text></view>
-                    <view>所在门店</view>
+                    <view>{{seeHouseDetail.broker.deptName}}</view>
                 </view>
                 <view class="tellphone" data-phone="{{seeHouseDetail.broker.phone}}" bindtap="tellbroker">
                     <image src="../../images/phone.png">电话</image>
@@ -41,8 +41,8 @@
         <view class="content content1" wx:if="{{show1}}">
             <view class="decTitle">提交预约成功<view>{{seeHouseDetail.createDateTime}}</view></view>
             <view class="lookHouseTime">看房时间:<text>{{seeHouseDetail.appointDate}}</text></view>
-            <view class="lookHouseCount">看房套数:<text>经纪人会电话联系你的</text></view>
-            <view class="brokerTel">联系方式:<text>{{seeHouseDetail.broker.emplName}}<text>{{seeHouseDetail.broker.phone}}</text></text></view>
+            <view class="lookHouseCount">看房套数:<text>看房{{seeHouseDetail.houseNum}}套</text></view>
+            <view class="brokerTel">联系方式:<text>{{seeHouseDetail.appointName}}<text>{{seeHouseDetail.appointMobile}}</text></text></view>
             <view class="circle {{isCancel?'cancel':''}}">1</view>
         </view>
 

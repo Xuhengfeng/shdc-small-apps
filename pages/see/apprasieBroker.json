@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "评价经纪人"
+  "usingComponents": {
+    "oheader": "/component/oheader/oheader"
   }
+}

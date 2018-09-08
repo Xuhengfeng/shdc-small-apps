@@ -66,20 +66,29 @@ Page({
   seeHouseDetailRequest(id) {
     let params = {unicode: wx.getStorageSync("userToken")};
     utils.get(Api.IP_READYDETAIL+id,params)
-    .then((data)=>{
+    .then(data=>{
       this.setData({seeHouseDetail: data.data});
       let step = data.data.procStep;
-      console.log(step)
+      let status = data.data.status;
+      console.log(data)
       switch(step){
-        case 'SUCCESS': this.setData({show1:true,show2:false,show3:false});break;
-        case 'TO_ASSIGN_BROKER': this.setData({show1:true,show2:true,isLoding:false,show3:false});break;
-        case 'TO_SCHEDULE': this.setData({show1:true,show2:true,isLoading:true,show3:true});break;
+        case 'SUCCESS': 
+          this.setData({show1:true,show2:true,show3:false});
+          break;
+        case 'TO_ASSIGN_BROKER': 
+          this.setData({show1:true,show2:true,isLoding:false,show3:false});
+          break;
+        case 'TO_SCHEDULE': 
+          this.setData({show1:true,show2:true,isLoading:true,show3:true});
+          break;
+      }
+      switch(status){
+        case 'TO_CANCEL': this.setData({show1:true,show2:false,isCancel:true});break;
       }
     })
   },
   //打电话
   tellbroker(e) {
-    console.log(e.currentTarget.dataset.phone)
     wx.makePhoneCall({phoneNumber: e.currentTarget.dataset.phone});
   }
 })

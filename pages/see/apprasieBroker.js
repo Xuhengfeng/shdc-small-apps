@@ -1,7 +1,9 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     star: [//默认的灰色的星星5个
       { isStar: true },
       { isStar: true },

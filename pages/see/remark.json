@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "看房备注"
+  "usingComponents": {
+    "oheader": "/component/oheader/oheader"
   }
+}
