@@ -1,7 +1,9 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     keyword: null,//获取用户输入值
     shops: [],
     hasMore: false,
@@ -54,10 +56,9 @@ Page({
   },
   //用户输入关键字
   userSearch(e) {
-    this.setData({keyword: e.detail.value})
+    this.setData({keyword: e.detail.value});
+    this.startsearch();
   },
-  //icon点击搜索
-  //键盘回车搜索
   startsearch() {
     this.setData({page: 1,shops: [],hasMore: true});
     let params = {pageNo: 1, scity: this.data.city, keyword: this.data.keyword};

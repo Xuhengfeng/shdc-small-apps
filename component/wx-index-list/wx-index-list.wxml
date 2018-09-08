@@ -4,7 +4,6 @@
 <view class='list-warpper'>
   <view wx:if="{{config.search}}" class='list-search' style="height:{{statusBarHeight+50}}px">
     <view class='list-search-box' style="margin:{{statusBarHeight+5}}px 100rpx 0;">
-      <view class="back" bind:tap="backPage"><image class="back" src="../../images/back2.png"/></view>
       <icon type="search" size="15" />
       <input placeholder="输入您要搜索的城市" bindinput="searchMt" />
     </view>

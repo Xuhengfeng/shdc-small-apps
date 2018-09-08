@@ -1,11 +1,12 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const regeneratorRuntime = require("../../utils/runtime");//es7 运行环境
-const app = getApp();
 import Toast from '../../vant-weapp/dist/toast/index';
-
+const app = getApp();
 Page({
   data: {
+    scrollNum: 0,
+    statusBarHeight: app.globalData.statusBarHeight, 
     imgUrls: [],//轮播图默认图片 
     currentIndex: 1,
     likeFlag: false,//喜欢 收藏
@@ -344,6 +345,11 @@ Page({
   imgError2(e) {
     let all = 'guanlianList.housePic';
     this.setData({[all]: '../../images/banner.png'});
+  },
+  //页面滚动监听
+  onPageScroll(res) {
+    let result = app.oScroll(res);
+    this.setData({scrollNum: result.scrollNum});
   }
 })
 

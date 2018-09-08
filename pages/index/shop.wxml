@@ -1,14 +1,11 @@
-<!--pages/index/shop.wxml-->
-<view class="header">
-  <view class="list-search">
-    <view class='list-search-box'><icon  bindtap="startsearch" type="search" size="15"/>
-      <input placeholder="请输入你要查询的信息"
-             bindconfirm="startsearch"
-             bindinput="userSearch"/>
-    </view>
-  </view>  
-</view>
-<view style="height:100rpx;background:#fffff;width:100%"></view>
+<oheader styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader>
+<view class="list-search" style="padding:{{statusBarHeight+5}}px 0 15rpx;">
+  <view class='list-search-box'>
+      <icon type="search" bindtap="startsearch" size="15"/>
+      <input placeholder="请输入你要查询的信息" bindconfirm="searchSubmit" bindinput="userSearch" value="{{keyword}}"/>
+  </view>
+</view>  
+<view style="height:{{statusBarHeight+50}}px"></view>
 <view class="content" 
       wx:for="{{shops}}">
       <view class='one'>{{item.deptName}}</view>

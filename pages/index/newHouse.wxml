@@ -1,5 +1,12 @@
+<oheader styleNum="1" statusBarHeight="{{statusBarHeight}}"></oheader>
+<view class="list-search" style="padding:{{statusBarHeight+5}}px 0 15rpx;">
+  <view class='list-search-box'>
+      <icon type="search" bindtap="startsearch" size="15"/>
+      <input placeholder="请输入您要搜索的内容" bindconfirm="searchSubmit" bindinput="userSearch" value="{{keyword}}"/>
+  </view>
+</view>  
+
 <import src="../template/template.wxml"/>
-  <!-- <view style="height:auto;"> -->
     <view class="header">
       <swiper autoplay="true" 
             interval="5000"
@@ -18,17 +25,6 @@
                     </swiper-item>
               </block>
       </swiper>
-      <view id="mysearch" class="serarch-content" style="background:{{tone}}">
-        <view class="search-bg">
-          <view class="search">
-                <view bindtap="startsearch"><image src="../../images/search.png" /></view>
-                <input placeholder="请输入您要搜索的内容" 
-                            bindconfirm="searchSubmit" 
-                            bindinput="userSearch"
-                            bindfocus="useFocus"/>
-          </view>
-        </view>
-      </view>
     </view>
 
     <view class="section navbar">

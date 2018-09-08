@@ -1,17 +1,14 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const filter = require("../../utils/filter");
-
+const app = getApp();
 Page(filter.loginCheck({
   data: {
+    text: '我要出售',
+    scrollNum: 0,
+    statusBarHeight: app.globalData.statusBarHeight,
     selectFlag1: true,//出售
     selectFlag2: false,//出租    
-    phcolorFlag: true,//城市
-    phcolorFlag2: true,//经纪人
-    phcolorFlag3: true,//小区
-    phcolorFlag4: true,//房源信息 
-    phcolorFlag5: true,//具体地址 
-    phcolorFlag6: true,//申请人
     city: '选择您房源所在城市',
     broker: '选择跟进联系人',
     houseRimName: '房源所在的小区',
@@ -55,12 +52,12 @@ Page(filter.loginCheck({
   },
   //出售
   selectOne() {
-    this.setData({selectFlag1: true,selectFlag2: false,num: 0});
+    this.setData({selectFlag1: true,selectFlag2: false,num: 0,text:'我要出售'});
     this.bannerRequest(0);
   },
   //出租
   selectTwo() {
-    this.setData({selectFlag1: false,selectFlag2: true,num: 1});
+    this.setData({selectFlag1: false,selectFlag2: true,num: 1,text:'我要出租'});
     this.bannerRequest(1);
   },
   //城市
@@ -156,5 +153,12 @@ Page(filter.loginCheck({
       address:"输入您的房源具体地址",
       useself: "业主/推荐人",
     })
+  },
+  //页面滚动监听
+  onPageScroll(res) {
+    const denominator  = app.globalData.windowWidth / 375 * 330;
+    let percent = res.scrollTop / denominator;
+    let scrollNum = percent>=1 ? 1 : ( percent>=0.4 ? 1 : percent);
+    this.setData({scrollNum: scrollNum});
   }
 }))

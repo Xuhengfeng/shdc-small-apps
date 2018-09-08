@@ -83,13 +83,26 @@ App({
     let that = this;
     wx.getSystemInfo({
       success: res=>{
-        console.log(res)
         that.globalData.statusBarHeight = res.statusBarHeight;
+        that.globalData.windowWidth = res.windowWidth;
       }
     })
   },
+  //自定义页面滚动监听回调
+  oScroll(res) {
+    const denominator  = wx.getSystemInfoSync().windowWidth / 375 * 330;
+    let percent = res.scrollTop / denominator;
+    let scrollNum = percent>=1 ? 1 : percent;
+    let changeBg = 'rgba(250,250,250,'+scrollNum+')';
+    if(scrollNum<=0.4) changeBg = "#fff";
+    return {
+      scrollNum: scrollNum,
+      changeBg: changeBg
+    }
+  },
   globalData: {
     statusBarHeight: 20,
+    winWidth: 0,
     userInfo: null,//用户信息
     ciphertext: null,//鉴权信息
     hasUserInfo: false,//用户是否授权获取用户信息  

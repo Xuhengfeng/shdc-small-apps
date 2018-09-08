@@ -1,10 +1,4 @@
 @import "../template/template.wxss";
-page{
-  background: #ffffff;
-}
-::-webkit-scrollbar{
-  display: none;
-}
 navigator{
   overflow: hidden;
 }
@@ -16,7 +10,34 @@ navigator{
 .header swiper{
   height: 100%;
 }
-
+.search-title {
+  flex-shrink: 0;
+  font-size: 28rpx;
+  padding-right: 10rpx;
+}
+.list-search {
+  position: fixed;
+  top: 0;
+  left: 80rpx;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+.list-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  width: 580rpx;
+  height: 70rpx;
+  background: #f2f2f2;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+.list-search-box input{
+  width: 100%;
+  padding-left: 10rpx;
+}
 .serarch-content{
   position: fixed;
   top: 0;

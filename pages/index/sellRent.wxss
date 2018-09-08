@@ -50,8 +50,9 @@
 .phcolor{
   font-size: 30rpx;
 }
-
-
+.publicHeight{
+  text-align: center;
+}
 /* 业主 推荐人 */
 .actionSheet{
   position:fixed;
@@ -95,8 +96,4 @@
 .section2 .title-class{
   max-width: 90rpx!important;
   min-width: 90rpx!important;
-}
-
-view,text{
-  line-height: auto;
 }

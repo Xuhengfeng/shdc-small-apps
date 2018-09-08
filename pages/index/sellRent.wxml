@@ -1,7 +1,7 @@
+<oheader text="{{text}}" isCenter="center" styleNum="1" scrollNum="{{scrollNum}}" statusBarHeight="{{statusBarHeight}}"></oheader>
 <view class="header">
   <image src="{{banner[0].picUrl?banner[0].picUrl:'../../images/default.jpg'}}"/>
 </view>
-
 <view  class="selectItem">
     <view bindtap="selectOne">我要出售  
               <image wx:if="{{selectFlag1}}" src="../../images/select-on.png"/>

@@ -24,8 +24,8 @@
 /* 标题栏 */
 .publicHeight{
   position: relative;
-  height: 120rpx;
-  line-height: 120rpx;
+  height: 100rpx;
+  line-height: 95rpx;
   text-align: left;
   padding-left: 25rpx;
 }
@@ -43,7 +43,7 @@
 .back{
   position: absolute;
   top: 50%;
-  transform: translateY(-80%);
+  transform: translateY(-50%);
 }
 .back image{
   width: 30rpx;
@@ -51,4 +51,7 @@
 }
 .backText{
  margin-left: 40rpx;
+}
+.backText2{
+ margin-left: 37%;
 }

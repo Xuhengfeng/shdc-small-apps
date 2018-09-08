@@ -343,14 +343,7 @@ Page({
   },
   //页面滚动监听
   onPageScroll(res) {
-    const denominator  = wx.getSystemInfoSync().windowWidth / 375 * 330;
-    let percent = res.scrollTop / denominator;
-    let scrollNum = percent>=1 ? 1 : percent;
-    let changeBg = 'rgba(250,250,250,'+scrollNum+')';
-    if(scrollNum<=0.4){
-      changeBg = "#fff";
-    }
-    this.setData({ scrollNum: scrollNum, changeBg: changeBg});
-  },
-
+    let result = app.oScroll(res);
+    this.setData({scrollNum: result.scrollNum, changeBg: result.changeBg});
+  }
 })

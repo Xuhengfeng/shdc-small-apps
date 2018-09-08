@@ -26,9 +26,13 @@ Component({
       type: Number,
       value: 1
     },
-    scrollNum: {
+    scrollNum: {//标题栏渐变
       type: String,
       value: 0
+    },
+    isCenter: {//标题是否居中
+      type: String,
+      value: 'left'
     }
   },
   data: {  

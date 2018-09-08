@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "我要售租",
   "usingComponents": {
+    "oheader": "/component/oheader/oheader",
     "van-cell-group": "/vant-weapp/dist/cell-group/index",
     "van-field": "/vant-weapp/dist/field/index"
   }

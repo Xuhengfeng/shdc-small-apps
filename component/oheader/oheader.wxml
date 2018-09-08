@@ -12,7 +12,7 @@
             <view wx:if="{{isBack}}" class="back" bind:tap="backPage">
                 <image class="back" src="../../images/back2.png"/>
             </view>
-            <view class="{{isBack?'backText':''}}">{{text}}</view>
+            <view class="{{isBack?(isCenter=='center'?'backText2':'backText'):''}}">{{text}}</view>
         </view>
     </view>
 
