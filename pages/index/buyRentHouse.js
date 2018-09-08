@@ -239,8 +239,5 @@ Page({
   //图片加载错误
   imgError(e) {
     utils.imgError(e, this);
-  },
-  backPage() {
-    wx.navigateBack();
   }
 })

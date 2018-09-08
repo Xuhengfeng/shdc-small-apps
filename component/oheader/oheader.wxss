@@ -15,7 +15,6 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: #fff;
 }
 /* 静态状态栏 */
 .statusBar{
@@ -25,11 +24,10 @@
 /* 标题栏 */
 .publicHeight{
   position: relative;
-  height: 100rpx;
-  line-height: 100rpx;
+  height: 120rpx;
+  line-height: 120rpx;
   text-align: left;
   padding-left: 25rpx;
-  background: #fff;
 }
 .publicHeight>view{
   display: inline-block;
@@ -45,7 +43,7 @@
 .back{
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-80%);
 }
 .back image{
   width: 30rpx;

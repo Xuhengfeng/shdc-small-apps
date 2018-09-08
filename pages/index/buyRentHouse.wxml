@@ -1,4 +1,4 @@
-<oheader isStatusBar="{{true}}" statusBarHeight="{{statusBarHeight}}"></oheader>
+<oheader styleNum="1" scrollNum="{{scrollNum}}" statusBarHeight="{{statusBarHeight}}"></oheader>
 <import src="../template/template.wxml"/>
     <view class="header">
       <swiper autoplay="true" 
@@ -10,16 +10,13 @@
               <block wx:for="{{imgUrls}}"
                     wx:key="{{index}}">
                     <swiper-item>
-                        <image src="{{item.picUrl}}" 
-                              class="slide-image" 
-                              style="width:100%!important;height:100%!important"/>
+                      <image src="{{item.picUrl}}" class="slide-image" style="width:100%!important;height:100%!important"/>
                     </swiper-item>
               </block>
       </swiper>
-      <view id="mysearch" class="serarch-content" style="padding:{{statusBarHeight+5}}px 0 15rpx;background:rgba(255,255,255,{{scrollNum}})">
+      <view id="mysearch" class="serarch-content" style="margin-top:{{statusBarHeight+5}}px">
         <view class="search-bg" style="background:{{changeBg}}">
           <view class="search">
-                <view class="back" bind:tap="backPage"><image class="back" src="../../images/back2.png"/></view>
                 <view class="searchImg" bindtap="startsearch"><image src="../../images/search.png" /></view>
                 <input placeholder="请输入您要搜索的内容" bindconfirm="searchSubmit" bindinput="userSearch" bindfocus="useFocus"/>
           </view>

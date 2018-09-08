@@ -37,9 +37,8 @@
   margin-right: 15rpx;
 }
 .serarch-content{
-  background: rgba(255,255,255,.9);
-   border-radius: 8rpx; 
-  position: absolute;
+  border-radius: 8rpx; 
+  position: fixed;
   top: 20rpx;
   left: 50%;
   width: 580rpx;
@@ -52,6 +51,7 @@
   flex-flow: nowrap;
   justify-content: flex-start;
   align-items: center;
+  z-index: 1100;
 }
 .serarch-content .location{
   display: inline-block;

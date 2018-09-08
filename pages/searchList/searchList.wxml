@@ -1,26 +1,25 @@
-<oheader isStatusBar="{{true}}" statusBarHeight="{{statusBarHeight}}"></oheader>
-<view class="header">
+<oheader styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader>
+
   <view class="list-search" style="padding:{{statusBarHeight+5}}px 0 15rpx;">
     <view class='list-search-box'>
-        <view class="back" bind:tap="backPage"><image class="back" src="../../images/back2.png"/></view>
         <icon type="search" bindtap="startsearch" size="15"/>
         <input placeholder="输入您要搜索的城市" bindconfirm="searchSubmit" bindinput="userSearch" value="{{keyword}}"/>
     </view>
   </view>  
-  <navBar area="{{area}}" 
-    houseTy="{{houseTypes}}"
-    mode="{{mode}}"
-    price="{{price}}"
-    proportion="{{proportion}}"
-    bind:myevent="onMyEventHouseList"
-    keyword="{{keyword}}"
-    use="{{use}}"
-    houseAge="{{houseAge}}"
-    id="navbar">
+  <!-- navBar组件 -->
+  <navBar class="mynav"  
+        area="{{area}}" 
+        houseTy="{{houseTypes}}"
+        mode="{{mode}}"
+        price="{{price}}"
+        proportion="{{proportion}}"
+        bind:myevent="onMyEventHouseList"
+        keyword="{{keyword}}"
+        use="{{use}}"
+        houseAge="{{houseAge}}"
+        style="top:{{statusBarHeight+50}}px">
   </navBar>
-</view>
-<!--这是填充空盒子-->
-<view style="height:160rpx"></view>
+<view style="height:{{statusBarHeight+85}}px"></view>
 <view class="section goodList">
     <!--房源列表-->
     <block wx:for="{{houseList}}">

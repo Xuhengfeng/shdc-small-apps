@@ -1,21 +1,48 @@
 <!-- 公共的头部 -->
-<!-- 只显示状态栏的 -->
-<view class="suspensionStatusBar" wx:if="{{isStatusBar}}" style="height:{{statusBarHeight}}px"></view>
 
-<!-- 悬浮固定的 -->
-<view class="header" wx:if="{{!isStatusBar}}">
-    <view class="statusBar" style="height:{{statusBarHeight}}px"></view>
-    <view class="publicHeight">
-        <!-- 是否带有箭头的标题栏 -->
-        <view wx:if="{{isBack}}" class="back" bind:tap="backPage">
-            <image class="back" src="../../images/back2.png"/>
+<block>
+    <!-- 只显示状态栏的 -->
+    <view class="suspensionStatusBar" wx:if="{{styleNum==0}}" style="height:{{statusBarHeight}}px"></view>
+
+    <!-- 悬浮固定的带渐变的且状态栏是透明的 -->
+    <view class="header" wx:if="{{styleNum==1}}" style="background:rgba(255,255,255,{{scrollNum}})">
+        <view class="statusBar" style="height:{{statusBarHeight}}px"></view>
+        <view class="publicHeight">
+            <!-- 是否带有箭头的标题栏 -->
+            <view wx:if="{{isBack}}" class="back" bind:tap="backPage">
+                <image class="back" src="../../images/back2.png"/>
+            </view>
+            <view class="{{isBack?'backText':''}}">{{text}}</view>
         </view>
-        <view class="{{isBack?'backText':''}}">{{text}}</view>
     </view>
-</view>
 
-<!-- 静态占位的 -->
-<view class="header2" wx:if="{{!isStatusBar}}">
-    <view class="statusBar" style="height:{{statusBarHeight}}px"></view>
-    <view class="publicHeight"></view>
-</view>
+    <!-- 悬浮固定的不带渐变的且状态栏是透明的-->
+    <view class="header" wx:if="{{styleNum==2}}">
+        <view class="statusBar" style="height:{{statusBarHeight}}px"></view>
+        <view class="publicHeight" style="background:#fff">
+            <!-- 是否带有箭头的标题栏 -->
+            <view wx:if="{{isBack}}" class="back" bind:tap="backPage">
+                <image class="back" src="../../images/back2.png"/>
+            </view>
+            <view class="{{isBack?'backText':''}}">{{text}}</view>
+        </view>
+    </view>
+
+    <!-- 悬浮固定的不带渐变的且状态栏是不透明的 -->
+    <view class="header" wx:if="{{styleNum==3}}" style="background:#fff">
+        <view class="statusBar" style="height:{{statusBarHeight}}px;"></view>
+        <view class="publicHeight" style="background:#fff">
+            <!-- 是否带有箭头的标题栏 -->
+            <view wx:if="{{isBack}}" class="back" bind:tap="backPage">
+                <image class="back" src="../../images/back2.png"/>
+            </view>
+            <view class="{{isBack?'backText':''}}">{{text}}</view>
+        </view>
+    </view>
+
+    <!-- 静态占位的 -->
+    <view class="header2" wx:if="{{styleNum==4}}">
+        <view class="statusBar" style="height:{{statusBarHeight}}px"></view>
+        <view class="publicHeight" style="background:#fff"></view>
+    </view>
+</block>

@@ -6,7 +6,6 @@ navigator{
   overflow: hidden;
 }
 .header{
-  position: relative;
   height: 400rpx;
 }
 .header swiper{
@@ -29,19 +28,15 @@ navigator{
 .serarch-content{
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
-  padding: 20rpx 0;
+  left: 80rpx;
   z-index: 1000;
   box-sizing: border-box;
 }
 .serarch-content .search-bg{
-  margin-left: 50%; 
-  transform: translateX(-50%);
   border-radius: 15rpx;
   width: 580rpx;
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 70rpx;
+  line-height: 70rpx;
   box-shadow: 0 0 10rpx rgba(0,0,0,.1); 
   display: flex;
   flex-flow: row nowrap;

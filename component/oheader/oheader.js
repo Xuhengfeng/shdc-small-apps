@@ -8,7 +8,7 @@ Component({
     },
     text: {//标题
       type: String,
-      value: '世华易居'
+      value: ''
     },
     isPublic: {//标题栏
       type: Boolean,
@@ -21,6 +21,14 @@ Component({
     isStatusBar: {//单独显示状态栏
       type: Boolean,
       value: false
+    },
+    styleNum: {//控制样式
+      type: Number,
+      value: 1
+    },
+    scrollNum: {
+      type: String,
+      value: 0
     }
   },
   data: {  
