@@ -1,8 +1,10 @@
 //门牌号
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     roomNum: [],//门牌号
     keyword: '',
     currentCity: null,//当前城市拼音

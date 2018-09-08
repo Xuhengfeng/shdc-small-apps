@@ -1,8 +1,10 @@
 //单元号
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     unit: [],//单元
     keyword: null,
     currentCity: null,

@@ -1,3 +1,5 @@
 {
-  "navigationBarTitleText": "单元号"
+  "usingComponents": {
+    "oheader": "/component/oheader/oheader"
+  }
 }

@@ -1,8 +1,10 @@
 //栋座号
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     buildingBlock: [],//栋座
     keyword: '',
     currentCity: null,

@@ -1,8 +1,10 @@
 //小区
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     estate: [],//小区
     keyword: '',//关键词
     currentCity: null,//当前城市
