@@ -1,4 +1,6 @@
 <!-- 我的经纪人 -->
+<oheader text="我的经纪人" isCenter="center" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader> 
+<view style="height:{{statusBarHeight+50}}px"></view>
 <view class="list"
            wx:for="{{brokers}}"
            data-item="{{item}}"

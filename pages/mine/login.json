@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "登录到世华易居"
-}
+    "usingComponents": {
+        "oheader": "/component/oheader/oheader"
+    }
+  }

@@ -1,3 +1,5 @@
+<oheader text="我的评论" isCenter="center" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader> 
+<view style="height:{{statusBarHeight+50}}px"></view>
 <view class="main" wx:for="{{commentInfo}}">
     <view class="commentItem">
         <view class="commentItem-hd">

@@ -2,9 +2,10 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const filter = require("../../utils/filter.js");
-
+const app = getApp();
 Page(filter.loginCheck({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
      lookmore: '查看详情',
      showflag: false,
      isCancel: true,//委托取消

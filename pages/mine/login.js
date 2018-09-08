@@ -3,9 +3,9 @@ const utils = require("../../utils/util");
 const md5 = require("../../utils/md5");
 const WXBizDataCrypt = require("../../utils/Rdwxbizdatacrypt");
 const app = getApp();
-
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     inputValue1: "",//电话号码
     inputValue2: "",//验证码
     toast1Hidden: true,

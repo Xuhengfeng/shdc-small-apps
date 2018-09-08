@@ -1,4 +1,4 @@
-<oheader styleNum="1" isBack="{{false}}" statusBarHeight="{{statusBarHeight}}"></oheader>
+<oheader styleNum="0" isBack="{{false}}" statusBarHeight="{{statusBarHeight}}"></oheader>
 <view>
   <view class="header">
       <view class="headImage">

@@ -1,3 +1,5 @@
 {
-    "navigationBarTitleText": "我的评论"
+    "usingComponents": {
+        "oheader": "/component/oheader/oheader"
+    }
 }

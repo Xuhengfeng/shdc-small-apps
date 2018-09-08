@@ -1,3 +1,5 @@
+<!-- <oheader text="登录到世华易居" isCenter="center" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader> 
+<view style="height:{{statusBarHeight+50}}px"></view> -->
 <view class="page">
   <view class="page_hd" wx:if="{{isphoneLogin}}">
     <view class="flexBox">

@@ -1,3 +1,5 @@
 {
-  "navigationBarTitleText": "委托详情"
+  "usingComponents": {
+      "oheader": "/component/oheader/oheader"
+  }
 }

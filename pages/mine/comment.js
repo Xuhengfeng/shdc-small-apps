@@ -1,9 +1,10 @@
 // IP_BROKEREVALUATE
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     currentCity: null,
     page: 1,
     hasMore: true,
