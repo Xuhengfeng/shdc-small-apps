@@ -1,9 +1,10 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 import Toast from '../../vant-weapp/dist/toast/index';
-
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight, 
     label: [],
     houseList: [],//房源列表
     dataList: [],//每一次的数据
@@ -205,6 +206,9 @@ Page({
   //图片加载错误
   imgError(e) {
     utils.imgError(e, 'houseList', this);
+  },
+  backPage() {
+    wx.navigateBack();
   }
 })
 

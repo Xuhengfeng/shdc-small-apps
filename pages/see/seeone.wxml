@@ -1,4 +1,4 @@
-<oheader text="待看日程" statusBarHeight="{{statusBarHeight}}"></oheader>
+<oheader text="待看日程" isBack="{{false}}" statusBarHeight="{{statusBarHeight}}"></oheader>
 <view class="header" wx:if="{{!islogin}}">
     <view class="headImage">
         <image src="{{myInfo.headImage? myInfo.headImage : '../../images/avatar.png'}}"/> 
