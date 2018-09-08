@@ -1,4 +1,5 @@
 <import src="../template/template.wxml"/>
+<oheader styleNum="1" scrollNum="{{scrollNum}}" statusBarHeight="{{statusBarHeight}}"></oheader>
 <view class="header">
   <swiper bindchange="listenSwiper" 
           indicator-dots="{{false}}" 

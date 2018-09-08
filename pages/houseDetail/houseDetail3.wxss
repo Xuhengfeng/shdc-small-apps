@@ -45,15 +45,15 @@ page{
   position: absolute;
   bottom: 25rpx;
   right: 25rpx;
-  border-radius: 20rpx;
+  border-radius: 50%;
   font-size: 30rpx;
   color: #ffffff;
-  height: 40rpx;
-  line-height: 40rpx;
-  width: 80rpx;
+  height: 100rpx;
+  width: 100rpx;
   text-align: center;
+  padding-top: 37rpx;
+  box-sizing: border-box;
 }
-
 /* 光明小区 */
 .section1 .title{
   padding: 60rpx 0;

@@ -1,5 +1,4 @@
 {
-  "navigationBarTitleText": "房源详情",
   "usingComponents": {
     "backApp": "/component/backApp/backApp",
     "oheader": "/component/oheader/oheader",

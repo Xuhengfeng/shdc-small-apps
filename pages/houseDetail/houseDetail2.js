@@ -1,8 +1,11 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 import Toast from '../../vant-weapp/dist/toast/index';
+const app = getApp();
 Page({
   data: {
+    scrollNum: 0,
+    statusBarHeight: app.globalData.statusBarHeight, 
     imgUrls: [],//轮播图默认图片 
     currentIndex: 1,
     likeFlag: false,//喜欢 收藏
@@ -192,5 +195,10 @@ Page({
     if(name=='houseDetail.housePicList'){
       utils.imgError2(e, name, this);
     }
+  },
+  //页面滚动监听
+  onPageScroll(res) {
+    let result = app.oScroll(res);
+    this.setData({scrollNum: result.scrollNum});
   }
 })

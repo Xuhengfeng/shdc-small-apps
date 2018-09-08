@@ -1,6 +1,6 @@
 {
-    "navigationBarTitleText": "小区详情",
     "usingComponents": {
+        "oheader": "/component/oheader/oheader",
         "backApp-html": "/component/backApp/backApp",
         "van-toast": "/vant-weapp/dist/toast/index"
    }
