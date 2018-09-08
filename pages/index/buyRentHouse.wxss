@@ -28,20 +28,18 @@ navigator{
 
 .serarch-content{
   position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
-  background: transparent;
   padding: 20rpx 0;
-  z-index: 1100;
-  height: 120rpx;
+  z-index: 1000;
   box-sizing: border-box;
 }
 .serarch-content .search-bg{
   margin-left: 50%; 
   transform: translateX(-50%);
-  background: rgba(255,255,255,.9);
   border-radius: 15rpx;
-  width: 660rpx;
+  width: 580rpx;
   height: 80rpx;
   line-height: 80rpx;
   box-shadow: 0 0 10rpx rgba(0,0,0,.1); 
@@ -55,7 +53,7 @@ navigator{
   align-items: center;
   width: 100%;
 }
-.serarch-content .search image{
+.serarch-content .searchImg image{
   width: 25rpx;
   height: 25rpx;
   margin: 10rpx 10rpx 0 30rpx;
@@ -150,4 +148,14 @@ navigator{
 }
 .houseTag text:nth-of-type(3){
   background: #fface5;
+}
+.back{
+  position: absolute;
+  top:  9rpx;
+  left: -30rpx;
+  z-index: 1100;
+}
+.back image{
+  width: 30rpx;
+  height: 45rpx;
 }

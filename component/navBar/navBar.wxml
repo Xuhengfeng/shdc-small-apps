@@ -2,7 +2,8 @@
 <view class="shadowModal"
       data-statu="close" 
       wx:if="{{showModalStatus}}"
-      bindtap="cancelModal">
+      bindtap="cancelModal"
+      style="top:{{statusBarHeight+50}}px">
 </view>
 <view class="labelgroup">
   <view class="navbar" 

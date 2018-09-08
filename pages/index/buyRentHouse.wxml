@@ -1,4 +1,4 @@
-<oheader text="{{name}}" statusBarHeight="{{statusBarHeight}}"></oheader>
+<oheader isStatusBar="{{true}}" statusBarHeight="{{statusBarHeight}}"></oheader>
 <import src="../template/template.wxml"/>
     <view class="header">
       <swiper autoplay="true" 
@@ -16,29 +16,27 @@
                     </swiper-item>
               </block>
       </swiper>
-      <view id="mysearch" class="serarch-content" style="top:{{statusBarHeight+50}}px;background:{{tone}}">
-        <view class="search-bg">
+      <view id="mysearch" class="serarch-content" style="padding:{{statusBarHeight+5}}px 0 15rpx;background:rgba(255,255,255,{{scrollNum}})">
+        <view class="search-bg" style="background:{{changeBg}}">
           <view class="search">
-                <view bindtap="startsearch"><image src="../../images/search.png" /></view>
-                <input placeholder="请输入您要搜索的内容" 
-                            bindconfirm="searchSubmit" 
-                            bindinput="userSearch"
-                            bindfocus="useFocus"/>
+                <view class="back" bind:tap="backPage"><image class="back" src="../../images/back2.png"/></view>
+                <view class="searchImg" bindtap="startsearch"><image src="../../images/search.png" /></view>
+                <input placeholder="请输入您要搜索的内容" bindconfirm="searchSubmit" bindinput="userSearch" bindfocus="useFocus"/>
           </view>
         </view>
       </view>
       <!-- navBar组件 -->
       <navBar class="mynav" 
-                  label="{{label}}"
-                  area="{{area}}" 
-                  houseTy="{{houseTy}}"
-                  mode="{{mode}}"
-                  price="{{price}}"
-                  proportion="{{proportion}}"
-                  num="{{navNum}}"
-                  showModalStatus="{{showModalStatus}}"
-                  bind:myevent="onMyEventHouseList"
-                  style="top:{{statusBarHeight+106}}px;opacity:{{isShow}}">
+          label="{{label}}"
+          area="{{area}}" 
+          houseTy="{{houseTy}}"
+          mode="{{mode}}"
+          price="{{price}}"
+          proportion="{{proportion}}"
+          num="{{navNum}}"
+          showModalStatus="{{showModalStatus}}"
+          bind:myevent="onMyEventHouseList"
+          style="top:{{statusBarHeight+50}}px;opacity:{{isShowNav}}">
       </navBar>
     </view>
     <view class="section recommend">

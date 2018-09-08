@@ -312,7 +312,6 @@
 /* 遮罩层 */
 .shadowModal{
   position: fixed;
-  top: 0px;
   right: 0px;
   bottom: 0px;
   left: 0px;

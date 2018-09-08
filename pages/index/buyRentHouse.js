@@ -6,11 +6,12 @@ Page({
     statusBarHeight: app.globalData.statusBarHeight,
     imgUrls: [],//轮播图
     recommend: [],//为你推荐
-    toastMsg: '为你找到1000房源',
     label: [],
     scrollTop: 0,
     cityCode: null,
-    tone: 'rgba(249,249,249,0)',//头部渐变色值
+    scrollNum: 0,
+    changeBg: '#fff',
+    isShowNav: 0,
     flagPrice: true,
     page: 1,
     isShow: 0,//nav是否显示
@@ -29,8 +30,6 @@ Page({
     mode: [],//类型
     keyword: null,//获取用户输入值
     params: {},//请求参数
-    toastMsg1: null,
-    toastMsg: null,
     time: null,
     name: ''
   },
@@ -123,11 +122,12 @@ Page({
   onPageScroll(res) {
     const denominator  = wx.getSystemInfoSync().windowWidth / 375 * 330;
     let percent = res.scrollTop / denominator;
-    let changeTone = 'rgba(249,249,249,' + percent + ')';
-    let show = percent>=1 ? 1 : 0;
-
-    this.setData({ tone: changeTone});
-    this.setData({isShow: show});
+    let scrollNum = percent>=1 ? 1 : percent;
+    let changeBg = 'rgba(250,250,250,'+scrollNum+')';
+    if(scrollNum<=0.4){
+      changeBg = "#fff";
+    }
+    this.setData({ scrollNum: scrollNum, changeBg: changeBg, isShowNav: scrollNum});
   },
   //控制nav菜单
   selectItem(e) {
@@ -136,7 +136,7 @@ Page({
     this.setData({
       navNum: e.target.dataset.index,
       showModalStatus: true,
-      tone: "rgba(249, 249, 249, 1)"
+      changeBg: "#fff"
     })
   },
   //获取用户输入关键字
@@ -239,5 +239,8 @@ Page({
   //图片加载错误
   imgError(e) {
     utils.imgError(e, this);
+  },
+  backPage() {
+    wx.navigateBack();
   }
 })

@@ -1,5 +1,6 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const app = getApp();
 Component({
   properties: {
     area: {//区域
@@ -44,6 +45,7 @@ Component({
     }
    },
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     houseList: [],//房源列表
     currentCity: '',//当前城市
     page: 1,//默认第一页
