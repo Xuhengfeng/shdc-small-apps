@@ -1,13 +1,15 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const app = getApp();
 Page({
-  data:{
-      day7Num: 0,//近7日带看次数
-      totalSeeNum: 0,//总带看次数
-      seelist: [], //带看记录
-      page: 1,
-      currentCity: null,
-      id: null
+  data: {
+    statusBarHeight: app.globalData.statusBarHeight,
+    day7Num: 0,//近7日带看次数
+    totalSeeNum: 0,//总带看次数
+    seelist: [], //带看记录
+    page: 1,
+    currentCity: null,
+    id: null
   },  
   onLoad(options) {
     this.setData({

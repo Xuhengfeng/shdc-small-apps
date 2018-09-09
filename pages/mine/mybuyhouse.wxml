@@ -1,5 +1,5 @@
 <!-- 卖房 和  租房 同一个页面 -->
-<oheader styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader> 
+<oheader styleNum="3" text="{{text}}" isCenter="center" statusBarHeight="{{statusBarHeight}}"></oheader> 
 <view style="height:{{statusBarHeight+50}}px"></view>
 <scroll-view scroll-x>
 <block wx:for="{{houseRequestList}}">

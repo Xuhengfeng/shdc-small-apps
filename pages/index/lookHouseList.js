@@ -1,8 +1,9 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     startX: '',//设置触摸起始点水平方向位置
     count: 0,
     delBtnWidth: 110,

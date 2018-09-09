@@ -1,3 +1,5 @@
 {
-  "navigationBarTitleText": "带看记录"
+  "usingComponents": {
+    "oheader": "/component/oheader/oheader"
+  }
 }

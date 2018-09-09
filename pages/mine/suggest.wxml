@@ -1,5 +1,6 @@
+<oheader styleNum="3" text="意见反馈" isCenter="center" statusBarHeight="{{statusBarHeight}}"></oheader> 
+<view style="height:{{statusBarHeight+50}}px"></view>
 <textarea class="usersuggest" placeholder-class="placeholder" placeholder="请输入您的反馈内容" bindinput="inputValue">
-    
 </textarea>
 <view class="text">
   感谢您怼我们提出宝贵的建议！

@@ -1,7 +1,9 @@
 var bmap = require('../../libs/bmap-wx.min.js');
 var wxMarkerData = [];
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     markers: [],
     covers: [],
     latitude: '',

@@ -1,3 +1,5 @@
 {
-  "navigationBarTitleText": "待看列表"
+  "usingComponents": {
+    "oheader": "/component/oheader/oheader"
+  }
 }

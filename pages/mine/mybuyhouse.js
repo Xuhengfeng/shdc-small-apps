@@ -10,11 +10,11 @@ Page({
     houseRequestList: [],
     page: 1,
     statusName: '',
-    isStatus: true
+    isStatus: true,
+    text: ''
   },
   onLoad(options) {
-    wx.setNavigationBarTitle({title: options.title});
-    this.setData({num: options.num});
+    this.setData({text: options.title,num: options.num});
     utils.storage('selectCity')
     .then(res=>{
       this.setData({currentCity: res.data.value});

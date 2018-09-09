@@ -1,4 +1,6 @@
 <!-- 带看记录 -->
+<oheader text="带看记录" isCenter="center" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader>
+<view style="height:{{statusBarHeight+50}}px"></view>
 <view class="seeCount">
       <view>
             <view class="number">{{day7Num}}</view>
@@ -9,7 +11,6 @@
             <view class="decription">总带看(次)</view>
       </view> 
 </view>
-
 <view class="threeTitle">
     <text>看房日期</text>
     <text>带看人</text>

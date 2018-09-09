@@ -1,3 +1,5 @@
+<oheader styleNum="3" text="待看列表" isCenter="center" statusBarHeight="{{statusBarHeight}}"></oheader>
+<view style="height:{{statusBarHeight+50}}px"></view>
 <block wx:for="{{list}}">
     <view class="itemlist">
             <!-- 删除 -->

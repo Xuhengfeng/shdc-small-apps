@@ -1,10 +1,11 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
-
+const app = getApp();
 Page({
   data: {
-      inputVal: null,
-      city: null
+    statusBarHeight: app.globalData.statusBarHeight,
+    inputVal: null,
+    city: null
   },
   onLoad() {
     if (!wx.getStorageSync("userToken")) wx.redirectTo({url: "/pages/mine/login"});
