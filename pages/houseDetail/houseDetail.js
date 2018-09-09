@@ -56,7 +56,7 @@ Page({
         url:"/pages/houseDetail/houseDetail?shareId="+this.data.shareId+"&myid="+this.data.myid,
         code: this.data.shareId
     } 
-    utils.post(Api.IP_SHAREFETCHCODE +"?id="+this.data.myid+"&url="+this.params.shareUrl+"&code="+this.data.shareId, params)
+    utils.post(Api.IP_SHAREFETCHCODE +"?id="+this.data.myid+"&url="+params.shareUrl+"&code="+this.data.shareId, params)
     .then(data=>{
       this.setData({shareId: data.data});
     })
