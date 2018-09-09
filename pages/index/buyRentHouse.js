@@ -123,11 +123,18 @@ Page({
     const denominator  = wx.getSystemInfoSync().windowWidth / 375 * 330;
     let percent = res.scrollTop / denominator;
     let scrollNum = percent>=1 ? 1 : percent;
+    let scrollNum2 = 0;
     let changeBg = 'rgba(250,250,250,'+scrollNum+')';
     if(scrollNum<=0.4){
-      changeBg = "#fff";
+      changeBg = "#fff"; 
     }
-    this.setData({ scrollNum: scrollNum, changeBg: changeBg, isShowNav: scrollNum});
+    if(scrollNum>=0.9){
+      scrollNum2 = scrollNum;
+    }else{
+      scrollNum2 = 0;
+    }
+    console.log(scrollNum)
+    this.setData({ scrollNum: scrollNum, changeBg: changeBg, isShowNav: scrollNum2});
   },
   //控制nav菜单
   selectItem(e) {

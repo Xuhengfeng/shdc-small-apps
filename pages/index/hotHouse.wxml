@@ -3,6 +3,8 @@
      小区二手房
      同小区房源
      小区租房 -->
+<oheader styleNum="3" text="{{text}}" isCenter="center" statusBarHeight="{{statusBarHeight}}"></oheader>
+<view style="height:{{statusBarHeight+50}}px"></view>
  <scroll-view class="page_list" 
             style="height:{{windowHeight}}px;width:{{windowWidth}}px;"
             scroll-y="{{isScroll}}" 

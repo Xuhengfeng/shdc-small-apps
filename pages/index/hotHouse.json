@@ -1,3 +1,5 @@
 {
-  "navigationBarTitleText": ""
+  "usingComponents": {
+      "oheader": "/component/oheader/oheader"
+  }  
 }

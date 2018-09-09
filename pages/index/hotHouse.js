@@ -1,7 +1,9 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+const app = getApp();
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight,
     houseList: [],
     page: 2,
     currentCity: null,//当前城市
@@ -10,7 +12,8 @@ Page({
     contentType: null,
     IPS: [Api.IP_HOTBUILDING,Api.IP_SAMEUSED, Api.IP_SAMEUSEDRENT],
     num: '',//切换ip
-    sdid: ''
+    sdid: '',
+    text: ''
   },
   onLoad(options) {
     wx.setNavigationBarTitle({title: options.title});
@@ -21,19 +24,22 @@ Page({
           this.setData({ 
             contentType: 22,
             sdid: options.id,
-            num: 1
+            num: 1,
+            text: '小区二手房'
           });
         }else if(res.data == '小区租房'||res.data == '租房') {
           this.setData({
             contentType: 33,
             sdid: options.id,
-            num: 2
+            num: 2,
+            text: '小区租房'
           });
         }else if(res.data == '小区') {
           this.setData({
             contentType: 11,
             sdid: options.id,
-            num: 0
+            num: 0,
+            text: '热门小区'
           });
         }
       }
