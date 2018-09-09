@@ -31,33 +31,34 @@ Page({
     shareUrl: null,//分享url
   },
   onLoad(options) {
-    let myid;
     try {
       if(options.myid){
-        myid = options.myid;
+        let myid = options.myid;
+        this.setData({myid: myid});
       }else{
-        myid = JSON.parse(wx.getStorageSync('myId'));
+        let myid = JSON.parse(wx.getStorageSync('myId'));
         this.setData({myid: myid});
       }
     }catch (error) {}
-      
     //存在分享id
     if(options.shareId){
       this.setData({shareId: options.shareId});
       let params = {code: this.data.shareId}
       //阅读量
-      utils.post(Api.IP_SHAREADD,params)
+      utils.post(Api.IP_SHAREADD+"?id="+this.data.myid, params)
       .then(data=>{})
-    }
+    }      
 
     //分享(不管存不存在都调取一次)
     let params = {
         id: this.data.myid,
-        url: this.data.shareUrl,
+        url:"/pages/houseDetail/houseDetail?shareId="+this.data.shareId+"&myid="+this.data.myid,
         code: this.data.shareId
-    }
-    utils.post(Api.IP_SHAREFETCHCODE,params)
-    .then(data=>{})
+    } 
+    utils.post(Api.IP_SHAREFETCHCODE +"?id="+this.data.myid+"&url="+this.params.shareUrl+"&code="+this.data.shareId, params)
+    .then(data=>{
+      this.setData({shareId: data.data});
+    })
     
     //房源sdid
     this.setData({houseDetailId: options.id});
