@@ -24,8 +24,8 @@
 /* 标题栏 */
 .publicHeight{
   position: relative;
-  height: 100rpx;
-  line-height: 95rpx;
+  height: 120rpx;
+  line-height: 120rpx;
   text-align: left;
   padding-left: 25rpx;
 }
