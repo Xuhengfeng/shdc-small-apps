@@ -163,4 +163,4 @@
 <backApp-html  bind:myevent="onMyEventBackHome" isFlag="{{false}}"></backApp-html>
 
 <!-- 吐司 -->
-<view class="toast2"><van-toast id="van-toast"/></view>
+<!-- <view class="toast2"><van-toast id="van-toast"/></view> -->
