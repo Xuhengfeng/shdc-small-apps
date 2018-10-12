@@ -1,7 +1,6 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const md5 = require("../../utils/md5");
-const WXBizDataCrypt = require("../../utils/Rdwxbizdatacrypt");
 const app = getApp();
 Page({
   data: {
@@ -11,19 +10,22 @@ Page({
     toast1Hidden: true,
     nickName: null,
     avatarUrl: null,
-    isphoneLogin: true,  //是否登录
+    isphoneLogin: false,//是否手机号快捷登录
     code: '', //验证码
     currentCity: null,
     times: 60,
     sendText: '获取验证码',
-    flagBtn: true
+    flagBtn: true,
+    text: '绑定手机号'
   }, 
   onLoad(options) {
-    this.getUseInfo();
     utils.storage('selectCity')
     .then(res=>{
       this.setData({currentCity: res.data.value});
     })
+  },
+  toggleClick() {
+    wx.switchTab({url: '/pages/mine/mine'});
   },
   getPhoneNumber(e) {//这个方法后面 如果是企业号 就可以获取用户手机号
   if (e.detail.errMsg == 'getPhoneNumber:fail user deny' || e.detail.errMsg =='getPhoneNumber:fail:cancel to confirm login') {
@@ -43,52 +45,33 @@ Page({
     }
   },  
   loginRequest(e, ciphertext, userInfo) {
-    let appId = 'wx2f29dfd350dc78d8';
-    let Key = ciphertext.sessionKey;
-    let iv = e.detail.iv;
-    let encryptedData = e.detail.encryptedData;
-    let pc = new WXBizDataCrypt(appId, Key)
-    let parseData = pc.decryptData(encryptedData, iv)
-    wx.setStorage({ key: 'userPhone', data: parseData.phoneNumber});     
-    let params = {
-      "authKey": ciphertext.authKey,
-      "headImage": userInfo.avatarUrl,
-      "nickname":  userInfo.nickName,
-      "openid": ciphertext.openid,
-      "phone": parseData.phoneNumber,
-      "sex": userInfo.gender
-    }
-    utils.post(Api.weChatRegister, params)
-    .then(data => {
-      let newParams = {
-          "openid": ciphertext.openid,
-          "phone": parseData.phoneNumber
-      }
-      return utils.get(Api.weChatLogin, newParams);
-    })
-    .then(data=>{
-      wx.setStorage({ key: 'userToken', data: data.data });
-      this.goBackSet(params,2);
-    })
-  },
-  //用户基本信息
-  getUseInfo() {
-    //获取用户信息
-    wx.getSetting({
-      success: res => {
-         if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              wx.setStorageSync('userInfo', JSON.stringify(res.userInfo));
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
-      }
-    })
+    // let appId = 'wx2f29dfd350dc78d8';
+    // let Key = ciphertext.sessionKey;
+    // let iv = e.detail.iv;
+    // let encryptedData = e.detail.encryptedData;
+    // let pc = new WXBizDataCrypt(appId, Key)
+    // let parseData = pc.decryptData(encryptedData, iv)
+    // wx.setStorage({ key: 'userPhone', data: parseData.phoneNumber});     
+    // let params = {
+    //   "authKey": ciphertext.authKey,
+    //   "headImage": userInfo.avatarUrl,
+    //   "nickname":  userInfo.nickName,
+    //   "openid": ciphertext.openid,
+    //   "phone": parseData.phoneNumber,
+    //   "sex": userInfo.gender
+    // }
+    // utils.post(Api.weChatRegister, params)
+    // .then(data => {
+    //   let newParams = {
+    //       "openid": ciphertext.openid,
+    //       "phone": parseData.phoneNumber
+    //   }
+    //   return utils.get(Api.weChatLogin, newParams);
+    // })
+    // .then(data=>{
+    //   wx.setStorage({ key: 'userToken', data: data.data });
+    //   this.goBackSet(params,2);
+    // })
   },
   login() {//手机短信验证码登录
     if(this.data.inputValue1 !== "" && this.data.inputValue2 !== "" ) {
@@ -108,10 +91,6 @@ Page({
      }else{
       wx.showToast({ title: '登录失败', icon: 'none', duration: 1000 });
     }
-  },
-  //切回到快捷登录
-  toggleClick() { 
-    this.setData({isphoneLogin: true});
   },
   //返回刷新设置
   goBackSet(data,num) {

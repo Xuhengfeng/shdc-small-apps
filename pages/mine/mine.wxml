@@ -1,11 +1,10 @@
 <oheader styleNum="0" isBack="{{false}}" statusBarHeight="{{statusBarHeight}}"></oheader>
 <view>
   <view class="header">
-      <view class="headImage">
-          <image src="{{myInfo.headImage? myInfo.headImage : '../../images/avatar.png'}}"/> 
-      </view>
-    <view class="login" bindtap="login">{{myInfo.mobile?myInfo.mobile:'点击注册/登录'}}</view>
-    <button class="auth" open-type="getUserInfo" bindgetuserinfo="userInfoHandle">{{isAuth}}</button>
+    <view class="headImage">
+        <image src="{{myInfo.headImage? myInfo.headImage : '../../images/avatar.png'}}"/> 
+    </view>
+    <button class="login" open-type="getUserInfo" bindgetuserinfo="userInfoHandle">{{myInfo.mobile?myInfo.mobile:'点击注册/登录'}}</button>
   </view>
   <view class="body">
       <view class="weui-cells weui-cells_after-title">

@@ -21,6 +21,11 @@
 .header .login{
   margin: 80rpx 0 10rpx;
   font-size: 40rpx;
+  text-align: left;
+  background: transparent;
+}
+.header .login::after{
+  border: none;
 }
 .auth{
   height: 50rpx; 

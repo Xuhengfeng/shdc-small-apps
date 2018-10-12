@@ -133,7 +133,6 @@ Page({
     }else{
       scrollNum2 = 0;
     }
-    console.log(scrollNum)
     this.setData({ scrollNum: scrollNum, changeBg: changeBg, isShowNav: scrollNum2});
   },
   //控制nav菜单

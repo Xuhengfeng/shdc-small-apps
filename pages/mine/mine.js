@@ -6,8 +6,7 @@ Page({
     statusBarHeight: app.globalData.statusBarHeight,
     showLogout: false,
     nickName: null,
-    myInfo: null,
-    isAuth: '未授权'
+    myInfo: null
   },
   onLoad() {
     if(!wx.getStorageSync('userToken')) {
@@ -15,25 +14,25 @@ Page({
       this.setData({showLogout: false});
     }else{
       //登录
-      this.setData({isAuth: '已授权',showLogout: true});
+      this.setData({showLogout: true});
       this.getMyInfo();
     }
   },
   //授权信息
   userInfoHandle(e) {
-    //拒绝授权
-    if(e.detail.errMsg=='getUserInfo:fail auth deny'){
-      wx.showModal({content: '授权失败'});
-    }
-    //同意授权
-    else{
+    if(e.detail.errMsg == "getUserInfo:ok"){
+      //同意授权
       wx.setStorage({
         key:'userInfo',
         data: JSON.stringify(e.detail.userInfo),
         success:()=>{
-          this.setData({isAuth: '已授权'});
+          //去登录
+          this.login();
         }
       })
+    }else{
+      //提示授权
+      this.auth();
     }
   },
   //拨打电话
@@ -60,18 +59,12 @@ Page({
   login() {
     if (wx.getStorageSync("userInfo")) {
       if(!wx.getStorageSync('userToken')){
-        //已授权
+        //已授权跳入登录页
         wx.redirectTo({url: "/pages/mine/login"});
       }
     }else{
-      //未授权
-      wx.showModal({
-        title: '注意',
-        showCancel: true,
-        confirmText:'好去授权',
-        content: '为了您更好的体验,请先同意授权',
-        success: res => { }
-      })  
+      //去授权信息
+      this.userInfoHandle();
     }
   },
   //跳转
@@ -83,28 +76,32 @@ Page({
           if(wx.getStorageSync('userToken')) {
             wx.navigateTo({url:"mybuyhouse?title=我的卖房&num=0"});//卖房
           }else{
-            wx.showModal({content: '用户未登录'});
+            //提示授权
+            this.auth();
           }
           break;
       case '3':
           if(wx.getStorageSync('userToken')) {
             wx.navigateTo({url:"mybuyhouse?title=我的租房&num=1"});break;//租房
           }else{
-            wx.showModal({content: '用户未登录'});
+            //提示授权
+            this.auth();
           }
           break;
       case '5':
           if(wx.getStorageSync('userToken')) {
             wx.setStorageSync('currentPage', '我的');wx.navigateTo({url:"mybroker"});break;//我的经纪人
           }else{
-            wx.showModal({content: '用户未登录'});
+            //提示授权
+            this.auth();
           }
           break;
       case '6' : 
           if(wx.getStorageSync('userToken')) {
             wx.navigateTo({url:"comment"});//我的评论
           }else{
-            wx.showModal({content: '用户未登录'});
+            //提示授权
+            this.auth();
           }
           break;
       case '7':
@@ -119,29 +116,32 @@ Page({
           if(wx.getStorageSync('userToken')) {
             wx.navigateTo({url:"collection1"});break;//二手房收藏
           }else{
-            wx.showModal({content: '用户未登录'});
+            //提示授权
+            this.auth();
           }
           break;
       case '10':
           if(wx.getStorageSync('userToken')) {
             wx.navigateTo({url:"collection2"});//租房收藏
           }else{
-            wx.showModal({content: '用户未登录'});
+            //提示授权
+            this.auth();
           }
           break;
       case '11':
           if(wx.getStorageSync('userToken')) {
             wx.navigateTo({url:"collection3"});//经纪人收藏
           }else{
-            wx.showModal({content: '用户未登录'});
+            //提示授权
+            this.auth();
           }
           break;
       case '12':
           if(wx.getStorageSync('userToken')) {
             wx.navigateTo({url:"collection4"});//小区收藏
           }else{
-            wx.showModal({content: '用户未登录'});
-          }
+            //提示授权
+            this.auth();}
           break;         
     }
   },
@@ -170,5 +170,14 @@ Page({
   onHide() {
     //回到顶部
     wx.pageScrollTo({scrollTop: 0, duration: 0});
+  },
+  auth() {
+    wx.showModal({
+      title: '注意',
+      showCancel: true,
+      confirmText:'好去授权',
+      content: '为了您更好的体验,请先同意授权',
+      success: res => {}
+    })  
   }
 })

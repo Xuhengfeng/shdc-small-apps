@@ -1,2 +1,4 @@
-<view class="back" style="top:{{statusBarHeight}}px"  bind:tap="backPage"><image class="back" src="../../images/back2.png"/></view>
+<view class="back" style="top:{{statusBarHeight}}px"  bind:tap="backPage">
+    <image class="back" src="../../images/back2.png"/>
+</view>
 

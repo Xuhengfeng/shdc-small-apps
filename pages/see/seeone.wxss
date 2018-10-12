@@ -21,8 +21,13 @@
   height: 100%;
 }
 .header .login{
-  margin: 45rpx 0 5rpx;
+  margin: 10rpx 0;
   font-size: 40rpx;
+  text-align: left;
+  background: transparent;
+}
+.header .login::after{
+  border: none;
 }
 .header .description{
   margin: 0;
@@ -57,13 +62,6 @@
   flex: 1;
   font-size: 30rpx;
   color: #c7c7c7;
-}
-button{
-  margin-top: 40rpx;
-  border-radius: 0;
-  font-size: 40rpx;
-  color: #ffffff;
-  text-align: center;
 }
 .page_hd{
   padding: 40rpx;
