@@ -2,8 +2,7 @@ const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const regeneratorRuntime = require("../../utils/runtime");//es7 运行环境
 const app = getApp();
-import Toast from '../../vant-weapp/dist/toast/index';
-
+import Toast from '../../vant-weapp/dist/toast/toast';
 Page({
   data: {
     imgUrls: [],//轮播图默认图片 
