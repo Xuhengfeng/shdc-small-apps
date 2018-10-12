@@ -14,7 +14,7 @@
                     </swiper-item>
               </block>
       </swiper>
-      <view id="mysearch" class="serarch-content" style="margin-top:{{statusBarHeight+5}}px">
+      <view id="mysearch" class="serarch-content" style="top:{{statusBarHeight+10}}px">
         <view class="search-bg" style="background:{{changeBg}}">
           <view class="search">
                 <view class="searchImg" bindtap="startsearch"><image src="../../images/search.png" /></view>
@@ -109,3 +109,5 @@
       </view>
       <view style="height:800px;" wx:if="{{!houseList.length||houseList==''}}"></view>
   </view>
+<!-- 吐司 -->
+<view class="toast2"><van-toast id="van-toast"/></view>

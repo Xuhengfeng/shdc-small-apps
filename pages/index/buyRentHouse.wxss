@@ -27,7 +27,6 @@ navigator{
 
 .serarch-content{
   position: fixed;
-  top: 0;
   left: 80rpx;
   z-index: 1000;
   box-sizing: border-box;

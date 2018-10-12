@@ -1,5 +1,6 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
+import Toast from '../../vant-weapp/dist/toast/toast';
 const app = getApp();
 Page({
   data: {
@@ -30,7 +31,6 @@ Page({
     mode: [],//类型
     keyword: null,//获取用户输入值
     params: {},//请求参数
-    time: null,
     name: ''
   },
   onLoad(options) {
@@ -183,8 +183,8 @@ Page({
       })
     }catch(e){};
     //刷新
+    this.setData({houseList: item.detail.houseList});
     this.setData({
-      houseList: item.detail.houseList,
       params: item.detail.params,
       page:  item.detail.params.pageNo,
       hasMore: false
@@ -198,7 +198,6 @@ Page({
   },
   //请求数据
   getDataFromServer(IP, page) {//请求数据
-    this.data.time =  null;
     let params = {'pageNo': page,'scity': this.data.cityCode};
         params = Object.assign(this.data.params, params);
         utils
@@ -209,15 +208,13 @@ Page({
                 item.houseTag = item.houseTag.split(',');
               })
             }catch(e){};
-            this.setData({hasMore: false});
-            this.data.time = setTimeout(()=>{this.setData({toastMsg: null})},300);
             let falgpc = this.data.num == 0 ? true : false;
-            this.setData({flagPrice: falgpc})
+            this.setData({hasMore: false, flagPrice: falgpc})
             if (page>1) {
               if (!data.data.length) {
-                this.setData({toastMsg: `数据已加载全部`});
+                Toast("数据已加载全部");
               }else{
-                this.setData({toastMsg: `加载第${page}页数据...`});
+                Toast(`加载第${page}页数据...`);
               }
             };
             //刷新

@@ -1,1 +1,1 @@
-<web-view src="{{redirect}}"></web-view>
+<web-view src="{{redirect}}" style="height:300px!important"></web-view>

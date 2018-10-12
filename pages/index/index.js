@@ -343,7 +343,6 @@ Page({
   },
   //页面滚动监听
   onPageScroll(res) {
-
     const denominator  = wx.getSystemInfoSync().windowWidth / 375 * 330;
     let percent = res.scrollTop / denominator;
     let scrollNum = percent>=1 ? 1 : percent;

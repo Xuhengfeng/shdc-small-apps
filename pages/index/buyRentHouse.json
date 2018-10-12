@@ -3,6 +3,8 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "navBar": "/component/navBar/navBar",
-    "oheader": "/component/oheader/oheader"
+    "oheader": "/component/oheader/oheader",
+    "van-toast": "/vant-weapp/dist/toast/index"
   }
 }
+

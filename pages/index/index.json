@@ -1,5 +1,6 @@
 {
-    "usingComponents": {
-        "oheader": "/component/oheader/oheader"
-    }  
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+      "oheader": "/component/oheader/oheader"
+  }  
 }
