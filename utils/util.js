@@ -133,5 +133,5 @@ module.exports = {
   imgError2: imgError2,
   imgLoaded: imgLoaded,
   isObj,
-  isDef
+  isDef,
 }
