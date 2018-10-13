@@ -4,7 +4,10 @@
 
 <!-- 有手机号的时候显示快捷登录 -->
 <view class="page_hd" wx:if="{{isphoneLogin}}">
-  <view class="flexBox">
+  <view class="close" bindtap="toggleClick" style="top:{{statusBarHeight}}px">
+    <image src="../../images/back.png"></image>
+  </view>
+  <view class="flexBox" style="margin-top:{{statusBarHeight}}px">
     <view class="line"></view> 
     <text>推荐方式登录</text>
     <view class="line"></view> 

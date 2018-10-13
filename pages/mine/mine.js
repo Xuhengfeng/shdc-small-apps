@@ -44,24 +44,22 @@ Page({
   logout() {
     let params = {"unicode": wx.getStorageSync("userToken")};
     utils.post(Api.logout,params)
-    .then(data=>{
+    .then(()=>{
       this.setData({
         showLogout: false,
         nickName: null,
-        myInfo: null,
-        isAuth: '未授权'
+        myInfo: null
       })
-      //清空缓存
-      wx.clearStorageSync();
+      wx.removeStorage({key:'userToken'});
     })
   },
   //登录
   login() {
     if (wx.getStorageSync("userInfo")) {
-      if(!wx.getStorageSync('userToken')){
-        //已授权跳入登录页
-        wx.redirectTo({url: "/pages/mine/login"});
-      }
+      //判断缓存中是否已存在手机号
+      let userPhone = wx.getStorageSync('userPhone')||null;
+      //已授权跳入登录页
+      wx.redirectTo({url: `/pages/mine/login?userPhone=${userPhone}`});
     }else{
       //去授权信息
       this.userInfoHandle();
