@@ -20,12 +20,18 @@ Page({
     phoneNumber: null
   }, 
   onLoad(options) {
+    console.log(options)
     //判断缓存中是否已存在手机号
-    if(options.userPhone!=null){
+    if(options.userPhone!="null"){
       this.setData({
         text: '快捷登录',
         isphoneLogin: true,
         phoneNumber: Number(options.userPhone)
+      });
+    }else{
+      this.setData({
+        text: '绑定手机号',
+        isphoneLogin: false
       });
     }
     utils.storage('selectCity')
@@ -40,7 +46,10 @@ Page({
    
     if (e.detail.errMsg == 'getPhoneNumber:fail user deny' || e.detail.errMsg =='getPhoneNumber:fail:cancel to confirm login') {
         //切换到用户手机号登录
-        this.setData({isphoneLogin: false});
+        this.setData({
+          text: '手机号登录',
+          isphoneLogin: false
+        });
     }else{
       //判断是否有凭证--------->>>>
       let ciphertext
