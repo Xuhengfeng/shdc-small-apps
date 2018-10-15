@@ -173,8 +173,7 @@ Page({
     }
     if (this.data.count>0){
       wx.setStorageSync('currentPage', '待看列表');
-      console.log(this.data.select)
-      wx.redirectTo({url: "../houseDetail/lookHouse?select="+JSON.stringify(this.data.select)});
+      wx.navigateTo({url: "../houseDetail/lookHouse?select="+JSON.stringify(this.data.select)});
     }else{
       wx.showModal({content: '至少添加一个房源信息'});
     }

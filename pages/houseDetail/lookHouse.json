@@ -1,4 +1,5 @@
 {
-  "navigationBarTitleText": "预约看房",
-  "enablePullDownRefresh": false
+  "usingComponents": {
+    "oheader": "/component/oheader/oheader"
+  }
 }

@@ -1,9 +1,11 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 const filter = require("../../utils/filter");
+const app = getApp();
 Page(filter.loginCheck({
   data: {
     index: '',
+    statusBarHeight: app.globalData.statusBarHeight,
     chineseWeek: ['周日', '星期一', '星期二', '星期三', '星期四', '星期五', '周六'],
     dateText: ['全天','上午','下午','晚上'],
     dateArr: null,//10-10 星期六   这种格式的时间数据;

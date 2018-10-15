@@ -1,3 +1,5 @@
+<oheader text="预约看房" isCenter="center" styleNum="3" statusBarHeight="{{statusBarHeight}}"></oheader>
+<view style="height:{{statusBarHeight+50}}px"></view>
 <import src="../template/template"/>
 <view class="section1">
   <view class="weui-cells weui-cells_after-title">

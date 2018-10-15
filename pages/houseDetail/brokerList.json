@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "带看经纪人"
+  "usingComponents": {
+    "backApp": "/component/backApp/backApp",
+    "oheader": "/component/oheader/oheader",
+    "van-toast": "/vant-weapp/dist/toast/index"
+  }
 }
