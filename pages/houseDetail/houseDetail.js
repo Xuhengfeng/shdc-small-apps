@@ -3,7 +3,6 @@ const utils = require("../../utils/util");
 const regeneratorRuntime = require("../../utils/runtime");//es7 运行环境
 import Toast from '../../vant-weapp/dist/toast/toast';
 const app = getApp();
-
 Page({
   data: {
     scrollNum: 0,

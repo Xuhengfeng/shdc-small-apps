@@ -1,7 +1,6 @@
 const Api = require("../../utils/url");
 const utils = require("../../utils/util");
 import Toast from '../../vant-weapp/dist/toast/toast';
-const app = getApp();
 Page({
   data: {
     scrollNum: 0,
